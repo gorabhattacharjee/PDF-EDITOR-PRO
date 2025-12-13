@@ -1,0 +1,18 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.0, pytest-9.0.1, pluggy-1.6.0 -- C:\Python314\python.exe
+cachedir: .pytest_cache
+rootdir: C:\PDFP\pdf-editor-pro\frontend\tests
+plugins: base-url-2.1.0, csv-3.0.0, playwright-0.7.2
+collecting ... collected 9 items
+
+run_ui_tests.py::TestUI::test_file_menu_spec PASSED                      [ 11%]
+run_ui_tests.py::TestUI::test_home_tab_spec PASSED                       [ 22%]
+run_ui_tests.py::TestUI::test_comment_tab_spec PASSED                    [ 33%]
+run_ui_tests.py::TestUI::test_edit_tab_spec PASSED                       [ 44%]
+run_ui_tests.py::TestUI::test_page_tab_spec PASSED                       [ 55%]
+run_ui_tests.py::TestUI::test_protect_tab_spec PASSED                    [ 66%]
+run_ui_tests.py::TestUI::test_convert_tab PASSED                         [ 77%]
+run_ui_tests.py::TestUI::test_merge_pdf_tab PASSED                       [ 88%]
+run_ui_tests.py::TestUI::test_tools_tab PASSED                           [100%]
+
+============================= 9 passed in 40.69s ==============================

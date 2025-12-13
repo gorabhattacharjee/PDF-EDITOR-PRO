@@ -1,0 +1,8 @@
+Component,Type,Description,Key Features,Related Files
+RibbonBar,Main UI Component,Top navigation bar with tabs and tools,File menu, 8 tabs (Home, Comment, Edit, Convert, Page, Merge, Protect, Tools), sub-buttons,RibbonBar.tsx, ribbon.css
+FileMenu,Sub-Component,Dropdown menu from File button,Open/Save/Print/Close functions, Export options (Word, Excel, PPT, HTML, Image, Text),FileMenu.tsx, ribbon.css
+Canvas,Main UI Component,PDF rendering and editing area,Text editing (add/edit), annotation tools, selection,Canvas.tsx, useUIStore.ts
+Tool Types,State Definition,Available tool options,hand, select, highlight, underline, strikeout, editText, addText,useUIStore.ts
+Sub-Buttons,Dynamic UI Elements,Context-sensitive buttons,Changes based on active tab, implements tool selection,RibbonBar.tsx
+Icon Bar,Static UI Elements,Frequently used tools,Open, Hand, Select, Highlight, Add Text, Export Image,RibbonBar.tsx
+File Menu Panel,Popup UI,File operations panel,Positioned fixed with z-index:99999, contains export sub-menu,FileMenu.tsx, ribbon.css

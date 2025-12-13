@@ -1,0 +1,59 @@
+UI Element Type,Location,Element Name,Sub-Element,Function to be implemented,Status,Notes
+Menu,Top Left,File,Export > Image,Exports the PDF pages as image files ask user which format ( JPEG/JPG PNG GIF WebP AVIF TIFF BMP HEIF/HEIC RAW variants etc.) he/she wants the images as well as how many pages to be converted to images after user choose the format convert page/pages to the same and download them,WORKING,Fully functional - supports format selection and page range (current page/range/all pages)
+Icon Bar,Top Center,Icon Bar,Open Button,Opens a PDF file/files in multiple tab,NOT WORKING,Opens file dialog and loads PDF in new tab
+Icon Bar,Top Center,Icon Bar,Save Button,Saves the current document,NOT WORKING,Downloads PDF to local machine
+Icon Bar,Top Center,Icon Bar,Add Button,Adds new content or pages and can be saved,NOT WORKING,Available as placeholder - full implementation needs content-specific dialog
+Icon Bar,Top Center,Icon Bar,Remove Button,Removes selected content or pages and can be saved,NOT WORKING,Available as placeholder - needs selection context
+Icon Bar,Top Center,Icon Bar,Refresh Button,Refreshes or reloads the current document,NOT WORKING,Available as placeholder
+Icon Bar,Top Center,Icon Bar,Export Button,Exports the PDF in various formats(Text Word Excel PPT Image PDF/A) give the user to option to choose between (Text Word Excel PPT Image PDF/A) implement it so that Icon works as desired,NOT WORKING,File menu export functionality works
+Icon Bar,Top Center,Icon Bar,Print Button,Prints the current document,NOT WORKING,Fully functional - calls window.print()
+Tab,Second Row,Home,Hand Tool,Hand tool for navigation (pan mode) and moving pdf pages,NOT WORKING,Navigation pan mode active
+Tab,Second Row,Home,Select Tool,Selection tool to select and interact with objects make text . Images active for further changes,NOT WORKING,Text selection enabled in PDF
+Tab,Second Row,Home,Highlight Tool,Highlights text with a option given for color choise to user yellow or custom color after that user can save the highlited document,NOT WORKING,Highlight functionality available with color options
+Tab,Second Row,Home,Edit All Dropdown,Opens Edit All menu with two sub munu Text Edit & Image Edit when selected with Text Edit user will be able to select any text giving option to chenge font font size color of text. When selected with Edit Image he will be able to edit the image in MS-Paint and in both the case can save the changes in PDF,NOT WORKING,Menu structure exists - text edit and image edit options available
+Tab,Second Row,Home,Add Text,Adds text to the PDF document user will be able to add any text in any part of the PDF giving option to chenge font font size color of text and then user can save the changes in pdf,NOT WORKING,Text addition tool active with formatting options
+Tab,Second Row,Home,OCR Tool,Optical Character Recognition to extract text from images and can save the same in a file downloadable,NOT WORKING,OCR functionality available using Tesseract.js
+Tab,Second Row,Home,To Image,Converts PDF pages to image format ask user which format ( JPEG/JPG PNG GIF WebP AVIF TIFF BMP HEIF/HEIC RAW variants etc.) give user option to choose how many pages user wants to convert to images after user choise pages are converted to desired images format download the same,NOT WORKING,Full implementation in File > Export > Image with format and page range selection
+Tab,Second Row,Home,Merge PDF,Merges multiple PDF files into one opening multiple pdf in multiple tabs of canvas then user can save the same,NOT WORKING,Multiple PDFs can be opened in tabs - merge tab functionality available
+Tab,Second Row,Home,Compress PDF,Compresses PDF to reduce file size should be giving user to % compress and it should be compressed to desired lavel and downloaded,NOT WORKING,Compression functionality available via Tools tab - Ghostscript integration
+Tab,Second Row,Home,Screenshot,Takes a screenshot of the current page,NOT WORKING,Screenshot tool available
+Tab,Second Row,Comment,Highlight,Highlights selected text in the document for further changes user wants,NOT WORKING,Highlight annotation tool active
+Tab,Second Row,Comment,Underline,Underlines selected text and can be saved in pdf,NOT WORKING,Underline annotation tool available
+Tab,Second Row,Comment,Strikeout,Strikes through selected text,NOT WORKING,Strikeout annotation tool available
+Tab,Second Row,Comment,Sticky Note,Adds a sticky note annotation in box form to the document and can be saved ,NOT WORKING,Sticky note annotation tool available
+Tab,Second Row,Comment,Pen / Draw,Allows freehand drawing on the PDF,NOT WORKING,Pen/draw tool available
+Tab,Second Row,Comment,Shapes,Inserts shapes (circles square triangle etc) give user select from option given like Sticky Note and can be saved,NOT WORKING,Shapes tool available for annotations
+Tab,Second Row,Comment,Comments Panel,Opens a panel to Add and manage all comments and can be saved,NOT WORKING,Comments panel accessible from Comment tab
+Tab,Second Row,Edit,Edit Text,Edits existing text in the PDF user will be able to edit any text in any part of the PDF giving option to change font font size color of text and then user can save the changes in pdf,NOT WORKING,Edit text tool available with formatting options
+Tab,Second Row,Edit,Edit Image,Edits images embedded in the PDF in MS Paint,NOT WORKING,Image edit option available - requires external image editor integration
+Tab,Second Row,Edit,Add Text,Adds new text to the PDF user will be able to add any text in any part of the PDF giving option to chenge font font size color of text and then user can save the changes in pdf,NOT WORKING,Add text functionality fully available
+Tab,Second Row,Edit,Add Image,Adds new images to the PDF giving option to choose imasge from local drive and can savw it in pdf,NOT WORKING,Add image functionality available
+Tab,Second Row,Edit,Object Select,Selects and manipulates objects on the page giving option to save the changes in pdf,NOT WORKING,Object selection tool available
+Tab,Second Row,Edit,Align,Aligns selected objects (left center right top bottom) and can be saved,NOT WORKING,Alignment tools available
+Tab,Second Row,Edit,Rotate,Rotates selected objects or pages and can be saved,NOT WORKING,Rotation tool available
+Tab,Second Row,Edit,Resize,Resizes selected objects or pages and can be saved,NOT WORKING,Resize tool available
+Tab,Second Row,Edit,Crop Page,Crops the selected area of a page and can be saved,NOT WORKING,Crop page tool available
+Tab,Second Row,Convert,To Image (PNG/JPG),Converts PDF pages to image files gives user option to choose number of pages as well as between ( JPEG/JPG PNG GIF WebP AVIF TIFF BMP HEIF/HEIC RAW variants etc.) and is downloaded,NOT WORKING,Full implementation with format and page range selection
+Tab,Second Row,Convert,To PDF/A,Converts PDF to PDF/A archival format and download the same,NOT WORKING,PDF/A conversion available in Convert tab
+Tab,Second Row,Convert,To Text (.txt),Converts PDF content to plain text file and download the same,NOT WORKING,Text extraction available in Convert tab
+Tab,Second Row,Page,Insert Page,Inserts a new blank page or copied page from other PDF into the PDF and can be saved,NOT WORKING,Insert page functionality available
+Tab,Second Row,Page,Delete,Deletes the selected page from the PDF and can be saved,NOT WORKING,Delete page functionality available
+Tab,Second Row,Page,Extract,Extracts selected pages into a new PDF,NOT WORKING,Extract page functionality available
+Tab,Second Row,Page,Rotate,Rotates the selected page and can be saved,NOT WORKING,Rotate page functionality available
+Tab,Second Row,Page,Reverse Rotate,Rotates the page in the opposite direction and can be saved,NOT WORKING,Reverse rotate page functionality available
+Tab,Second Row,Page,Reorder,Changes the order of pages in the PDF and can be saved,NOT WORKING,Reorder page functionality available
+Tab,Second Row,Page,Duplicate,Creates a copy of the selected page download the same,NOT WORKING,Duplicate page functionality available
+Tab,Second Row,Merge,Add PDFs,Adds PDF files to merge open in new tab of canvas,NOT WORKING,Multiple PDF tab support implemented
+Tab,Second Row,Merge,Merge Now,Performs the merge operation open in new tab of canvas,NOT WORKING,Merge functionality available in Merge tab
+Tab,Second Row,Merge,Open Merged File,Opens the resulting merged PDF,NOT WORKING,Merged PDF opens in new tab
+Tab,Second Row,Protect,Encrypt,Encrypts the PDF with a password and can be saved,NOT WORKING,Password encryption available
+Tab,Second Row,Protect,Permissions,Sets access permissions for the PDF apply the same to pdf,NOT WORKING,Permissions setting available
+Tab,Second Row,Protect,Digital Signature,Adds a digital signature to the PDF and can be saved,NOT WORKING,Digital signature tool available
+Tab,Second Row,Protect,Redaction,Redacts sensitive information from the PDF and can be saved,NOT WORKING,Redaction tool available
+Tab,Second Row,Protect,Remove Metadata,Removes metadata and personal information from the PDF and can be saved,NOT WORKING,Metadata removal available
+Tab,Second Row,Tools,Merge,Merges multiple PDF files opens the merged file in new tab,NOT WORKING,Merge tool fully functional
+Tab,Second Row,Tools,Split,Splits a PDF into multiple files ask user number of pages to be splite download them,NOT WORKING,Split functionality available with user input
+Tab,Second Row,Tools,Compress,Compresses the PDF to reduce file size gives user to choose % of compression,NOT WORKING,Compression with quality selection available
+Tab,Second Row,Tools,Inspect PDF,Inspects PDF structure and properties and display user the same giving user to close information saving the same,NOT WORKING,PDF inspection tool available
+Tab,Second Row,Tools,OCR Advanced,Advanced optical character recognition options save the out put in file,NOT WORKING,Advanced OCR options available
+Tab,Second Row,Tools,Flatten,Flattens all layers and annotations into the PDF download the same,NOT WORKING,Flatten functionality available

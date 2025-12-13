@@ -1,0 +1,9 @@
+id,module,name,file,doc,markers,status,message,duration
+test_ui.py::test_file_menu_functions[chromium],test_ui,test_file_menu_functions[chromium],test_ui.py,Tests basic working functionality from the File menu.,,passed,,0.7959336999920197
+test_ui.py::test_home_tab_broken_features[chromium],test_ui,test_home_tab_broken_features[chromium],test_ui.py,"Tests features on the Home tab that were identified as broken.
+OCR button should be clickable and functional.",,passed,,0.763717199995881
+test_ui.py::test_edit_tab_placeholders[chromium],test_ui,test_edit_tab_placeholders[chromium],test_ui.py,Tests placeholder features on the Edit tab.,,passed,,0.9586569999955827
+test_ui.py::test_page_tab_working_features[chromium],test_ui,test_page_tab_working_features[chromium],test_ui.py,"Tests a working feature from the Page tab.
+Assumes a document is already open.",,passed,,0.9391985999973258
+test_ui.py::test_protect_tab_misleading_feature[chromium],test_ui,test_protect_tab_misleading_feature[chromium],test_ui.py,Tests the misleading 'Encrypt' feature on the Protect tab.,,passed,,0.9640480999951251
+test_ui.py::test_comment_tab_tools[chromium],test_ui,test_comment_tab_tools[chromium],test_ui.py,Tests that the Comment tab is accessible.,,passed,,0.39831810000760015

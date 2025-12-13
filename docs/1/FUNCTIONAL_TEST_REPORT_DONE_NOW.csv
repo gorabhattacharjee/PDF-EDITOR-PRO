@@ -1,0 +1,92 @@
+Feature,Category,Status,Test Date,Details,Test Result
+File - Open PDF,File Menu,not WORKING,01-12-2025,File picker opens for PDF selection,failed
+File - Save,File Menu,not WORKING,01-12-2025,Current document downloads with original name,failed
+File - Save As,File Menu,not WORKING,01-12-2025,Prompt appears for custom filename then downloads,failed
+File - Print,File Menu,not WORKING,01-12-2025,Browser print dialog opens and functions,failed
+File - Close Document,File Menu,not WORKING,01-12-2025,Document closed and removed from active tabs,failed
+File - Download Log,File Menu,not WORKING,01-12-2025,Action log exported as text file,failed
+File - Export to Image,File Menu,not WORKING,01-12-2025,Current page exports as PNG image,failed
+File - Export to Text,File Menu,not WORKING,01-12-2025,All text extracted from PDF to TXT file,failed
+File - Properties,File Menu,not WORKING,01-12-2025,Document properties displayed in dialog,failed
+Home Tab - Activation,Home Tab,not WORKING,01-12-2025,Home tab loads with correct buttons,failed
+Home Tab - Open Button,Home Tab,not WORKING,01-12-2025,File picker opens for PDF selection,failed
+Home Tab - Hand Tool,Home Tab,not WORKING,01-12-2025,Hand tool selected for document panning,failed
+Home Tab - Select Tool,Home Tab,not WORKING,01-12-2025,Select tool activated for object selection,failed
+Home Tab - Highlight Tool,Home Tab,not WORKING,01-12-2025,Highlight tool activated for text markup,failed
+Home Tab - Edit All Dropdown,Home Tab,not WORKING,01-12-2025,Dropdown menu opens with sub-options,failed
+Home Tab - Edit Text (from dropdown),Home Tab,not WORKING,01-12-2025,Text editing mode activated,failed
+Home Tab - Edit Image (from dropdown),Home Tab,not WORKING,01-12-2025,Image editing mode activated,failed
+Home Tab - Add Text (from dropdown),Home Tab,not WORKING,01-12-2025,Text addition mode activated,failed
+Home Tab - Add Image (from dropdown),Home Tab,not WORKING,01-12-2025,Image insertion mode activated,failed
+Home Tab - Add Text Button,Home Tab,not WORKING,01-12-2025,Text box addition mode activated,failed
+Home Tab - OCR Button,Home Tab,not WORKING,01-12-2025,OCR processing initiated on current page,failed
+Home Tab - To Image Button,Home Tab,not WORKING,01-12-2025,Page exports as PNG image,failed
+Home Tab - Merge PDF Button,Home Tab,not WORKING,01-12-2025,File picker opens to select PDF for merging,failed
+Home Tab - Compress PDF Button,Home Tab,not WORKING,01-12-2025,Compression dialog appears with quality options,failed
+Home Tab - Screenshot Button,Home Tab,not WORKING,01-12-2025,Current view captured and downloaded as PNG,failed
+Comment Tab - Activation,Comment Tab,not WORKING,01-12-2025,Comment tab loads with annotation tools,failed
+Comment Tab - Highlight Button,Comment Tab,not WORKING,01-12-2025,Highlight annotation tool activated,failed
+Comment Tab - Underline Button,Comment Tab,not WORKING,01-12-2025,Underline annotation tool activated,failed
+Comment Tab - Strikeout Button,Comment Tab,not WORKING,01-12-2025,Strikeout annotation tool activated,failed
+Comment Tab - Sticky Note Button,Comment Tab,not WORKING,01-12-2025,Sticky note creation mode activated,failed
+Comment Tab - Pen/Draw Button,Comment Tab,not WORKING,01-12-2025,Free-form drawing tool activated,failed
+Comment Tab - Shapes Button,Comment Tab,not WORKING,01-12-2025,Shape drawing tool activated (rectangle/circle/line),failed
+Comment Tab - Comments Panel Button,Comment Tab,not WORKING,01-12-2025,Comments panel opens showing all annotations,failed
+Edit Tab - Activation,Edit Tab,not WORKING,01-12-2025,Edit tab loads with content editing tools,failed
+Edit Tab - Edit Text Button,Edit Tab,not WORKING,01-12-2025,Text editing mode activated,failed
+Edit Tab - Edit Image Button,Edit Tab,not WORKING,01-12-2025,Image editing mode activated,failed
+Edit Tab - Add Text Button,Edit Tab,not WORKING,01-12-2025,Text insertion mode activated,failed
+Edit Tab - Add Image Button,Edit Tab,not WORKING,01-12-2025,Image insertion mode activated,failed
+Edit Tab - Object Select Button,Edit Tab,not WORKING,01-12-2025,Object selection mode activated,failed
+Edit Tab - Align Button,Edit Tab,not WORKING,01-12-2025,Alignment options dialog appears,failed
+Edit Tab - Rotate Button,Edit Tab,not WORKING,01-12-2025,Page rotated 90 degrees clockwise,failed
+Edit Tab - Resize Button,Edit Tab,not WORKING,01-12-2025,Page size dialog appears with options,failed
+Edit Tab - Crop Page Button,Edit Tab,not WORKING,01-12-2025,Crop margin input prompt appears,failed
+Convert Tab - Activation,Convert Tab,not WORKING,01-12-2025,Convert tab loads with format options,failed
+Convert Tab - To Image Button,Convert Tab,not WORKING,01-12-2025,Page exports as PNG/JPG image,failed
+Convert Tab - To PDF/A Button,Convert Tab,not WORKING,01-12-2025,PDF saved in archival PDF/A format,failed
+Page Tab - Activation,Page Tab,not WORKING,01-12-2025,Page tab loads with page manipulation tools,failed
+Page Tab - Insert Page Button,Page Tab,not WORKING,01-12-2025,New blank page inserted after current page,failed
+Page Tab - Delete Button,Page Tab,not WORKING,01-12-2025,Current page deleted from document,failed
+Page Tab - Extract Button,Page Tab,not WORKING,01-12-2025,Current page extracted to new PDF and downloaded,failed
+Page Tab - Rotate Button,Page Tab,not WORKING,01-12-2025,Page rotated 90 degrees clockwise,failed
+Page Tab - Reverse Rotate Button,Page Tab,not WORKING,01-12-2025,Page rotated 90 degrees counter-clockwise,failed
+Page Tab - Reorder Button,Page Tab,not WORKING,01-12-2025,Current page reordered in document,failed
+Page Tab - Duplicate Button,Page Tab,not WORKING,01-12-2025,Current page duplicated and added to document,failed
+Merge Tab - Activation,Merge Tab,not WORKING,01-12-2025,Merge tab loads with merge options,failed
+Merge Tab - Add PDFs Button,Merge Tab,not WORKING,01-12-2025,File picker opens to select PDF for merging,failed
+Merge Tab - Merge Now Button,Merge Tab,not WORKING,01-12-2025,Selected PDFs merged with current document,failed
+Merge Tab - Open Merged File Button,Merge Tab,not WORKING,01-12-2025,Instructions display for opening merged PDF,failed
+Protect Tab - Activation,Protect Tab,not WORKING,01-12-2025,Protect tab loads with security options,failed
+Protect Tab - Encrypt Button,Protect Tab,not WORKING,01-12-2025,Encryption dialog or info displayed,failed
+Protect Tab - Permissions Button,Protect Tab,not WORKING,01-12-2025,Permissions settings dialog appears,failed
+Protect Tab - Digital Signature Button,Protect Tab,not WORKING,01-12-2025,Signature placeholder added to document,failed
+Protect Tab - Redaction Button,Protect Tab,not WORKING,01-12-2025,Black redaction box applied to content,failed
+Protect Tab - Remove Metadata Button,Protect Tab,not WORKING,01-12-2025,Document metadata cleared and removed,failed
+Tools Tab - Activation,Tools Tab,not WORKING,01-12-2025,Tools tab loads with utility functions,failed
+Tools Tab - Merge Button,Tools Tab,not WORKING,01-12-2025,File picker opens for PDF merging,failed
+Tools Tab - Split Button,Tools Tab,not WORKING,01-12-2025,PDF split into multiple files and downloaded,failed
+Tools Tab - Compress Button,Tools Tab,not WORKING,01-12-2025,Compression quality selection dialog appears,failed
+Tools Tab - Inspect PDF Button,Tools Tab,not WORKING,01-12-2025,PDF info dialog shows page count and metadata,failed
+Tools Tab - OCR Advanced Button,Tools Tab,not WORKING,01-12-2025,OCR advanced info message displayed,failed
+Tools Tab - Flatten Button,Tools Tab,not WORKING,01-12-2025,PDF flattened and re-saved,failed
+UI - Sidebar Panel,User Interface,not WORKING,01-12-2025,Left sidebar displays with document thumbnails,failed
+UI - Thumbnail Navigation,User Interface,not WORKING,01-12-2025,Clicking thumbnail navigates to that page,failed
+UI - Sidebar Scrollbar,User Interface,not WORKING,01-12-2025,Vertical scrollbar scrolls thumbnails,failed
+UI - Sidebar Resize,User Interface,not WORKING,01-12-2025,Sidebar width resizable by dragging border,failed
+UI - PDF Canvas,User Interface,not WORKING,01-12-2025,PDF page displays in main viewer area,failed
+UI - Canvas Vertical Scrollbar,User Interface,not WORKING,01-12-2025,Page content scrolls vertically,failed
+UI - Canvas Horizontal Scrollbar,User Interface,not WORKING,01-12-2025,Page content scrolls horizontally,failed
+UI - Page Navigation,User Interface,not WORKING,01-12-2025,Navigate between pages via buttons or keyboard,failed
+UI - Text Layer (Selectable),User Interface,not WORKING,01-12-2025,Text in PDF is selectable and copyable,failed
+UI - Annotation Layer (Clickable Links),User Interface,not WORKING,01-12-2025,Links in PDF are clickable and functional,failed
+UI - Document Tabs Bar,User Interface,not WORKING,01-12-2025,Tab bar displays open documents,failed
+UI - Tab Navigation,User Interface,not WORKING,01-12-2025,Clicking tab switches to that document,failed
+UI - Tab Close Button,User Interface,not WORKING,01-12-2025,Clicking X closes document and removes tab,failed
+UI - Active Tab Highlighting,User Interface,not WORKING,01-12-2025,Active tab visually highlighted,failed
+UI - Tab Order Persistence,User Interface,not WORKING,01-12-2025,Tab order maintained when opening multiple PDFs,failed
+UI - Zoom In Button,User Interface,not WORKING,01-12-2025,PDF view magnified when zoom in clicked,failed
+UI - Zoom Out Button,User Interface,not WORKING,01-12-2025,PDF view reduced when zoom out clicked,failed
+UI - Ribbon Bar Sticky,User Interface,not WORKING,01-12-2025,Ribbon bar stays at top during scrolling,failed
+Backend - File Upload API,Backend,not WORKING,01-12-2025,/api/upload endpoint accepts PDF files,failed
+Overall Application,Application,not WORKING,01-12-2025,All core features working correctly with 100% pass rate,failed

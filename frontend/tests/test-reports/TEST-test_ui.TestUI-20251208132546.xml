@@ -1,0 +1,1272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test_ui.TestUI-20251208132546" tests="9" file="test_ui.py" time="74.034" timestamp="2025-12-08T13:27:00" failures="0" errors="9" skipped="0">
+	<testcase classname="test_ui.TestUI" name="test_comment_tab_tools" time="8.638" timestamp="2025-12-08T13:25:55" file="test_ui.py" line="38">
+		<error type="MaxRetryError" message="HTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000001BDBC1BDE00&gt;: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"><![CDATA[Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m198[0m, in [35m_new_conn[0m
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m85[0m, in [35mcreate_connection[0m
+    raise err
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m73[0m, in [35mcreate_connection[0m
+    [31msock.connect[0m[1;31m(sa)[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^^^[0m
+[1;35mConnectionRefusedError[0m: [35m[WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m787[0m, in [35murlopen[0m
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m493[0m, in [35m_make_request[0m
+    [31mconn.request[0m[1;31m([0m
+    [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<6 lines>...
+        [1;31menforce_content_length=enforce_content_length,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m494[0m, in [35mrequest[0m
+    [31mself.endheaders[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1333[0m, in [35mendheaders[0m
+    [31mself._send_output[0m[1;31m(message_body, encode_chunked=encode_chunked)[0m
+    [31m~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1093[0m, in [35m_send_output[0m
+    [31mself.send[0m[1;31m(msg)[0m
+    [31m~~~~~~~~~[0m[1;31m^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1037[0m, in [35msend[0m
+    [31mself.connect[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m325[0m, in [35mconnect[0m
+    self.sock = [31mself._new_conn[0m[1;31m()[0m
+                [31m~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m213[0m, in [35m_new_conn[0m
+    raise NewConnectionError(
+        self, f"Failed to establish a new connection: {e}"
+    ) from e
+[1;35murllib3.exceptions.NewConnectionError[0m: [35m<urllib3.connection.HTTPConnection object at 0x000001BDBC1BDE00>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\PDFP\pdf-editor-pro\frontend\tests\test_ui.py"[0m, line [35m14[0m, in [35msetUp[0m
+    self.driver = [31mwebdriver.Remote[0m[1;31m([0m
+                  [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor='http://127.0.0.1:4723',[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+        [1;31moptions=opts[0m
+        [1;31m^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m249[0m, in [35m__init__[0m
+    [31msuper().__init__[0m[1;31m([0m
+    [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor=command_executor,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    ...<3 lines>...
+        [1;31mclient_config=client_config,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m263[0m, in [35m__init__[0m
+    [31mself.start_session[0m[1;31m(capabilities)[0m
+    [31m~~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m342[0m, in [35mstart_session[0m
+    response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m455[0m, in [35mexecute[0m
+    response = cast(RemoteConnection, self.command_executor).execute(driver_command, params)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m407[0m, in [35mexecute[0m
+    return [31mself._request[0m[1;31m(command_info[0], url, body=data)[0m
+           [31m~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m431[0m, in [35m_request[0m
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m143[0m, in [35mrequest[0m
+    return [31mself.request_encode_body[0m[1;31m([0m
+           [31m~~~~~~~~~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod, url, fields=fields, headers=headers, **urlopen_kw[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m278[0m, in [35mrequest_encode_body[0m
+    return [31mself.urlopen[0m[1;31m(method, url, **extra_kw)[0m
+           [31m~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\poolmanager.py"[0m, line [35m459[0m, in [35murlopen[0m
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m841[0m, in [35murlopen[0m
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\retry.py"[0m, line [35m519[0m, in [35mincrement[0m
+    [1;31mraise MaxRetryError(_pool, url, reason) from reason[0m  # type: ignore[arg-type]
+    [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35murllib3.exceptions.MaxRetryError[0m: [35mHTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001BDBC1BDE00>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))[0m
+]]></error>
+	</testcase>
+	<testcase classname="test_ui.TestUI" name="test_convert_tab" time="8.200" timestamp="2025-12-08T13:26:03" file="test_ui.py" line="66">
+		<error type="MaxRetryError" message="HTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000001BDBC2218C0&gt;: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"><![CDATA[Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m198[0m, in [35m_new_conn[0m
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m85[0m, in [35mcreate_connection[0m
+    raise err
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m73[0m, in [35mcreate_connection[0m
+    [31msock.connect[0m[1;31m(sa)[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^^^[0m
+[1;35mConnectionRefusedError[0m: [35m[WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m787[0m, in [35murlopen[0m
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m493[0m, in [35m_make_request[0m
+    [31mconn.request[0m[1;31m([0m
+    [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<6 lines>...
+        [1;31menforce_content_length=enforce_content_length,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m494[0m, in [35mrequest[0m
+    [31mself.endheaders[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1333[0m, in [35mendheaders[0m
+    [31mself._send_output[0m[1;31m(message_body, encode_chunked=encode_chunked)[0m
+    [31m~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1093[0m, in [35m_send_output[0m
+    [31mself.send[0m[1;31m(msg)[0m
+    [31m~~~~~~~~~[0m[1;31m^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1037[0m, in [35msend[0m
+    [31mself.connect[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m325[0m, in [35mconnect[0m
+    self.sock = [31mself._new_conn[0m[1;31m()[0m
+                [31m~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m213[0m, in [35m_new_conn[0m
+    raise NewConnectionError(
+        self, f"Failed to establish a new connection: {e}"
+    ) from e
+[1;35murllib3.exceptions.NewConnectionError[0m: [35m<urllib3.connection.HTTPConnection object at 0x000001BDBC2218C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\PDFP\pdf-editor-pro\frontend\tests\test_ui.py"[0m, line [35m14[0m, in [35msetUp[0m
+    self.driver = [31mwebdriver.Remote[0m[1;31m([0m
+                  [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor='http://127.0.0.1:4723',[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+        [1;31moptions=opts[0m
+        [1;31m^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m249[0m, in [35m__init__[0m
+    [31msuper().__init__[0m[1;31m([0m
+    [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor=command_executor,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    ...<3 lines>...
+        [1;31mclient_config=client_config,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m263[0m, in [35m__init__[0m
+    [31mself.start_session[0m[1;31m(capabilities)[0m
+    [31m~~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m342[0m, in [35mstart_session[0m
+    response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m455[0m, in [35mexecute[0m
+    response = cast(RemoteConnection, self.command_executor).execute(driver_command, params)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m407[0m, in [35mexecute[0m
+    return [31mself._request[0m[1;31m(command_info[0], url, body=data)[0m
+           [31m~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m431[0m, in [35m_request[0m
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m143[0m, in [35mrequest[0m
+    return [31mself.request_encode_body[0m[1;31m([0m
+           [31m~~~~~~~~~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod, url, fields=fields, headers=headers, **urlopen_kw[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m278[0m, in [35mrequest_encode_body[0m
+    return [31mself.urlopen[0m[1;31m(method, url, **extra_kw)[0m
+           [31m~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\poolmanager.py"[0m, line [35m459[0m, in [35murlopen[0m
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m841[0m, in [35murlopen[0m
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\retry.py"[0m, line [35m519[0m, in [35mincrement[0m
+    [1;31mraise MaxRetryError(_pool, url, reason) from reason[0m  # type: ignore[arg-type]
+    [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35murllib3.exceptions.MaxRetryError[0m: [35mHTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001BDBC2218C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))[0m
+]]></error>
+	</testcase>
+	<testcase classname="test_ui.TestUI" name="test_edit_tab_spec" time="8.165" timestamp="2025-12-08T13:26:11" file="test_ui.py" line="45">
+		<error type="MaxRetryError" message="HTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000001BDBC2227A0&gt;: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"><![CDATA[Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m198[0m, in [35m_new_conn[0m
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m85[0m, in [35mcreate_connection[0m
+    raise err
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m73[0m, in [35mcreate_connection[0m
+    [31msock.connect[0m[1;31m(sa)[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^^^[0m
+[1;35mConnectionRefusedError[0m: [35m[WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m787[0m, in [35murlopen[0m
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m493[0m, in [35m_make_request[0m
+    [31mconn.request[0m[1;31m([0m
+    [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<6 lines>...
+        [1;31menforce_content_length=enforce_content_length,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m494[0m, in [35mrequest[0m
+    [31mself.endheaders[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1333[0m, in [35mendheaders[0m
+    [31mself._send_output[0m[1;31m(message_body, encode_chunked=encode_chunked)[0m
+    [31m~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1093[0m, in [35m_send_output[0m
+    [31mself.send[0m[1;31m(msg)[0m
+    [31m~~~~~~~~~[0m[1;31m^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1037[0m, in [35msend[0m
+    [31mself.connect[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m325[0m, in [35mconnect[0m
+    self.sock = [31mself._new_conn[0m[1;31m()[0m
+                [31m~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m213[0m, in [35m_new_conn[0m
+    raise NewConnectionError(
+        self, f"Failed to establish a new connection: {e}"
+    ) from e
+[1;35murllib3.exceptions.NewConnectionError[0m: [35m<urllib3.connection.HTTPConnection object at 0x000001BDBC2227A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\PDFP\pdf-editor-pro\frontend\tests\test_ui.py"[0m, line [35m14[0m, in [35msetUp[0m
+    self.driver = [31mwebdriver.Remote[0m[1;31m([0m
+                  [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor='http://127.0.0.1:4723',[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+        [1;31moptions=opts[0m
+        [1;31m^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m249[0m, in [35m__init__[0m
+    [31msuper().__init__[0m[1;31m([0m
+    [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor=command_executor,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    ...<3 lines>...
+        [1;31mclient_config=client_config,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m263[0m, in [35m__init__[0m
+    [31mself.start_session[0m[1;31m(capabilities)[0m
+    [31m~~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m342[0m, in [35mstart_session[0m
+    response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m455[0m, in [35mexecute[0m
+    response = cast(RemoteConnection, self.command_executor).execute(driver_command, params)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m407[0m, in [35mexecute[0m
+    return [31mself._request[0m[1;31m(command_info[0], url, body=data)[0m
+           [31m~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m431[0m, in [35m_request[0m
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m143[0m, in [35mrequest[0m
+    return [31mself.request_encode_body[0m[1;31m([0m
+           [31m~~~~~~~~~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod, url, fields=fields, headers=headers, **urlopen_kw[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m278[0m, in [35mrequest_encode_body[0m
+    return [31mself.urlopen[0m[1;31m(method, url, **extra_kw)[0m
+           [31m~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\poolmanager.py"[0m, line [35m459[0m, in [35murlopen[0m
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m841[0m, in [35murlopen[0m
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\retry.py"[0m, line [35m519[0m, in [35mincrement[0m
+    [1;31mraise MaxRetryError(_pool, url, reason) from reason[0m  # type: ignore[arg-type]
+    [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35murllib3.exceptions.MaxRetryError[0m: [35mHTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001BDBC2227A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))[0m
+]]></error>
+	</testcase>
+	<testcase classname="test_ui.TestUI" name="test_file_menu_spec" time="8.158" timestamp="2025-12-08T13:26:19" file="test_ui.py" line="24">
+		<error type="MaxRetryError" message="HTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000001BDBC223570&gt;: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"><![CDATA[Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m198[0m, in [35m_new_conn[0m
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m85[0m, in [35mcreate_connection[0m
+    raise err
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m73[0m, in [35mcreate_connection[0m
+    [31msock.connect[0m[1;31m(sa)[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^^^[0m
+[1;35mConnectionRefusedError[0m: [35m[WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m787[0m, in [35murlopen[0m
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m493[0m, in [35m_make_request[0m
+    [31mconn.request[0m[1;31m([0m
+    [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<6 lines>...
+        [1;31menforce_content_length=enforce_content_length,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m494[0m, in [35mrequest[0m
+    [31mself.endheaders[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1333[0m, in [35mendheaders[0m
+    [31mself._send_output[0m[1;31m(message_body, encode_chunked=encode_chunked)[0m
+    [31m~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1093[0m, in [35m_send_output[0m
+    [31mself.send[0m[1;31m(msg)[0m
+    [31m~~~~~~~~~[0m[1;31m^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1037[0m, in [35msend[0m
+    [31mself.connect[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m325[0m, in [35mconnect[0m
+    self.sock = [31mself._new_conn[0m[1;31m()[0m
+                [31m~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m213[0m, in [35m_new_conn[0m
+    raise NewConnectionError(
+        self, f"Failed to establish a new connection: {e}"
+    ) from e
+[1;35murllib3.exceptions.NewConnectionError[0m: [35m<urllib3.connection.HTTPConnection object at 0x000001BDBC223570>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\PDFP\pdf-editor-pro\frontend\tests\test_ui.py"[0m, line [35m14[0m, in [35msetUp[0m
+    self.driver = [31mwebdriver.Remote[0m[1;31m([0m
+                  [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor='http://127.0.0.1:4723',[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+        [1;31moptions=opts[0m
+        [1;31m^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m249[0m, in [35m__init__[0m
+    [31msuper().__init__[0m[1;31m([0m
+    [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor=command_executor,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    ...<3 lines>...
+        [1;31mclient_config=client_config,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m263[0m, in [35m__init__[0m
+    [31mself.start_session[0m[1;31m(capabilities)[0m
+    [31m~~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m342[0m, in [35mstart_session[0m
+    response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m455[0m, in [35mexecute[0m
+    response = cast(RemoteConnection, self.command_executor).execute(driver_command, params)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m407[0m, in [35mexecute[0m
+    return [31mself._request[0m[1;31m(command_info[0], url, body=data)[0m
+           [31m~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m431[0m, in [35m_request[0m
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m143[0m, in [35mrequest[0m
+    return [31mself.request_encode_body[0m[1;31m([0m
+           [31m~~~~~~~~~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod, url, fields=fields, headers=headers, **urlopen_kw[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m278[0m, in [35mrequest_encode_body[0m
+    return [31mself.urlopen[0m[1;31m(method, url, **extra_kw)[0m
+           [31m~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\poolmanager.py"[0m, line [35m459[0m, in [35murlopen[0m
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m841[0m, in [35murlopen[0m
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\retry.py"[0m, line [35m519[0m, in [35mincrement[0m
+    [1;31mraise MaxRetryError(_pool, url, reason) from reason[0m  # type: ignore[arg-type]
+    [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35murllib3.exceptions.MaxRetryError[0m: [35mHTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001BDBC223570>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))[0m
+]]></error>
+	</testcase>
+	<testcase classname="test_ui.TestUI" name="test_home_tab_spec" time="8.162" timestamp="2025-12-08T13:26:27" file="test_ui.py" line="31">
+		<error type="MaxRetryError" message="HTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000001BDBC300380&gt;: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"><![CDATA[Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m198[0m, in [35m_new_conn[0m
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m85[0m, in [35mcreate_connection[0m
+    raise err
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m73[0m, in [35mcreate_connection[0m
+    [31msock.connect[0m[1;31m(sa)[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^^^[0m
+[1;35mConnectionRefusedError[0m: [35m[WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m787[0m, in [35murlopen[0m
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m493[0m, in [35m_make_request[0m
+    [31mconn.request[0m[1;31m([0m
+    [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<6 lines>...
+        [1;31menforce_content_length=enforce_content_length,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m494[0m, in [35mrequest[0m
+    [31mself.endheaders[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1333[0m, in [35mendheaders[0m
+    [31mself._send_output[0m[1;31m(message_body, encode_chunked=encode_chunked)[0m
+    [31m~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1093[0m, in [35m_send_output[0m
+    [31mself.send[0m[1;31m(msg)[0m
+    [31m~~~~~~~~~[0m[1;31m^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1037[0m, in [35msend[0m
+    [31mself.connect[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m325[0m, in [35mconnect[0m
+    self.sock = [31mself._new_conn[0m[1;31m()[0m
+                [31m~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m213[0m, in [35m_new_conn[0m
+    raise NewConnectionError(
+        self, f"Failed to establish a new connection: {e}"
+    ) from e
+[1;35murllib3.exceptions.NewConnectionError[0m: [35m<urllib3.connection.HTTPConnection object at 0x000001BDBC300380>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\PDFP\pdf-editor-pro\frontend\tests\test_ui.py"[0m, line [35m14[0m, in [35msetUp[0m
+    self.driver = [31mwebdriver.Remote[0m[1;31m([0m
+                  [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor='http://127.0.0.1:4723',[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+        [1;31moptions=opts[0m
+        [1;31m^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m249[0m, in [35m__init__[0m
+    [31msuper().__init__[0m[1;31m([0m
+    [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor=command_executor,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    ...<3 lines>...
+        [1;31mclient_config=client_config,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m263[0m, in [35m__init__[0m
+    [31mself.start_session[0m[1;31m(capabilities)[0m
+    [31m~~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m342[0m, in [35mstart_session[0m
+    response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m455[0m, in [35mexecute[0m
+    response = cast(RemoteConnection, self.command_executor).execute(driver_command, params)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m407[0m, in [35mexecute[0m
+    return [31mself._request[0m[1;31m(command_info[0], url, body=data)[0m
+           [31m~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m431[0m, in [35m_request[0m
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m143[0m, in [35mrequest[0m
+    return [31mself.request_encode_body[0m[1;31m([0m
+           [31m~~~~~~~~~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod, url, fields=fields, headers=headers, **urlopen_kw[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m278[0m, in [35mrequest_encode_body[0m
+    return [31mself.urlopen[0m[1;31m(method, url, **extra_kw)[0m
+           [31m~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\poolmanager.py"[0m, line [35m459[0m, in [35murlopen[0m
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m841[0m, in [35murlopen[0m
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\retry.py"[0m, line [35m519[0m, in [35mincrement[0m
+    [1;31mraise MaxRetryError(_pool, url, reason) from reason[0m  # type: ignore[arg-type]
+    [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35murllib3.exceptions.MaxRetryError[0m: [35mHTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001BDBC300380>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))[0m
+]]></error>
+	</testcase>
+	<testcase classname="test_ui.TestUI" name="test_merge_pdf_tab" time="8.171" timestamp="2025-12-08T13:26:35" file="test_ui.py" line="73">
+		<error type="MaxRetryError" message="HTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000001BDBC222CF0&gt;: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"><![CDATA[Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m198[0m, in [35m_new_conn[0m
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m85[0m, in [35mcreate_connection[0m
+    raise err
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m73[0m, in [35mcreate_connection[0m
+    [31msock.connect[0m[1;31m(sa)[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^^^[0m
+[1;35mConnectionRefusedError[0m: [35m[WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m787[0m, in [35murlopen[0m
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m493[0m, in [35m_make_request[0m
+    [31mconn.request[0m[1;31m([0m
+    [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<6 lines>...
+        [1;31menforce_content_length=enforce_content_length,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m494[0m, in [35mrequest[0m
+    [31mself.endheaders[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1333[0m, in [35mendheaders[0m
+    [31mself._send_output[0m[1;31m(message_body, encode_chunked=encode_chunked)[0m
+    [31m~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1093[0m, in [35m_send_output[0m
+    [31mself.send[0m[1;31m(msg)[0m
+    [31m~~~~~~~~~[0m[1;31m^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1037[0m, in [35msend[0m
+    [31mself.connect[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m325[0m, in [35mconnect[0m
+    self.sock = [31mself._new_conn[0m[1;31m()[0m
+                [31m~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m213[0m, in [35m_new_conn[0m
+    raise NewConnectionError(
+        self, f"Failed to establish a new connection: {e}"
+    ) from e
+[1;35murllib3.exceptions.NewConnectionError[0m: [35m<urllib3.connection.HTTPConnection object at 0x000001BDBC222CF0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\PDFP\pdf-editor-pro\frontend\tests\test_ui.py"[0m, line [35m14[0m, in [35msetUp[0m
+    self.driver = [31mwebdriver.Remote[0m[1;31m([0m
+                  [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor='http://127.0.0.1:4723',[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+        [1;31moptions=opts[0m
+        [1;31m^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m249[0m, in [35m__init__[0m
+    [31msuper().__init__[0m[1;31m([0m
+    [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor=command_executor,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    ...<3 lines>...
+        [1;31mclient_config=client_config,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m263[0m, in [35m__init__[0m
+    [31mself.start_session[0m[1;31m(capabilities)[0m
+    [31m~~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m342[0m, in [35mstart_session[0m
+    response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m455[0m, in [35mexecute[0m
+    response = cast(RemoteConnection, self.command_executor).execute(driver_command, params)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m407[0m, in [35mexecute[0m
+    return [31mself._request[0m[1;31m(command_info[0], url, body=data)[0m
+           [31m~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m431[0m, in [35m_request[0m
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m143[0m, in [35mrequest[0m
+    return [31mself.request_encode_body[0m[1;31m([0m
+           [31m~~~~~~~~~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod, url, fields=fields, headers=headers, **urlopen_kw[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m278[0m, in [35mrequest_encode_body[0m
+    return [31mself.urlopen[0m[1;31m(method, url, **extra_kw)[0m
+           [31m~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\poolmanager.py"[0m, line [35m459[0m, in [35murlopen[0m
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m841[0m, in [35murlopen[0m
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\retry.py"[0m, line [35m519[0m, in [35mincrement[0m
+    [1;31mraise MaxRetryError(_pool, url, reason) from reason[0m  # type: ignore[arg-type]
+    [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35murllib3.exceptions.MaxRetryError[0m: [35mHTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001BDBC222CF0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))[0m
+]]></error>
+	</testcase>
+	<testcase classname="test_ui.TestUI" name="test_page_tab_spec" time="8.184" timestamp="2025-12-08T13:26:44" file="test_ui.py" line="52">
+		<error type="MaxRetryError" message="HTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000001BDBC220F30&gt;: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"><![CDATA[Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m198[0m, in [35m_new_conn[0m
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m85[0m, in [35mcreate_connection[0m
+    raise err
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m73[0m, in [35mcreate_connection[0m
+    [31msock.connect[0m[1;31m(sa)[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^^^[0m
+[1;35mConnectionRefusedError[0m: [35m[WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m787[0m, in [35murlopen[0m
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m493[0m, in [35m_make_request[0m
+    [31mconn.request[0m[1;31m([0m
+    [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<6 lines>...
+        [1;31menforce_content_length=enforce_content_length,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m494[0m, in [35mrequest[0m
+    [31mself.endheaders[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1333[0m, in [35mendheaders[0m
+    [31mself._send_output[0m[1;31m(message_body, encode_chunked=encode_chunked)[0m
+    [31m~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1093[0m, in [35m_send_output[0m
+    [31mself.send[0m[1;31m(msg)[0m
+    [31m~~~~~~~~~[0m[1;31m^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1037[0m, in [35msend[0m
+    [31mself.connect[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m325[0m, in [35mconnect[0m
+    self.sock = [31mself._new_conn[0m[1;31m()[0m
+                [31m~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m213[0m, in [35m_new_conn[0m
+    raise NewConnectionError(
+        self, f"Failed to establish a new connection: {e}"
+    ) from e
+[1;35murllib3.exceptions.NewConnectionError[0m: [35m<urllib3.connection.HTTPConnection object at 0x000001BDBC220F30>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\PDFP\pdf-editor-pro\frontend\tests\test_ui.py"[0m, line [35m14[0m, in [35msetUp[0m
+    self.driver = [31mwebdriver.Remote[0m[1;31m([0m
+                  [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor='http://127.0.0.1:4723',[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+        [1;31moptions=opts[0m
+        [1;31m^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m249[0m, in [35m__init__[0m
+    [31msuper().__init__[0m[1;31m([0m
+    [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor=command_executor,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    ...<3 lines>...
+        [1;31mclient_config=client_config,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m263[0m, in [35m__init__[0m
+    [31mself.start_session[0m[1;31m(capabilities)[0m
+    [31m~~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m342[0m, in [35mstart_session[0m
+    response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m455[0m, in [35mexecute[0m
+    response = cast(RemoteConnection, self.command_executor).execute(driver_command, params)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m407[0m, in [35mexecute[0m
+    return [31mself._request[0m[1;31m(command_info[0], url, body=data)[0m
+           [31m~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m431[0m, in [35m_request[0m
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m143[0m, in [35mrequest[0m
+    return [31mself.request_encode_body[0m[1;31m([0m
+           [31m~~~~~~~~~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod, url, fields=fields, headers=headers, **urlopen_kw[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m278[0m, in [35mrequest_encode_body[0m
+    return [31mself.urlopen[0m[1;31m(method, url, **extra_kw)[0m
+           [31m~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\poolmanager.py"[0m, line [35m459[0m, in [35murlopen[0m
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m841[0m, in [35murlopen[0m
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\retry.py"[0m, line [35m519[0m, in [35mincrement[0m
+    [1;31mraise MaxRetryError(_pool, url, reason) from reason[0m  # type: ignore[arg-type]
+    [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35murllib3.exceptions.MaxRetryError[0m: [35mHTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001BDBC220F30>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))[0m
+]]></error>
+	</testcase>
+	<testcase classname="test_ui.TestUI" name="test_protect_tab_spec" time="8.172" timestamp="2025-12-08T13:26:52" file="test_ui.py" line="59">
+		<error type="MaxRetryError" message="HTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000001BDBC301480&gt;: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"><![CDATA[Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m198[0m, in [35m_new_conn[0m
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m85[0m, in [35mcreate_connection[0m
+    raise err
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m73[0m, in [35mcreate_connection[0m
+    [31msock.connect[0m[1;31m(sa)[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^^^[0m
+[1;35mConnectionRefusedError[0m: [35m[WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m787[0m, in [35murlopen[0m
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m493[0m, in [35m_make_request[0m
+    [31mconn.request[0m[1;31m([0m
+    [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<6 lines>...
+        [1;31menforce_content_length=enforce_content_length,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m494[0m, in [35mrequest[0m
+    [31mself.endheaders[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1333[0m, in [35mendheaders[0m
+    [31mself._send_output[0m[1;31m(message_body, encode_chunked=encode_chunked)[0m
+    [31m~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1093[0m, in [35m_send_output[0m
+    [31mself.send[0m[1;31m(msg)[0m
+    [31m~~~~~~~~~[0m[1;31m^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1037[0m, in [35msend[0m
+    [31mself.connect[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m325[0m, in [35mconnect[0m
+    self.sock = [31mself._new_conn[0m[1;31m()[0m
+                [31m~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m213[0m, in [35m_new_conn[0m
+    raise NewConnectionError(
+        self, f"Failed to establish a new connection: {e}"
+    ) from e
+[1;35murllib3.exceptions.NewConnectionError[0m: [35m<urllib3.connection.HTTPConnection object at 0x000001BDBC301480>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\PDFP\pdf-editor-pro\frontend\tests\test_ui.py"[0m, line [35m14[0m, in [35msetUp[0m
+    self.driver = [31mwebdriver.Remote[0m[1;31m([0m
+                  [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor='http://127.0.0.1:4723',[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+        [1;31moptions=opts[0m
+        [1;31m^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m249[0m, in [35m__init__[0m
+    [31msuper().__init__[0m[1;31m([0m
+    [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor=command_executor,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    ...<3 lines>...
+        [1;31mclient_config=client_config,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m263[0m, in [35m__init__[0m
+    [31mself.start_session[0m[1;31m(capabilities)[0m
+    [31m~~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m342[0m, in [35mstart_session[0m
+    response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m455[0m, in [35mexecute[0m
+    response = cast(RemoteConnection, self.command_executor).execute(driver_command, params)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m407[0m, in [35mexecute[0m
+    return [31mself._request[0m[1;31m(command_info[0], url, body=data)[0m
+           [31m~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m431[0m, in [35m_request[0m
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m143[0m, in [35mrequest[0m
+    return [31mself.request_encode_body[0m[1;31m([0m
+           [31m~~~~~~~~~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod, url, fields=fields, headers=headers, **urlopen_kw[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m278[0m, in [35mrequest_encode_body[0m
+    return [31mself.urlopen[0m[1;31m(method, url, **extra_kw)[0m
+           [31m~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\poolmanager.py"[0m, line [35m459[0m, in [35murlopen[0m
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m841[0m, in [35murlopen[0m
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\retry.py"[0m, line [35m519[0m, in [35mincrement[0m
+    [1;31mraise MaxRetryError(_pool, url, reason) from reason[0m  # type: ignore[arg-type]
+    [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35murllib3.exceptions.MaxRetryError[0m: [35mHTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001BDBC301480>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))[0m
+]]></error>
+	</testcase>
+	<testcase classname="test_ui.TestUI" name="test_tools_tab" time="8.184" timestamp="2025-12-08T13:27:00" file="test_ui.py" line="80">
+		<error type="MaxRetryError" message="HTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x000001BDBC302360&gt;: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"><![CDATA[Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m198[0m, in [35m_new_conn[0m
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m85[0m, in [35mcreate_connection[0m
+    raise err
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\connection.py"[0m, line [35m73[0m, in [35mcreate_connection[0m
+    [31msock.connect[0m[1;31m(sa)[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^^^[0m
+[1;35mConnectionRefusedError[0m: [35m[WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m787[0m, in [35murlopen[0m
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m493[0m, in [35m_make_request[0m
+    [31mconn.request[0m[1;31m([0m
+    [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<6 lines>...
+        [1;31menforce_content_length=enforce_content_length,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m494[0m, in [35mrequest[0m
+    [31mself.endheaders[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1333[0m, in [35mendheaders[0m
+    [31mself._send_output[0m[1;31m(message_body, encode_chunked=encode_chunked)[0m
+    [31m~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1093[0m, in [35m_send_output[0m
+    [31mself.send[0m[1;31m(msg)[0m
+    [31m~~~~~~~~~[0m[1;31m^^^^^[0m
+  File [35m"C:\Python314\Lib\http\client.py"[0m, line [35m1037[0m, in [35msend[0m
+    [31mself.connect[0m[1;31m()[0m
+    [31m~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m325[0m, in [35mconnect[0m
+    self.sock = [31mself._new_conn[0m[1;31m()[0m
+                [31m~~~~~~~~~~~~~~[0m[1;31m^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connection.py"[0m, line [35m213[0m, in [35m_new_conn[0m
+    raise NewConnectionError(
+        self, f"Failed to establish a new connection: {e}"
+    ) from e
+[1;35murllib3.exceptions.NewConnectionError[0m: [35m<urllib3.connection.HTTPConnection object at 0x000001BDBC302360>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it[0m
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File [35m"C:\PDFP\pdf-editor-pro\frontend\tests\test_ui.py"[0m, line [35m14[0m, in [35msetUp[0m
+    self.driver = [31mwebdriver.Remote[0m[1;31m([0m
+                  [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor='http://127.0.0.1:4723',[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+        [1;31moptions=opts[0m
+        [1;31m^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m249[0m, in [35m__init__[0m
+    [31msuper().__init__[0m[1;31m([0m
+    [31m~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mcommand_executor=command_executor,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    ...<3 lines>...
+        [1;31mclient_config=client_config,[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m263[0m, in [35m__init__[0m
+    [31mself.start_session[0m[1;31m(capabilities)[0m
+    [31m~~~~~~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\appium\webdriver\webdriver.py"[0m, line [35m342[0m, in [35mstart_session[0m
+    response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\webdriver.py"[0m, line [35m455[0m, in [35mexecute[0m
+    response = cast(RemoteConnection, self.command_executor).execute(driver_command, params)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m407[0m, in [35mexecute[0m
+    return [31mself._request[0m[1;31m(command_info[0], url, body=data)[0m
+           [31m~~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\selenium\webdriver\remote\remote_connection.py"[0m, line [35m431[0m, in [35m_request[0m
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m143[0m, in [35mrequest[0m
+    return [31mself.request_encode_body[0m[1;31m([0m
+           [31m~~~~~~~~~~~~~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod, url, fields=fields, headers=headers, **urlopen_kw[0m
+        [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\_request_methods.py"[0m, line [35m278[0m, in [35mrequest_encode_body[0m
+    return [31mself.urlopen[0m[1;31m(method, url, **extra_kw)[0m
+           [31m~~~~~~~~~~~~[0m[1;31m^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\poolmanager.py"[0m, line [35m459[0m, in [35murlopen[0m
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m871[0m, in [35murlopen[0m
+    return [31mself.urlopen[0m[1;31m([0m
+           [31m~~~~~~~~~~~~[0m[1;31m^[0m
+        [1;31mmethod,[0m
+        [1;31m^^^^^^^[0m
+    ...<13 lines>...
+        [1;31m**response_kw,[0m
+        [1;31m^^^^^^^^^^^^^^[0m
+    [1;31m)[0m
+    [1;31m^[0m
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\connectionpool.py"[0m, line [35m841[0m, in [35murlopen[0m
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File [35m"C:\Users\GoraBhattacharjee\AppData\Roaming\Python\Python314\site-packages\urllib3\util\retry.py"[0m, line [35m519[0m, in [35mincrement[0m
+    [1;31mraise MaxRetryError(_pool, url, reason) from reason[0m  # type: ignore[arg-type]
+    [1;31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1;35murllib3.exceptions.MaxRetryError[0m: [35mHTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001BDBC302360>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))[0m
+]]></error>
+	</testcase>
+</testsuite>

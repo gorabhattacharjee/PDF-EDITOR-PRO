@@ -1,0 +1,356 @@
+ Volume in drive C is Windows
+ Volume Serial Number is 6055-82F4
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\lucide-react\dist\esm\icons
+
+22-11-2025  19:21               711 server.js
+               1 File(s)            711 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\next
+
+25-10-2025  10:34             1,123 server.js
+               1 File(s)          1,123 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\next\dist\api
+
+25-10-2025  10:34                80 server.js
+               1 File(s)             80 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\next\dist\compiled\react-dom
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\next\dist\compiled\react-dom-experimental
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\next\dist\compiled\react-server-dom-turbopack
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\next\dist\compiled\react-server-dom-turbopack-experimental
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\next\dist\compiled\react-server-dom-webpack
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\next\dist\compiled\react-server-dom-webpack-experimental
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\next\dist\esm\api
+
+25-10-2025  10:34                80 server.js
+               1 File(s)             80 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\next\dist\esm\server\typescript\rules
+
+25-10-2025  10:34             3,351 server.js
+               1 File(s)          3,351 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\next\dist\experimental\testmode
+
+25-10-2025  10:34             1,696 server.js
+               1 File(s)          1,696 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\next\dist\experimental\testmode\proxy
+
+25-10-2025  10:34             2,350 server.js
+               1 File(s)          2,350 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\next\dist\server\typescript\rules
+
+25-10-2025  10:34             3,563 server.js
+               1 File(s)          3,563 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\react-dom
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\frontend\node_modules\tesseract.js\scripts
+
+22-11-2025  19:21               859 server.js
+               1 File(s)            859 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\docx@9.5.1\node_modules\xml\examples
+
+22-11-2025  19:20               706 server.js
+               1 File(s)            706 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\lucide-react@0.554.0_react@18.3.1\node_modules\lucide-react\dist\esm\icons
+
+22-11-2025  19:21               711 server.js
+               1 File(s)            711 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next
+
+25-10-2025  10:34             1,123 server.js
+               1 File(s)          1,123 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\api
+
+25-10-2025  10:34                80 server.js
+               1 File(s)             80 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\react-dom
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\react-dom-experimental
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\react-server-dom-turbopack
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\react-server-dom-turbopack-experimental
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\react-server-dom-webpack
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\react-server-dom-webpack-experimental
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\esm\api
+
+25-10-2025  10:34                80 server.js
+               1 File(s)             80 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\esm\server\typescript\rules
+
+25-10-2025  10:34             3,351 server.js
+               1 File(s)          3,351 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\experimental\testmode
+
+25-10-2025  10:34             1,696 server.js
+               1 File(s)          1,696 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\experimental\testmode\proxy
+
+25-10-2025  10:34             2,350 server.js
+               1 File(s)          2,350 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\server\typescript\rules
+
+25-10-2025  10:34             3,563 server.js
+               1 File(s)          3,563 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\react-dom
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\lucide-react\dist\esm\icons
+
+22-11-2025  19:21               711 server.js
+               1 File(s)            711 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\next
+
+25-10-2025  10:34             1,123 server.js
+               1 File(s)          1,123 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\next\dist\api
+
+25-10-2025  10:34                80 server.js
+               1 File(s)             80 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\next\dist\compiled\react-dom
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\next\dist\compiled\react-dom-experimental
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\next\dist\compiled\react-server-dom-turbopack
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\next\dist\compiled\react-server-dom-turbopack-experimental
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\next\dist\compiled\react-server-dom-webpack
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\next\dist\compiled\react-server-dom-webpack-experimental
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\next\dist\esm\api
+
+25-10-2025  10:34                80 server.js
+               1 File(s)             80 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\next\dist\esm\server\typescript\rules
+
+25-10-2025  10:34             3,351 server.js
+               1 File(s)          3,351 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\next\dist\experimental\testmode
+
+25-10-2025  10:34             1,696 server.js
+               1 File(s)          1,696 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\next\dist\experimental\testmode\proxy
+
+25-10-2025  10:34             2,350 server.js
+               1 File(s)          2,350 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\next\dist\server\typescript\rules
+
+25-10-2025  10:34             3,563 server.js
+               1 File(s)          3,563 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\lucide-react\dist\esm\icons
+
+22-11-2025  19:21               711 server.js
+               1 File(s)            711 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\next
+
+25-10-2025  10:34             1,123 server.js
+               1 File(s)          1,123 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\next\dist\api
+
+25-10-2025  10:34                80 server.js
+               1 File(s)             80 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\next\dist\compiled\react-dom
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\next\dist\compiled\react-dom-experimental
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\next\dist\compiled\react-server-dom-turbopack
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\next\dist\compiled\react-server-dom-turbopack-experimental
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\next\dist\compiled\react-server-dom-webpack
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\next\dist\compiled\react-server-dom-webpack-experimental
+
+18-10-2025  16:20               194 server.js
+               1 File(s)            194 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\next\dist\esm\api
+
+25-10-2025  10:34                80 server.js
+               1 File(s)             80 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\next\dist\esm\server\typescript\rules
+
+25-10-2025  10:34             3,351 server.js
+               1 File(s)          3,351 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\next\dist\experimental\testmode
+
+25-10-2025  10:34             1,696 server.js
+               1 File(s)          1,696 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\next\dist\experimental\testmode\proxy
+
+25-10-2025  10:34             2,350 server.js
+               1 File(s)          2,350 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\next\dist\server\typescript\rules
+
+25-10-2025  10:34             3,563 server.js
+               1 File(s)          3,563 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\react-dom
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\pdf-editor-pro-frontend\node_modules\tesseract.js\scripts
+
+22-11-2025  19:21               859 server.js
+               1 File(s)            859 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\react-dom
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\tesseract.js\scripts
+
+22-11-2025  19:21               859 server.js
+               1 File(s)            859 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\node_modules\xml\examples
+
+22-11-2025  19:20               706 server.js
+               1 File(s)            706 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\react-dom@18.3.1_react@18.3.1\node_modules\react-dom
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\react-hot-toast@2.4.1_cssty_2f9e2d2f1b61f13482349f140a5f0248\node_modules\react-dom
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\sonner@2.0.7_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\react-dom
+
+18-10-2025  16:19                58 server.js
+               1 File(s)             58 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\tesseract.js@5.1.1\node_modules\tesseract.js\scripts
+
+22-11-2025  19:21               859 server.js
+               1 File(s)            859 bytes
+
+ Directory of C:\PDFP\pdf-editor-pro\node_modules\.pnpm\xml@1.0.1\node_modules\xml\examples
+
+22-11-2025  19:20               706 server.js
+               1 File(s)            706 bytes
+
+     Total Files Listed:
+              70 File(s)         61,344 bytes
+               0 Dir(s)  92,381,290,496 bytes free

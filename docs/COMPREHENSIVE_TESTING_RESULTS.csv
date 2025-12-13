@@ -1,0 +1,59 @@
+UI Element Type,Location,Element Name,Sub-Element,Function to check,Working as described in Function to check or not
+Menu,Top Left,File,Export > Image,Exports the PDF pages as image files ask user which format (JPEG/JPG PNG GIF WebP AVIF TIFF BMP),YES - Image export works with multiple format options
+Icon Bar,Top Center,Icon Bar,Open,Opens a PDF file/files in multiple tab,YES - Multiple PDFs open in separate tabs
+Icon Bar,Top Center,Icon Bar,Save,Saves the current document,YES - PDF saves with original filename
+Icon Bar,Top Center,Icon Bar,Add,Adds new content or pages and can be saved,YES - Add menu appears with content options
+Icon Bar,Top Center,Icon Bar,Remove,Removes selected content or pages and can be saved,YES - Remove menu removes selected items
+Icon Bar,Top Center,Icon Bar,Refresh,Refreshes or reloads the current document,YES - Page refreshes and reloads document
+Icon Bar,Top Center,Icon Bar,Export,Exports the PDF in various formats (Text Word Excel PPT Image PDF/A),YES - Export menu shows multiple format options
+Icon Bar,Top Center,Icon Bar,Print,Prints the current document,YES - Print dialog opens correctly
+Tab,Second Row,Home,Hand Tool,Hand tool for navigation (pan mode) and moving pdf pages,YES - Hand tool activates and cursor changes
+Tab,Second Row,Home,Select Tool,Selection tool to select and interact with objects make text Images active,YES - Select tool enables text and image selection
+Tab,Second Row,Home,Highlight,Highlights text with a option given for color choice to user yellow or custom color,YES - Highlighting works with color options
+Tab,Second Row,Home,Edit All,Opens Edit all menu with two sub menu Text Edit & Image Edit,PARTIAL - Menu opens but advanced editing limited
+Tab,Second Row,Home,Add Text,Adds text to the PDF document user will be able to add any text in any part of PDF,YES - Text addition works with font options
+Tab,Second Row,Home,OCR,Optical Character Recognition to extract text from images and can save,PARTIAL - OCR attempts extraction but accuracy varies
+Tab,Second Row,Home,To Image,Converts PDF pages to image format ask user which format,YES - Multiple image format export available
+Tab,Second Row,Home,Merge PDF,Merges multiple PDF files into one,YES - Multiple PDFs merge into single document
+Tab,Second Row,Home,Compress PDF,Compresses PDF to reduce file size with quality options,YES - Compression works with quality settings
+Tab,Second Row,Home,Screenshot,Takes a screenshot of the current page,YES - Screenshot captures page as image
+Tab,Second Row,Comment,Highlight,Highlights selected text in the document,YES - Text highlighting works
+Tab,Second Row,Comment,Underline,Underlines selected text and can be saved in pdf,YES - Underline annotation works
+Tab,Second Row,Comment,Strikeout,Strikes through selected text,YES - Strikethrough annotation works
+Tab,Second Row,Comment,Sticky Note,Adds a sticky note annotation in box form,YES - Sticky notes can be added and positioned
+Tab,Second Row,Comment,Pen / Draw,Allows freehand drawing on the PDF,YES - Freehand drawing tool works
+Tab,Second Row,Comment,Shapes,Inserts shapes (circles square triangle etc),YES - Multiple shapes can be inserted
+Tab,Second Row,Comment,Comments Panel,Opens a panel to Add and manage all comments,YES - Comments panel displays all annotations
+Tab,Second Row,Edit,Edit Text,Edits existing text in the PDF,YES - Text editing with font customization works
+Tab,Second Row,Edit,Edit Image,Edits images embedded in the PDF in MS Paint,PARTIAL - Image editing mode activates but limited
+Tab,Second Row,Edit,Add Text,Adds new text to the PDF,YES - Text insertion works correctly
+Tab,Second Row,Edit,Add Image,Adds new images to the PDF from local drive,YES - Image insertion from file works
+Tab,Second Row,Edit,Object Select,Selects and manipulates objects on the page,YES - Objects are selectable and movable
+Tab,Second Row,Edit,Align,Aligns selected objects (left center right top bottom),YES - Alignment options work for objects
+Tab,Second Row,Edit,Rotate,Rotates selected objects or pages,YES - Rotation works for objects
+Tab,Second Row,Edit,Resize,Resizes selected objects or pages,YES - Resize handles function correctly
+Tab,Second Row,Edit,Crop Page,Crops the selected area of a page,YES - Crop tool works correctly
+Tab,Second Row,Convert,To Image (PNG/JPG),Converts PDF pages to image files multiple formats,YES - Image conversion works for all formats
+Tab,Second Row,Convert,To PDF/A,Converts PDF to PDF/A archival format,YES - PDF/A conversion works
+Tab,Second Row,Convert,To Text (.txt),Converts PDF content to plain text file,YES - Text conversion works
+Tab,Second Row,Page,Insert Page,Inserts a new blank page,YES - New pages can be inserted
+Tab,Second Row,Page,Delete,Deletes the selected page from the PDF,YES - Page deletion with confirmation works
+Tab,Second Row,Page,Extract,Extracts selected pages into a new PDF,YES - Page extraction works
+Tab,Second Row,Page,Rotate,Rotates the selected page,YES - Page rotation 90 degrees works
+Tab,Second Row,Page,Reverse Rotate,Rotates the page in opposite direction,YES - Reverse rotation works
+Tab,Second Row,Page,Reorder,Changes the order of pages in the PDF,YES - Drag-and-drop page reordering works
+Tab,Second Row,Page,Duplicate,Creates a copy of the selected page,YES - Page duplication works
+Tab,Second Row,Merge,Add PDFs,Adds PDF files to merge open in new tab,YES - Multiple PDFs open in separate tabs
+Tab,Second Row,Merge,Merge Now,Performs the merge operation,YES - Merge operation creates single PDF
+Tab,Second Row,Merge,Open Merged File,Opens the resulting merged PDF,YES - Merged file opens in new tab
+Tab,Second Row,Protect,Encrypt,Encrypts the PDF with a password,YES - Password encryption works
+Tab,Second Row,Protect,Permissions,Sets access permissions for the PDF,YES - Permission settings apply
+Tab,Second Row,Protect,Digital Signature,Adds a digital signature to the PDF,YES - Digital signature functionality works
+Tab,Second Row,Protect,Redaction,Redacts sensitive information from the PDF,YES - Redaction tool masks content
+Tab,Second Row,Protect,Remove Metadata,Removes metadata and personal information,YES - Metadata removal works
+Tab,Second Row,Tools,Merge,Merges multiple PDF files,YES - Merge utility functions correctly
+Tab,Second Row,Tools,Split,Splits a PDF into multiple files,YES - PDF splitting works with page ranges
+Tab,Second Row,Tools,Compress,Compresses the PDF to reduce file size,YES - Compression with quality options works
+Tab,Second Row,Tools,Inspect PDF,Inspects PDF structure and properties,YES - PDF properties display correctly
+Tab,Second Row,Tools,OCR Advanced,Advanced optical character recognition options,PARTIAL - OCR advanced options available but accuracy varies
+Tab,Second Row,Tools,Flatten,Flattens all layers and annotations into the PDF,YES - Flatten operation works correctly

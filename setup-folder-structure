@@ -1,0 +1,550 @@
+# Complete Setup Instructions – Fix pnpm Workspace Error
+
+## The Problem
+
+You're getting: `ERROR  --workspace-root may only be used inside a workspace`
+
+This means the `pnpm-workspace.yaml` file is missing or the folder structure is incomplete.
+
+---
+
+## Solution: Create the Complete Folder Structure
+
+### Step 1: Create Folder Structure (Exact Paths)
+
+From `C:\PDFP\pdf-editor-pro\`, create these folders:
+
+```
+pdf-editor-pro/
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+├── backend/
+│   ├── routes/
+│   ├── middleware/
+│   └── package.json
+└── docs/
+```
+
+**PowerShell Command:**
+```powershell
+# Create all folders
+mkdir frontend\src, frontend\public, backend\routes, backend\middleware, docs -Force
+```
+
+### Step 2: Create Root Files (3 Files)
+
+These **must** be in `C:\PDFP\pdf-editor-pro\` (root directory):
+
+#### File 1: `pnpm-workspace.yaml` (Root)
+
+```yaml
+packages:
+  - 'frontend'
+  - 'backend'
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\pnpm-workspace.yaml`
+
+#### File 2: `package.json` (Root)
+
+```json
+{
+  "name": "pdf-editor-pro",
+  "version": "1.0.0",
+  "description": "Production-ready web-based PDF editor",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -r --parallel run dev",
+    "build": "pnpm -r run build",
+    "start": "pnpm -C frontend start & pnpm -C backend start",
+    "typecheck": "pnpm -r run typecheck",
+    "lint": "pnpm -r run lint",
+    "format": "pnpm -r run format"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\package.json`
+
+#### File 3: `.gitignore` (Root)
+
+```
+node_modules/
+.next/
+dist/
+build/
+*.log
+.DS_Store
+.env
+.env.local
+.env.*.local
+.vercel
+coverage/
+.eslintcache
+pnpm-lock.yaml
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\.gitignore`
+
+### Step 3: Create Frontend Files (5 Essential Files)
+
+Create in `C:\PDFP\pdf-editor-pro\frontend\`
+
+#### frontend/package.json
+
+```json
+{
+  "name": "pdf-editor-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\""
+  },
+  "dependencies": {
+    "next": "14.2.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "typescript": "5.4.5",
+    "zustand": "4.4.7",
+    "pdfjs-dist": "3.11.174",
+    "pdf-lib": "1.17.1",
+    "tesseract.js": "5.0.4",
+    "tailwindcss": "3.4.3",
+    "postcss": "8.4.35",
+    "autoprefixer": "10.4.17",
+    "@radix-ui/react-dialog": "1.1.1",
+    "@radix-ui/react-dropdown-menu": "2.0.5",
+    "@radix-ui/react-tabs": "1.0.4",
+    "@radix-ui/react-popover": "1.0.7",
+    "@radix-ui/react-tooltip": "1.0.7",
+    "react-hot-toast": "2.4.1",
+    "lucide-react": "0.368.0",
+    "class-variance-authority": "0.7.0",
+    "clsx": "2.0.0",
+    "tailwind-merge": "2.3.0",
+    "date-fns": "3.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.10.6",
+    "@types/react": "18.2.45",
+    "@types/react-dom": "18.2.18",
+    "prettier": "3.1.1",
+    "eslint": "8.56.0",
+    "eslint-config-next": "14.2.5"
+  }
+}
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\frontend\package.json`
+
+#### frontend/tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable", "WebWorker"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\frontend\tsconfig.json`
+
+#### frontend/next.config.mjs
+
+```javascript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  webpack: (config, { isServer }) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'pdfjs-dist/legacy/build/pdf.worker.min': 'pdfjs-dist/build/pdf.worker.min.js',
+    };
+
+    config.module.rules.push({
+      test: /\.worker\.ts$/,
+      use: { loader: 'worker-loader', options: { type: 'module' } },
+    });
+
+    return config;
+  },
+  experimental: {
+    esmExternals: true,
+  },
+};
+
+export default nextConfig;
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\frontend\next.config.mjs`
+
+#### frontend/tailwind.config.ts
+
+```typescript
+import type { Config } from 'tailwindcss';
+import defaultTheme from 'tailwindcss/defaultTheme';
+
+const config: Config = {
+  darkMode: 'class',
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: '#f5f3ff',
+          500: '#8b5cf6',
+          900: '#3730a3',
+        },
+        neutral: {
+          50: '#f9fafb',
+          100: '#f3f4f6',
+          200: '#e5e7eb',
+          300: '#d1d5db',
+          600: '#4b5563',
+          900: '#111827',
+        },
+      },
+      fontFamily: {
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\frontend\tailwind.config.ts`
+
+#### frontend/postcss.config.mjs
+
+```javascript
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\frontend\postcss.config.mjs`
+
+### Step 4: Create Backend Files (3 Essential Files)
+
+Create in `C:\PDFP\pdf-editor-pro\backend\`
+
+#### backend/package.json
+
+```json
+{
+  "name": "pdf-editor-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --loader ts-node/esm server.ts",
+    "start": "node server.js",
+    "build": "tsc",
+    "lint": "eslint src/**/*.ts"
+  },
+  "dependencies": {
+    "express": "4.18.2",
+    "cors": "2.8.5",
+    "multer": "1.4.5-lts.1",
+    "uuid": "9.0.1"
+  },
+  "devDependencies": {
+    "@types/express": "4.17.21",
+    "@types/node": "20.10.6",
+    "@types/multer": "1.4.11",
+    "typescript": "5.4.5",
+    "ts-node": "10.9.2",
+    "eslint": "8.56.0"
+  }
+}
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\backend\package.json`
+
+#### backend/tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ES2020"],
+    "outDir": "./dist",
+    "rootDir": "./",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node"
+  },
+  "include": ["*.ts"],
+  "exclude": ["node_modules"]
+}
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\backend\tsconfig.json`
+
+#### backend/server.ts
+
+```typescript
+import express from 'express';
+import cors from 'cors';
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  credentials: true,
+}));
+app.use(express.json({ limit: '100mb' }));
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+app.listen(PORT, () => {
+  console.log(`PDF Editor backend running on port ${PORT}`);
+});
+
+export default app;
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\backend\server.ts`
+
+### Step 5: Create Frontend App Files (Minimal Structure)
+
+Create these in `C:\PDFP\pdf-editor-pro\frontend\src\`
+
+#### frontend/src/app/layout.tsx
+
+```typescript
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'PDF Editor Pro',
+  description: 'Production-ready web-based PDF editor',
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\frontend\src\app\layout.tsx`
+
+#### frontend/src/app/page.tsx
+
+```typescript
+'use client';
+
+export default function Home() {
+  return (
+    <div style={{ padding: '2rem' }}>
+      <h1>PDF Editor Pro</h1>
+      <p>Loading editor...</p>
+    </div>
+  );
+}
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\frontend\src\app\page.tsx`
+
+#### frontend/public/.gitkeep
+
+(Empty file to ensure folder exists in git)
+
+**Save to:** `C:\PDFP\pdf-editor-pro\frontend\public\.gitkeep`
+
+---
+
+## Step 6: Environment Files
+
+Create these two files:
+
+#### frontend/.env.local
+
+```
+NEXT_PUBLIC_PDF_WORKER_SRC=/pdf.worker.js
+NEXT_PUBLIC_API_BASE=http://localhost:3001
+APRYSE_ENABLED=false
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\frontend\.env.local`
+
+#### backend/.env
+
+```
+PORT=3001
+CORS_ORIGIN=http://localhost:3000
+NODE_ENV=development
+```
+
+**Save to:** `C:\PDFP\pdf-editor-pro\backend\.env`
+
+---
+
+## Step 7: Now Install Dependencies
+
+```powershell
+cd C:\PDFP\pdf-editor-pro
+pnpm install -w
+```
+
+✅ This should now work without errors.
+
+---
+
+## Step 8: Verify Installation
+
+```powershell
+# Check pnpm version
+pnpm --version
+
+# List all packages in workspaces
+pnpm ls -r --depth=0
+
+# Should show:
+# pdf-editor-pro
+# ├─ frontend (dependencies listed)
+# └─ backend (dependencies listed)
+```
+
+---
+
+## Step 9: Start Development
+
+```powershell
+pnpm dev
+```
+
+This will start:
+- Frontend: http://localhost:3000
+- Backend: http://localhost:3001
+
+Open browser to **http://localhost:3000**
+
+---
+
+## Troubleshooting
+
+If you still get workspace errors:
+
+1. **Verify file location:**
+   ```powershell
+   ls C:\PDFP\pdf-editor-pro\pnpm-workspace.yaml
+   ```
+   Should exist and show `packages: - 'frontend' - 'backend'`
+
+2. **Clear pnpm cache:**
+   ```powershell
+   pnpm store prune
+   ```
+
+3. **Reinstall from scratch:**
+   ```powershell
+   rm -r node_modules pnpm-lock.yaml
+   pnpm install -w
+   ```
+
+4. **Check pnpm version:**
+   ```powershell
+   pnpm --version
+   # Should be 9.0.0+
+   ```
+
+---
+
+## Final Folder Structure (After All Files Created)
+
+```
+C:\PDFP\pdf-editor-pro\
+├── pnpm-workspace.yaml       ✅ CRITICAL
+├── package.json              ✅ CRITICAL
+├── .gitignore
+├── frontend/
+│   ├── package.json          ✅ CRITICAL
+│   ├── tsconfig.json
+│   ├── next.config.mjs
+│   ├── tailwind.config.ts
+│   ├── postcss.config.mjs
+│   ├── .env.local
+│   ├── src/
+│   │   └── app/
+│   │       ├── layout.tsx
+│   │       └── page.tsx
+│   └── public/
+│       └── .gitkeep
+└── backend/
+    ├── package.json          ✅ CRITICAL
+    ├── tsconfig.json
+    ├── server.ts
+    ├── .env
+    ├── routes/
+    │   └── .gitkeep
+    └── middleware/
+        └── .gitkeep
+```
+
+---
+
+## Next Command to Run
+
+Once all files are created and `pnpm install -w` succeeds:
+
+```powershell
+pnpm dev
+```
+
+Then open: **http://localhost:3000**
+
+You'll see the editor loading!
+

@@ -1,0 +1,9 @@
+Category,File Path,Issue Type,Description
+Structure,backend/uploads/,Potential Issue,Uploads directory contains many files without clear organization
+Structure,frontend/.next/cache/,Potential Issue,Cache directory contains many compressed files that may need cleanup
+Documentation,EXECUTIVE_SUMMARY.txt,Note,High-level summary exists but may need updating
+Documentation,IMPLEMENTATION_CHECKLIST.md,Note,Checklist exists but may need review
+Backend,backend/convert_service.py,Note,Python conversion service exists alongside Node.js backend
+Frontend,frontend/src/,Note,Source directory structure not visible in scan
+Dependencies,backend/package.json,Note,Backend dependencies include cors, express, multer
+Dependencies,frontend/package.json,Note,Frontend uses Next.js with Tailwind CSS

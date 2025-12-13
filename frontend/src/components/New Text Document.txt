@@ -1,0 +1,64 @@
+"use client";
+
+import React from "react";
+
+const menuItem =
+  "px-4 py-2 text-sm hover:bg-gray-100 w-full text-left transition";
+
+const FileMenu = ({
+  onOpen,
+  onSave,
+  onSaveAs,
+}: {
+  onOpen: () => void;
+  onSave: () => void;
+  onSaveAs: () => void;
+}) => {
+  return (
+    <div
+      className="file-menu-container shadow-xl rounded-md bg-white border file-menu-enter"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <button className={menuItem} onClick={onOpen}>
+        📂 Open
+      </button>
+
+      <button className={menuItem} onClick={onSave}>
+        💾 Save
+      </button>
+
+      <button className={menuItem} onClick={onSaveAs}>
+        💾 Save As
+      </button>
+
+      <div className="border-t my-1" />
+
+      <button className={menuItem}>🖨 Print</button>
+
+      <div className="border-t my-1" />
+
+      <div className="relative">
+        <button className={menuItem}>📤 Export ›</button>
+
+        {/* Export submenu auto-fit */}
+        <div className="ml-40 -mt-10 absolute file-menu-sub shadow-xl bg-white border rounded-md">
+          <button className={menuItem}>🅦 Word</button>
+          <button className={menuItem}>🅧 Excel</button>
+          <button className={menuItem}>🅟 PowerPoint</button>
+          <button className={menuItem}>🖼 Image</button>
+          <button className={menuItem}>📜 Text</button>
+          <button className={menuItem}>🌐 HTML</button>
+          <button className={menuItem}>🅐 PDF-A</button>
+        </div>
+      </div>
+
+      <div className="border-t my-1" />
+
+      <button className={menuItem}>📄 Properties</button>
+
+      <button className={`${menuItem} text-red-600`}>❌ Close</button>
+    </div>
+  );
+};
+
+export default FileMenu;

@@ -1,0 +1,149 @@
+Folder PATH listing for volume Windows
+Volume serial number is 6055-82F4
+C:.
+¦   tree.txt
+¦   
++---adapters
+¦       New Text Document.txt
+¦       pdf-lib.ts
+¦       pdfjs.ts
+¦       tesseract.ts
+¦       
++---app
+¦   ¦   globals.css
+¦   ¦   layout.tsx
+¦   ¦   page - Copy.tsx
+¦   ¦   page.tsx
+¦   ¦   
+¦   +---backup
+¦           globals.css
+¦           layout.tsx
+¦           page.tsx
+¦           
++---components
+¦   ¦   AnnotationOverlay.tsx
+¦   ¦   Canvas.tsx
+¦   ¦   DragDropUpload.tsx
+¦   ¦   EditorPage.tsx
+¦   ¦   InspectModal.tsx
+¦   ¦   MergeModal.tsx
+¦   ¦   New Text Document.txt
+¦   ¦   openDocument.ts
+¦   ¦   PageReorderModal.tsx
+¦   ¦   PageThumbnailPanel.tsx
+¦   ¦   PDFEditor.tsx
+¦   ¦   PropertiesPanel.tsx
+¦   ¦   RibbonBar.tsx
+¦   ¦   Sidebar.tsx
+¦   ¦   StickyNote.tsx
+¦   ¦   TabsBar.tsx
+¦   ¦   TextEditorPanel.tsx
+¦   ¦   Toaster.tsx
+¦   ¦   UploadModal.tsx
+¦   ¦   UtilityBar.tsx
+¦   ¦   WelcomeBox.tsx
+¦   ¦   
+¦   +---ribbon
+¦           CommentTab.tsx
+¦           ConvertTab.tsx
+¦           EditTab.tsx
+¦           FileMenu.tsx
+¦           HomeTab.tsx
+¦           MergePDFTab.tsx
+¦           New Text Document.txt
+¦           PageTab.tsx
+¦           ProtectTab.tsx
+¦           RibbonButton.tsx
+¦           ToolsTab.tsx
+¦           
++---lib
+¦       canvasInteraction.ts
+¦       New Text Document.txt
+¦       utils.ts
+¦       
++---services
+¦       advancedPdfOperations.ts
+¦       bookmarksService.ts
+¦       encryptionService.ts
+¦       enhancedExport.ts
+¦       imageExport.ts
+¦       New Text Document.txt
+¦       ocrService.ts
+¦       officeExport.ts
+¦       pdfOperations.ts
+¦       
++---stores
+¦   ¦   annotations.ts
+¦   ¦   annotationsEnhanced.ts
+¦   ¦   documents.ts
+¦   ¦   history.ts
+¦   ¦   jobs.ts
+¦   ¦   New Text Document.txt
+¦   ¦   selection.ts
+¦   ¦   ui.ts
+¦   ¦   useAnnotationsStore.ts
+¦   ¦   useDocumentsStore.ts
+¦   ¦   useHistoryStore.ts
+¦   ¦   useSelectionStore.ts
+¦   ¦   useUIStore.ts
+¦   ¦   
+¦   +---backup
+¦           annotations.ts
+¦           annotationsEnhanced.ts
+¦           documents.ts
+¦           history.ts
+¦           jobs.ts
+¦           New Text Document.txt
+¦           selection.ts
+¦           ui.ts
+¦           useAnnotationsStore.ts
+¦           useDocumentsStore.ts
+¦           useHistoryStore.ts
+¦           useSelectionStore.ts
+¦           useUIStore.ts
+¦           
++---styles
+¦       ribbon.css
+¦       
++---types
+¦       annotations.ts
+¦       New Text Document.txt
+¦       
++---utils
+    ¦   drawingUtils.ts
+    ¦   exporters.ts
+    ¦   keyboard.ts
+    ¦   logger.ts
+    ¦   New Text Document.txt
+    ¦   pdfActions.ts
+    ¦   pdfExportUtils.ts
+    ¦   
+    +---pdf
+    ¦   +---export
+    ¦   ¦       exportFunctions.ts
+    ¦   ¦       New Text Document.txt
+    ¦   ¦       
+    ¦   +---merge
+    ¦   ¦       mergeFunctions.ts
+    ¦   ¦       New Text Document.txt
+    ¦   ¦       
+    ¦   +---open
+    ¦   ¦       New Text Document.txt
+    ¦   ¦       openFunctions.ts
+    ¦   ¦       
+    ¦   +---pages
+    ¦   ¦       New Text Document.txt
+    ¦   ¦       pageFunctions.ts
+    ¦   ¦       
+    ¦   +---save
+    ¦   ¦       New Text Document.txt
+    ¦   ¦       saveFunctions.ts
+    ¦   ¦       
+    ¦   +---tools
+    ¦           New Text Document.txt
+    ¦           toolFunctions.ts
+    ¦           
+    +---ui
+            New Text Document.txt
+            uiFunctions.ts
+            

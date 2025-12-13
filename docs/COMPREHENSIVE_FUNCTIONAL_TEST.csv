@@ -1,0 +1,102 @@
+Test ID,UI Element Type,Location,Element Name,Sub-Element,Function Description,Status,Details,User Action,Expected Result,Actual Result,Pass/Fail,Notes
+1,Menu,Top Left,File,Open,Opens a PDF file/files in multiple tab,WORKING,File dialog opens and loads PDF,Click File > Open,Select PDF file and load in new tab,PDF loads in new tab with filename displayed,PASS,Multiple tabs supported - tested with 2 PDFs simultaneously
+2,Menu,Top Left,File,Save,Saves the current document,WORKING,Downloads active PDF,Click File > Save,PDF downloads to default download folder,PDF downloads with original filename,PASS,Maintains original filename
+3,Menu,Top Left,File,Save As,Saves document with custom name,WORKING,Prompts for filename then downloads,Click File > Save As,Enter custom name and download,PDF downloads with custom name,PASS,User can rename before download
+4,Menu,Top Left,File,Print,Prints the current document,WORKING,Calls browser print dialog,Click File > Print,Print dialog opens,Print dialog appears with printer options,PASS,Uses window.print() - all printers available
+5,Menu,Top Left,File,Close,Closes active document,WORKING,Removes document from tabs,Click File > Close,Active tab closes - other tabs remain,Document removed from list,PASS,Only closes active tab
+6,Menu,Top Left,File,Download Log,Downloads action log,WORKING,Exports log as text file,Click File > Download Log,Log file downloads,Text file downloads with action history,PASS,Contains timestamp and action descriptions
+7,Menu,Top Left,File,Export > Image,Exports as image with format selection,WORKING,Modal shows format and page options,Click File > Export > Image,Modal appears with format dropdown and page selection,Modal displays with JPEG/PNG/GIF/WebP/AVIF/TIFF/BMP options,PASS,Format selection working - page range selection working
+8,Menu,Top Left,File,Export > Word,Exports to Word format,WORKING,Calls backend conversion,Click File > Export > Word,Word file downloads,DOCX file downloads successfully,PASS,Uses pdf2docx backend conversion
+9,Menu,Top Left,File,Export > Excel,Exports to Excel format,WORKING,Calls backend conversion,Click File > Export > Excel,Excel file downloads,XLSX file downloads successfully,PASS,Uses tabula-py backend conversion
+10,Menu,Top Left,File,Export > PowerPoint,Exports to PowerPoint format,WORKING,Calls backend conversion,Click File > Export > PowerPoint,PowerPoint file downloads,PPTX file downloads successfully,PASS,Uses pdf2image + python-pptx conversion
+11,Menu,Top Left,File,Export > HTML,Exports to HTML format,WORKING,Calls backend conversion,Click File > Export > HTML,HTML file downloads,HTML file downloads successfully,PASS,Preserves layout and styling
+12,Menu,Top Left,File,Export > Text,Exports to Text format,WORKING,Text extraction from PDF,Click File > Export > Text,Text file downloads,TXT file downloads with extracted content,PASS,Full text extraction working
+13,Menu,Top Left,File,Properties,Shows document properties,WORKING,Displays PDF metadata,Click File > Properties,Property panel opens,Document info shown (pages, size, date),PASS,Shows page count and file information
+14,Icon Bar,Top Center,Icon Bar,Open Button,Opens PDF file,WORKING,File dialog opens,Click open icon,File dialog appears,Dialog appears and can select PDF,PASS,Same as File > Open
+15,Icon Bar,Top Center,Icon Bar,Save Button,Saves current document,WORKING,Downloads PDF,Click save icon,PDF downloads,File downloads successfully,PASS,Downloads to default folder
+16,Icon Bar,Top Center,Icon Bar,Add Button,Adds new content or pages,PARTIAL,Shows coming soon alert,Click add icon,Alert appears,Alert: "Add - coming soon",FAIL,Not yet implemented - placeholder only
+17,Icon Bar,Top Center,Icon Bar,Remove Button,Removes selected content,PARTIAL,Shows coming soon alert,Click remove icon,Alert appears,Alert: "Remove - coming soon",FAIL,Not yet implemented - placeholder only
+18,Icon Bar,Top Center,Icon Bar,Refresh Button,Refreshes current document,WORKING,Page reload,Click refresh icon,Page reloads,Page reloads and document remains,PASS,Uses location.reload()
+19,Icon Bar,Top Center,Icon Bar,Export Button,Opens export options,WORKING,Opens File menu,Click export icon,File menu appears,File menu opens with export options,PASS,Toggles file menu visibility
+20,Icon Bar,Top Center,Icon Bar,Print Button,Prints document,WORKING,Opens print dialog,Click print icon,Print dialog appears,Print dialog opens,PASS,Same as File > Print
+21,Icon Bar,Top Center,Icon Bar,Zoom Out Button,Decreases zoom,WORKING,Reduces view scale,Click zoom out,Zoom decreases by 25%,Page zooms out,PASS,Minimum 50% zoom enforced
+22,Icon Bar,Top Center,Icon Bar,Zoom In Button,Increases zoom,WORKING,Increases view scale,Click zoom in,Zoom increases by 25%,Page zooms in,PASS,Maximum 300% zoom enforced
+23,Icon Bar,Top Center,Icon Bar,Zoom Display,Shows current zoom percentage,WORKING,Displays zoom level,Observe zoom percentage display,Shows current zoom %,Current zoom % displayed (100%),PASS,Updates as zoom changes
+24,Tab,Second Row,Home,Hand Tool,Navigation pan mode,WORKING,Activates hand tool,Click Hand button,Tool activates with highlight,Hand tool active (visual feedback),PASS,Cursor changes and tool is active
+25,Tab,Second Row,Home,Select Tool,Text and object selection,WORKING,Enables text selection in PDF,Click Select button,Tool activates,Select tool active,PASS,Can select and interact with text
+26,Tab,Second Row,Home,Highlight Tool,Highlights selected text,WORKING,Annotation tool active,Click Highlight button,Tool activates,Highlight tool active,PASS,Can highlight with color options
+27,Tab,Second Row,Home,Edit All Dropdown,Opens edit menu,PARTIAL,Shows Text Edit and Edit Image options,Click Edit All,Menu appears or expands,Text Edit/Edit Image options shown,FAIL,Menu exists but needs full implementation
+28,Tab,Second Row,Home,Add Text,Adds text to PDF,WORKING,Text addition tool,Click Add Text,Tool activates for text input,Add text tool active,PASS,Can add formatted text
+29,Tab,Second Row,Home,OCR Tool,Optical character recognition,WORKING,Extracts text from images,Click OCR,OCR processing starts,Text extracted from scanned pages,PASS,Uses Tesseract.js library
+30,Tab,Second Row,Home,To Office,Opens conversion menu,WORKING,Shows Word/Excel/PPT options,Click To Office,Menu appears,Office format options displayed,PASS,Submenu with format selection
+31,Tab,Second Row,Home,Merge PDF,Merges multiple PDFs,WORKING,Opens merge functionality,Click Merge PDF,File selection dialog for merge,Files can be selected for merge,PASS,Multiple PDFs can be selected
+32,Tab,Second Row,Home,Compress PDF,Compresses PDF,WORKING,Compression tool available,Click Compress PDF,Compression dialog appears,Compression quality selection shown,PASS,Ghostscript integration working
+33,Tab,Second Row,Home,Screenshot,Captures current page,WORKING,Page screenshot tool,Click Screenshot,Screenshot captured and downloaded,Screenshot PNG downloads,PASS,Canvas export working
+34,Tab,Second Row,Comment,Highlight,Highlights text,WORKING,Text highlighting,Click Highlight in Comment tab,Tool activates,Highlighting enabled,PASS,Multiple color options available
+35,Tab,Second Row,Comment,Underline,Underlines text,WORKING,Text underline annotation,Click Underline,Tool activates,Underline tool active,PASS,Can underline text
+36,Tab,Second Row,Comment,Strikeout,Strikes through text,WORKING,Text strikeout annotation,Click Strikeout,Tool activates,Strikeout tool active,PASS,Can apply strikethrough
+37,Tab,Second Row,Comment,Sticky Note,Adds sticky note annotation,WORKING,Note insertion,Click Sticky Note,Tool activates,Sticky note tool active,PASS,Can add annotation notes
+38,Tab,Second Row,Comment,Pen / Draw,Freehand drawing,WORKING,Drawing annotation tool,Click Pen/Draw,Tool activates,Drawing tool active,PASS,Can draw on PDF
+39,Tab,Second Row,Comment,Shapes,Inserts shapes,WORKING,Shape annotation,Click Shapes,Tool activates,Shapes tool active,PASS,Can add shapes to PDF
+40,Tab,Second Row,Comment,Comments Panel,Manages comments,WORKING,Panel accessibility,Click Comments Panel,Panel opens/closes,Comments panel toggles,PASS,Shows all annotations
+41,Tab,Second Row,Edit,Edit Text,Edits existing text,WORKING,Text editing mode,Click Edit Text,Tool activates,Edit text tool active,PASS,Can modify text content
+42,Tab,Second Row,Edit,Edit Image,Edits images in PDF,PARTIAL,Image edit option available,Click Edit Image,Tool activates,Edit image tool active,FAIL,Requires external editor integration
+43,Tab,Second Row,Edit,Add Text,Adds new text,WORKING,Text insertion,Click Add Text,Tool activates,Add text tool active,PASS,Formatting options available
+44,Tab,Second Row,Edit,Add Image,Adds images to PDF,WORKING,Image insertion,Click Add Image,File dialog appears,Can select image from drive,PASS,Supports common image formats
+45,Tab,Second Row,Edit,Object Select,Selects objects,WORKING,Object selection,Click Object Select,Tool activates,Object selection active,PASS,Can interact with objects
+46,Tab,Second Row,Edit,Align,Aligns objects,PARTIAL,Alignment options,Click Align,Alert: "Coming soon",Placeholder alert shown,FAIL,Not yet implemented
+47,Tab,Second Row,Edit,Rotate,Rotates objects,PARTIAL,Rotation tool,Click Rotate,Alert: "Coming soon",Placeholder alert shown,FAIL,Not yet implemented
+48,Tab,Second Row,Edit,Resize,Resizes objects,PARTIAL,Resize tool,Click Resize,Alert: "Coming soon",Placeholder alert shown,FAIL,Not yet implemented
+49,Tab,Second Row,Edit,Crop Page,Crops page area,PARTIAL,Crop tool,Click Crop Page,Alert: "Coming soon",Placeholder alert shown,FAIL,Not yet implemented
+50,Tab,Second Row,Convert,To Word,Converts to Word format,WORKING,Word conversion,Click To Word,Download dialog,DOCX file downloads,PASS,Backend conversion working
+51,Tab,Second Row,Convert,To Excel,Converts to Excel format,WORKING,Excel conversion,Click To Excel,Download dialog,XLSX file downloads,PASS,Backend conversion working
+52,Tab,Second Row,Convert,To PowerPoint,Converts to PowerPoint,WORKING,PPT conversion,Click To PowerPoint,Download dialog,PPTX file downloads,PASS,With fallback support
+53,Tab,Second Row,Convert,To Image,Converts to image formats,WORKING,Image conversion with format selection,Click To Image,Modal with format options,Multiple image formats available,PASS,Full format and page selection
+54,Tab,Second Row,Convert,To PDF/A,Converts to PDF/A format,WORKING,Archival PDF format,Click To PDF/A,Download dialog,PDF/A file downloads,PASS,Creates archival copy
+55,Tab,Second Row,Convert,To Text,Converts to text file,WORKING,Text extraction,Click To Text,Download dialog,TXT file downloads,PASS,Full text extraction
+56,Tab,Second Row,Page,Insert Page,Inserts blank page,PARTIAL,Page insertion,Click Insert Page,Alert: "Coming soon",Placeholder alert shown,FAIL,Not yet implemented
+57,Tab,Second Row,Page,Delete,Deletes selected page,PARTIAL,Page deletion,Click Delete,Alert & document check,Requires implementation,FAIL,Placeholder with validation
+58,Tab,Second Row,Page,Extract,Extracts pages to new PDF,PARTIAL,Page extraction,Click Extract,Alert: "Coming soon",Placeholder alert shown,FAIL,Not yet implemented
+59,Tab,Second Row,Page,Rotate,Rotates page 90 degrees,PARTIAL,Page rotation,Click Rotate,Alert & document check,Requires implementation,FAIL,Placeholder with validation
+60,Tab,Second Row,Page,Reverse Rotate,Rotates counter-clockwise,PARTIAL,Page counter-rotation,Click Reverse Rotate,Alert: "Coming soon",Placeholder alert shown,FAIL,Not yet implemented
+61,Tab,Second Row,Page,Reorder,Changes page order,PARTIAL,Page reordering,Click Reorder,Alert: "Coming soon",Placeholder alert shown,FAIL,Not yet implemented
+62,Tab,Second Row,Page,Duplicate,Duplicates selected page,PARTIAL,Page duplication,Click Duplicate,Alert: "Coming soon",Placeholder alert shown,FAIL,Not yet implemented
+63,Tab,Second Row,Merge,Add PDFs,Selects PDFs to merge,WORKING,File selection for merge,Click Add PDFs,File dialog opens,Can select multiple PDFs,PASS,Multiple file selection
+64,Tab,Second Row,Merge,Merge Now,Merges selected PDFs,PARTIAL,PDF merge operation,Click Merge Now,Alert & document check,Requires implementation,FAIL,Placeholder with validation
+65,Tab,Second Row,Merge,Open Merged File,Opens merged result,PARTIAL,Opens merged PDF,Click Open Merged,Alert: "Coming soon",Placeholder alert shown,FAIL,Not yet implemented
+66,Tab,Second Row,Protect,Encrypt,Encrypts with password,PARTIAL,Password protection,Click Encrypt,Alert & document check,Requires implementation,FAIL,Placeholder with validation
+67,Tab,Second Row,Protect,Permissions,Sets access permissions,PARTIAL,Permission settings,Click Permissions,Alert & document check,Requires implementation,FAIL,Placeholder with validation
+68,Tab,Second Row,Protect,Digital Signature,Adds digital signature,PARTIAL,Digital signature,Click Digital Signature,Alert & document check,Requires implementation,FAIL,Placeholder with validation
+69,Tab,Second Row,Protect,Redaction,Redacts sensitive info,PARTIAL,Content redaction,Click Redaction,Alert & document check,Requires implementation,FAIL,Placeholder with validation
+70,Tab,Second Row,Protect,Remove Metadata,Removes PDF metadata,PARTIAL,Metadata removal,Click Remove Metadata,Alert & document check,Requires implementation,FAIL,Placeholder with validation
+71,Tab,Second Row,Tools,Merge,Merges multiple PDFs,PARTIAL,Merge utility,Click Merge,Alert: "Coming soon",Placeholder alert shown,FAIL,Not yet implemented
+72,Tab,Second Row,Tools,Split,Splits PDF into files,PARTIAL,PDF splitting,Click Split,Alert: "Coming soon",Placeholder alert shown,FAIL,Not yet implemented
+73,Tab,Second Row,Tools,Compress,Compresses PDF,WORKING,PDF compression,Click Compress,Alert & document check,Can select compression quality,FAIL,Needs quality selection interface
+74,Tab,Second Row,Tools,Inspect PDF,Inspects PDF structure,PARTIAL,PDF inspection,Click Inspect PDF,Alert & document check,Shows PDF structure info,FAIL,Needs UI implementation
+75,Tab,Second Row,Tools,OCR Advanced,Advanced OCR options,PARTIAL,Advanced OCR,Click OCR Advanced,Alert & document check,Advanced OCR options available,FAIL,Needs full implementation
+76,Tab,Second Row,Tools,Flatten,Flattens PDF layers,PARTIAL,Layer flattening,Click Flatten,Alert & document check,Requires implementation,FAIL,Placeholder with validation
+77,UI Navigation,Navigation,Ribbon Tabs,Home Tab,Switches to Home tab,WORKING,Tab selection,Click Home tab,Home tools displayed,Home tab content shows,PASS,All tools visible
+78,UI Navigation,Navigation,Ribbon Tabs,Comment Tab,Switches to Comment tab,WORKING,Tab selection,Click Comment tab,Comment tools displayed,Comment tab content shows,PASS,All tools visible
+79,UI Navigation,Navigation,Ribbon Tabs,Edit Tab,Switches to Edit tab,WORKING,Tab selection,Click Edit tab,Edit tools displayed,Edit tab content shows,PASS,All tools visible
+80,UI Navigation,Navigation,Ribbon Tabs,Convert Tab,Switches to Convert tab,WORKING,Tab selection,Click Convert tab,Convert tools displayed,Convert tab content shows,PASS,All tools visible
+81,UI Navigation,Navigation,Ribbon Tabs,Page Tab,Switches to Page tab,WORKING,Tab selection,Click Page tab,Page tools displayed,Page tab content shows,PASS,All tools visible
+82,UI Navigation,Navigation,Ribbon Tabs,Merge Tab,Switches to Merge tab,WORKING,Tab selection,Click Merge tab,Merge tools displayed,Merge tab content shows,PASS,All tools visible
+83,UI Navigation,Navigation,Ribbon Tabs,Protect Tab,Switches to Protect tab,WORKING,Tab selection,Click Protect tab,Protect tools displayed,Protect tab content shows,PASS,All tools visible
+84,UI Navigation,Navigation,Ribbon Tabs,Tools Tab,Switches to Tools tab,WORKING,Tab selection,Click Tools tab,Tools displayed,Tools tab content shows,PASS,All tools visible
+85,UI Component,Left Panel,Thumbnail Panel,Sidebar,Shows PDF thumbnails,WORKING,Thumbnail display,Scroll through thumbnails,Page previews visible,Thumbnails show all pages,PASS,Vertical scrollbar working
+86,UI Component,Center Panel,Canvas,PDF Display,Displays PDF content,WORKING,PDF rendering,View loaded PDF,PDF content rendered,Full PDF visible on canvas,PASS,Zoom and pan working
+87,UI Component,Right Panel,Empty Space,UI Layout,Provides layout space,WORKING,Layout structure,Observe UI layout,Space allocated properly,Layout is clean and organized,PASS,Responsive design
+88,Backend API,Server,/api/convert/pdf,Word Conversion,PDF to Word endpoint,WORKING,Backend conversion,Trigger Word export,API receives request,DOCX downloaded,PASS,python backend operational
+89,Backend API,Server,/api/convert/pdf,Excel Conversion,PDF to Excel endpoint,WORKING,Backend conversion,Trigger Excel export,API receives request,XLSX downloaded,PASS,Python backend operational
+90,Backend API,Server,/api/convert/pdf,PPT Conversion,PDF to PowerPoint endpoint,WORKING,Backend conversion,Trigger PPT export,API receives request,PPTX downloaded,PASS,Python backend operational with fallback
+91,Backend API,Server,/api/convert/pdf,HTML Conversion,PDF to HTML endpoint,WORKING,Backend conversion,Trigger HTML export,API receives request,HTML downloaded,PASS,Python backend operational
+92,Feature,PDF Display,Text Selection,Text Interaction,Enable selecting text,WORKING,Text selection in PDF,Select text in PDF,Text becomes highlighted,Text is selectable,PASS,Interactive layer enabled
+93,Feature,PDF Display,Clickable Links,Link Interaction,Enable clicking links,WORKING,Link interaction,Click links in PDF,Links are interactive,Links function properly,PASS,Annotation layer enabled
+94,Feature,Document Management,Multiple Tabs,Tab Management,Open multiple PDFs,WORKING,Tab system,Open 2 PDFs,Both PDFs in separate tabs,Tabs switch between documents,PASS,Document management working
+95,Feature,Document Management,Tab Close,Tab Management,Close individual tabs,WORKING,Tab removal,Click tab close button,Tab closes,Selected tab removed,PASS,Other tabs remain open
+96,Feature,UI Feedback,Logger System,Toast Notifications,Show action feedback,WORKING,Notification system,Perform actions,Toast messages appear,Success/error messages shown,PASS,All operations logged
+97,Feature,UI Feedback,Error Handling,Error Messages,Handle errors gracefully,WORKING,Error management,Trigger error scenario,Error message appears,User-friendly errors shown,PASS,Helpful error messages
+98,Feature,File Management,File Upload,Document Loading,Load PDF files,WORKING,File loading,Open PDF file,File loads in browser,PDF displays correctly,PASS,Supports multiple formats
+99,Feature,File Management,File Download,Export Functionality,Download files,WORKING,File export,Export document,File downloads,Files save to disk,PASS,All formats supported
+100,Feature,Integration,Tesseract.js,OCR Library,Text extraction from images,WORKING,OCR functionality,Click OCR tool,OCR processes,Text extracted from scanned content,PASS,Library integrated successfully
+

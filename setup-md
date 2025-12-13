@@ -1,0 +1,211 @@
+# Installation & Setup Guide
+
+## Prerequisites
+
+- **Node.js**: 18 LTS or 20 LTS (verified: 20.10.0+)
+- **pnpm**: 9.0.0+ (install: `npm i -g pnpm@9`)
+- **Git**: for cloning the repo
+
+## Project Setup
+
+### 1. Clone & Install Dependencies
+
+```bash
+git clone https://github.com/your-org/pdf-editor-pro.git
+cd pdf-editor-pro
+
+# Install all dependencies (root + frontend + backend)
+pnpm install -w
+```
+
+### 2. Verify Installation
+
+```bash
+# Check pnpm version
+pnpm --version
+
+# Check node version
+node --version
+
+# List workspaces
+pnpm ls -r --depth=0
+```
+
+### 3. Environment Configuration
+
+**Frontend** (`frontend/.env.local`):
+```
+NEXT_PUBLIC_PDF_WORKER_SRC=/pdf.worker.js
+NEXT_PUBLIC_API_BASE=http://localhost:3001
+APRYSE_ENABLED=false
+```
+
+**Backend** (`backend/.env`):
+```
+PORT=3001
+CORS_ORIGIN=http://localhost:3000
+NODE_ENV=development
+```
+
+If using Apryse/PDFTron (v1+):
+```
+APRYSE_ENABLED=true
+APRYSE_LICENSE_KEY=your_key_here
+```
+
+### 4. Development Server
+
+Run **both** frontend and backend concurrently:
+
+```bash
+# From root directory
+pnpm dev
+```
+
+This starts:
+- **Frontend**: http://localhost:3000 (Next.js dev server)
+- **Backend**: http://localhost:3001 (Express server)
+
+### 5. Build for Production
+
+```bash
+# Build frontend
+pnpm -C frontend build
+
+# Build backend (optional; Node.js doesn't require build)
+pnpm -C backend build
+
+# Start production server
+pnpm -C frontend start
+pnpm -C backend start
+```
+
+## Docker (Optional)
+
+### Build Image
+
+```bash
+docker build -f Dockerfile -t pdf-editor-pro:latest .
+```
+
+### Run Container
+
+```bash
+docker run -p 3000:3000 -p 3001:3001 pdf-editor-pro:latest
+```
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| `pdf.worker.js not found` | Ensure `public/pdf.worker.js` exists. Run `pnpm -C frontend dev` to trigger Next.js copy. |
+| `CORS errors` | Check `NEXT_PUBLIC_API_BASE` env var matches backend `CORS_ORIGIN`. |
+| `Memory limit exceeded` | Increase Node heap: `NODE_OPTIONS="--max-old-space-size=2048" pnpm dev` |
+| `Port 3000/3001 in use` | Kill process: `lsof -i :3000` → `kill -9 <PID>` or use different ports in env vars. |
+| `Cannot find module 'pdf.worker'` | Restart dev server; clear `.next` cache. |
+
+## Pinned Dependencies
+
+All dependencies are pinned to exact versions for reproducibility:
+
+**Frontend** (`frontend/package.json`):
+```json
+{
+  "next": "14.2.5",
+  "react": "18.3.1",
+  "react-dom": "18.3.1",
+  "typescript": "5.4.5",
+  "zustand": "4.4.7",
+  "pdfjs-dist": "3.11.174",
+  "pdf-lib": "1.17.1",
+  "tesseract.js": "5.0.4",
+  "tailwindcss": "3.4.3",
+  "shadcn-ui": "0.8.0",
+  "react-hot-toast": "2.4.1",
+  "lucide-react": "0.368.0",
+  "class-variance-authority": "0.7.0",
+  "clsx": "2.0.0",
+  "tailwind-merge": "2.3.0"
+}
+```
+
+**Backend** (`backend/package.json`):
+```json
+{
+  "express": "4.18.2",
+  "multer": "1.4.5-lts.1",
+  "cors": "2.8.5",
+  "uuid": "9.0.1"
+}
+```
+
+## Scripts Reference
+
+### Frontend
+
+```bash
+pnpm -C frontend dev           # Start dev server (hot reload)
+pnpm -C frontend build         # Build for production
+pnpm -C frontend start         # Start production server
+pnpm -C frontend lint          # Run ESLint
+pnpm -C frontend typecheck     # TypeScript type check
+pnpm -C frontend format        # Format code with Prettier
+```
+
+### Backend
+
+```bash
+pnpm -C backend dev            # Start dev server (nodemon)
+pnpm -C backend start          # Start production server
+pnpm -C backend lint           # Run ESLint
+```
+
+### Root
+
+```bash
+pnpm dev                        # Start both frontend + backend
+pnpm build                      # Build both
+pnpm typecheck                  # Type check all packages
+pnpm lint                       # Lint all packages
+```
+
+## Verification Checklist
+
+After setup, verify:
+
+- [ ] `pnpm install -w` completes without errors
+- [ ] `pnpm dev` starts both servers on ports 3000 & 3001
+- [ ] http://localhost:3000 loads the editor UI
+- [ ] No console errors in browser DevTools
+- [ ] Sample PDF in `frontend/public/samples/` loads on startup
+- [ ] Ribbon tabs are visible and clickable
+- [ ] Zoom in/out buttons work
+- [ ] Opening a PDF renders thumbnails
+
+If all checks pass, you're ready to use the editor!
+
+## Performance Tuning
+
+### Increase Heap for Large PDFs
+
+```bash
+NODE_OPTIONS="--max-old-space-size=4096" pnpm dev
+```
+
+### Disable Source Maps in Production
+
+```bash
+NEXT_PUBLIC_DISABLE_SOURCE_MAPS=true pnpm -C frontend build
+```
+
+### Use CDN for Static Assets
+
+Configure Next.js `assetPrefix` in `next.config.mjs`:
+```javascript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  assetPrefix: process.env.CDN_URL || '',
+};
+export default nextConfig;
+```
+

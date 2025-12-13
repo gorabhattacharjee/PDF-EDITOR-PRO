@@ -1,0 +1,19 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.0, pytest-9.0.1, pluggy-1.6.0 -- C:\Python314\python.exe
+cachedir: .pytest_cache
+rootdir: C:\PDFP\pdf-editor-pro\frontend\tests
+plugins: base-url-2.1.0, csv-3.0.0, playwright-0.7.2
+collecting ... collected 36 items
+
+test_ui.py::test_file_menu_functions[chromium] PASSED                    [  2%]
+test_ui.py::test_home_tab_broken_features[chromium] PASSED               [  5%]
+test_ui.py::test_edit_tab_placeholders[chromium] PASSED                  [  8%]
+test_ui.py::test_page_tab_working_features[chromium] PASSED              [ 11%]
+test_ui.py::test_protect_tab_misleading_feature[chromium] PASSED         [ 13%]
+test_ui.py::test_comment_tab_tools[chromium] PASSED                      [ 16%]
+comprehensive_functional_test.py::TestFileMenuOperations::test_file_menu_visibility[chromium] PASSED [ 19%]
+comprehensive_functional_test.py::TestFileMenuOperations::test_save_as_functionality[chromium] PASSED [ 22%]
+comprehensive_functional_test.py::TestHomeTab::test_home_tab_loads[chromium] PASSED [ 25%]
+comprehensive_functional_test.py::TestHomeTab::test_open_button_present[chromium] PASSED [ 27%]
+comprehensive_functional_test.py::TestHomeTab::test_ocr_button_clickable[chromium] PASSED [ 30%]
+comprehensive_functional_test.py::TestHomeTab::test_to_image_button_present[chromium] FAILED [ 33%]

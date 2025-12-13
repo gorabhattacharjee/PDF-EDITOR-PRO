@@ -1,0 +1,78 @@
+"use client";
+
+import React, { useRef } from "react";
+import { PDFDocument } from "pdf-lib";
+import useDocumentsStore from "@/stores/useDocumentsStore";
+import logger from "@/utils/logger";
+import { openPDFandGenerate } from "@/components/openDocument";
+
+const MergePDFTab: React.FC = () => {
+  const { addDocument } = useDocumentsStore();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleAddClick = () => inputRef.current?.click();
+
+  const handleMergeChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length < 2) {
+      alert("Select at least 2 PDFs to merge.");
+      return;
+    }
+
+    const out = await PDFDocument.create();
+
+    for (const f of Array.from(files)) {
+      const buf = await f.arrayBuffer();
+      const src = await PDFDocument.load(buf);
+      const copied = await out.copyPages(src, src.getPageIndices());
+      copied.forEach((p) => out.addPage(p));
+    }
+
+    const bytes = await out.save();
+    const name = `merged_${Date.now()}.pdf`;
+    const mergedFile = new File([bytes], name, { type: "application/pdf" });
+
+    const loaded = await openPDFandGenerate(mergedFile);
+    addDocument(loaded);
+
+    logger.success("Merged PDF created and opened as new tab");
+  };
+
+  return (
+    <div className="ribbon-group-row">
+      <div className="ribbon-group">
+        <div className="ribbon-group-title">Merge PDFs</div>
+
+        <RibbonButton icon="➕" label="Add PDFs & Merge" onClick={handleAddClick} />
+        <p className="text-xs text-gray-500 mt-2 max-w-[220px]">
+          Select multiple PDFs; a new merged document will open in a new tab.
+        </p>
+      </div>
+
+      <input
+        ref={inputRef}
+        type="file"
+        accept="application/pdf"
+        multiple
+        style={{ display: "none" }}
+        onChange={handleMergeChange}
+      />
+    </div>
+  );
+};
+
+const RibbonButton = ({
+  icon,
+  label,
+  onClick,
+}: {
+  icon: string;
+  label: string;
+  onClick: () => void;
+}) => (
+  <button className="ribbon-button" onClick={onClick}>
+    <span className="ribbon-icon">{icon}</span> {label}
+  </button>
+);
+
+export default MergePDFTab;

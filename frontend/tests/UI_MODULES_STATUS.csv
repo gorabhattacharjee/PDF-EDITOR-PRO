@@ -1,0 +1,104 @@
+UI_Module,Component,Feature,Type,Status,Notes,Last_Verified
+File Menu,FileMenu.tsx,Open PDF,Button,WORKING,Opens file dialog,05-12-2025
+File Menu,FileMenu.tsx,Save As,Menu Item,WORKING,Download PDF to disk,05-12-2025
+File Menu,FileMenu.tsx,Print,Menu Item,WORKING,Browser print dialog,05-12-2025
+File Menu,FileMenu.tsx,New Document,Menu Item,WORKING,Creates blank PDF,05-12-2025
+File Menu,FileMenu.tsx,Recent Files,Menu Item,WORKING,Shows recent PDFs,05-12-2025
+File Menu,FileMenu.tsx,Exit,Menu Item,WORKING,Closes application,05-12-2025
+Home Tab,HomeTab.tsx,Open Button,Button,WORKING,File picker for PDF,05-12-2025
+Home Tab,HomeTab.tsx,Hand Tool,Tool,WORKING,Pan navigation,05-12-2025
+Home Tab,HomeTab.tsx,Select Tool,Tool,WORKING,Text/object selection,05-12-2025
+Home Tab,HomeTab.tsx,Highlight Tool,Tool,WORKING,Markup annotations,05-12-2025
+Home Tab,HomeTab.tsx,Edit All,Button,WORKING,Edit mode selector,05-12-2025
+Home Tab,HomeTab.tsx,Add Text,Button,WORKING,Text overlay tool,05-12-2025
+Home Tab,HomeTab.tsx,OCR,Button,WORKING,Text extraction from scanned PDFs,05-12-2025
+Home Tab,HomeTab.tsx,To Image,Button,WORKING,Export page as PNG/JPEG/WebP,05-12-2025
+Home Tab,HomeTab.tsx,To Office,Button,WORKING,Export to Word/Excel/PPT,05-12-2025
+Home Tab,HomeTab.tsx,To Text,Button,WORKING,Extract text content,05-12-2025
+Comment Tab,CommentTab.tsx,Add Comment,Button,WORKING,Add text annotation,05-12-2025
+Comment Tab,CommentTab.tsx,Delete Comment,Button,WORKING,Remove annotation,05-12-2025
+Comment Tab,CommentTab.tsx,Edit Comment,Button,WORKING,Modify annotation,05-12-2025
+Comment Tab,CommentTab.tsx,Comment List,Panel,WORKING,View all comments,05-12-2025
+Comment Tab,CommentTab.tsx,Comment Filter,Dropdown,WORKING,Filter by type,05-12-2025
+Edit Tab,EditTab.tsx,Edit Text,Button,WORKING,Text editing mode,05-12-2025
+Edit Tab,EditTab.tsx,Edit Image,Button,WORKING,Image manipulation,05-12-2025
+Edit Tab,EditTab.tsx,Add Text,Button,WORKING,Insert text box,05-12-2025
+Edit Tab,EditTab.tsx,Add Image,Button,WORKING,Insert image,05-12-2025
+Edit Tab,EditTab.tsx,Crop Page,Button,WORKING,Crop document,05-12-2025
+Edit Tab,EditTab.tsx,Rotate,Button,WORKING,Rotate page 90°,05-12-2025
+Edit Tab,EditTab.tsx,Undo,Button,WORKING,Undo last action,05-12-2025
+Edit Tab,EditTab.tsx,Redo,Button,WORKING,Redo last action,05-12-2025
+Convert Tab,ConvertTab.tsx,To Word,Button,WORKING,Convert to DOCX format,05-12-2025
+Convert Tab,ConvertTab.tsx,To Excel,Button,WORKING,Convert to XLSX format,05-12-2025
+Convert Tab,ConvertTab.tsx,To PowerPoint,Button,WORKING,Convert to PPTX format,05-12-2025
+Convert Tab,ConvertTab.tsx,To Image,Button,WORKING,Convert page to image,05-12-2025
+Convert Tab,ConvertTab.tsx,To PDF/A,Button,WORKING,Archive PDF format,05-12-2025
+Convert Tab,ConvertTab.tsx,To Text,Button,WORKING,Extract text content,05-12-2025
+Convert Tab,ConvertTab.tsx,To HTML,Button,WORKING,Convert to HTML,05-12-2025
+Page Tab,PageTab.tsx,Insert Page,Button,WORKING,Add new page,05-12-2025
+Page Tab,PageTab.tsx,Delete Page,Button,WORKING,Remove page,05-12-2025
+Page Tab,PageTab.tsx,Extract Pages,Button,WORKING,Export selected pages,05-12-2025
+Page Tab,PageTab.tsx,Rotate Page,Button,WORKING,Rotate 90 degrees,05-12-2025
+Page Tab,PageTab.tsx,Reverse Rotate,Button,WORKING,Rotate -90 degrees,05-12-2025
+Page Tab,PageTab.tsx,Reorder Pages,Button,WORKING,Drag-drop page order,05-12-2025
+Page Tab,PageTab.tsx,Duplicate Page,Button,WORKING,Copy page,05-12-2025
+Merge PDF Tab,MergePDFTab.tsx,Add PDFs,Button,WORKING,Select PDFs to merge,05-12-2025
+Merge PDF Tab,MergePDFTab.tsx,Merge Now,Button,WORKING,Combine all PDFs,05-12-2025
+Merge PDF Tab,MergePDFTab.tsx,Open Merged,Button,WORKING,View result,05-12-2025
+Merge PDF Tab,MergePDFTab.tsx,Remove PDF,Button,WORKING,Remove from list,05-12-2025
+Protect Tab,ProtectTab.tsx,Encrypt,Button,WORKING,Password protection,05-12-2025
+Protect Tab,ProtectTab.tsx,Permissions,Button,WORKING,Set restrictions,05-12-2025
+Protect Tab,ProtectTab.tsx,Digital Signature,Button,WORKING,Sign document,05-12-2025
+Protect Tab,ProtectTab.tsx,Redaction,Button,WORKING,Redact content,05-12-2025
+Protect Tab,ProtectTab.tsx,Remove Metadata,Button,WORKING,Strip document info,05-12-2025
+Protect Tab,ProtectTab.tsx,Watermark,Button,WORKING,Add watermark,05-12-2025
+Tools Tab,ToolsTab.tsx,Merge,Button,WORKING,Merge multiple PDFs,05-12-2025
+Tools Tab,ToolsTab.tsx,Split,Button,WORKING,Split PDF into parts,05-12-2025
+Tools Tab,ToolsTab.tsx,Compress,Button,WORKING,Reduce file size,05-12-2025
+Tools Tab,ToolsTab.tsx,Inspect PDF,Button,WORKING,View PDF properties,05-12-2025
+Tools Tab,ToolsTab.tsx,OCR Advanced,Button,WORKING,Batch OCR processing,05-12-2025
+Tools Tab,ToolsTab.tsx,Flatten,Button,WORKING,Merge layers and annotations,05-12-2025
+Icon Bar,RibbonBar.tsx,Open Icon,Button,WORKING,Quick open PDF,05-12-2025
+Icon Bar,RibbonBar.tsx,Save Icon,Button,WORKING,Quick save PDF,05-12-2025
+Icon Bar,RibbonBar.tsx,Print Icon,Button,WORKING,Quick print,05-12-2025
+Icon Bar,RibbonBar.tsx,Undo Icon,Button,WORKING,Quick undo,05-12-2025
+Icon Bar,RibbonBar.tsx,Redo Icon,Button,WORKING,Quick redo,05-12-2025
+Icon Bar,RibbonBar.tsx,Zoom In,Button,WORKING,Increase zoom level,05-12-2025
+Icon Bar,RibbonBar.tsx,Zoom Out,Button,WORKING,Decrease zoom level,05-12-2025
+Icon Bar,RibbonBar.tsx,Fit Page,Button,WORKING,Auto-fit page,05-12-2025
+Icon Bar,RibbonBar.tsx,Fit Width,Button,WORKING,Fit to width,05-12-2025
+UI Components,Canvas.tsx,PDF Canvas,Component,WORKING,Displays PDF content,05-12-2025
+UI Components,Sidebar.tsx,Thumbnail Panel,Component,WORKING,Page thumbnails,05-12-2025
+UI Components,Sidebar.tsx,Document List,Component,WORKING,Open documents list,05-12-2025
+UI Components,EditorPage.tsx,Document Tabs,Component,WORKING,MDI tab navigation,05-12-2025
+UI Components,RibbonBar.tsx,Ribbon Bar,Component,WORKING,8 ribbon tabs,05-12-2025
+UI Components,CommentsPanel.tsx,Comments Panel,Component,WORKING,Side comment panel,05-12-2025
+Keyboard Shortcuts,useKeyboardShortcuts.ts,Ctrl+O,Shortcut,WORKING,Open file,05-12-2025
+Keyboard Shortcuts,useKeyboardShortcuts.ts,Ctrl+S,Shortcut,WORKING,Save file,05-12-2025
+Keyboard Shortcuts,useKeyboardShortcuts.ts,Ctrl+P,Shortcut,WORKING,Print document,05-12-2025
+Keyboard Shortcuts,useKeyboardShortcuts.ts,Ctrl+Z,Shortcut,WORKING,Undo action,05-12-2025
+Keyboard Shortcuts,useKeyboardShortcuts.ts,Ctrl+Y,Shortcut,WORKING,Redo action,05-12-2025
+Keyboard Shortcuts,useKeyboardShortcuts.ts,Ctrl++,Shortcut,WORKING,Zoom in,05-12-2025
+Keyboard Shortcuts,useKeyboardShortcuts.ts,Ctrl+-,Shortcut,WORKING,Zoom out,05-12-2025
+Keyboard Shortcuts,useKeyboardShortcuts.ts,Ctrl+F,Shortcut,WORKING,Find text,05-12-2025
+Store/State,useUIStore.ts,Active Tool,State,WORKING,Current editing tool,05-12-2025
+Store/State,useDocumentsStore.ts,Active Document,State,WORKING,Current PDF file,05-12-2025
+Store/State,useSelectionStore.ts,Selection,State,WORKING,Selected objects,05-12-2025
+Store/State,useHistoryStore.ts,Undo/Redo,State,WORKING,Action history,05-12-2025
+Store/State,useJobsStore.ts,Background Jobs,State,WORKING,Async operations,05-12-2025
+Utilities,pdfOperations.ts,PDF Merge,Function,WORKING,Merge PDFs,05-12-2025
+Utilities,pdfOperations.ts,PDF Split,Function,WORKING,Split PDF,05-12-2025
+Utilities,pdfOperations.ts,PDF Extract,Function,WORKING,Extract pages,05-12-2025
+Utilities,pdfOperations.ts,PDF Rotate,Function,WORKING,Rotate pages,05-12-2025
+Utilities,exporters.ts,Export to Image,Function,WORKING,PNG/JPG export,05-12-2025
+Utilities,exporters.ts,Export to Text,Function,WORKING,Text extraction,05-12-2025
+Utilities,exporters.ts,Export to HTML,Function,WORKING,HTML conversion,05-12-2025
+Backend API,server.ts,POST /api/convert/pdf,Endpoint,WORKING,PDF conversion,05-12-2025
+Backend API,server.ts,GET /api/convert/status,Endpoint,WORKING,Job status,05-12-2025
+Backend API,server.ts,POST /api/upload,Endpoint,WORKING,File upload,05-12-2025
+Backend API,server.ts,GET /api/templates,Endpoint,WORKING,Template list,05-12-2025
+Backend API,server.ts,POST /api/ocr,Endpoint,WORKING,OCR processing,05-12-2025
+Python Backend,py_word_excel_html_ppt.py,PDF to Word,Function,WORKING,Conversion script,05-12-2025
+Python Backend,py_word_excel_html_ppt.py,PDF to Excel,Function,WORKING,Conversion script,05-12-2025
+Python Backend,py_word_excel_html_ppt.py,PDF to PowerPoint,Function,WORKING,Conversion script,05-12-2025
+Python Backend,py_word_excel_html_ppt.py,PDF to HTML,Function,WORKING,Conversion script,05-12-2025

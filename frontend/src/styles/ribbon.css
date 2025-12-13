@@ -1,0 +1,594 @@
+/* ---------------------------------------------------
+   FULL RIBBON LAYOUT  (FINAL WORKING VERSION)
+--------------------------------------------------- */
+
+.ribbon-container {
+  width: 100%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #ddd;
+  padding: 4px 0;
+}
+
+/* ---------------------------------------------------
+   TOP LINE: File (left) + ICONS (center)
+--------------------------------------------------- */
+
+.ribbon-top-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* center icons */
+  position: relative;
+  margin-bottom: 5px;
+}
+
+/* FILE button stays on the far left */
+.file-button {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  font-size: 14px;
+  padding: 5px 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.file-button:hover {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+/* ICON BAR (centered) */
+.icon-bar {
+  display: flex;
+  gap: 20px;
+  font-size: 20px;
+  align-items: center;
+}
+
+.icon-button {
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  color: #333;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.icon-button:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.icon-button:active {
+  transform: translateY(0);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* ---------------------------------------------------
+   TAB BAR (centered)
+--------------------------------------------------- */
+
+.ribbon-tabs {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 6px 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.ribbon-tab {
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 4px;
+  user-select: none;
+  transition: all 0.2s ease;
+  pointer-events: auto;
+}
+
+.ribbon-tab.active {
+  border-bottom: 2px solid black;
+}
+
+/* ---------------------------------------------------
+   SUB-BUTTON AREA (changes on tab click)
+--------------------------------------------------- */
+
+.ribbon-subbar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  font-size: 14px;
+  flex-wrap: wrap;
+  overflow: visible !important;
+  position: relative;
+}
+
+.ribbon-subbar > div {
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  user-select: none;
+  white-space: nowrap;
+  pointer-events: auto;
+  display: inline-block;
+}
+
+.ribbon-subbar > div:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Prevent hover transform when dropdown is open - keeps dropdown stable */
+.ribbon-subbar > div:has(.highlight-color-picker) {
+  transform: none !important;
+}
+
+.ribbon-subbar > div:has(.highlight-color-picker):hover {
+  transform: none !important;
+}
+
+/* Color picker dropdown styles */
+.highlight-color-picker {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 8px;
+  background-color: white;
+  border: 2px solid #666;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  z-index: 99999;
+  min-width: 220px;
+}
+
+.highlight-color-picker * {
+  pointer-events: auto !important;
+}
+
+.highlight-color-btn {
+  width: 44px;
+  height: 44px;
+  border: 3px solid #555;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s ease, border-color 0.1s ease;
+}
+
+.highlight-color-btn:hover {
+  transform: scale(1.1) !important;
+  border-color: #2563eb !important;
+}
+
+.highlight-color-btn.selected {
+  border: 4px solid #2563eb;
+}
+
+.ribbon-subbar > div:active {
+  transform: translateY(0);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.ribbon-subbar > div.active {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: currentColor;
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------
+   FILE MENU PANEL
+--------------------------------------------------- */
+
+.file-menu-panel {
+  position: absolute;
+  top: 35px;
+  left: 10px;
+  width: 220px;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 10000;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.file-menu-item,
+.file-menu-sub {
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.file-menu-item:hover,
+.file-menu-sub:hover {
+  background: #f3f3f3;
+}
+
+.file-menu-section-title {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  font-size: 13px;
+  color: #444;
+}
+
+/* ---------------------------------------------------
+   FILE MENU MODERN STYLING
+--------------------------------------------------- */
+
+.filemenu-float {
+  position: absolute;
+  top: 35px;
+  left: 10px;
+  z-index: 10000;
+}
+
+.filemenu-container {
+  background: white;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  min-width: 220px;
+  font-size: 14px;
+}
+
+.filemenu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+  transition: all 0.2s ease;
+  position: relative;
+  border-radius: 4px;
+  margin: 0 4px;
+}
+
+.filemenu-item:hover {
+  background: #f5f5f5;
+  transform: translateX(2px);
+}
+
+.filemenu-item:active {
+  background: #efefef;
+}
+
+/* Color-coded menu items */
+.filemenu-item-open {
+  color: #1f7fe6;
+}
+
+.filemenu-item-open .filemenu-icon {
+  color: #1f7fe6;
+}
+
+.filemenu-item-save {
+  color: #2ecc71;
+}
+
+.filemenu-item-save .filemenu-icon {
+  color: #2ecc71;
+}
+
+.filemenu-item-saveas {
+  color: #27ae60;
+}
+
+.filemenu-item-saveas .filemenu-icon {
+  color: #27ae60;
+}
+
+.filemenu-item-print {
+  color: #e74c3c;
+}
+
+.filemenu-item-print .filemenu-icon {
+  color: #e74c3c;
+}
+
+.filemenu-item-export {
+  color: #f39c12;
+}
+
+.filemenu-item-export .filemenu-icon {
+  color: #f39c12;
+}
+
+.filemenu-item-close {
+  color: #e67e22;
+}
+
+.filemenu-item-close .filemenu-icon {
+  color: #e67e22;
+}
+
+.filemenu-item-download {
+  color: #9b59b6;
+}
+
+.filemenu-item-download .filemenu-icon {
+  color: #9b59b6;
+}
+
+.filemenu-item-properties {
+  color: #3498db;
+}
+
+.filemenu-item-properties .filemenu-icon {
+  color: #3498db;
+}
+
+.filemenu-arrow {
+  margin-left: auto;
+  font-size: 14px;
+  color: #999;
+}
+
+.filemenu-divider {
+  height: 1px;
+  background: #e0e0e0;
+  margin: 6px 0;
+}
+
+.filemenu-export-container {
+  position: relative;
+}
+
+.filemenu-export-trigger {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filemenu-submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background: white;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  padding: 6px 0;
+  margin-left: 2px;
+  display: flex;
+  flex-direction: column;
+}
+
+.filemenu-sub-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+  transition: background 0.2s ease;
+}
+
+.filemenu-sub-item:hover {
+  background: #f5f5f5;
+}
+
+.filemenu-sub-item:active {
+  background: #efefef;
+}
+
+/* ---------------------------------------------------
+   RIBBON SUB-BUTTONS MODERN COLORFUL STYLING
+--------------------------------------------------- */
+
+.ribbon-subbar > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.ribbon-subbar > div:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.ribbon-subbar > div:active {
+  transform: translateY(0);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.ribbon-subbar > div.active {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Home Tab Colors */
+/* Removed nth-child selectors - using direct color assignment in RibbonBar */
+
+/* ---------------------------------------------------
+   SCROLLBAR STYLING FOR PANELS
+--------------------------------------------------- */
+
+.thumbnail-panel {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 12px;
+  background: #ffffff;
+  user-select: none;
+  border-right: 1px solid #d1d5db;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* WEBKIT BROWSERS - Chrome, Safari, Edge */
+.thumbnail-panel::-webkit-scrollbar {
+  width: 12px;
+}
+
+.thumbnail-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thumbnail-panel::-webkit-scrollbar-thumb {
+  background: #a0a0a0;
+  border-radius: 6px;
+}
+
+.thumbnail-panel::-webkit-scrollbar-thumb:hover {
+  background: #808080;
+}
+
+.thumbnail-panel::-webkit-scrollbar-thumb:active {
+  background: #606060;
+}
+
+/* FIREFOX */
+.thumbnail-panel {
+  scrollbar-width: thin;
+  scrollbar-color: #a0a0a0 transparent;
+}
+
+.canvas-panel {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  background: #f9fafb;
+  padding: 16px;
+  min-width: 0;
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* WEBKIT BROWSERS - Chrome, Safari, Edge */
+.canvas-panel::-webkit-scrollbar {
+  width: 12px;
+}
+
+.canvas-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.canvas-panel::-webkit-scrollbar-thumb {
+  background: #a0a0a0;
+  border-radius: 6px;
+}
+
+.canvas-panel::-webkit-scrollbar-thumb:hover {
+  background: #808080;
+}
+
+.canvas-panel::-webkit-scrollbar-thumb:active {
+  background: #606060;
+}
+
+/* FIREFOX */
+.canvas-panel {
+  scrollbar-width: thin;
+  scrollbar-color: #a0a0a0 transparent;
+}
+
+/* ---------------------------------------------------
+   RIBBON BUTTON STYLING
+--------------------------------------------------- */
+
+.ribbon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer !important;
+  font-size: 12px;
+  font-weight: 500;
+  color: #333;
+  transition: all 0.2s ease;
+  user-select: none;
+  pointer-events: auto !important;
+  min-width: 50px;
+}
+
+.ribbon-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ribbon-btn:active {
+  transform: translateY(0);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.ribbon-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ribbon-btn-icon {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ribbon-btn-label {
+  font-size: 11px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ribbon-btn-primary {
+  background: #007bff;
+  color: white;
+}
+
+.ribbon-btn-primary:hover {
+  background: #0056b3;
+  border-color: transparent;
+}

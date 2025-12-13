@@ -1,0 +1,8 @@
+Component,Type,Status,Evidence,Notes
+Backend API,Service,Working,Express server config & 63 processed files in uploads,Node.js+Python integration
+PDF Conversion,Feature,Partially Working,Python scripts present but no recent outputs,Check job queue implementation
+Excel Export,Feature,Working,output/document_merged.xlsx exists,XLSX library integrated
+Frontend UI,Application,Working,Next.js build artifacts present,ConvertTab component backed up
+OCR Processing,Feature,Not Implemented,Missing Tesseract.js config,Found in package.json but unused
+File Merging,Feature,Working,output/ docx+xlsx files present,Requires UI integration
+Version Control,Infrastructure,Working,.gitignore present,No .git directory found

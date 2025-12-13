@@ -1,0 +1,57 @@
+Component,Feature,Status,Notes
+FileMenu.tsx,Open,Working,
+FileMenu.tsx,Save,Working,
+FileMenu.tsx,Save As,Working,
+FileMenu.tsx,Print,Working,
+FileMenu.tsx,"Export (Office/HTML/Text)",Partially Working,"Depends on a backend service."
+FileMenu.tsx,Export to Image,Partially Working,"Fragile implementation."
+FileMenu.tsx,Close,Working,
+FileMenu.tsx,Download Log,Working,
+FileMenu.tsx,Document Properties,Working,
+HomeTab.tsx,Open,Working,"Redundant with FileMenu."
+HomeTab.tsx,Hand Tool,Working,
+HomeTab.tsx,Select Tool,Working,
+HomeTab.tsx,Highlight Tool,Working,
+HomeTab.tsx,Edit All,Partially Working,"Uses a basic prompt."
+HomeTab.tsx,Add Text,Working,
+HomeTab.tsx,To Office,Working,
+HomeTab.tsx,OCR,Broken,"Fails to render PDF to canvas."
+HomeTab.tsx,To Image,Broken,"Fails to render PDF to canvas."
+HomeTab.tsx,To Text,Placeholder,"Does not extract text."
+EditTab.tsx,Edit Text,Working,
+EditTab.tsx,Add Text,Working,
+EditTab.tsx,Add Image,Working,
+EditTab.tsx,Edit Image,Placeholder,
+EditTab.tsx,Rotate,Placeholder,
+EditTab.tsx,Resize,Placeholder,
+EditTab.tsx,Align,Placeholder,
+EditTab.tsx,Crop Page,Placeholder,
+ConvertTab.tsx,"To Word/Excel/PPT/Text",Partially Working,"Depends on a backend service."
+ConvertTab.tsx,To PDF/A,Working,
+ConvertTab.tsx,To Image,Placeholder,
+PageTab.tsx,Delete Page,Working,
+PageTab.tsx,Extract Page,Working,
+PageTab.tsx,Insert Page,Placeholder,
+PageTab.tsx,Rotate Page,Placeholder,
+PageTab.tsx,Reverse Rotate,Placeholder,
+PageTab.tsx,Reorder Pages,Placeholder,
+PageTab.tsx,Duplicate Page,Placeholder,
+MergePDFTab.tsx,Merge PDFs,Working,
+ProtectTab.tsx,Encrypt,Misleading,"Does not encrypt the file. CRITICAL FLAW."
+ProtectTab.tsx,Permissions,Placeholder,
+ProtectTab.tsx,Digital Signature,Placeholder,
+ProtectTab.tsx,Redaction,Placeholder,
+ProtectTab.tsx,Remove Metadata,Placeholder,
+ToolsTab.tsx,Split,Working,
+ToolsTab.tsx,Inspect PDF,Working,
+ToolsTab.tsx,Merge,Placeholder,"Redundant with MergePDFTab."
+ToolsTab.tsx,Compress,Placeholder,
+ToolsTab.tsx,OCR Advanced,Broken,"Fails to render PDF to canvas."
+ToolsTab.tsx,Flatten,Broken,"Does not flatten the document."
+CommentTab.tsx,Highlight,Working,
+CommentTab.tsx,Underline,Working,
+CommentTab.tsx,Strikeout,Working,
+CommentTab.tsx,Sticky Note,Working,
+CommentTab.tsx,Pen/Draw,Working,
+CommentTab.tsx,Shapes,Working,
+CommentTab.tsx,Comments Panel,Placeholder,

@@ -1,0 +1,14 @@
+{
+  "name": "pdf-editor-pro",
+  "version": "1.0.0",
+  "description": "Production-ready web-based PDF editor",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -r --parallel run dev",
+    "build": "pnpm -r run build"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}

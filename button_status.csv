@@ -1,0 +1,81 @@
+Tab,Button Name,Sub-Button/Option,Status,Notes
+HOME,Open,-,WORKING,Opens file picker and loads PDF
+HOME,Save PDF,-,WORKING,Saves PDF with all modifications (highlights, text edits, image edits)
+HOME,Hand,-,WORKING,Panning/scrolling tool
+HOME,Select,-,WORKING,Text selection mode
+HOME,Highlight,-,WORKING,Text highlighting with color picker
+HOME,Highlight,Yellow,WORKING,Color option
+HOME,Highlight,Green,WORKING,Color option
+HOME,Highlight,Cyan,WORKING,Color option
+HOME,Highlight,Pink,WORKING,Color option
+HOME,Highlight,Orange,WORKING,Color option
+HOME,Highlight,Red,WORKING,Color option
+HOME,Highlight,Purple,WORKING,Color option
+HOME,Highlight,Blue,WORKING,Color option
+HOME,Edit All,-,WORKING,Inline text editing mode - click any text to edit
+HOME,Edit Image,-,WORKING,Image selection and editing mode
+HOME,Add Text,-,WORKING,Opens modal with font/size/color options to add text
+HOME,Add Text,Font Family,WORKING,9 font options available
+HOME,Add Text,Font Size,WORKING,17 size options (8-72pt)
+HOME,Add Text,Text Color,WORKING,Color picker for text color
+HOME,OCR,-,WORKING,Extracts text from current page using Tesseract.js
+HOME,To Image,-,WORKING,Exports current page as PNG/JPEG/WebP
+HOME,To Office,-,WORKING,Opens conversion modal for Word/Excel/PPT/HTML
+HOME,To Text,-,NOT WORKING,Requires external backend server at localhost:5000
+COMMENT,Highlight,-,WORKING,Text highlighting tool
+COMMENT,Underline,-,WORKING,Text underline tool
+COMMENT,Strikeout,-,WORKING,Text strikethrough tool
+COMMENT,Sticky Note,-,WORKING,Click on PDF to add sticky notes with editable text
+COMMENT,Pen/Draw,-,WORKING,Freehand drawing on PDF
+COMMENT,Pen/Draw,Color Picker,WORKING,8 color options (red/green/blue/yellow/magenta/cyan/black/orange)
+COMMENT,Pen/Draw,Stroke Width,WORKING,6 width options (1px-12px)
+COMMENT,Shapes,-,WORKING,Draw shapes on PDF
+COMMENT,Shapes,Rectangle,WORKING,Draw rectangles
+COMMENT,Shapes,Circle,WORKING,Draw circles/ellipses
+COMMENT,Shapes,Line,WORKING,Draw lines
+COMMENT,Shapes,Arrow,WORKING,Draw arrows
+COMMENT,Shapes,Color Picker,WORKING,Same as Pen/Draw colors
+COMMENT,Shapes,Stroke Width,WORKING,Same as Pen/Draw widths
+COMMENT,Comments Panel,-,WORKING,Toggles comments sidebar panel
+EDIT,Edit Text,-,WORKING,Activates inline text editing mode - click any text to edit
+EDIT,Edit Image,-,WORKING,Activates image selection mode - click images to select/move/resize/delete
+EDIT,Add Text,-,WORKING,Opens Add Text modal with font options
+EDIT,Add Image,-,WORKING,Opens file picker to insert PNG/JPG/GIF/WebP image centered on current page
+EDIT,Object Select,-,WORKING,Activates selection mode for objects
+EDIT,Rotate,-,WORKING,Rotates current page via prompt (90° CW/CCW or 180°) - updates document
+EDIT,Resize,-,WORKING,Activates Edit Image mode - drag corners to resize selected images
+EDIT,Align,-,PARTIAL,Shows alignment options dialog - UI only (objects not yet linked)
+EDIT,Crop Page,-,WORKING,Crops current page by setting margins via prompt with validation
+PAGE,Insert Page,-,NOT WORKING,Shows placeholder dialog only
+PAGE,Insert Page,Blank Page,NOT WORKING,Placeholder
+PAGE,Insert Page,From File,NOT WORKING,Placeholder
+PAGE,Insert Page,From Template,NOT WORKING,Placeholder
+PAGE,Delete Page,-,WORKING,Deletes current page from PDF
+PAGE,Extract Page,-,WORKING,Extracts current page to new PDF document
+PAGE,Rotate Page,-,NOT WORKING,Shows placeholder dialog only
+PAGE,Rotate Page,90° Clockwise,NOT WORKING,Placeholder
+PAGE,Rotate Page,90° Counter-clockwise,NOT WORKING,Placeholder
+PAGE,Rotate Page,180° Flip,NOT WORKING,Placeholder
+PAGE,Reverse Rotate,-,NOT WORKING,Shows placeholder dialog only
+PAGE,Reorder Pages,-,NOT WORKING,Shows placeholder dialog only
+PAGE,Duplicate Page,-,NOT WORKING,Shows placeholder dialog only
+PROTECT,Encrypt,-,PARTIAL,Requires external backend server at localhost:5000
+PROTECT,Permissions,-,NOT WORKING,Shows placeholder dialog only
+PROTECT,Digital Signature,-,NOT WORKING,Shows placeholder dialog only
+PROTECT,Redaction,-,NOT WORKING,Shows placeholder dialog only
+PROTECT,Remove Metadata,-,NOT WORKING,Shows placeholder dialog only
+CONVERT,To Word (.docx),-,WORKING,Converts PDF to Word using /api/convert
+CONVERT,To Excel (.xlsx),-,WORKING,Converts PDF to Excel using /api/convert
+CONVERT,To PowerPoint (.pptx),-,WORKING,Converts PDF to PowerPoint using /api/convert
+CONVERT,To Image (PNG/JPG),-,WORKING,Exports current page as image
+CONVERT,To PDF/A,-,WORKING,Creates PDF/A compliant version
+CONVERT,To Text (.txt),-,WORKING,Extracts text using /api/convert
+TOOLS,Merge,-,WORKING,Opens file picker to select multiple PDFs and merges them into new tab
+TOOLS,Split,-,WORKING,Splits PDF at specified page number
+TOOLS,Compress,-,NOT WORKING,Shows placeholder dialog only
+TOOLS,Inspect PDF,-,WORKING,Shows file info (name, pages, size)
+TOOLS,OCR Advanced,-,WORKING,Advanced OCR with Tesseract.js
+TOOLS,Flatten,-,WORKING,Flattens PDF layers and annotations
+MERGE PDF,Add PDFs,-,WORKING,Add PDF files to merge queue
+MERGE PDF,Merge Now,-,WORKING,Merge all PDFs in queue into single file
+MERGE PDF,Open Merged File,-,WORKING,Open the merged PDF result in new canvas tab

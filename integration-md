@@ -1,0 +1,410 @@
+# Integration Guide
+
+## Embedding in Your Application
+
+### Option 1: Iframe Embed (Simplest)
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PDF Editor Embed</title>
+</head>
+<body>
+  <h1>My PDF Editor</h1>
+  
+  <iframe 
+    id="pdf-editor"
+    src="http://localhost:3000/editor?embedded=true" 
+    width="100%" 
+    height="800"
+    frameborder="0"
+    allow="clipboard-read; clipboard-write"
+  ></iframe>
+
+  <script>
+    // Listen for save events from editor
+    window.addEventListener('message', (event) => {
+      if (event.data.type === 'PDF_SAVED') {
+        console.log('PDF saved:', event.data.payload);
+        // Handle save (e.g., upload to server)
+      }
+    });
+  </script>
+</body>
+</html>
+```
+
+**Query Params:**
+- `embedded=true`: Hides menu bar, maximizes canvas
+- `initialUrl=<url>`: Load PDF on startup
+- `readonly=true`: Disable editing (view-only mode)
+
+### Option 2: Next.js Component Integration
+
+```typescript
+// your-app/pages/editor.tsx
+import dynamic from 'next/dynamic';
+
+const PdfEditor = dynamic(
+  () => import('pdf-editor-pro/frontend').then(m => m.App),
+  { ssr: false, loading: () => <div>Loading editor...</div> }
+);
+
+export default function EditorPage() {
+  return <PdfEditor />;
+}
+```
+
+### Option 3: Web Component (Stub for v1+)
+
+```html
+<pdf-editor 
+  id="my-editor"
+  initial-file="https://example.com/sample.pdf"
+  readonly="false"
+></pdf-editor>
+
+<script src="https://cdn.example.com/pdf-editor-wc.js"></script>
+<script>
+  const editor = document.getElementById('my-editor');
+  editor.addEventListener('save', (e) => {
+    console.log('File saved:', e.detail.file);
+  });
+</script>
+```
+
+## API Integration
+
+### Upload Edited PDF to Server
+
+```typescript
+// Example: Save to your backend API
+async function saveToServer(pdfBytes: ArrayBuffer) {
+  const formData = new FormData();
+  formData.append('file', new Blob([pdfBytes], { type: 'application/pdf' }));
+  
+  const response = await fetch('/api/upload', {
+    method: 'POST',
+    body: formData,
+  });
+  
+  return response.json();
+}
+
+// In PropertiesPanel or UtilityBar:
+const handleSaveServer = async () => {
+  const pdfBytes = await activeDocument.getPdfBytes();
+  await saveToServer(pdfBytes);
+};
+```
+
+### Load PDF from URL
+
+```typescript
+// Editor auto-loads from ?initialUrl=<url>
+// Or programmatically:
+
+const response = await fetch(pdfUrl);
+const pdfBytes = await response.arrayBuffer();
+editor.dispatch(addDocument({ name: 'remote.pdf', pdfBytes }));
+```
+
+### Server-Side Conversion (Example)
+
+```bash
+# If running backend at localhost:3001:
+
+curl -X POST http://localhost:3001/api/convert/word \
+  -H "Content-Type: application/json" \
+  -d '{"pdfBytes": "<base64_encoded_pdf>"}'
+```
+
+**Response:**
+```json
+{
+  "bytes": "<base64_encoded_docx>",
+  "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+}
+```
+
+## Authentication & Multi-Tenancy (v1+)
+
+For production deployments, add:
+
+```typescript
+// middleware/auth.ts
+import { NextRequest, NextResponse } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get('auth_token')?.value;
+  
+  if (!token && !request.nextUrl.pathname.startsWith('/public')) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+  
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/editor/:path*', '/api/:path*'],
+};
+```
+
+Store user files in a database:
+```typescript
+// lib/fileService.ts
+async function saveUserFile(userId: string, pdfBytes: ArrayBuffer, fileName: string) {
+  const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+  const url = `${process.env.STORAGE_URL}/users/${userId}/${fileName}`;
+  
+  // Upload to S3, GCS, etc.
+  await uploadToStorage(url, blob);
+  
+  return { url, size: blob.size };
+}
+```
+
+## Custom Feature Adapters
+
+### Swap PDF Rendering Engine
+
+```typescript
+// src/lib/engines/customRenderEngine.ts
+import { IRenderEngine } from '@/lib/types';
+
+class CustomRenderEngine implements IRenderEngine {
+  async renderPage(pdfBytes: ArrayBuffer, pageNum: number): Promise<HTMLCanvasElement> {
+    // Use your custom renderer (e.g., Ghostscript, Mupdf)
+    return customRenderLib.render(pdfBytes, pageNum);
+  }
+}
+
+// Register in stores
+export const useEngineStore = create(() => ({
+  renderEngine: new CustomRenderEngine(),
+}));
+```
+
+### Add Custom Export Format
+
+```typescript
+// src/lib/adapters/export/customExporter.ts
+import { IExporter } from '@/lib/types';
+
+class MyFormatExporter implements IExporter {
+  async export(doc: PDFDocument): Promise<ArrayBuffer> {
+    // Custom serialization logic
+    return new ArrayBuffer();
+  }
+}
+
+// Hook in Convert tab
+export function useExporters() {
+  return {
+    ...defaultExporters,
+    'my-format': new MyFormatExporter(),
+  };
+}
+```
+
+### Extend OCR Provider
+
+```typescript
+// src/lib/ocr/customOcrProvider.ts
+import { IOcrProvider } from '@/lib/types';
+
+class CustomOcrProvider implements IOcrProvider {
+  async processPage(imageData: ImageData): Promise<OcrResult> {
+    // Call your OCR service
+    return {
+      text: extractedText,
+      confidence: 0.95,
+    };
+  }
+}
+
+// Use via feature flag
+const ocrProvider = process.env.OCR_PROVIDER === 'custom'
+  ? new CustomOcrProvider()
+  : new TesseractOcrProvider();
+```
+
+## Event Hooks (Pub/Sub)
+
+```typescript
+// src/lib/hooks/useEditorEvents.ts
+export const useEditorEvents = () => {
+  const store = useEditorStore();
+
+  return {
+    onFileSave: (callback: (doc: Document) => void) => {
+      // Subscribe to save events
+      store.subscribe(state => state.activeDocId, () => callback(...));
+    },
+    onAnnotationAdded: (callback: (annot: Annotation) => void) => {
+      // Subscribe to annotation events
+    },
+    onPageExtracted: (callback: (pages: number[]) => void) => {
+      // Subscribe to page extraction
+    },
+  };
+};
+
+// Usage
+const { onFileSave } = useEditorEvents();
+onFileSave((doc) => {
+  console.log('User saved:', doc.name);
+  // Send analytics event
+});
+```
+
+## Docker Compose (Production-Ready)
+
+```yaml
+# docker-compose.yml
+version: '3.8'
+
+services:
+  pdf-editor:
+    build: .
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_BASE: http://localhost:3001
+      APRYSE_ENABLED: "false"
+    volumes:
+      - ./uploads:/app/uploads
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    # For caching OCR results, batch jobs
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: pdf_editor
+      POSTGRES_PASSWORD: secure_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+```
+
+**Run:**
+```bash
+docker-compose up -d
+```
+
+## Headless API (Batch Processing)
+
+```bash
+# POST /api/batch - Queue multiple operations
+
+curl -X POST http://localhost:3001/api/batch \
+  -H "Content-Type: application/json" \
+  -d '{
+    "operations": [
+      {
+        "type": "merge",
+        "files": ["base64_pdf_1", "base64_pdf_2"],
+        "output": "merged.pdf"
+      },
+      {
+        "type": "ocr",
+        "file": "base64_pdf",
+        "languages": ["eng"]
+      },
+      {
+        "type": "compress",
+        "file": "base64_pdf",
+        "quality": 80
+      }
+    ]
+  }' \
+  --output results.json
+```
+
+**Response (SSE streaming):**
+```
+data: {"jobId":"batch-123","op":0,"progress":0,"status":"pending"}
+data: {"jobId":"batch-123","op":0,"progress":50,"status":"processing"}
+data: {"jobId":"batch-123","op":0,"progress":100,"status":"done","result":"merged.pdf"}
+data: {"jobId":"batch-123","op":1,"progress":0,"status":"pending"}
+...
+```
+
+## Monitoring & Logging
+
+```typescript
+// src/lib/logger.ts
+export const logger = {
+  info: (msg: string, data?: any) => {
+    console.log(`[INFO] ${msg}`, data);
+  },
+  error: (msg: string, error?: Error) => {
+    console.error(`[ERROR] ${msg}`, error);
+    // Send to Sentry/Datadog
+  },
+  warn: (msg: string, data?: any) => {
+    console.warn(`[WARN] ${msg}`, data);
+  },
+};
+
+// Usage
+logger.info('PDF loaded', { docId, pages: 10 });
+logger.error('OCR failed', ocrError);
+```
+
+## Security Considerations
+
+1. **File Validation**: Reject non-PDF uploads
+   ```typescript
+   const validatePdf = (bytes: ArrayBuffer) => {
+     const view = new Uint8Array(bytes);
+     return view[0] === 0x25 && view[1] === 0x50; // %P
+   };
+   ```
+
+2. **Sanitize URLs**: Prevent SSRF
+   ```typescript
+   const isSafeUrl = (url: string) => {
+     const parsed = new URL(url);
+     return ['http', 'https'].includes(parsed.protocol);
+   };
+   ```
+
+3. **Rate Limiting**: Protect /api endpoints
+   ```typescript
+   import rateLimit from 'express-rate-limit';
+   const limiter = rateLimit({ windowMs: 15*60*1000, max: 100 });
+   app.use('/api/', limiter);
+   ```
+
+4. **CORS**: Restrict origins
+   ```typescript
+   app.use(cors({
+     origin: process.env.CORS_ORIGIN?.split(','),
+     credentials: true,
+   }));
+   ```
+
+## Troubleshooting Integration
+
+| Issue | Fix |
+|-------|-----|
+| CORS blocked | Set `CORS_ORIGIN` env var to your domain |
+| Iframe loses keyboard shortcuts | Add `allow="*"` to iframe (less secure) or use postMessage |
+| Large PDFs timeout | Increase backend timeout: `app.use(express.json({ limit: '100mb' }))` |
+| OCR language not found | Download tesseract data: `await Tesseract.download('eng', 'fra')` |
+

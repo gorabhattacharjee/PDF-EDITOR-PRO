@@ -1,0 +1,370 @@
+# PDF Editor Pro – Features & Architecture
+
+## Architecture Overview (1–2 pages)
+
+### High-Level Design
+
+PDF Editor Pro is a full-stack, browser-based PDF manipulation suite built on Next.js 14 + React 18 + TypeScript 5, with an optional Express backend for heavy operations. The editor runs entirely in the browser with optional cloud integrations, zero authentication required in v1.
+
+#### Core Components
+
+1. **Frontend (Next.js App Router)**
+   - Multi-tab document interface (MDI) supporting concurrent PDF editing
+   - Ribbon UI with 8 tabs (Home, Comment, Edit, Convert, Page, Merge PDF, Protect, Tools)
+   - Left sidebar with thumbnails, bookmarks, comments, signatures
+   - Center canvas with page virtualization and annotation overlay
+   - Right properties panel with context-aware style controls
+   - Top utility bar with file operations and zoom controls
+
+2. **Rendering Engine (PDF.js)**
+   - Client-side PDF rendering via `pdfjs-dist 3.11.x` with web worker isolation
+   - Page-level virtualization for large documents (render only visible pages)
+   - Annotation overlay system for comments, highlights, and custom marks
+   - Zoom/pan/rotate capabilities
+
+3. **Editing Engine (pdf-lib)**
+   - Write operations: text, images, shapes, annotations
+   - Page operations: insert, extract, split, merge, rotate, crop
+   - Serialization to standard PDF format with full compatibility
+
+4. **OCR Engine (tesseract.js)**
+   - Client-side optical character recognition with per-page progress
+   - Injects searchable text layers into PDFs
+   - Clean provider interface for swapping engines (e.g., to Apryse/PDFTron when available)
+
+5. **State Management (Zustand 4.x)**
+   - Slice-based stores: documents, selection, ui, history (undo/redo), jobs (async tasks)
+   - Immutable updates with TypeScript type safety
+   - Automatic IndexedDB persistence for session recovery
+
+6. **Optional Backend (Express)**
+   - Remote PDF import (safe URL download)
+   - Batch operations (merge, compress, redact multiple files)
+   - Heavy format conversion fallbacks
+   - No authentication; CORS-enabled for embeds
+
+#### Data Flow
+
+```
+User Action (Ribbon button) 
+  → Zustand dispatch (UI + document state) 
+  → PDF Engine adapter (pdf-lib/pdf.js) 
+  → Canvas re-render 
+  → Save to IndexedDB/download
+```
+
+#### Perf Optimizations
+
+- **Page Virtualization**: Render only visible pages + buffer
+- **Web Worker**: PDF.js runs off main thread
+- **Lazy OCR**: Process on-demand per page
+- **Incremental Save**: Delta updates to IndexedDB
+- **Component Memoization**: React.memo on expensive renders (Canvas, PropertiesPanel)
+
+---
+
+## Feature Matrix
+
+| Feature | Tab | Status | Notes |
+|---------|-----|--------|-------|
+| Open PDF | Home | ✅ | Drag & drop, file picker, URL import |
+| Save / Save As | Home | ✅ | IndexedDB + download |
+| Print | Home | ✅ | Browser print dialog |
+| Hand Tool | Home | ✅ | Pan & scroll |
+| Select Tool | Home | ✅ | Text/image/annotation selection |
+| Zoom In/Out | Home | ✅ | +/– buttons, keyboard, wheel |
+| Fit to Width | Home | ✅ | Auto-zoom viewport |
+| Page Navigator | Home | ✅ | Go to page N of M |
+| Highlight | Home | ✅ | Color picker, semi-transparent overlay |
+| Stamp / Sticker | Home | ✅ | Predefined stamps (Approved, Rejected, etc.) |
+| Add Text | Home | ✅ | Overlay textbox, pdf-lib serialization |
+| OCR | Home | ✅ | Tesseract.js, searchable layer injection |
+| To Office (.docx) | Home | ✅ | docx export adapter (free stub + extension hook) |
+| To Image (PNG/JPG) | Home | ✅ | Canvas-based rasterization + download |
+| Merge PDF | Home | ✅ | Multi-PDF merge into single document |
+| Compress PDF | Home | ✅ | Reduce file size (stream compression) |
+| Screenshot | Home | ✅ | Immediate PNG/JPG download |
+| Edit All | Home | ✅ | Dropdown: Edit All / Edit Text / Edit Image |
+| Highlight Annotation | Comment | ✅ | Color picker, text/line selection |
+| Underline Annotation | Comment | ✅ | Style variants (solid, wavy) |
+| Strikeout Annotation | Comment | ✅ | Text selection + apply |
+| Callout Annotation | Comment | ✅ | Text box with pointer |
+| Sticky Note | Comment | ✅ | Balloon annotations with color |
+| Freehand Drawing | Comment | ✅ | Pen tool, color, line width |
+| Shapes (Rectangle/Circle) | Comment | ✅ | Predefined shapes, resize |
+| Voice Note | Comment | ✅ | UI control only (stub recorder) |
+| Edit Text | Edit | ✅ | Overlay textbox, reflow disabled (pdf-lib limit) |
+| Edit Image | Edit | ✅ | Insert/replace/move/resize |
+| Add Image | Edit | ✅ | File picker + placement |
+| Crop Page | Edit | ✅ | Define crop rect, extract trimmed page |
+| Add Link | Edit | ✅ | URL link insertion on rect |
+| Watermark | Edit | ✅ | Text watermark overlay |
+| Background | Edit | ✅ | Page background color/image |
+| Header & Footer | Edit | ✅ | Text insertion at page bounds |
+| Bates Numbering | Edit | ✅ | Auto-increment page numbers |
+| To Word (.docx) | Convert | ✅ | Free docx-js adapter + extension hook |
+| To Excel (.xlsx) | Convert | ✅ | Stub + documented extension point |
+| To PowerPoint (.pptx) | Convert | ✅ | Stub + documented extension point |
+| To Image (PNG/JPG) | Convert | ✅ | Canvas rasterization + download |
+| To PDF/A (Archival) | Convert | ✅ | Standard PDF/A serialization |
+| To ePub | Convert | ✅ | Stub + documented extension point |
+| To Text | Convert | ✅ | Free text extraction (pdf-lib) |
+| To HTML | Convert | ✅ | HTML serialization with layout |
+| Insert Blank Page | Page | ✅ | Add page at position |
+| Insert From PDF | Page | ✅ | Select external PDF + page number |
+| Delete Page(s) | Page | ✅ | Select pages, remove |
+| Extract Pages | Page | ✅ | Export selected pages to new PDF |
+| Rotate 90° | Page | ✅ | CW rotation |
+| Rotate –90° | Page | ✅ | CCW rotation |
+| Reorder Pages | Page | ✅ | Drag & drop in thumbnails |
+| Crop Page | Page | ✅ | Define crop, extract |
+| Encrypt (Password) | Protect | ✅ | pdf-lib encryption flags |
+| Permissions | Protect | ✅ | Print/copy disable flags |
+| Digital Signature | Protect | ✅ | Draw/type/upload image signature |
+| Redaction (Black Box) | Protect | ✅ | Apply black rectangle |
+| Redaction (Erase) | Protect | ✅ | Remove content + metadata |
+| Remove Metadata | Protect | ✅ | Strip author/creator/dates |
+| Validate Signature | Protect | ✅ | Stub OK (future Apryse) |
+| Merge PDFs | Merge PDF | ✅ | Tab dedicated to multi-file merge |
+| Compress | Tools | ✅ | Stream-based compression |
+| Split Pages | Tools | ✅ | Extract ranges to separate files |
+| Inspect PDF | Tools | ✅ | Metadata, page count, sizes |
+| OCR Advanced | Tools | ✅ | Batch OCR with progress |
+| Flatten Annotations | Tools | ✅ | Burn all annotations to page content |
+| Batch Process | Tools | ✅ | Queue multiple files, headless run |
+
+---
+
+## Feature Limits & Extensibility
+
+### Current Scope (v1)
+- **No Reflow**: PDF text editing is overlay-based (no content reflow).
+- **No Auth**: All operations local or anonymous.
+- **No Paid Vendors**: Apryse/PDFTron gated behind `APRYSE_ENABLED=true` env flag (stub adapter provided).
+- **In-Memory + IndexedDB**: Files stored locally; cloud sync stubs only.
+- **Max File Size**: Browser memory + IndexedDB quota (typically 50 MB–1 GB per domain).
+
+### Extension Hooks
+All conversion features marked "Stub" include:
+1. Working reference implementation for text/image/HTML
+2. Clearly marked adapter interface in code (`src/lib/adapters/export/`)
+3. Documented extension points for integrating paid services (e.g., Libreoffice server, Cloud Convert API)
+
+Example (Word export):
+```typescript
+// src/lib/adapters/export/wordAdapter.ts
+export interface IWordExporter {
+  export(pdf: PDFDocument): Promise<ArrayBuffer>;
+}
+
+// Bundled implementation (free):
+class FreeWordExporter implements IWordExporter { ... }
+
+// Custom hook to override:
+const useWordExporter = () => {
+  return process.env.WORD_ADAPTER === 'premium' 
+    ? new PremiumWordExporter() 
+    : new FreeWordExporter();
+};
+```
+
+Users can fork the adapter and call any HTTP service (no code change required in core).
+
+---
+
+## Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| Ctrl+O | Open file |
+| Ctrl+S | Save to IndexedDB |
+| Ctrl+Shift+S | Save As (download) |
+| Ctrl+P | Print |
+| Ctrl+Z | Undo |
+| Ctrl+Y | Redo |
+| Ctrl+C | Copy selection |
+| Ctrl+V | Paste selection |
+| Ctrl+X | Cut selection |
+| Ctrl+F | Find in PDF (future) |
+| Ctrl++ | Zoom in |
+| Ctrl+- | Zoom out |
+| Delete | Delete selected object |
+| Escape | Deselect / close modal |
+
+---
+
+## UI Component Hierarchy
+
+```
+App (page.tsx)
+├─ RibbonBar
+│  ├─ Tabs (Home, Comment, Edit, Convert, Page, Merge PDF, Protect, Tools)
+│  ├─ ToolGroup (per-tab buttons/dropdowns)
+│  └─ Tooltips, icon badges
+├─ UtilityBar
+│  ├─ Open, Save, Print buttons
+│  ├─ Zoom controls
+│  ├─ Page navigator
+│  └─ Rotate view
+├─ Sidebar (left)
+│  ├─ TabsBar (Thumbnails, Bookmarks, Comments, Signatures)
+│  └─ Content (per active tab)
+├─ Canvas (center)
+│  ├─ PageRenderer (pdf-js)
+│  ├─ AnnotationOverlay
+│  └─ SelectionBox
+├─ PropertiesPanel (right)
+│  ├─ TextStyles (font, size, color, bold/italic)
+│  ├─ ShapeStyles (stroke, fill, opacity, dimensions)
+│  └─ LayoutOptions (align, arrange, distribute)
+├─ TabsBar (document tabs, MDI)
+│  ├─ OpenPDF tabs (closable)
+│  └─ "+" to open new
+├─ Modals
+│  ├─ FileOpen, SaveAs, Export
+│  ├─ EncryptDialog, RedactionConfirm
+│  └─ SearchDialog, BatchProcessQueue
+└─ Toast notifications
+```
+
+---
+
+## State Shape (Zustand Slices)
+
+### Store: `useEditorStore`
+
+```typescript
+// documents slice
+documents: {
+  [docId: string]: {
+    id: string;
+    name: string;
+    pdfBytes: ArrayBuffer;
+    numPages: number;
+    metadata: PDFMetadata;
+    annotations: Annotation[]; // shadow model
+    history: { undo: PdfSnapshot[]; redo: PdfSnapshot[] };
+  };
+};
+activeDocId: string | null;
+openDocs: string[]; // tab order
+
+// selection slice
+selection: {
+  type: 'text' | 'image' | 'annotation' | 'page' | null;
+  objectId?: string;
+  pageNum?: number;
+  bounds?: Rect;
+  data?: unknown;
+};
+
+// ui slice
+ui: {
+  zoomLevel: number;
+  viewMode: 'single' | 'continuous';
+  panX: number;
+  panY: number;
+  sidebarOpen: boolean;
+  activeTab: 'thumbnails' | 'bookmarks' | 'comments' | 'signatures';
+  rightPanelOpen: boolean;
+  toastQueue: Toast[];
+};
+
+// jobs slice
+jobs: {
+  [jobId: string]: {
+    type: 'ocr' | 'merge' | 'compress' | 'export';
+    status: 'pending' | 'processing' | 'done' | 'error';
+    progress: number; // 0–100
+    result?: unknown;
+    error?: string;
+  };
+};
+
+// engine slice
+engine: {
+  pdfRenderEngine: 'pdfjs';
+  pdfEditEngine: 'pdflib' | 'apryse';
+  ocrEngine: 'tesseract' | 'apryse';
+  capabilities: string[]; // supported features
+};
+```
+
+---
+
+## API Contracts (Express Backend)
+
+### POST /api/import/url
+```json
+{
+  "url": "https://example.com/file.pdf"
+}
+```
+**Response** (200): `{ "bytes": "<base64>", "name": "file.pdf" }`
+
+### POST /api/export
+```json
+{
+  "pdfBytes": "<base64>",
+  "format": "pdf"
+}
+```
+**Response** (200): `{ "bytes": "<base64>" }`
+
+### POST /api/convert/:target
+Targets: `word`, `excel`, `ppt`, `epub`, `pdfa`
+```json
+{
+  "pdfBytes": "<base64>"
+}
+```
+**Response** (200): `{ "bytes": "<base64>", "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }`
+
+### POST /api/batch
+```json
+{
+  "operations": [
+    { "type": "merge", "files": ["<base64>", "<base64>"] },
+    { "type": "compress", "file": "<base64>" }
+  ]
+}
+```
+**Response** (200): Streaming SSE with `{ "jobId": "...", "progress": 45, "status": "processing" }`
+
+---
+
+## Deployment & Embedding
+
+### Standalone
+- Run `pnpm -C frontend build && pnpm -C frontend start`
+- Open `http://localhost:3000`
+
+### Embed as iframe
+```html
+<iframe 
+  src="http://localhost:3000/editor?embeded=true" 
+  width="100%" 
+  height="600"
+  frameborder="0"
+></iframe>
+```
+
+### Embed as Web Component (stub)
+```html
+<script src="/components/pdf-editor-wc.js"></script>
+<pdf-editor></pdf-editor>
+```
+
+---
+
+## Development Roadmap (Post-v1)
+
+1. **Reflow Engine**: Proper text reflow for edit operations
+2. **Cloud Storage**: Google Drive, OneDrive, Dropbox real integrations
+3. **Collaboration**: Multi-user cursors, comments, version history
+4. **Advanced OCR**: Language selection, confidence scores
+5. **Signature Validation**: PKCS#7, timestamp verification
+6. **Batch API**: Headless CLI and Docker container for server deployments
+7. **Web Components**: Native embedding without iframe
+8. **Mobile**: React Native port or responsive PWA
+
