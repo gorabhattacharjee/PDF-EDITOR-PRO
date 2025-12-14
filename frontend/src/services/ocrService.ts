@@ -12,7 +12,7 @@ export const ocrService = {
     formData.append('page', pageNumber.toString());
 
     try {
-      const response = await fetch('http://localhost:5000/api/ocr', {
+      const response = await fetch('/api/ocr', {
         method: 'POST',
         body: formData
       });

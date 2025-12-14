@@ -461,7 +461,7 @@ export default function HomeTab() {
               formData.append('file', activeDocument.file);
               formData.append('format', 'text');
 
-              const response = await fetch('http://localhost:5000/api/convert/pdf', {
+              const response = await fetch('/api/convert', {
                 method: 'POST',
                 body: formData,
               });
@@ -489,7 +489,7 @@ export default function HomeTab() {
               alert('Text extraction completed!\n\nFile downloaded successfully.');
             } catch (err) {
               logger.error('Text extraction failed: ' + err);
-              alert(`Text extraction failed: ${err}\n\nNote: Ensure backend server is running at http://localhost:5000`);
+              alert(`Text extraction failed: ${err}`);
             }
           }}
         />

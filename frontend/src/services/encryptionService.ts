@@ -12,7 +12,7 @@ export const encryptionService = {
     formData.append('password', password);
 
     try {
-      const response = await fetch('http://localhost:5000/api/encrypt', {
+      const response = await fetch('/api/encrypt', {
         method: 'POST',
         body: formData
       });
