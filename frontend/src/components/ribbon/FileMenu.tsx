@@ -146,33 +146,63 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
       setIsSaving(false);
     }
   };
-  const handlePrint = () => {
+  const handlePrint = async () => {
     if (!ensureDoc()) return;
     if (!activeDocument?.file) {
       logger.error("No PDF to print");
       return;
     }
     
-    // Create a blob URL for the PDF
-    const url = URL.createObjectURL(activeDocument.file);
-    
-    // Open the PDF in a new window/tab for printing
-    const printWindow = window.open(url, "_blank");
-    
-    if (printWindow) {
-      // Wait for the PDF to load, then trigger print
-      printWindow.addEventListener("load", () => {
-        printWindow.print();
-      });
-      logger.success("Opening PDF for printing...");
-    } else {
-      logger.error("Could not open print window. Please check popup blocker settings.");
+    try {
+      // Get PDF with any modifications applied
+      const docHighlights = highlights[activeDocument.id] || [];
+      const docTextEdits = textEdits[activeDocument.id] || [];
+      const docImageEdits = imageEdits[activeDocument.id] || [];
+      
+      let pdfBlob: Blob;
+      if (docHighlights.length > 0 || docTextEdits.length > 0 || docImageEdits.length > 0) {
+        const pdfBytes = await activeDocument.file.arrayBuffer();
+        const modifiedPdfBytes = await applyAllModificationsToPdf(pdfBytes, docHighlights, docTextEdits, docImageEdits);
+        pdfBlob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+      } else {
+        pdfBlob = activeDocument.file;
+      }
+      
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+      
+      // Remove any existing print frame
+      const existingFrame = document.getElementById('print-pdf-frame');
+      if (existingFrame) {
+        existingFrame.remove();
+      }
+      
+      // Create a hidden iframe to load and print just the PDF
+      const iframe = document.createElement('iframe');
+      iframe.id = 'print-pdf-frame';
+      iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:none;';
+      iframe.src = pdfUrl;
+      
+      document.body.appendChild(iframe);
+      
+      iframe.onload = () => {
+        setTimeout(() => {
+          try {
+            iframe.contentWindow?.focus();
+            iframe.contentWindow?.print();
+            logger.success("Print dialog opened for: " + activeDocument?.name);
+          } catch (e) {
+            // Fallback: open in new tab
+            window.open(pdfUrl, '_blank');
+            logger.info("PDF opened in new tab - use Ctrl+P to print");
+          }
+        }, 500);
+      };
+      
+      onClose?.();
+    } catch (err) {
+      logger.error("Print failed: " + err);
+      alert("Print failed: " + err);
     }
-    
-    // Clean up the URL after a delay
-    setTimeout(() => {
-      URL.revokeObjectURL(url);
-    }, 1000);
   };
   const handleExportWord = async () => {
     if (!ensureDoc() || !activeDocument?.file) return;
