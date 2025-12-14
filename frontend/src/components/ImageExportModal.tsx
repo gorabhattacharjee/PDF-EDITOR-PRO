@@ -1,131 +1,58 @@
 "use client";
 
 import React, { useState } from "react";
-import useDocumentsStore from "@/stores/useDocumentsStore";
-import useUIStore from "@/stores/useUIStore";
-import logger from "@/utils/logger";
-
-const IMAGE_FORMATS = [
-  { value: "jpeg", label: "JPEG (.jpg)" },
-  { value: "png", label: "PNG (.png)" },
-  { value: "gif", label: "GIF (.gif)" },
-  { value: "webp", label: "WebP (.webp)" },
-  { value: "avif", label: "AVIF (.avif)" },
-  { value: "tiff", label: "TIFF (.tiff)" },
-  { value: "bmp", label: "BMP (.bmp)" },
-  { value: "heif", label: "HEIF (.heif)" },
-  { value: "heic", label: "HEIC (.heic)" },
-];
+import { SUPPORTED_FORMATS, performImageExport, ImageFormat } from "@/utils/imageExport";
+import toast from "react-hot-toast";
 
 interface ImageExportModalProps {
   isOpen: boolean;
   onClose: () => void;
+  documentName: string;
+  currentPage: number;
+  totalPages: number;
 }
 
-export default function ImageExportModal({ isOpen, onClose }: ImageExportModalProps) {
-  const activeDocument = useDocumentsStore((s) => s.activeDocument);
-  const activePage = useUIStore((s) => s.activePage);
-  const numPages = useDocumentsStore((s) => s.activeDocument?.numPages) || 1;
-
-  const [format, setFormat] = useState("png");
-  const [pageMode, setPageMode] = useState<"current" | "range" | "all">("current");
-  const [startPage, setStartPage] = useState(1);
-  const [endPage, setEndPage] = useState(numPages);
+export default function ImageExportModal({
+  isOpen,
+  onClose,
+  documentName,
+  currentPage,
+  totalPages,
+}: ImageExportModalProps) {
+  const [selectedFormat, setSelectedFormat] = useState<string>("png");
+  const [quality, setQuality] = useState<number>(92);
   const [isExporting, setIsExporting] = useState(false);
 
-  // Update endPage when numPages changes
-  React.useEffect(() => {
-    setEndPage(numPages);
-  }, [numPages]);
-
-  if (!isOpen || !activeDocument) return null;
+  if (!isOpen) return null;
 
   const handleExport = async () => {
-    if (!activeDocument?.file) {
-      alert("No document loaded");
-      return;
-    }
-
+    setIsExporting(true);
     try {
-      setIsExporting(true);
-      console.log("[ImageExport] Starting export with format:", format, "mode:", pageMode);
+      const result = await performImageExport(
+        documentName,
+        selectedFormat,
+        currentPage,
+        { quality: quality / 100 }
+      );
 
-      // Determine pages to export
-      let pagesToExport: number[] = [];
-      if (pageMode === "current") {
-        pagesToExport = [(activePage ?? 0) + 1];
-      } else if (pageMode === "range") {
-        const start = Math.max(1, parseInt(String(startPage)) || 1);
-        const end = Math.min(numPages, parseInt(String(endPage)) || numPages);
-        for (let i = start; i <= end; i++) {
-          pagesToExport.push(i);
+      if (result.success) {
+        toast.success(`Exported: ${result.filename}`);
+        if (result.error) {
+          toast(result.error, { icon: 'info' });
         }
-      } else if (pageMode === "all") {
-        for (let i = 1; i <= numPages; i++) {
-          pagesToExport.push(i);
-        }
+        onClose();
+      } else {
+        toast.error(result.error || "Export failed");
       }
-
-      console.log("[ImageExport] Pages to export:", pagesToExport);
-      console.log("[ImageExport] Format:", format);
-
-      const baseName = activeDocument.name.replace(".pdf", "");
-      const extensionMap: { [key: string]: string } = {
-        jpeg: "jpg",
-        heif: "heif",
-        heic: "heic",
-      };
-      const fileExtension = extensionMap[format] || format;
-      
-      // Use the global PDF.js library loaded via CDN
-      const pdfjsLib = (window as any).pdfjsLib;
-      
-      if (!pdfjsLib || !pdfjsLib.getDocument) {
-        throw new Error('PDF.js library not loaded. Please ensure a PDF is loaded first.');
-      }
-      
-      // Load the PDF document
-      const fileData = await activeDocument.file.arrayBuffer();
-      const pdfdoc = await pdfjsLib.getDocument({ data: new Uint8Array(fileData) }).promise;
-      
-      console.log(`[ImageExport] PDF loaded with ${pdfdoc.numPages} pages`);
-      
-      // Export each page
-      for (let pageIdx = 0; pageIdx < pagesToExport.length; pageIdx++) {
-        const pageNum = pagesToExport[pageIdx];
-        console.log(`[ImageExport] Rendering page ${pageNum}`);
-        
-        const page = await pdfdoc.getPage(pageNum);
-        const scale = 2;
-        const viewport = page.getViewport({ scale });
-        
-        const canvas = document.createElement('canvas');
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-        const context = canvas.getContext('2d');
-        if (!context) throw new Error('Could not get canvas context');
-        
-        await page.render({ canvasContext: context, viewport }).promise;
-        
-        const blob = await canvasToBlob(canvas, format);
-        const filename = pagesToExport.length === 1 
-          ? `${baseName}.${fileExtension}`
-          : `${baseName}_page${pageNum}.${fileExtension}`;
-        downloadFile(blob, filename);
-        
-        console.log(`[ImageExport] Page ${pageNum} exported as ${filename}`);
-      }
-
-      logger.success(`Exported ${pagesToExport.length} page(s) as ${format}`);
-      onClose();
-    } catch (error) {
-      console.error("[ImageExport] Error:", error);
-      logger.error(`Image export failed: ${error}`);
-      alert(`Export failed: ${error}`);
+    } catch (err) {
+      toast.error(`Export error: ${err}`);
     } finally {
       setIsExporting(false);
     }
   };
+
+  const selectedFormatInfo = SUPPORTED_FORMATS.find(f => f.id === selectedFormat);
+  const showQualitySlider = ['jpg', 'webp'].includes(selectedFormat);
 
   return (
     <div
@@ -133,8 +60,8 @@ export default function ImageExportModal({ isOpen, onClose }: ImageExportModalPr
         position: "fixed",
         top: 0,
         left: 0,
-        width: "100%",
-        height: "100%",
+        right: 0,
+        bottom: 0,
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         display: "flex",
         alignItems: "center",
@@ -146,169 +73,109 @@ export default function ImageExportModal({ isOpen, onClose }: ImageExportModalPr
       <div
         style={{
           backgroundColor: "white",
-          borderRadius: "8px",
+          borderRadius: "12px",
           padding: "24px",
-          width: "400px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          minWidth: "420px",
+          maxWidth: "500px",
+          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 style={{ marginTop: 0, marginBottom: "16px", fontSize: "18px" }}>
-          Export Pages as Images
-        </h2>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+          <h2 style={{ margin: 0, fontSize: "18px", fontWeight: 600, color: "#1e3a8a" }}>
+            Export to Image
+          </h2>
+          <button
+            onClick={onClose}
+            style={{ 
+              background: "none", 
+              border: "none", 
+              fontSize: "24px", 
+              cursor: "pointer", 
+              color: "#666",
+              lineHeight: 1,
+            }}
+          >
+            &times;
+          </button>
+        </div>
 
-        {/* Format Selection */}
         <div style={{ marginBottom: "16px" }}>
-          <label style={{ display: "block", marginBottom: "8px", fontWeight: "500" }}>
+          <label style={{ display: "block", marginBottom: "8px", fontWeight: 500, fontSize: "14px", color: "#374151" }}>
             Image Format
           </label>
           <select
-            value={format}
-            onChange={(e) => setFormat(e.target.value)}
+            value={selectedFormat}
+            onChange={(e) => setSelectedFormat(e.target.value)}
             style={{
               width: "100%",
-              padding: "8px",
-              border: "1px solid #e5e7eb",
-              borderRadius: "4px",
+              padding: "10px 12px",
+              border: "1px solid #d1d5db",
+              borderRadius: "6px",
               fontSize: "14px",
+              backgroundColor: "white",
+              cursor: "pointer",
             }}
           >
-            {IMAGE_FORMATS.map((f) => (
-              <option key={f.value} value={f.value}>
-                {f.label}
+            {SUPPORTED_FORMATS.map((format) => (
+              <option key={format.id} value={format.id}>
+                {format.name} (.{format.extension}) - {format.description}
               </option>
             ))}
           </select>
         </div>
 
-        {/* Page Selection */}
-        <div style={{ marginBottom: "16px" }}>
-          <label style={{ display: "block", marginBottom: "8px", fontWeight: "500" }}>
-            Pages to Export
-          </label>
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-            <label style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <input
-                type="radio"
-                name="pageMode"
-                value="current"
-                checked={pageMode === "current"}
-                onChange={(e) => setPageMode(e.target.value as any)}
-              />
-              Current Page ({(activePage ?? 0) + 1})
+        {showQualitySlider && (
+          <div style={{ marginBottom: "16px" }}>
+            <label style={{ display: "block", marginBottom: "8px", fontWeight: 500, fontSize: "14px", color: "#374151" }}>
+              Quality: {quality}%
             </label>
-            <label style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <input
-                type="radio"
-                name="pageMode"
-                value="range"
-                checked={pageMode === "range"}
-                onChange={(e) => setPageMode(e.target.value as any)}
-              />
-              Range:
-              <input
-                key="start-page"
-                type="text"
-                inputMode="numeric"
-                value={String(startPage)}
-                onChange={(e) => {
-                  const newVal = e.target.value.trim();
-                  console.log('[ImageExport] startPage onChange:', newVal);
-                  if (newVal === '') {
-                    // Allow empty input while typing
-                    return;
-                  }
-                  const num = parseInt(newVal);
-                  if (!isNaN(num)) {
-                    console.log('[ImageExport] Setting startPage to:', num);
-                    setStartPage(num);
-                  }
-                }}
-                onBlur={(e) => {
-                  const newVal = e.target.value.trim();
-                  if (newVal === '') {
-                    setStartPage(1);
-                  } else {
-                    const num = parseInt(newVal);
-                    if (isNaN(num)) setStartPage(1);
-                    else setStartPage(Math.max(1, Math.min(num, numPages)));
-                  }
-                }}
-                style={{
-                  width: "50px",
-                  padding: "8px",
-                  border: "2px solid #3b82f6",
-                  borderRadius: "4px",
-                  backgroundColor: "#ffffff",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                }}
-              />
-              to
-              <input
-                key="end-page"
-                type="text"
-                inputMode="numeric"
-                value={String(endPage)}
-                onChange={(e) => {
-                  const newVal = e.target.value.trim();
-                  console.log('[ImageExport] endPage onChange:', newVal);
-                  if (newVal === '') {
-                    // Allow empty input while typing
-                    return;
-                  }
-                  const num = parseInt(newVal);
-                  if (!isNaN(num)) {
-                    console.log('[ImageExport] Setting endPage to:', num);
-                    setEndPage(num);
-                  }
-                }}
-                onBlur={(e) => {
-                  const newVal = e.target.value.trim();
-                  if (newVal === '') {
-                    setEndPage(numPages);
-                  } else {
-                    const num = parseInt(newVal);
-                    if (isNaN(num)) setEndPage(numPages);
-                    else setEndPage(Math.max(1, Math.min(num, numPages)));
-                  }
-                }}
-                style={{
-                  width: "50px",
-                  padding: "8px",
-                  border: "2px solid #3b82f6",
-                  borderRadius: "4px",
-                  backgroundColor: "#ffffff",
-                  fontSize: "14px",
-                  fontWeight: "600",
-                }}
-              />
-            </label>
-            <label style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <input
-                type="radio"
-                name="pageMode"
-                value="all"
-                checked={pageMode === "all"}
-                onChange={(e) => setPageMode(e.target.value as any)}
-              />
-              All Pages ({numPages})
-            </label>
+            <input
+              type="range"
+              min="10"
+              max="100"
+              value={quality}
+              onChange={(e) => setQuality(Number(e.target.value))}
+              style={{ width: "100%" }}
+            />
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", color: "#6b7280" }}>
+              <span>Smaller file</span>
+              <span>Better quality</span>
+            </div>
+          </div>
+        )}
+
+        <div style={{ 
+          padding: "12px", 
+          backgroundColor: "#f3f4f6", 
+          borderRadius: "8px", 
+          marginBottom: "20px" 
+        }}>
+          <div style={{ fontSize: "13px", color: "#4b5563" }}>
+            <div style={{ marginBottom: "4px" }}>
+              <strong>Document:</strong> {documentName}
+            </div>
+            <div style={{ marginBottom: "4px" }}>
+              <strong>Page:</strong> {currentPage} of {totalPages}
+            </div>
+            <div>
+              <strong>Format:</strong> {selectedFormatInfo?.name} ({selectedFormatInfo?.description})
+            </div>
           </div>
         </div>
 
-        {/* Buttons */}
-        <div style={{ display: "flex", gap: "8px", justifyContent: "flex-end" }}>
+        <div style={{ display: "flex", gap: "12px", justifyContent: "flex-end" }}>
           <button
             onClick={onClose}
             disabled={isExporting}
             style={{
-              padding: "8px 16px",
-              border: "1px solid #e5e7eb",
-              borderRadius: "4px",
+              padding: "10px 20px",
+              border: "1px solid #d1d5db",
+              borderRadius: "6px",
               backgroundColor: "white",
               cursor: isExporting ? "not-allowed" : "pointer",
-              opacity: isExporting ? 0.6 : 1,
+              fontSize: "14px",
+              fontWeight: 500,
             }}
           >
             Cancel
@@ -317,68 +184,20 @@ export default function ImageExportModal({ isOpen, onClose }: ImageExportModalPr
             onClick={handleExport}
             disabled={isExporting}
             style={{
-              padding: "8px 16px",
+              padding: "10px 24px",
               border: "none",
-              borderRadius: "4px",
-              backgroundColor: "#3b82f6",
+              borderRadius: "6px",
+              backgroundColor: isExporting ? "#9ca3af" : "#2563eb",
               color: "white",
               cursor: isExporting ? "not-allowed" : "pointer",
-              opacity: isExporting ? 0.6 : 1,
+              fontSize: "14px",
+              fontWeight: 600,
             }}
           >
-            {isExporting ? "Exporting..." : "Export"}
+            {isExporting ? "Exporting..." : "Export Image"}
           </button>
         </div>
       </div>
     </div>
   );
-}
-
-async function canvasToBlob(
-  canvas: HTMLCanvasElement,
-  format: string
-): Promise<Blob> {
-  return new Promise((resolve, reject) => {
-    const mimeType =
-      format === "jpeg"
-        ? "image/jpeg"
-        : format === "webp"
-        ? "image/webp"
-        : format === "gif"
-        ? "image/gif"
-        : format === "tiff"
-        ? "image/tiff"
-        : format === "bmp"
-        ? "image/bmp"
-        : format === "avif"
-        ? "image/avif"
-        : format === "heif"
-        ? "image/heif"
-        : format === "heic"
-        ? "image/heic"
-        : "image/png";
-
-    canvas.toBlob(
-      (blob) => {
-        if (blob) {
-          resolve(blob);
-        } else {
-          reject(new Error("Failed to convert canvas to blob"));
-        }
-      },
-      mimeType,
-      format === "jpeg" ? 0.9 : undefined
-    );
-  });
-}
-
-function downloadFile(blob: Blob, filename: string) {
-  const url = window.URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  window.URL.revokeObjectURL(url);
 }

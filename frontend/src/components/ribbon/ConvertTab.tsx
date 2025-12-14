@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import useDocumentsStore from "@/stores/useDocumentsStore";
 import useUIStore from "@/stores/useUIStore";
 import logger from "@/utils/logger";
-import { performImageExport } from "@/utils/imageExport";
 import { PDFDocument } from "pdf-lib";
 import RibbonButton from "./RibbonButton";
+import ImageExportModal from "@/components/ImageExportModal";
 import {
   FaFileWord,
   FaFileExcel,
@@ -20,6 +20,7 @@ import { MdImage } from "react-icons/md";
 export default function ConvertTab() {
   const activeDocument = useDocumentsStore((s) => s.activeDocument);
   const activePage = useUIStore((s) => s.activePage);
+  const [showImageExportModal, setShowImageExportModal] = useState(false);
 
   const ensureDoc = () => {
     if (!activeDocument) {
@@ -159,12 +160,12 @@ export default function ConvertTab() {
     }
   };
 
-  const exportImage = async () => {
+  const exportImage = () => {
     if (!activeDocument) {
       alert('Please load a PDF first');
       return;
     }
-    await performImageExport(activeDocument.name, activePage);
+    setShowImageExportModal(true);
   };
 
   const exportPDFa = async () => {
@@ -228,8 +229,8 @@ export default function ConvertTab() {
       />
       <RibbonButton
         icon={<MdImage style={{ color: '#d946ef', fontSize: '18px' }} />}
-        label="To Image (PNG/JPG)"
-        onClick={async () => { await exportImage(); }}
+        label="To Image"
+        onClick={() => exportImage()}
       />
       <RibbonButton
         icon={<FaFilePdf style={{ color: '#6366f1', fontSize: '18px' }} />}
@@ -241,6 +242,16 @@ export default function ConvertTab() {
         label="To Text (.txt)"
         onClick={async () => { await exportToText(); }}
       />
+      
+      {activeDocument && (
+        <ImageExportModal
+          isOpen={showImageExportModal}
+          onClose={() => setShowImageExportModal(false)}
+          documentName={activeDocument.name}
+          currentPage={activePage || 1}
+          totalPages={activeDocument.numPages || 1}
+        />
+      )}
     </div>
   );
 }

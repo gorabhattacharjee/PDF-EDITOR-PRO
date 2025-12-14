@@ -8,7 +8,6 @@ import { useTextEditsStore } from "@/stores/useTextEditsStore";
 import { useImageEditsStore } from "@/stores/useImageEditsStore";
 import { applyAllModificationsToPdf } from "@/adapters/pdf-lib";
 import logger from "@/utils/logger";
-import { performImageExport as exportImageUtil } from "@/utils/imageExport";
 import {
   FiFile,
   FiSave,
@@ -301,15 +300,6 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
     useUIStore.getState().openPropertiesModal();
   };
   
-  const performImageExport = async () => {
-    if (!activeDocument) {
-      alert('No PDF document loaded');
-      return;
-    }
-    await exportImageUtil(activeDocument.name, activeDocument.currentPage || 1);
-    onClose?.();
-  };
-
   const performTextExport = async () => {
     try {
       if (!activeDocument?.file) {
