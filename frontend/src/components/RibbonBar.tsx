@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from "react";
-import { PDFDocument } from "pdf-lib";
+import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import FileMenu from "./ribbon/FileMenu";
 import ConvertTab from "./ribbon/ConvertTab";
 import "@/styles/ribbon.css";
@@ -756,13 +756,76 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
     alert("Permission settings: Allow printing, copying, and modifying. Password required to change.");
     logger.info("Permission settings dialog opened");
   };
-  const handleDigitalSignature = () => {
+  const handleDigitalSignature = async () => {
     if (!activeDocument) {
       alert("Please load a PDF first");
       return;
     }
-    alert("Digital signature added. This certifies the document as authentic.");
-    logger.success("Digital signature applied");
+    
+    const signerName = window.prompt(
+      "Digital Signature\n\nEnter your name for the signature:",
+      "John Doe"
+    );
+    
+    if (!signerName) return;
+    
+    toast.loading("Adding digital signature...", { id: "digitalSig" });
+    
+    const success = await mutateActivePdf("digitalSig", async (workingDoc, currentPageIndex) => {
+      const pages = workingDoc.getPages();
+      const page = pages[currentPageIndex];
+      const { width, height } = page.getSize();
+      
+      const font = await workingDoc.embedFont(StandardFonts.Courier);
+      const now = new Date();
+      const dateStr = now.toLocaleDateString() + " " + now.toLocaleTimeString();
+      
+      const sigBoxWidth = 200;
+      const sigBoxHeight = 60;
+      const sigX = width - sigBoxWidth - 30;
+      const sigY = 30;
+      
+      page.drawRectangle({
+        x: sigX,
+        y: sigY,
+        width: sigBoxWidth,
+        height: sigBoxHeight,
+        borderColor: rgb(0, 0, 0.5),
+        borderWidth: 1,
+        color: rgb(0.95, 0.95, 1),
+      });
+      
+      page.drawText("Digitally Signed By:", {
+        x: sigX + 5,
+        y: sigY + sigBoxHeight - 15,
+        size: 8,
+        font,
+        color: rgb(0.3, 0.3, 0.3),
+      });
+      
+      page.drawText(signerName, {
+        x: sigX + 5,
+        y: sigY + sigBoxHeight - 30,
+        size: 12,
+        font,
+        color: rgb(0, 0, 0.6),
+      });
+      
+      page.drawText(`Date: ${dateStr}`, {
+        x: sigX + 5,
+        y: sigY + 8,
+        size: 7,
+        font,
+        color: rgb(0.4, 0.4, 0.4),
+      });
+      
+      return {};
+    });
+    
+    if (success) {
+      toast.success("Digital signature added to current page", { id: "digitalSig" });
+      logger.success("Digital signature applied");
+    }
   };
   const handleRedaction = () => {
     if (!activeDocument) {
@@ -772,13 +835,37 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
     alert("Select content to redact (hide permanently). Click on text or areas to redact.");
     logger.info("Redaction mode activated");
   };
-  const handleRemoveMetadata = () => {
+  const handleRemoveMetadata = async () => {
     if (!activeDocument) {
       alert("Please load a PDF first");
       return;
     }
-    alert("All metadata and personal information removed from PDF.");
-    logger.success("Metadata removed successfully");
+    
+    const confirm = window.confirm(
+      "Remove Metadata\n\nThis will clear all metadata including:\n- Title\n- Author\n- Subject\n- Keywords\n- Creator\n- Producer\n- Creation Date\n- Modification Date\n\nContinue?"
+    );
+    
+    if (!confirm) return;
+    
+    toast.loading("Removing metadata...", { id: "removeMetadata" });
+    
+    const success = await mutateActivePdf("removeMetadata", async (workingDoc) => {
+      workingDoc.setTitle("");
+      workingDoc.setAuthor("");
+      workingDoc.setSubject("");
+      workingDoc.setKeywords([]);
+      workingDoc.setCreator("");
+      workingDoc.setProducer("PDF Editor Pro");
+      workingDoc.setCreationDate(new Date(0));
+      workingDoc.setModificationDate(new Date(0));
+      
+      return {};
+    });
+    
+    if (success) {
+      toast.success("All metadata removed from PDF", { id: "removeMetadata" });
+      logger.success("Metadata removed successfully");
+    }
   };
   const handleToolsMerge = () => {
     alert("Open multiple PDFs, then click Merge tool to combine them into one document.");

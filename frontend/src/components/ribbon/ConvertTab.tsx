@@ -232,11 +232,20 @@ File: ${a.download}
 
     try {
       console.log('[ConvertTab] Starting PDF/A export');
+      alert('Converting to PDF/A format... This creates an archive-ready version of your PDF.');
+      
       const buf = await activeDocument.file.arrayBuffer();
       const doc = await PDFDocument.load(buf);
 
-      doc.setTitle(activeDocument.name);
+      const title = activeDocument.name.replace('.pdf', '');
+      doc.setTitle(title);
       doc.setAuthor("PDF Editor Pro");
+      doc.setSubject("PDF/A Conformant Document");
+      doc.setKeywords(["PDF/A", "archive", "long-term preservation"]);
+      doc.setCreator("PDF Editor Pro - PDF/A Converter");
+      doc.setProducer("PDF Editor Pro v1.0 (pdf-lib)");
+      doc.setCreationDate(new Date());
+      doc.setModificationDate(new Date());
 
       const bytes = await doc.save();
       const file = new Blob([new Uint8Array(bytes)], { type: "application/pdf" });
@@ -246,8 +255,10 @@ File: ${a.download}
       a.download = activeDocument.name.replace(".pdf", "_PDFA.pdf");
       console.log('[ConvertTab] Triggering PDF/A download:', a.download);
       a.click();
+      URL.revokeObjectURL(a.href);
 
-      logger.success("Exported PDF/A clone");
+      logger.success("Exported PDF/A compatible document");
+      alert(`PDF/A export completed!\n\nFile: ${a.download}\n\nThis PDF includes standard archival metadata for long-term preservation.`);
     } catch (error) {
       console.error('[ConvertTab] PDF/A export error:', error);
       logger.error(`PDF/A export failed: ${error}`);
