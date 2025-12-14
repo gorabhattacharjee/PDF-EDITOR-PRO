@@ -35,10 +35,39 @@ export default function UtilityBar() {
     setZoom(1.5);
   };
 
-  const handlePrint = () => {
-    if (!activeDoc) return;
-    window.print();
-    toast.success('Opening print dialog...');
+  const handlePrint = async () => {
+    if (!activeDoc || !activeDoc.file) return;
+    
+    try {
+      const pdfUrl = URL.createObjectURL(activeDoc.file);
+      
+      // Remove any existing print frame
+      const existingFrame = document.getElementById('print-pdf-frame');
+      if (existingFrame) existingFrame.remove();
+      
+      // Create hidden iframe to print just the PDF
+      const iframe = document.createElement('iframe');
+      iframe.id = 'print-pdf-frame';
+      iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:none;';
+      iframe.src = pdfUrl;
+      
+      document.body.appendChild(iframe);
+      
+      iframe.onload = () => {
+        setTimeout(() => {
+          try {
+            iframe.contentWindow?.focus();
+            iframe.contentWindow?.print();
+            toast.success('Print dialog opened');
+          } catch {
+            window.open(pdfUrl, '_blank');
+            toast.success('PDF opened in new tab - use Ctrl+P to print');
+          }
+        }, 500);
+      };
+    } catch (err) {
+      toast.error('Print failed');
+    }
   };
 
   const handleSearch = () => {
