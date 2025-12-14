@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     console.log(`[API Convert] Output: ${outputPath}`);
 
     const result = await new Promise<{ success: boolean; error?: string }>((resolve) => {
-      const pythonProcess = spawn('python', pythonArgs);
+      const pythonProcess = spawn('python3', pythonArgs);
       let stderr = '';
       let stdout = '';
 
