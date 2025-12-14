@@ -9,10 +9,10 @@ import { useTextEditsStore } from "@/stores/useTextEditsStore";
 import { useImageEditsStore } from "@/stores/useImageEditsStore";
 import { applyAllModificationsToPdf } from "@/adapters/pdf-lib";
 import logger from "@/utils/logger";
-import { performImageExport } from "@/utils/imageExport";
 import { openPDFandGenerate } from "@/components/openDocument";
 import RibbonButton from "./RibbonButton";
 import ColorPickerModal from "@/components/ColorPickerModal";
+import ImageExportModal from "@/components/ImageExportModal";
 import toast from "react-hot-toast";
 import {
   FaFolderOpen,
@@ -46,7 +46,6 @@ export default function HomeTab() {
   const setActiveTool = useUIStore((s) => s.setActiveTool);
   const highlightColor = useUIStore((s) => s.highlightColor);
   const setHighlightColor = useUIStore((s) => s.setHighlightColor);
-  const setPendingAddTextConfig = useUIStore((s) => s.setPendingAddTextConfig);
   const activeDocument = useDocumentsStore((s) => s.activeDocument);
   const highlights = useAnnotationsStore((s) => s.highlights);
   const textEdits = useTextEditsStore((s) => s.edits);
@@ -54,6 +53,7 @@ export default function HomeTab() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [showImageExportModal, setShowImageExportModal] = useState(false);
   
   // Add Text Modal - local state for reliability
   const [showAddTextModal, setShowAddTextModal] = useState(false);
@@ -369,12 +369,12 @@ export default function HomeTab() {
         <RibbonButton
           icon={<FaFileImage />}
           label="To Image"
-          onClick={async () => {
+          onClick={() => {
             if (!activeDocument) {
               alert('Please load a PDF first');
               return;
             }
-            await performImageExport(activeDocument.name, activeDocument.currentPage);
+            setShowImageExportModal(true);
           }}
         />
         <RibbonButton
@@ -594,12 +594,7 @@ export default function HomeTab() {
                     setShowAddTextModal(false);
                     return;
                   }
-                  setPendingAddTextConfig({
-                    text: addTextValue.trim(),
-                    fontFamily: addTextFont,
-                    fontSize: addTextSize,
-                    fontColor: addTextColor,
-                  });
+                  toast.success(`Text configured: "${addTextValue.trim()}" - Click on PDF to place`);
                   setActiveTool("addText");
                   setShowAddTextModal(false);
                   setAddTextValue("");
@@ -620,6 +615,16 @@ export default function HomeTab() {
             </div>
           </div>
         </div>
+      )}
+
+      {activeDocument && (
+        <ImageExportModal
+          isOpen={showImageExportModal}
+          onClose={() => setShowImageExportModal(false)}
+          documentName={activeDocument.name}
+          currentPage={activeDocument.currentPage || 1}
+          totalPages={activeDocument.numPages || 1}
+        />
       )}
     </>
   );
