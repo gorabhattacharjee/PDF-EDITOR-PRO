@@ -1,7 +1,7 @@
 modules = ["nodejs-20", "python-3.11"]
 [nix]
 channel = "stable-25_05"
-packages = ["glibcLocales", "p7zip", "unzip"]
+packages = ["freetype", "glibcLocales", "gumbo", "harfbuzz", "imagemagickBig", "jbig2dec", "libjpeg_turbo", "mupdf", "openjpeg", "p7zip", "swig", "unzip", "xcbuild"]
 
 [agent]
 expertMode = true
