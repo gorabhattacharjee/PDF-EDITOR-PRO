@@ -381,6 +381,7 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
   };
 
   const handleInsertPage = async () => {
+    console.log('[Page Tab] Insert Page clicked, activeDocument:', !!activeDocument);
     if (!activeDocument) {
       toast.error("Please load a PDF first");
       return;
@@ -443,6 +444,7 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
   };
   
   const handleDeletePage = async () => {
+    console.log('[Page Tab] Delete Page clicked, activeDocument:', !!activeDocument);
     if (!activeDocument) {
       toast.error("Please load a PDF first");
       return;
@@ -472,6 +474,7 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
   };
   
   const handleExtractPage = async () => {
+    console.log('[Page Tab] Extract Page clicked, activeDocument:', !!activeDocument);
     if (!activeDocument) {
       toast.error("Please load a PDF first");
       return;
@@ -509,6 +512,7 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
   };
   
   const handleRotatePage = async () => {
+    console.log('[Page Tab] Rotate Page clicked, activeDocument:', !!activeDocument);
     if (!activeDocument) {
       toast.error("Please load a PDF first");
       return;
@@ -538,6 +542,7 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
   };
   
   const handleReverseRotate = async () => {
+    console.log('[Page Tab] Reverse Rotate clicked, activeDocument:', !!activeDocument);
     if (!activeDocument) {
       toast.error("Please load a PDF first");
       return;
@@ -559,6 +564,7 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
   };
   
   const handleReorderPages = async () => {
+    console.log('[Page Tab] Reorder Pages clicked, activeDocument:', !!activeDocument);
     if (!activeDocument) {
       toast.error("Please load a PDF first");
       return;
@@ -620,6 +626,7 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
   };
   
   const handleDuplicatePage = async () => {
+    console.log('[Page Tab] Duplicate Page clicked, activeDocument:', !!activeDocument);
     if (!activeDocument) {
       toast.error("Please load a PDF first");
       return;
