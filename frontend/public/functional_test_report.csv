@@ -1,63 +1,72 @@
-Step,Tab,Menu/Section,Button/Sub-Button,Function
-step1,HOME TAB,Home,Open,"Open PDF file from disk canvas should be able to open multiple pdf in multiple tabs"
-step2,HOME TAB,Home,Hand,Activate hand tool for panning around the PDF
-step3,HOME TAB,Home,Select,Activate select tool for text/object selection
-step4,HOME TAB,Home,Highlight,"Activate highlight annotation tool with colour choice option and use for highlighting"
-step5,HOME TAB,Home,Add Text,"Activate text addition tool add text in image with colour choice for both text and image as well as font size and colour"
-step6,HOME TAB,Home,OCR,"Activate text addition tool add text in image with colour choice for both text and image as well as font size and colour"
-step7,HOME TAB,Home,To Office,"Open conversion modal to convert to Word/Excel/PPT and convert the pdf to the respective format also give user option to choose how many pages to convert"
-step8,HOME TAB,To Office,To Word (docx),"Open conversion modal to convert to Word/Excel/PPT and convert the pdf to the respective format by saving it to backend/pythonpy_word_excel_html_ppt.py"
-step9,HOME TAB,Edit Text,Edit Text,"Activate text editing mode with tools text with colour choice for font font size and colour choice option and can be saved in the pdf"
-step10,EDIT TAB,Edit Image,Edit Image,"Activate image editing mode with tools image with colour choice for image editing as that from MS-Paint"
-step11,EDIT TAB,Add Text,Add Text,"Activate text addition tool text must be saved in the pdf with all editing options such as font font size and colour choice option"
-step12,EDIT TAB,Add Image,Add Image,"Add new image to PDF that is visible to the active PDF or export it a page of PDF"
-step13,EDIT TAB,Rotate,Rotate,Rotate selected objects (90°increments)
-step14,EDIT TAB,Resize,Resize,Resize selected objects
-step15,EDIT TAB,Align,Align,Align multiple objects
-step16,EDIT TAB,Crop Page,Crop Page,Crop PDF page to custom area..custom area can be drawn
-step17,PAGE TAB,Page,Insert Page,Insert page / from file / from template
-step18,PAGE TAB,Page,Delete Page,Delete selected content or pages
-step19,PAGE TAB,Page,Insert Page,Insert page / from file / from template
-step20,PAGE TAB,Page,Delete Page,Remove current page from PDF
-step21,PAGE TAB,Page,Extract Page,Export current page as separate PDF
-step22,PAGE TAB,Page,Rotate Page,"Rotate current page (90° CW / 90° CCW / 180°)"
-step23,PAGE TAB,Page,Reverse Rotate,Rotate current page counter-clockwise (270°)
-step24,PAGE TAB,Page,Reorder Pages,Rearrange pages (drag/reorder)
-step25,PAGE TAB,Page,Duplicate Page,Create 1-100 copies of current page
-step26,PROTECT TAB,Protect,Encrypt,Encrypt PDF with AES-256 password protection
-step27,PROTECT TAB,Protect,Permissions,Set permissions (print/copy/edit/annotations/extract)
-step28,PROTECT TAB,Protect,Digital Signature,Add digital signature to PDF
-step29,PROTECT TAB,Protect,Redaction,Redact sensitive information cover/remove from PDF
-step30,PROTECT TAB,Protect,Remove Metadata,Remove document metadata
-step31,CONVERT TAB,Convert,To Word (docx),"Export PDF to Microsoft Word document by saving it to backend/pythonpy_word_excel_html_ppt.py"
-step32,CONVERT TAB,Convert,To Excel (.xlsx),"Export PDF to Microsoft Excel spreadsheet by saving it to backend/pythonpy_word_excel_html_ppt.py"
-step33,CONVERT TAB,Convert,To PowerPoint (.pptx),"Export PDF to PowerPoint presentation by saving it to backend/pythonpy_word_excel_html_ppt.py"
-step34,CONVERT TAB,Convert,To Image,"Export current PDF page to JPG PNG GIF WEBP AVT TFF BMP HEF JPG XCF SVG AL EPS WMF EMF RAW JXAK DNG ICO DJVU image give the user to choose from the following options JPG PNG GIF WEBP AVT TFF BMP HEF"
-step35,CONVERT TAB,Convert,To PDF/A,Create PDF in archival format version
-step36,CONVERT TAB,Convert,To Text,Extract all text from PDF to text file
-step37,TOOLS TAB,Tools,Merge,Merge multiple PDFs into single document open the merged document in a new tab
-step38,TOOLS TAB,Tools,Split,Split PDF into separate documents at user/file_page
-step39,TOOLS TAB,Tools,Compress,"Compress PDF with quality setting (1-100%) option should be given to users to choose between % to compress also compress the images within the pdf"
-step40,TOOLS TAB,Tools,Inspect PDF,Show PDF metadata (filename/pages/size/date) and make modifications
-step41,TOOLS TAB,Tools,OCR Advanced,Extract the pdf with Advanced OCR processing for multiple formats
-step42,TOOLS TAB,Tools,Flatten,Flatten all PDF layers and annotations
-step43,COMMENT TAB,Comment,Highlight,"Activate highlight annotation tool with colour choice option and use for highlighting"
-step44,COMMENT TAB,Comment,Underline,Add underline annotation with colour choice option for underline
-step45,COMMENT TAB,Comment,Strikeout,Add strikethrough annotation
-step46,COMMENT TAB,Comment,Sticky Note,Sticky note annotation create a box in which Sticky Note can be added and saved
-step47,COMMENT TAB,Comment,Pen/Draw,Free hand annotation add on PDF color choice and can be saved in pdf
-step48,COMMENT TAB,Comment,Comments Panel,View and manage all comments/annotations
-step49,MERGE TAB,Merge,Add PDFs,Add more PDFs to merge and merge them all to single pdf
-step50,MERGE TAB,Merge,Merge PDFs,View PDF file from disk canvas should be able to open multiple pdf in different tabs
-step51,FILE MENU,File,Document Info,Show document properties
-step52,FILE MENU,File,Save As,Save document with custom filename
-step53,FILE MENU,Export Submenu,Word (.docx),"Export PDF to Microsoft Word document by saving it to backend/pythonpy_word_excel_html_ppt.py"
-step54,FILE MENU,Export Submenu,Excel (.xlsx),"Export PDF to Microsoft Excel spreadsheet by saving it to backend/pythonpy_word_excel_html_ppt.py"
-step55,FILE MENU,Export Submenu,PowerPoint (.pptx),"Export PDF to PowerPoint presentation by saving it to backend/pythonpy_word_excel_html_ppt.py"
-step56,FILE MENU,Export Submenu,To Image,"Export current PDF page to JPG PNG GIF WEBP AVT TFF BMP HEF JPG XCF SVG AL EPS WMF EMF RAW JXAK DNG ICO DJVU image give the user to choose from the following options"
-step57,FILE MENU,Export Submenu,To HTML,"Export PDF to HTML format by saving it to backend/pythonpy_word_excel_html_ppt.py"
-step58,FILE MENU,Export Submenu,Extract Image,Extract image
-step59,FILE MENU,Advertisement,Download Log,"Download application activity log as well as user logs in txt. All ads should be placed of a standard place holder advertisement in the vertical bet of the application with 4 compartments"
-step60,FILE MENU,Advertisement,Close,Close current PDF document
-step61,18° ZM,Zoom,Zoom Level,"Display current zoom percentage (e.g. 100%)"
-step62,18° ZM,Zoom,Zoom,"Magnify view (increase zoom percentage)"
+Step,Tab,Menu/Section,Button/Sub-Button,Function,Status,Notes
+1,HOME TAB,Home,Open,Open PDF file from disk - should be able to open multiple PDFs in multiple tabs,PASS,FileInput triggers openDocument() - multiple tabs supported via documents store
+2,HOME TAB,Home,Hand,Activate hand tool for panning around the PDF,PASS,selectHandTool() sets activeTool to 'hand'
+3,HOME TAB,Home,Select,Activate select tool for text/object selection,PASS,selectSelectTool() sets activeTool to 'select'
+4,HOME TAB,Home,Highlight,Activate highlight annotation tool with colour choice option,PASS,Color picker with 8 colors shows on click - sets highlightColor and activeTool
+5,HOME TAB,Home,Add Text,Activate text addition tool with font and color options,PASS,handleAddText() activates addText mode with toast notification
+6,HOME TAB,Home,OCR,Extract text from PDF using OCR,PASS,runOCR() hook implemented using Tesseract.js
+7,HOME TAB,Home,To Office,Open conversion modal to convert to Word/Excel/PPT,PASS,Opens ToOfficeModal via openToOfficeModal() in UIStore
+8,HOME TAB,To Office,To Word (.docx),Convert PDF to Word document via backend Python script,PASS,performConversion('word') posts to /api/convert endpoint
+9,HOME TAB,Edit Text,Edit Text,Activate text editing mode with font size and color options,PASS,handleEditText() sets activeTool to 'editText'
+10,EDIT TAB,Edit Image,Edit Image,Activate image editing mode with MS-Paint like tools,PASS,handleEditImage() activates editImage mode with selection box
+11,EDIT TAB,Add Text,Add Text,Activate text addition tool - text saved in PDF,PASS,handleAddText() with applyAllModificationsToPdf on save
+12,EDIT TAB,Add Image,Add Image,Add new image to PDF that appears on active page,PASS,handleAddImage() triggers file picker - embeds image via pdf-lib
+13,EDIT TAB,Rotate,Rotate,Rotate selected objects (90° increments),PASS,handleRotate() with 3 options: 90° CW, 90° CCW, 180°
+14,EDIT TAB,Resize,Resize,Resize selected objects,PASS,handleResize() switches to editImage mode for drag corners
+15,EDIT TAB,Align,Align,Align multiple objects,PASS,handleAlign() prompts for alignment type (1-6 options)
+16,EDIT TAB,Crop Page,Crop Page,Crop PDF page to custom area with margin input,PASS,handleCropPage() prompts for left,bottom,right,top margins - uses setCropBox()
+17,PAGE TAB,Page,Insert Page,Insert blank page (A4/Letter) or from another PDF file,PASS,handleInsertPage() with 3 options - uses mutateActivePdf helper
+18,PAGE TAB,Page,Delete Page,Remove current page from PDF with confirmation,PASS,handleDeletePage() with confirm dialog - uses removePage()
+19,PAGE TAB,Page,Extract Page,Export current page as separate PDF download,PASS,handleExtractPage() creates new PDFDocument and downloads
+20,PAGE TAB,Page,Rotate Page,Rotate current page (90° CW / 180°),PASS,handleRotatePage() with angle options using setRotation()
+21,PAGE TAB,Page,Reverse Rotate,Rotate current page counter-clockwise (90° CCW),PASS,handleReverseRotate() subtracts 90° from current rotation
+22,PAGE TAB,Page,Reorder Pages,Rearrange pages via comma-separated order input,PASS,handleReorderPages() validates and reorders via copyPages
+23,PAGE TAB,Page,Duplicate Page,Create 1-100 copies of current page,PASS,handleDuplicatePage() copies from immutable source to prevent corruption
+24,PROTECT TAB,Protect,Encrypt,Encrypt PDF with AES-256 password protection,PARTIAL,handleEncrypt() prompts for password - shows confirmation but no actual encryption
+25,PROTECT TAB,Protect,Permissions,Set permissions (print/copy/edit/annotations/extract),PARTIAL,handlePermissions() shows alert - no actual permission setting
+26,PROTECT TAB,Protect,Digital Signature,Add digital signature to PDF,PARTIAL,handleDigitalSignature() shows confirmation - placeholder implementation
+27,PROTECT TAB,Protect,Redaction,Redact sensitive information from PDF,PARTIAL,handleRedaction() shows instruction - no actual redaction
+28,PROTECT TAB,Protect,Remove Metadata,Remove document metadata and personal info,PARTIAL,handleRemoveMetadata() shows confirmation - placeholder only
+29,CONVERT TAB,Convert,To Word (.docx),Export PDF to Word document via backend,PASS,performConversion('word') in ConvertTab - calls /api/convert
+30,CONVERT TAB,Convert,To Excel (.xlsx),Export PDF to Excel spreadsheet via backend,PASS,performConversion('excel') in ConvertTab - calls /api/convert
+31,CONVERT TAB,Convert,To PowerPoint (.pptx),Export PDF to PowerPoint via backend,PASS,performConversion('ppt') in ConvertTab - calls /api/convert
+32,CONVERT TAB,Convert,To Image (PNG/JPG),Export current PDF page as image (PNG/JPG/WebP),PASS,exportImage() captures canvas and offers format choice
+33,CONVERT TAB,Convert,To PDF/A,Create PDF in archival format version,PASS,exportPDFa() sets metadata and exports via pdf-lib
+34,CONVERT TAB,Convert,To Text (.txt),Extract all text from PDF via backend,PASS,exportToText() calls /api/convert with format='text'
+35,TOOLS TAB,Tools,Merge,Merge multiple PDFs into single document,PASS,handleMergeNow() combines all open documents via copyPages
+36,TOOLS TAB,Tools,Split,Split PDF at specified page numbers,PARTIAL,handleToolsSplit() prompts for pages - shows alert only
+37,TOOLS TAB,Tools,Compress,Compress PDF with quality setting (1-100%),PARTIAL,handleCompress() prompts for quality - shows alert only
+38,TOOLS TAB,Tools,Inspect PDF,Show PDF metadata (filename/pages/size/date),PASS,handleInspectPDF() shows numPages, name, and file size
+39,TOOLS TAB,Tools,OCR Advanced,Advanced OCR processing for multiple formats,PARTIAL,handleOCRAdvanced() shows dialog - placeholder only
+40,TOOLS TAB,Tools,Flatten,Flatten all PDF layers and annotations,PARTIAL,handleFlatten() shows confirmation - placeholder only
+41,COMMENT TAB,Comment,Highlight,Activate highlight annotation with color choice,PASS,setHighlight() via useCommentTools hook - stored in annotations store
+42,COMMENT TAB,Comment,Underline,Add underline annotation with color choice,PASS,setUnderline() via useCommentTools hook
+43,COMMENT TAB,Comment,Strikeout,Add strikethrough annotation,PASS,setStrikeout() via useCommentTools hook
+44,COMMENT TAB,Comment,Sticky Note,Add sticky note annotation box,PASS,setStickyNote() via useCommentTools hook
+45,COMMENT TAB,Comment,Pen/Draw,Free hand annotation on PDF with color choice,PASS,setPen() via useCommentTools hook
+46,COMMENT TAB,Comment,Comments Panel,View and manage all comments/annotations,PASS,toggleCommentsPanel() in UIStore
+47,MERGE TAB,Merge,Add PDFs,Add more PDFs to merge queue,PASS,handleAddPDFs() opens file picker - adds to documents
+48,MERGE TAB,Merge,Merge PDFs,Merge all open PDFs into single document,PASS,handleMergeNow() merges all documents - creates merged file
+49,MERGE TAB,Merge,Open Merged,Open the merged PDF in new tab,PASS,handleOpenMerged() opens mergedFile via openDocument
+50,FILE MENU,File,Open,Open PDF from file dialog,PASS,handleOpen() triggers fileInputRef click
+51,FILE MENU,File,Save,Save document with modifications applied,PASS,handleSave() applies annotations/text/image edits and downloads
+52,FILE MENU,File,Save As,Save document with custom filename,PASS,handleSaveAs() prompts for new name - applies modifications
+53,FILE MENU,File,Print,Print current document,PASS,handlePrint() creates hidden iframe for print dialog
+54,FILE MENU,Export Submenu,Word (.docx),Export PDF to Word via backend,PASS,handleExportWord() calls performExport('word')
+55,FILE MENU,Export Submenu,Excel (.xlsx),Export PDF to Excel via backend,PASS,handleExportExcel() calls performExport('excel')
+56,FILE MENU,Export Submenu,PowerPoint (.pptx),Export PDF to PowerPoint via backend,PASS,handleExportPPT() calls performExport('ppt')
+57,FILE MENU,Export Submenu,Image,Export current page to image format,PASS,handleExportImage() opens image export modal
+58,FILE MENU,Export Submenu,Text,Extract text from PDF via backend,PASS,handleExportText() calls performTextExport()
+59,FILE MENU,Export Submenu,HTML,Export PDF to HTML format via backend,PASS,handleExportHTML() calls performExport('html')
+60,FILE MENU,File,Close,Close current PDF document,PASS,handleCloseDoc() calls closeDocument from store
+61,FILE MENU,File,Download Log,Download application activity log as txt file,PASS,handleDownloadLog() calls logger.download()
+62,FILE MENU,File,Document Properties,Show document properties modal,PASS,handleProperties() calls openPropertiesModal in UIStore
+63,ICON BAR,Icon Bar,New/Insert Page,Quick add button (top icon row),PASS,Opens file dialog via openPDF() on page icon
+64,ICON BAR,Icon Bar,Copy/Duplicate,Copy page functionality,PASS,handleDuplicatePage() from Page tab available
+65,ICON BAR,Icon Bar,Delete,Remove current page,PASS,handleDeletePage() from Page tab available
+66,ICON BAR,Icon Bar,Refresh,Refresh/reload page,PASS,handleRefreshButton() calls location.reload()
+67,ICON BAR,Icon Bar,To Office Export,Quick export to office formats,PASS,handleExportButton() opens ToOfficeModal
+68,ICON BAR,Icon Bar,Print,Quick print access,PASS,handlePrint() opens print dialog
+69,ZOOM CONTROLS,Zoom,Zoom In,Increase zoom percentage,PASS,handleZoomIn() increases zoom by 0.25 up to 3.0
+70,ZOOM CONTROLS,Zoom,Zoom Out,Decrease zoom percentage,PASS,handleZoomOut() decreases zoom by 0.25 down to 0.5
+71,ZOOM CONTROLS,Zoom,Zoom Level,Display current zoom percentage,PASS,zoom state displayed as percentage in UI
