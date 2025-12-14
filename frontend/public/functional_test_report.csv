@@ -1,102 +1,63 @@
-Category,Component,Feature,Expected Functionality,Status,Notes
-"File Menu","Open","Open PDF","Opens file picker to load PDF files","Working","File picker opens and PDFs load correctly"
-"File Menu","Save","Save PDF","Downloads current PDF with modifications applied","Working","Downloads PDF with highlights/edits"
-"File Menu","Save As","Save As","Save with custom filename","Non-Working","Shows placeholder alert - not implemented"
-"File Menu","Print","Print","Opens browser print dialog","Working","Opens system print dialog"
-"File Menu","Close","Close Document","Closes current document","Non-Working","Shows placeholder alert - not implemented"
-"File Menu","Download Log","Download Log","Downloads application log file","Working","Downloads txt file with all logs"
-"File Menu","Export > Word","Export to Word","Converts PDF to .docx format","Working","Uses /api/convert backend"
-"File Menu","Export > Excel","Export to Excel","Converts PDF to .xlsx format","Working","Uses /api/convert backend"
-"File Menu","Export > PowerPoint","Export to PPT","Converts PDF to .pptx format","Working","Uses /api/convert backend"
-"File Menu","Export > Image","Export to Image","Opens image export modal with format options","Working","Multiple formats (PNG, JPEG, WebP, etc)"
-"File Menu","Properties","Document Properties","Shows document information","Working","Shows filename info"
-"Ribbon Tabs","Home Tab","Tab Navigation","Shows Home tab content","Working","Tab visible and clickable"
-"Ribbon Tabs","Comment Tab","Tab Navigation","Shows Comment tab content","Working","Tab visible and clickable"
-"Ribbon Tabs","Edit Tab","Tab Navigation","Shows Edit tab content","Working","Tab visible and clickable"
-"Ribbon Tabs","Convert Tab","Tab Navigation","Shows Convert tab content","Working","Tab visible and clickable"
-"Ribbon Tabs","Page Tab","Tab Navigation","Shows Page tab content","Working","Tab visible and clickable"
-"Ribbon Tabs","Merge Tab","Tab Navigation","Shows Merge tab content","Working","Tab visible and clickable"
-"Ribbon Tabs","Protect Tab","Tab Navigation","Shows Protect tab content","Working","Tab visible and clickable"
-"Ribbon Tabs","Tools Tab","Tab Navigation","Shows Tools tab content","Working","Tab visible and clickable"
-"Home Tab","Open Button","Open PDF","Opens file picker","Working","Opens file dialog"
-"Home Tab","Save PDF Button","Save","Downloads PDF with modifications","Working","Green Save PDF button"
-"Home Tab","Hand Tool","Pan Tool","Pan/scroll through PDF","Working","Activates hand tool"
-"Home Tab","Select Tool","Select Mode","Select objects in PDF","Working","Activates select tool"
-"Home Tab","Highlight Tool","Highlight Text","Highlight text with color picker","Working","Color picker modal works"
-"Home Tab","Edit All Tool","Edit Mode","Enable edit mode for all objects","Working","Toggle edit mode"
-"Home Tab","Edit Image Tool","Edit Images","Select and edit images in PDF","Working","Image selection mode"
-"Home Tab","Add Text","Add Text to PDF","Opens modal to add text with font options","Working","Modal with font/size/color options"
-"Home Tab","OCR Button","OCR Text Extraction","Extract text from scanned PDF using Tesseract.js","Working","Uses Tesseract.js CDN"
-"Home Tab","To Image","Export to Image","Export current page as image","Working","Format selection dialog"
-"Home Tab","To Office","Convert to Office","Opens conversion modal for Word/Excel/PPT","Working","Opens ToOfficeModal"
-"Home Tab","To Text","Extract Text","Extract text from PDF","Working","Uses /api/convert with text format"
-"Comment Tab","Highlight","Highlight Tool","Highlight text in PDF","Working","Toggle highlight mode"
-"Comment Tab","Underline","Underline Tool","Underline text in PDF","Working","Toggle underline mode"
-"Comment Tab","Strikeout","Strikeout Tool","Strike through text in PDF","Working","Toggle strikeout mode"
-"Comment Tab","Sticky Note","Add Notes","Add sticky notes to PDF","Working","Click to add notes"
-"Comment Tab","Pen/Draw","Freehand Drawing","Draw on PDF with pen tool","Working","Color and stroke width options"
-"Comment Tab","Shapes","Shape Tools","Draw shapes (rectangle, circle, line, arrow)","Working","Shape type selector"
-"Comment Tab","Color Picker","Drawing Color","Select drawing color","Working","8 color options"
-"Comment Tab","Stroke Width","Line Width","Adjust stroke width","Working","Width slider available"
-"Comment Tab","Comments Panel","Toggle Panel","Show/hide comments sidebar","Working","Toggle button"
-"Edit Tab","Object Select","Select Objects","Select text/images for editing","Working","Activates editAll mode"
-"Edit Tab","Edit Text","Edit Text Mode","Click on text to edit","Working","Text editing mode"
-"Edit Tab","Edit Image","Edit Image Mode","Select images for manipulation","Working","Image editing mode"
-"Edit Tab","Add Text","Add New Text","Add new text to PDF","Working","Activates addText mode"
-"Edit Tab","Add Image","Add Image","Add image to PDF","Non-Working","Mode activates but no file picker"
-"Edit Tab","Rotate","Rotate Object","Rotate selected object","Non-Working","Shows instruction alert only"
-"Edit Tab","Resize","Resize Object","Resize selected object","Non-Working","Shows instruction alert only"
-"Edit Tab","Align","Align Objects","Align multiple objects","Non-Working","Shows instruction alert only"
-"Edit Tab","Crop Page","Crop Page Content","Crop page boundaries","Non-Working","Shows instruction alert only"
-"Convert Tab","To Word","Convert to Word","Convert PDF to Word document","Working","Uses /api/convert"
-"Convert Tab","To Excel","Convert to Excel","Convert PDF to Excel spreadsheet","Working","Uses /api/convert"
-"Convert Tab","To PPT","Convert to PowerPoint","Convert PDF to PowerPoint","Working","Uses /api/convert"
-"Convert Tab","To HTML","Convert to HTML","Convert PDF to HTML","Working","Uses /api/convert"
-"Convert Tab","To Text","Extract Text","Extract text content from PDF","Working","Uses /api/convert"
-"Convert Tab","To Image","Export as Image","Export pages as images","Working","Opens ImageExportModal"
-"Convert Tab","OCR","OCR Extraction","Extract text from scanned images","Working","Uses Tesseract.js"
-"Page Tab","Insert Blank Before","Insert Page","Insert blank page before current","Working","Uses pdf-lib"
-"Page Tab","Insert Blank After","Insert Page","Insert blank page after current","Working","Uses pdf-lib"
-"Page Tab","Insert from File","Insert Pages","Insert pages from another PDF","Working","File picker for PDF"
-"Page Tab","Delete Page","Delete Current Page","Remove current page from PDF","Working","Uses pdf-lib"
-"Page Tab","Extract Page","Extract Page","Extract current page as new PDF","Working","Opens in new tab"
-"Page Tab","Duplicate Page","Duplicate Page","Copy current page","Working","Uses pdf-lib"
-"Page Tab","Rotate Left","Rotate Page CCW","Rotate page 90 degrees counter-clockwise","Working","Uses pdf-lib"
-"Page Tab","Rotate Right","Rotate Page CW","Rotate page 90 degrees clockwise","Working","Uses pdf-lib"
-"Page Tab","Reorder Pages","Page Reordering","Reorder pages in document","Working","Opens reorder modal"
-"Protect Tab","Encrypt","Encrypt PDF","Add password protection","Working","Uses /api/encrypt-pdf"
-"Protect Tab","Permissions","Set Permissions","Set document permissions","Working","Uses /api/set-permissions"
-"Protect Tab","Remove Metadata","Clean Metadata","Remove document metadata","Working","Uses pdf-lib"
-"Protect Tab","Redact","Redact Content","Redact sensitive content","Non-Working","Mode activates but no redaction applied"
-"Protect Tab","Sanitize","Sanitize Document","Remove hidden data","Non-Working","Shows alert only"
-"Tools Tab","Merge","Merge PDFs","Combine multiple PDFs","Working","Multi-file picker, pdf-lib merge"
-"Tools Tab","Split","Split PDF","Split PDF at specified page","Working","Uses pdf-lib"
-"Tools Tab","Compress","Compress PDF","Reduce PDF file size","Working","Uses /api/compress-pdf"
-"Tools Tab","OCR Scan","OCR Scan","Scan and extract text","Working","Uses Tesseract.js"
-"Tools Tab","Scan to PDF","Scan to PDF","Create PDF from scanned image","Non-Working","Placeholder functionality"
-"Tools Tab","Optimize","Optimize PDF","Optimize PDF for web/print","Non-Working","Placeholder functionality"
-"Toolbar","New Document","Create New","Create new blank PDF","Working","Creates blank PDF"
-"Toolbar","Copy Pages","Copy","Copy to clipboard","Working","Clipboard functionality"
-"Toolbar","Delete Pages","Delete","Delete current page","Working","Deletes page"
-"Toolbar","Add Page","Add Page","Add new page","Working","Insert blank page"
-"Toolbar","Undo","Undo Action","Undo last action","Non-Working","Placeholder - history not fully implemented"
-"Toolbar","Bookmarks","Toggle Bookmarks","Show/hide bookmarks panel","Working","Panel toggle"
-"Toolbar","Print","Print Document","Open print dialog","Working","Browser print dialog"
-"Toolbar","Zoom In","Zoom In","Increase zoom level","Working","Zoom controls"
-"Toolbar","Zoom Out","Zoom Out","Decrease zoom level","Working","Zoom controls"
-"Toolbar","Zoom Level","Zoom Display","Shows current zoom percentage","Working","100% default"
-"PDF Viewer","Canvas Rendering","PDF Display","Render PDF pages on canvas","Working","Uses PDF.js CDN"
-"PDF Viewer","Page Navigation","Navigate Pages","Navigate between pages","Working","Page controls work"
-"PDF Viewer","Drag and Drop","Drop to Open","Drop PDF file to open","Working","Drag-drop zone"
-"PDF Viewer","Thumbnail Panel","Page Thumbnails","Show page thumbnails","Working","Left sidebar"
-"Modals","ToOfficeModal","Conversion Modal","Select format for conversion","Working","Word/Excel/PPT/HTML options"
-"Modals","AddTextModal","Add Text Dialog","Configure text to add","Working","Font/size/color options"
-"Modals","ImageExportModal","Image Export Dialog","Configure image export","Working","Format/page selection"
-"Modals","ColorPickerModal","Color Selection","Pick colors for tools","Working","Color grid"
-"UI Layout","Ribbon Interface","Ribbon UI","Microsoft Office style ribbon","Working","Tabs and buttons"
-"UI Layout","Ad Placeholders","Ad Spaces","Vertical and horizontal ad areas","Working","4 vertical + 4 horizontal"
-"UI Layout","Welcome Screen","Initial State","Welcome message when no PDF loaded","Working","Shows Open PDF button"
-"Backend API","/api/convert","Document Conversion","Convert PDF to various formats","Working","Python scripts"
-"Backend API","/api/encrypt-pdf","PDF Encryption","Password protect PDF","Working","Python encrypt_pdf.py"
-"Backend API","/api/set-permissions","PDF Permissions","Set document permissions","Working","Python set_permissions.py"
-"Backend API","/api/compress-pdf","PDF Compression","Compress PDF file size","Working","Python compress_pdf.py"
+Step,Tab,Menu/Section,Button/Sub-Button,Function
+step1,HOME TAB,Home,Open,"Open PDF file from disk canvas should be able to open multiple pdf in multiple tabs"
+step2,HOME TAB,Home,Hand,Activate hand tool for panning around the PDF
+step3,HOME TAB,Home,Select,Activate select tool for text/object selection
+step4,HOME TAB,Home,Highlight,"Activate highlight annotation tool with colour choice option and use for highlighting"
+step5,HOME TAB,Home,Add Text,"Activate text addition tool add text in image with colour choice for both text and image as well as font size and colour"
+step6,HOME TAB,Home,OCR,"Activate text addition tool add text in image with colour choice for both text and image as well as font size and colour"
+step7,HOME TAB,Home,To Office,"Open conversion modal to convert to Word/Excel/PPT and convert the pdf to the respective format also give user option to choose how many pages to convert"
+step8,HOME TAB,To Office,To Word (docx),"Open conversion modal to convert to Word/Excel/PPT and convert the pdf to the respective format by saving it to backend/pythonpy_word_excel_html_ppt.py"
+step9,HOME TAB,Edit Text,Edit Text,"Activate text editing mode with tools text with colour choice for font font size and colour choice option and can be saved in the pdf"
+step10,EDIT TAB,Edit Image,Edit Image,"Activate image editing mode with tools image with colour choice for image editing as that from MS-Paint"
+step11,EDIT TAB,Add Text,Add Text,"Activate text addition tool text must be saved in the pdf with all editing options such as font font size and colour choice option"
+step12,EDIT TAB,Add Image,Add Image,"Add new image to PDF that is visible to the active PDF or export it a page of PDF"
+step13,EDIT TAB,Rotate,Rotate,Rotate selected objects (90°increments)
+step14,EDIT TAB,Resize,Resize,Resize selected objects
+step15,EDIT TAB,Align,Align,Align multiple objects
+step16,EDIT TAB,Crop Page,Crop Page,Crop PDF page to custom area..custom area can be drawn
+step17,PAGE TAB,Page,Insert Page,Insert page / from file / from template
+step18,PAGE TAB,Page,Delete Page,Delete selected content or pages
+step19,PAGE TAB,Page,Insert Page,Insert page / from file / from template
+step20,PAGE TAB,Page,Delete Page,Remove current page from PDF
+step21,PAGE TAB,Page,Extract Page,Export current page as separate PDF
+step22,PAGE TAB,Page,Rotate Page,"Rotate current page (90° CW / 90° CCW / 180°)"
+step23,PAGE TAB,Page,Reverse Rotate,Rotate current page counter-clockwise (270°)
+step24,PAGE TAB,Page,Reorder Pages,Rearrange pages (drag/reorder)
+step25,PAGE TAB,Page,Duplicate Page,Create 1-100 copies of current page
+step26,PROTECT TAB,Protect,Encrypt,Encrypt PDF with AES-256 password protection
+step27,PROTECT TAB,Protect,Permissions,Set permissions (print/copy/edit/annotations/extract)
+step28,PROTECT TAB,Protect,Digital Signature,Add digital signature to PDF
+step29,PROTECT TAB,Protect,Redaction,Redact sensitive information cover/remove from PDF
+step30,PROTECT TAB,Protect,Remove Metadata,Remove document metadata
+step31,CONVERT TAB,Convert,To Word (docx),"Export PDF to Microsoft Word document by saving it to backend/pythonpy_word_excel_html_ppt.py"
+step32,CONVERT TAB,Convert,To Excel (.xlsx),"Export PDF to Microsoft Excel spreadsheet by saving it to backend/pythonpy_word_excel_html_ppt.py"
+step33,CONVERT TAB,Convert,To PowerPoint (.pptx),"Export PDF to PowerPoint presentation by saving it to backend/pythonpy_word_excel_html_ppt.py"
+step34,CONVERT TAB,Convert,To Image,"Export current PDF page to JPG PNG GIF WEBP AVT TFF BMP HEF JPG XCF SVG AL EPS WMF EMF RAW JXAK DNG ICO DJVU image give the user to choose from the following options JPG PNG GIF WEBP AVT TFF BMP HEF"
+step35,CONVERT TAB,Convert,To PDF/A,Create PDF in archival format version
+step36,CONVERT TAB,Convert,To Text,Extract all text from PDF to text file
+step37,TOOLS TAB,Tools,Merge,Merge multiple PDFs into single document open the merged document in a new tab
+step38,TOOLS TAB,Tools,Split,Split PDF into separate documents at user/file_page
+step39,TOOLS TAB,Tools,Compress,"Compress PDF with quality setting (1-100%) option should be given to users to choose between % to compress also compress the images within the pdf"
+step40,TOOLS TAB,Tools,Inspect PDF,Show PDF metadata (filename/pages/size/date) and make modifications
+step41,TOOLS TAB,Tools,OCR Advanced,Extract the pdf with Advanced OCR processing for multiple formats
+step42,TOOLS TAB,Tools,Flatten,Flatten all PDF layers and annotations
+step43,COMMENT TAB,Comment,Highlight,"Activate highlight annotation tool with colour choice option and use for highlighting"
+step44,COMMENT TAB,Comment,Underline,Add underline annotation with colour choice option for underline
+step45,COMMENT TAB,Comment,Strikeout,Add strikethrough annotation
+step46,COMMENT TAB,Comment,Sticky Note,Sticky note annotation create a box in which Sticky Note can be added and saved
+step47,COMMENT TAB,Comment,Pen/Draw,Free hand annotation add on PDF color choice and can be saved in pdf
+step48,COMMENT TAB,Comment,Comments Panel,View and manage all comments/annotations
+step49,MERGE TAB,Merge,Add PDFs,Add more PDFs to merge and merge them all to single pdf
+step50,MERGE TAB,Merge,Merge PDFs,View PDF file from disk canvas should be able to open multiple pdf in different tabs
+step51,FILE MENU,File,Document Info,Show document properties
+step52,FILE MENU,File,Save As,Save document with custom filename
+step53,FILE MENU,Export Submenu,Word (.docx),"Export PDF to Microsoft Word document by saving it to backend/pythonpy_word_excel_html_ppt.py"
+step54,FILE MENU,Export Submenu,Excel (.xlsx),"Export PDF to Microsoft Excel spreadsheet by saving it to backend/pythonpy_word_excel_html_ppt.py"
+step55,FILE MENU,Export Submenu,PowerPoint (.pptx),"Export PDF to PowerPoint presentation by saving it to backend/pythonpy_word_excel_html_ppt.py"
+step56,FILE MENU,Export Submenu,To Image,"Export current PDF page to JPG PNG GIF WEBP AVT TFF BMP HEF JPG XCF SVG AL EPS WMF EMF RAW JXAK DNG ICO DJVU image give the user to choose from the following options"
+step57,FILE MENU,Export Submenu,To HTML,"Export PDF to HTML format by saving it to backend/pythonpy_word_excel_html_ppt.py"
+step58,FILE MENU,Export Submenu,Extract Image,Extract image
+step59,FILE MENU,Advertisement,Download Log,"Download application activity log as well as user logs in txt. All ads should be placed of a standard place holder advertisement in the vertical bet of the application with 4 compartments"
+step60,FILE MENU,Advertisement,Close,Close current PDF document
+step61,18° ZM,Zoom,Zoom Level,"Display current zoom percentage (e.g. 100%)"
+step62,18° ZM,Zoom,Zoom,"Magnify view (increase zoom percentage)"
