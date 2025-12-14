@@ -1,0 +1,81 @@
+================================================================================
+PDF EDITOR PRO - APPLICATION LOG FILE
+================================================================================
+Session Started: 2025-12-14T11:20:38.762Z
+Total Log Entries: 73
+Log Levels: INFO, SUCCESS, ERROR, WARN
+================================================================================
+
+[2025-12-14T11:19:21.651Z] [INFO] [ToOfficeModal] Component mounted/rendered
+[2025-12-14T11:19:21.651Z] [INFO] [ToOfficeModal] Render - isOpen: false
+[2025-12-14T11:19:21.651Z] [INFO] [ToOfficeModal] Component mounted/rendered
+[2025-12-14T11:19:21.651Z] [INFO] [ToOfficeModal] Render - isOpen: false
+[2025-12-14T11:19:21.651Z] [INFO] [AddTextModal] Render - isOpen: false
+[2025-12-14T11:19:21.651Z] [INFO] [AddTextModal] Render - isOpen: false
+[2025-12-14T11:19:21.656Z] [INFO] [Canvas] Document effect triggered, version:  id: 
+[2025-12-14T11:19:21.656Z] [INFO] [PDFRenderer] useEffect triggered with arrayBuffer size: 
+[2025-12-14T11:19:21.656Z] [INFO] [PDFRenderer] No arrayBuffer provided
+[2025-12-14T11:19:21.656Z] [INFO] [ToOfficeModal] useEffect - isOpen: false
+[2025-12-14T11:19:21.656Z] [INFO] [ToOfficeModal] Modal closed - should be hidden
+[2025-12-14T11:19:21.656Z] [INFO] [AddTextModal] useEffect - isOpen changed to: false
+[2025-12-14T11:19:21.658Z] [INFO] [Canvas] Document effect triggered, version:  id: 
+[2025-12-14T11:19:21.658Z] [INFO] [PDFRenderer] useEffect triggered with arrayBuffer size: 
+[2025-12-14T11:19:21.658Z] [INFO] [PDFRenderer] No arrayBuffer provided
+[2025-12-14T11:19:21.658Z] [INFO] [ToOfficeModal] useEffect - isOpen: false
+[2025-12-14T11:19:21.658Z] [INFO] [ToOfficeModal] Modal closed - should be hidden
+[2025-12-14T11:19:21.658Z] [INFO] [AddTextModal] useEffect - isOpen changed to: false
+[2025-12-14T11:19:22.303Z] [INFO] [Fast Refresh] rebuilding
+[2025-12-14T11:19:33.282Z] [INFO] Deprecated API usage: No "GlobalWorkerOptions.workerSrc" specified.
+[2025-12-14T11:19:33.938Z] [SUCCESS] PDF loaded from WelcomeBox → Account_Statement_01_Dec_2025-13_Dec_2025.pdf
+[2025-12-14T11:19:33.938Z] [INFO] %c[SUCCESS] 2025-12-14T11:19:33.938Z → PDF loaded from WelcomeBox → Account_Statement_01_Dec_2025-13_Dec_2025.pdf color:green;font-weight:bold
+[2025-12-14T11:19:33.945Z] [INFO] [ToOfficeModal] Component mounted/rendered
+[2025-12-14T11:19:33.945Z] [INFO] [ToOfficeModal] Render - isOpen: false
+[2025-12-14T11:19:33.945Z] [INFO] [ToOfficeModal] Component mounted/rendered
+[2025-12-14T11:19:33.945Z] [INFO] [ToOfficeModal] Render - isOpen: false
+[2025-12-14T11:19:33.946Z] [INFO] [AddTextModal] Render - isOpen: false
+[2025-12-14T11:19:33.946Z] [INFO] [AddTextModal] Render - isOpen: false
+[2025-12-14T11:19:33.950Z] [INFO] [Thumbnail] useEffect triggered - doc id: 5c6ddca7-fcca-45f5-9de5-d41e14f30316
+[2025-12-14T11:19:33.950Z] [INFO] [Thumbnail] Reading pdfBytes from file: Account_Statement_01_Dec_2025-13_Dec_2025.pdf
+[2025-12-14T11:19:33.951Z] [INFO] [PDFRenderer] useEffect triggered with arrayBuffer size: 
+[2025-12-14T11:19:33.951Z] [INFO] [PDFRenderer] No arrayBuffer provided
+[2025-12-14T11:19:33.951Z] [INFO] [Thumbnail] PDF loaded, pageCount: 0 pdf: false pdfBytes: false
+[2025-12-14T11:19:33.951Z] [INFO] [Canvas] Document effect triggered, version:  id: 5c6ddca7-fcca-45f5-9de5-d41e14f30316
+[2025-12-14T11:19:33.952Z] [INFO] [Canvas] Reading pdfBytes from file: Account_Statement_01_Dec_2025-13_Dec_2025.pdf
+[2025-12-14T11:19:33.952Z] [INFO] [Thumbnail] useEffect triggered - doc id: 5c6ddca7-fcca-45f5-9de5-d41e14f30316
+[2025-12-14T11:19:33.953Z] [INFO] [Thumbnail] Reading pdfBytes from file: Account_Statement_01_Dec_2025-13_Dec_2025.pdf
+[2025-12-14T11:19:33.953Z] [INFO] [PDFRenderer] useEffect triggered with arrayBuffer size: 
+[2025-12-14T11:19:33.953Z] [INFO] [PDFRenderer] No arrayBuffer provided
+[2025-12-14T11:19:33.953Z] [INFO] [Thumbnail] PDF loaded, pageCount: 0 pdf: false pdfBytes: false
+[2025-12-14T11:19:33.957Z] [INFO] [Thumbnail] Successfully read pdfBytes from file, size: 127962
+[2025-12-14T11:19:33.958Z] [INFO] [Canvas] Loaded pdfBytes from file, size: 127962
+[2025-12-14T11:19:33.958Z] [INFO] [Thumbnail] Successfully read pdfBytes from file, size: 127962
+[2025-12-14T11:19:33.960Z] [INFO] [PDFRenderer] useEffect triggered with arrayBuffer size: 127962
+[2025-12-14T11:19:33.960Z] [INFO] [PDFRenderer] Starting PDF loading process
+[2025-12-14T11:19:33.960Z] [INFO] [PDFRenderer] Calling getDocument with data size: 127962
+[2025-12-14T11:19:33.960Z] [INFO] Deprecated API usage: No "GlobalWorkerOptions.workerSrc" specified.
+[2025-12-14T11:19:33.963Z] [INFO] [PDFRenderer] useEffect triggered with arrayBuffer size: 127962
+[2025-12-14T11:19:33.963Z] [INFO] [PDFRenderer] Starting PDF loading process
+[2025-12-14T11:19:33.963Z] [INFO] [PDFRenderer] Calling getDocument with data size: 127962
+[2025-12-14T11:19:33.963Z] [INFO] Deprecated API usage: No "GlobalWorkerOptions.workerSrc" specified.
+[2025-12-14T11:19:34.115Z] [INFO] [PDFRenderer] PDF loaded successfully, pages: 5
+[2025-12-14T11:19:34.115Z] [INFO] [PDFRenderer] State updated successfully
+[2025-12-14T11:19:34.151Z] [INFO] [PDFRenderer] PDF loaded successfully, pages: 5
+[2025-12-14T11:19:34.151Z] [INFO] [PDFRenderer] State updated successfully
+[2025-12-14T11:19:34.152Z] [INFO] [Thumbnail] PDF loaded, pageCount: 5 pdf: true pdfBytes: true
+[2025-12-14T11:19:34.152Z] [INFO] [Thumbnail] Generating thumbnails...
+[2025-12-14T11:19:34.364Z] [INFO] [TextLayer] Created 131 text items
+[2025-12-14T11:19:34.497Z] [INFO] [ImageExtract] Looking for image operators: [85,88,86,87]
+[2025-12-14T11:19:34.497Z] [INFO] [ImageExtract] Total operators: 6307
+[2025-12-14T11:19:34.497Z] [INFO] [ImageExtract] Image operators found in PDF: [85]
+[2025-12-14T11:19:34.498Z] [INFO] [ImageExtract] Found image at operator 12, transform: [100,0,0,17.082001,624.05,754.618]
+[2025-12-14T11:19:34.498Z] [INFO] [ImageExtract] Added image: pos(624.0, 20.3) size(100.0x17.1)
+[2025-12-14T11:19:34.499Z] [INFO] [ImageExtract] Found image at operator 6302, transform: [780,0,0,79.821999,-14.999998999999999,-8.721999999999994]
+[2025-12-14T11:19:34.499Z] [INFO] [ImageExtract] Added image: pos(-15.0, 720.9) size(780.0x79.8)
+[2025-12-14T11:19:34.499Z] [INFO] [ImageExtract] Total images extracted: 2
+[2025-12-14T11:19:34.499Z] [INFO] [ImageLayer] Extracted 2 images
+[2025-12-14T11:19:34.509Z] [INFO] [Thumbnail] Generated page 1
+[2025-12-14T11:19:34.580Z] [INFO] [Thumbnail] Generated page 2
+[2025-12-14T11:19:34.632Z] [INFO] [Thumbnail] Generated page 3
+[2025-12-14T11:19:34.701Z] [INFO] [Thumbnail] Generated page 4
+[2025-12-14T11:19:34.720Z] [INFO] [Thumbnail] Generated page 5
+[2025-12-14T11:19:34.720Z] [INFO] [Thumbnail] Total thumbnails generated: 5
