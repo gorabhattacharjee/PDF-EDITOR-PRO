@@ -579,7 +579,7 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
       alert("Please load a PDF first");
       return;
     }
-    setFileMenuOpen(true);
+    useUIStore.getState().openToOfficeModal();
   };
 
   const singleFileInputRef = useRef<HTMLInputElement>(null);
