@@ -1250,7 +1250,10 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
             <div
               key={tab}
               className={`ribbon-tab ${activeTab === tab ? "active" : ""}`}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => {
+                console.log('[RibbonBar] Tab clicked:', tab);
+                setActiveTab(tab);
+              }}
             >
               {tab}
             </div>
