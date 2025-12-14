@@ -663,8 +663,13 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
     toast.loading(`Duplicating page ${count} time(s)...`, { id: "duplicatePage" });
     
     const success = await mutateActivePdf("duplicatePage", async (workingDoc, currentIdx) => {
+      // Create an immutable source document to copy from
+      // This prevents corruption when copying multiple times from mutating document
+      const sourceBytes = await workingDoc.save();
+      const sourceDoc = await PDFDocument.load(sourceBytes);
+      
       for (let i = 0; i < count; i++) {
-        const [copiedPage] = await workingDoc.copyPages(workingDoc, [currentIdx]);
+        const [copiedPage] = await workingDoc.copyPages(sourceDoc, [currentIdx]);
         workingDoc.insertPage(currentIdx + 1 + i, copiedPage);
       }
       return { updateNumPages: true };
