@@ -114,8 +114,8 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
       formData.append('file', activeDocument.file);
       formData.append('format', format);
 
-      console.log('[FileMenu] Calling backend at http://localhost:5000/api/convert/pdf');
-      const response = await fetch('http://localhost:5000/api/convert/pdf', {
+      console.log('[FileMenu] Calling backend at /api/convert');
+      const response = await fetch('/api/convert', {
         method: 'POST',
         body: formData,
       });

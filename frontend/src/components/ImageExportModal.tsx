@@ -77,24 +77,16 @@ export default function ImageExportModal({ isOpen, onClose }: ImageExportModalPr
       };
       const fileExtension = extensionMap[format] || format;
       
-      // Load pdfjs-dist - using dynamic import with proper setup
-      let pdf: any;
-      try {
-        pdf = await import("pdfjs-dist");
-      } catch (err) {
-        console.error('[ImageExport] Failed to import pdfjs-dist:', err);
-        throw new Error('PDF.js library failed to load');
-      }
+      // Use the global PDF.js library loaded via CDN
+      const pdfjsLib = (window as any).pdfjsLib;
       
-      const getDocument = pdf.getDocument || (pdf as any).default?.getDocument;
-      
-      if (!getDocument || typeof getDocument !== 'function') {
-        throw new Error('PDF.getDocument is not available');
+      if (!pdfjsLib || !pdfjsLib.getDocument) {
+        throw new Error('PDF.js library not loaded. Please ensure a PDF is loaded first.');
       }
       
       // Load the PDF document
       const fileData = await activeDocument.file.arrayBuffer();
-      const pdfdoc = await getDocument({ data: new Uint8Array(fileData) }).promise;
+      const pdfdoc = await pdfjsLib.getDocument({ data: new Uint8Array(fileData) }).promise;
       
       console.log(`[ImageExport] PDF loaded with ${pdfdoc.numPages} pages`);
       
@@ -113,7 +105,7 @@ export default function ImageExportModal({ isOpen, onClose }: ImageExportModalPr
         const context = canvas.getContext('2d');
         if (!context) throw new Error('Could not get canvas context');
         
-        await page.render({ canvasContext: context, viewport, canvas } as any).promise;
+        await page.render({ canvasContext: context, viewport }).promise;
         
         const blob = await canvasToBlob(canvas, format);
         const filename = pagesToExport.length === 1 

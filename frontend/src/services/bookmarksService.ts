@@ -17,7 +17,7 @@ export const bookmarksService = {
     formData.append('file', file);
 
     try {
-      const response = await fetch('http://localhost:5000/api/extract-bookmarks', {
+      const response = await fetch('/api/extract-bookmarks', {
         method: 'POST',
         body: formData
       });
