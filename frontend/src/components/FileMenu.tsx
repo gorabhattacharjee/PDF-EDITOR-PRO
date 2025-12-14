@@ -123,7 +123,45 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
       logger.error('Save As failed: ' + err);
     }
   };
-  const handlePrint = () => ensureDoc() && window.print();
+  const handlePrint = async () => {
+    if (!ensureDoc() || !activeDocument?.file) return;
+    
+    try {
+      const highlights = useAnnotationsStore.getState().highlights[activeDocument.id] || [];
+      const textEdits = useTextEditsStore.getState().edits[activeDocument.id] || [];
+      const imageEdits = useImageEditsStore.getState().edits[activeDocument.id] || [];
+      
+      let pdfBlob: Blob;
+      if (highlights.length > 0 || textEdits.length > 0 || imageEdits.length > 0) {
+        const pdfBytes = await activeDocument.file.arrayBuffer();
+        const modifiedPdfBytes = await applyAllModificationsToPdf(pdfBytes, highlights, textEdits, imageEdits);
+        pdfBlob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+      } else {
+        pdfBlob = activeDocument.file;
+      }
+      
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+      const printWindow = window.open(pdfUrl, '_blank');
+      
+      if (printWindow) {
+        printWindow.onload = () => {
+          setTimeout(() => {
+            printWindow.print();
+          }, 500);
+        };
+        toast.success('Opening print dialog...');
+        logger.success('Print initiated for: ' + activeDocument.name);
+      } else {
+        toast.error('Pop-up blocked. Please allow pop-ups and try again.');
+        URL.revokeObjectURL(pdfUrl);
+      }
+      
+      onClose?.();
+    } catch (err) {
+      toast.error('Print failed: ' + err);
+      logger.error('Print failed: ' + err);
+    }
+  };
   const handleCloseDoc = () => {
     if (!ensureDoc()) return;
     const confirmed = confirm(`Close "${activeDocument?.name}"?\n\nAny unsaved changes will be lost.`);
