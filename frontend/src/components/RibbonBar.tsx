@@ -702,11 +702,55 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
     }
   };
 
-  const handlePrint = () => {
-    if (activeDocument) {
-      window.print();
-    } else {
+  const handlePrint = async () => {
+    if (!activeDocument || !activeDocument.file) {
       alert("No active document to print");
+      return;
+    }
+    
+    try {
+      // Get PDF with any modifications applied
+      const docHighlights = useAnnotationsStore.getState().highlights[activeDocument.id] || [];
+      const docTextEdits = useTextEditsStore.getState().edits[activeDocument.id] || [];
+      const docImageEdits = useImageEditsStore.getState().edits[activeDocument.id] || [];
+      
+      let pdfBlob: Blob;
+      if (docHighlights.length > 0 || docTextEdits.length > 0 || docImageEdits.length > 0) {
+        const pdfBytes = await activeDocument.file.arrayBuffer();
+        const modifiedPdfBytes = await applyAllModificationsToPdf(pdfBytes, docHighlights, docTextEdits, docImageEdits);
+        pdfBlob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+      } else {
+        pdfBlob = activeDocument.file;
+      }
+      
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+      
+      // Remove any existing print frame
+      const existingFrame = document.getElementById('print-pdf-frame');
+      if (existingFrame) existingFrame.remove();
+      
+      // Create hidden iframe to print just the PDF
+      const iframe = document.createElement('iframe');
+      iframe.id = 'print-pdf-frame';
+      iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:none;';
+      iframe.src = pdfUrl;
+      
+      document.body.appendChild(iframe);
+      
+      iframe.onload = () => {
+        setTimeout(() => {
+          try {
+            iframe.contentWindow?.focus();
+            iframe.contentWindow?.print();
+            toast.success('Print dialog opened');
+          } catch {
+            window.open(pdfUrl, '_blank');
+            toast.success('PDF opened in new tab - use Ctrl+P to print');
+          }
+        }, 500);
+      };
+    } catch (err) {
+      toast.error('Print failed: ' + err);
     }
   };
 
