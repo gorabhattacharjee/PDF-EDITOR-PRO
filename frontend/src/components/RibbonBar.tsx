@@ -382,8 +382,11 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
 
   const handleInsertPage = async () => {
     console.log('[Page Tab] Insert Page clicked, activeDocument:', !!activeDocument);
+    logger.info('[Page Tab] Insert Page button clicked');
     if (!activeDocument) {
-      toast.error("Please load a PDF first");
+      toast.error("Please load a PDF first", { duration: 4000 });
+      logger.warn("Insert Page failed - no PDF loaded");
+      alert("Please load a PDF first before using Page functions");
       return;
     }
     
@@ -445,8 +448,10 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
   
   const handleDeletePage = async () => {
     console.log('[Page Tab] Delete Page clicked, activeDocument:', !!activeDocument);
+    logger.info('[Page Tab] Delete Page button clicked');
     if (!activeDocument) {
-      toast.error("Please load a PDF first");
+      toast.error("Please load a PDF first", { duration: 4000 });
+      alert("Please load a PDF first before using Page functions");
       return;
     }
     
@@ -475,8 +480,10 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
   
   const handleExtractPage = async () => {
     console.log('[Page Tab] Extract Page clicked, activeDocument:', !!activeDocument);
+    logger.info('[Page Tab] Extract Page button clicked');
     if (!activeDocument) {
-      toast.error("Please load a PDF first");
+      toast.error("Please load a PDF first", { duration: 4000 });
+      alert("Please load a PDF first before using Page functions");
       return;
     }
     
@@ -513,8 +520,10 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
   
   const handleRotatePage = async () => {
     console.log('[Page Tab] Rotate Page clicked, activeDocument:', !!activeDocument);
+    logger.info('[Page Tab] Rotate Page button clicked');
     if (!activeDocument) {
-      toast.error("Please load a PDF first");
+      toast.error("Please load a PDF first", { duration: 4000 });
+      alert("Please load a PDF first before using Page functions");
       return;
     }
     
@@ -543,8 +552,10 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
   
   const handleReverseRotate = async () => {
     console.log('[Page Tab] Reverse Rotate clicked, activeDocument:', !!activeDocument);
+    logger.info('[Page Tab] Reverse Rotate button clicked');
     if (!activeDocument) {
-      toast.error("Please load a PDF first");
+      toast.error("Please load a PDF first", { duration: 4000 });
+      alert("Please load a PDF first before using Page functions");
       return;
     }
     
@@ -565,8 +576,10 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
   
   const handleReorderPages = async () => {
     console.log('[Page Tab] Reorder Pages clicked, activeDocument:', !!activeDocument);
+    logger.info('[Page Tab] Reorder Pages button clicked');
     if (!activeDocument) {
-      toast.error("Please load a PDF first");
+      toast.error("Please load a PDF first", { duration: 4000 });
+      alert("Please load a PDF first before using Page functions");
       return;
     }
     
@@ -627,8 +640,10 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
   
   const handleDuplicatePage = async () => {
     console.log('[Page Tab] Duplicate Page clicked, activeDocument:', !!activeDocument);
+    logger.info('[Page Tab] Duplicate Page button clicked');
     if (!activeDocument) {
-      toast.error("Please load a PDF first");
+      toast.error("Please load a PDF first", { duration: 4000 });
+      alert("Please load a PDF first before using Page functions");
       return;
     }
     
