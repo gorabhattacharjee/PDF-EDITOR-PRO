@@ -1,0 +1,81 @@
+================================================================================
+PDF EDITOR PRO - APPLICATION LOG FILE
+================================================================================
+Session Started: 2025-12-14T07:18:43.965Z
+Total Log Entries: 73
+Log Levels: INFO, SUCCESS, ERROR, WARN
+================================================================================
+
+[2025-12-14T07:18:12.925Z] [INFO] [ToOfficeModal] Component mounted/rendered
+[2025-12-14T07:18:12.925Z] [INFO] [ToOfficeModal] Render - isOpen: false
+[2025-12-14T07:18:12.925Z] [INFO] [ToOfficeModal] Component mounted/rendered
+[2025-12-14T07:18:12.925Z] [INFO] [ToOfficeModal] Render - isOpen: false
+[2025-12-14T07:18:12.925Z] [INFO] [AddTextModal] Render - isOpen: false
+[2025-12-14T07:18:12.925Z] [INFO] [AddTextModal] Render - isOpen: false
+[2025-12-14T07:18:12.929Z] [INFO] [Canvas] Document effect triggered, version:  id: 
+[2025-12-14T07:18:12.929Z] [INFO] [PDFRenderer] useEffect triggered with arrayBuffer size: 
+[2025-12-14T07:18:12.929Z] [INFO] [PDFRenderer] No arrayBuffer provided
+[2025-12-14T07:18:12.929Z] [INFO] [ToOfficeModal] useEffect - isOpen: false
+[2025-12-14T07:18:12.929Z] [INFO] [ToOfficeModal] Modal closed - should be hidden
+[2025-12-14T07:18:12.929Z] [INFO] [AddTextModal] useEffect - isOpen changed to: false
+[2025-12-14T07:18:12.930Z] [INFO] [Canvas] Document effect triggered, version:  id: 
+[2025-12-14T07:18:12.930Z] [INFO] [PDFRenderer] useEffect triggered with arrayBuffer size: 
+[2025-12-14T07:18:12.930Z] [INFO] [PDFRenderer] No arrayBuffer provided
+[2025-12-14T07:18:12.931Z] [INFO] [ToOfficeModal] useEffect - isOpen: false
+[2025-12-14T07:18:12.931Z] [INFO] [ToOfficeModal] Modal closed - should be hidden
+[2025-12-14T07:18:12.931Z] [INFO] [AddTextModal] useEffect - isOpen changed to: false
+[2025-12-14T07:18:24.403Z] [INFO] Deprecated API usage: No "GlobalWorkerOptions.workerSrc" specified.
+[2025-12-14T07:18:24.663Z] [SUCCESS] PDF loaded from WelcomeBox → Confirmation Letter.pdf
+[2025-12-14T07:18:24.663Z] [INFO] %c[SUCCESS] 2025-12-14T07:18:24.663Z → PDF loaded from WelcomeBox → Confirmation Letter.pdf color:green;font-weight:bold
+[2025-12-14T07:18:24.668Z] [INFO] [ToOfficeModal] Component mounted/rendered
+[2025-12-14T07:18:24.668Z] [INFO] [ToOfficeModal] Render - isOpen: false
+[2025-12-14T07:18:24.668Z] [INFO] [ToOfficeModal] Component mounted/rendered
+[2025-12-14T07:18:24.668Z] [INFO] [ToOfficeModal] Render - isOpen: false
+[2025-12-14T07:18:24.668Z] [INFO] [AddTextModal] Render - isOpen: false
+[2025-12-14T07:18:24.668Z] [INFO] [AddTextModal] Render - isOpen: false
+[2025-12-14T07:18:24.670Z] [INFO] [Thumbnail] useEffect triggered - doc id: 4f519223-3f05-49d1-803f-31a4b7d09208
+[2025-12-14T07:18:24.670Z] [INFO] [Thumbnail] Reading pdfBytes from file: Confirmation Letter.pdf
+[2025-12-14T07:18:24.670Z] [INFO] [PDFRenderer] useEffect triggered with arrayBuffer size: 
+[2025-12-14T07:18:24.670Z] [INFO] [PDFRenderer] No arrayBuffer provided
+[2025-12-14T07:18:24.670Z] [INFO] [Thumbnail] PDF loaded, pageCount: 0 pdf: false pdfBytes: false
+[2025-12-14T07:18:24.670Z] [INFO] [Canvas] Document effect triggered, version:  id: 4f519223-3f05-49d1-803f-31a4b7d09208
+[2025-12-14T07:18:24.670Z] [INFO] [Canvas] Reading pdfBytes from file: Confirmation Letter.pdf
+[2025-12-14T07:18:24.670Z] [INFO] [Thumbnail] useEffect triggered - doc id: 4f519223-3f05-49d1-803f-31a4b7d09208
+[2025-12-14T07:18:24.670Z] [INFO] [Thumbnail] Reading pdfBytes from file: Confirmation Letter.pdf
+[2025-12-14T07:18:24.670Z] [INFO] [PDFRenderer] useEffect triggered with arrayBuffer size: 
+[2025-12-14T07:18:24.670Z] [INFO] [PDFRenderer] No arrayBuffer provided
+[2025-12-14T07:18:24.670Z] [INFO] [Thumbnail] PDF loaded, pageCount: 0 pdf: false pdfBytes: false
+[2025-12-14T07:18:24.672Z] [INFO] [Thumbnail] Successfully read pdfBytes from file, size: 465790
+[2025-12-14T07:18:24.673Z] [INFO] [Canvas] Loaded pdfBytes from file, size: 465790
+[2025-12-14T07:18:24.673Z] [INFO] [Thumbnail] Successfully read pdfBytes from file, size: 465790
+[2025-12-14T07:18:24.674Z] [INFO] [PDFRenderer] useEffect triggered with arrayBuffer size: 465790
+[2025-12-14T07:18:24.674Z] [INFO] [PDFRenderer] Starting PDF loading process
+[2025-12-14T07:18:24.674Z] [INFO] [PDFRenderer] Calling getDocument with data size: 465790
+[2025-12-14T07:18:24.674Z] [INFO] Deprecated API usage: No "GlobalWorkerOptions.workerSrc" specified.
+[2025-12-14T07:18:24.676Z] [INFO] [PDFRenderer] useEffect triggered with arrayBuffer size: 465790
+[2025-12-14T07:18:24.676Z] [INFO] [PDFRenderer] Starting PDF loading process
+[2025-12-14T07:18:24.676Z] [INFO] [PDFRenderer] Calling getDocument with data size: 465790
+[2025-12-14T07:18:24.676Z] [INFO] Deprecated API usage: No "GlobalWorkerOptions.workerSrc" specified.
+[2025-12-14T07:18:24.745Z] [INFO] [PDFRenderer] PDF loaded successfully, pages: 2
+[2025-12-14T07:18:24.745Z] [INFO] [PDFRenderer] State updated successfully
+[2025-12-14T07:18:24.746Z] [INFO] [PDFRenderer] PDF loaded successfully, pages: 2
+[2025-12-14T07:18:24.746Z] [INFO] [PDFRenderer] State updated successfully
+[2025-12-14T07:18:24.747Z] [INFO] [Thumbnail] PDF loaded, pageCount: 2 pdf: true pdfBytes: true
+[2025-12-14T07:18:24.747Z] [INFO] [Thumbnail] Generating thumbnails...
+[2025-12-14T07:18:24.948Z] [INFO] [Thumbnail] Generated page 1
+[2025-12-14T07:18:24.964Z] [INFO] [TextLayer] Created 48 text items
+[2025-12-14T07:18:24.997Z] [INFO] [Thumbnail] Generated page 2
+[2025-12-14T07:18:24.997Z] [INFO] [Thumbnail] Total thumbnails generated: 2
+[2025-12-14T07:18:25.029Z] [INFO] [ImageExtract] Looking for image operators: [85,88,86,87]
+[2025-12-14T07:18:25.029Z] [INFO] [ImageExtract] Total operators: 5258
+[2025-12-14T07:18:25.029Z] [INFO] [ImageExtract] Image operators found in PDF: [85]
+[2025-12-14T07:18:25.029Z] [INFO] [ImageExtract] Found image at operator 397, transform: [490.5,0,0,163.5,52.5,164]
+[2025-12-14T07:18:25.029Z] [INFO] [ImageExtract] Added image: pos(52.5, 514.5) size(490.5x163.5)
+[2025-12-14T07:18:25.029Z] [INFO] [ImageExtract] Found image at operator 445, transform: [489.75,0,0,14.25,52.5,170.75]
+[2025-12-14T07:18:25.029Z] [INFO] [ImageExtract] Added image: pos(52.5, 657.0) size(489.8x14.3)
+[2025-12-14T07:18:25.029Z] [INFO] [ImageExtract] Found image at operator 486, transform: [360.1004531895,0,0,138.03850704,117.3247785,675.46149296]
+[2025-12-14T07:18:25.029Z] [INFO] [ImageExtract] Added image: pos(117.3, 28.5) size(360.1x138.0)
+[2025-12-14T07:18:25.030Z] [INFO] [ImageExtract] Found image at operator 2672, transform: [360.1004539815,0,0,86.42410887825,52.506696899999994,332.76589462175]
+[2025-12-14T07:18:25.030Z] [INFO] [ImageExtract] Added image: pos(52.5, 422.8) size(360.1x86.4)
+[2025-12-14T07:18:25.030Z] [INFO] [ImageExtract] Total images extracted: 4
+[2025-12-14T07:18:25.030Z] [INFO] [ImageLayer] Extracted 4 images
