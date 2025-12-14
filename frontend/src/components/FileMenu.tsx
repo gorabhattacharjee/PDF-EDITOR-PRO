@@ -141,20 +141,39 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
       }
       
       const pdfUrl = URL.createObjectURL(pdfBlob);
-      const printWindow = window.open(pdfUrl, '_blank');
       
-      if (printWindow) {
-        printWindow.onload = () => {
-          setTimeout(() => {
-            printWindow.print();
-          }, 500);
-        };
-        toast.success('Opening print dialog...');
-        logger.success('Print initiated for: ' + activeDocument.name);
-      } else {
-        toast.error('Pop-up blocked. Please allow pop-ups and try again.');
-        URL.revokeObjectURL(pdfUrl);
+      // Create hidden iframe to print just the PDF
+      const existingFrame = document.getElementById('print-pdf-frame');
+      if (existingFrame) {
+        existingFrame.remove();
       }
+      
+      const iframe = document.createElement('iframe');
+      iframe.id = 'print-pdf-frame';
+      iframe.style.position = 'fixed';
+      iframe.style.right = '0';
+      iframe.style.bottom = '0';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.style.border = 'none';
+      iframe.src = pdfUrl;
+      
+      document.body.appendChild(iframe);
+      
+      iframe.onload = () => {
+        setTimeout(() => {
+          try {
+            iframe.contentWindow?.focus();
+            iframe.contentWindow?.print();
+            toast.success('Print dialog opened');
+            logger.success('Print initiated for: ' + activeDocument?.name);
+          } catch (e) {
+            // Fallback: open PDF in new tab for manual print
+            window.open(pdfUrl, '_blank');
+            toast.success('PDF opened in new tab - use Ctrl+P to print');
+          }
+        }, 500);
+      };
       
       onClose?.();
     } catch (err) {
