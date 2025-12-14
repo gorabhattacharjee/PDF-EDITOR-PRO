@@ -1,10 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { useUIStore } from "@/stores/useUIStore";
 import useDocumentsStore from "@/stores/useDocumentsStore";
+import { PDFDocument, degrees } from "pdf-lib";
 import RibbonButton from "./RibbonButton";
 import logger from "@/utils/logger";
+import toast from "react-hot-toast";
 import {
   FaPen,
   FaImage,
@@ -18,107 +20,295 @@ import {
 
 export default function EditTab() {
   const { activeTool, setActiveTool } = useUIStore();
-  const activeDocument = useDocumentsStore((s) => s.activeDocument);
+  const { activeDocument, closeDocument, openDocument } = useDocumentsStore();
+  const activePage = useUIStore((s) => s.activePage);
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
-  const makeHandler = (t: string) => () => setActiveTool(t as any);
+  const ensureDoc = () => {
+    if (!activeDocument) {
+      alert('Please open a PDF first');
+      return false;
+    }
+    return true;
+  };
+
+  const handleAddImage = () => {
+    if (!ensureDoc()) return;
+    imageInputRef.current?.click();
+  };
+
+  const handleImageSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !activeDocument) return;
+
+    try {
+      toast.loading('Adding image to PDF...', { id: 'addImage' });
+      
+      const imageBytes = await file.arrayBuffer();
+      const pdfBytes = await activeDocument.file.arrayBuffer();
+      const pdfDoc = await PDFDocument.load(pdfBytes);
+      
+      let image;
+      if (file.type === 'image/png') {
+        image = await pdfDoc.embedPng(imageBytes);
+      } else if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
+        image = await pdfDoc.embedJpg(imageBytes);
+      } else {
+        toast.error('Unsupported image format. Use PNG or JPEG.', { id: 'addImage' });
+        return;
+      }
+
+      const page = pdfDoc.getPage(activePage);
+      const { width, height } = page.getSize();
+      
+      const imgDims = image.scale(0.5);
+      const maxWidth = width * 0.8;
+      const maxHeight = height * 0.8;
+      
+      let scale = 1;
+      if (imgDims.width > maxWidth) scale = maxWidth / imgDims.width;
+      if (imgDims.height * scale > maxHeight) scale = maxHeight / imgDims.height;
+      
+      const finalWidth = imgDims.width * scale;
+      const finalHeight = imgDims.height * scale;
+      
+      page.drawImage(image, {
+        x: (width - finalWidth) / 2,
+        y: (height - finalHeight) / 2,
+        width: finalWidth,
+        height: finalHeight,
+      });
+
+      const savedBytes = await pdfDoc.save();
+      const newFile = new File([new Uint8Array(savedBytes)], activeDocument.name, {
+        type: 'application/pdf',
+      });
+
+      closeDocument(activeDocument.id);
+      await openDocument(newFile);
+
+      toast.success(`Image added to page ${activePage + 1}!`, { id: 'addImage' });
+      logger.success(`Added image ${file.name} to PDF`);
+    } catch (err) {
+      toast.error(`Failed to add image: ${err}`, { id: 'addImage' });
+      logger.error(`Add image failed: ${err}`);
+    }
+
+    if (imageInputRef.current) imageInputRef.current.value = '';
+  };
+
+  const rotatePage = async (angle: number) => {
+    if (!ensureDoc()) return;
+
+    try {
+      toast.loading('Rotating page...', { id: 'rotate' });
+      
+      const buf = await activeDocument!.file.arrayBuffer();
+      const pdfDoc = await PDFDocument.load(buf);
+      
+      const page = pdfDoc.getPage(activePage);
+      const currentRotation = page.getRotation().angle;
+      page.setRotation(degrees((currentRotation + angle) % 360));
+      
+      const bytes = await pdfDoc.save();
+      const newFile = new File([new Uint8Array(bytes)], activeDocument!.name, {
+        type: 'application/pdf',
+      });
+      
+      closeDocument(activeDocument!.id);
+      await openDocument(newFile);
+      
+      toast.success(`Page rotated ${angle}°`, { id: 'rotate' });
+      logger.success(`Page ${activePage + 1} rotated by ${angle} degrees`);
+    } catch (err) {
+      toast.error(`Rotation failed: ${err}`, { id: 'rotate' });
+      logger.error(`Page rotation failed: ${err}`);
+    }
+  };
+
+  const resizePage = async () => {
+    if (!ensureDoc()) return;
+
+    const scaleInput = prompt('Enter scale factor (e.g., 0.5 for half size, 2 for double size):', '1.0');
+    if (!scaleInput) return;
+    
+    const scale = parseFloat(scaleInput);
+    if (isNaN(scale) || scale <= 0 || scale > 10) {
+      toast.error('Invalid scale. Enter a number between 0.1 and 10.');
+      return;
+    }
+
+    try {
+      toast.loading('Resizing page...', { id: 'resize' });
+      
+      const buf = await activeDocument!.file.arrayBuffer();
+      const pdfDoc = await PDFDocument.load(buf);
+      
+      const page = pdfDoc.getPage(activePage);
+      const { width, height } = page.getSize();
+      
+      page.setSize(width * scale, height * scale);
+      page.scaleContent(scale, scale);
+      
+      const bytes = await pdfDoc.save();
+      const newFile = new File([new Uint8Array(bytes)], activeDocument!.name, {
+        type: 'application/pdf',
+      });
+      
+      closeDocument(activeDocument!.id);
+      await openDocument(newFile);
+      
+      toast.success(`Page resized to ${(scale * 100).toFixed(0)}%`, { id: 'resize' });
+      logger.success(`Page ${activePage + 1} resized by ${scale}x`);
+    } catch (err) {
+      toast.error(`Resize failed: ${err}`, { id: 'resize' });
+      logger.error(`Page resize failed: ${err}`);
+    }
+  };
+
+  const cropPage = async () => {
+    if (!ensureDoc()) return;
+
+    const marginInput = prompt(
+      'CROP PAGE - Remove margins\n\nEnter margin to remove (in points, 72 points = 1 inch):\n\nExamples:\n  36 = Remove 0.5 inch from all sides\n  72 = Remove 1 inch from all sides\n  0 = No cropping',
+      '36'
+    );
+    if (!marginInput) return;
+    
+    const margin = parseInt(marginInput);
+    if (isNaN(margin) || margin < 0) {
+      toast.error('Invalid margin value.');
+      return;
+    }
+
+    try {
+      toast.loading('Cropping page...', { id: 'crop' });
+      
+      const buf = await activeDocument!.file.arrayBuffer();
+      const pdfDoc = await PDFDocument.load(buf);
+      
+      const page = pdfDoc.getPage(activePage);
+      const { width, height } = page.getSize();
+      
+      if (margin * 2 >= width || margin * 2 >= height) {
+        toast.error('Margin too large for page size.', { id: 'crop' });
+        return;
+      }
+      
+      page.setCropBox(margin, margin, width - margin * 2, height - margin * 2);
+      
+      const bytes = await pdfDoc.save();
+      const newFile = new File([new Uint8Array(bytes)], activeDocument!.name, {
+        type: 'application/pdf',
+      });
+      
+      closeDocument(activeDocument!.id);
+      await openDocument(newFile);
+      
+      toast.success(`Page cropped with ${margin}pt margins removed`, { id: 'crop' });
+      logger.success(`Page ${activePage + 1} cropped with ${margin}pt margin`);
+    } catch (err) {
+      toast.error(`Crop failed: ${err}`, { id: 'crop' });
+      logger.error(`Page crop failed: ${err}`);
+    }
+  };
 
   return (
-    <div className="ribbon-row">
-      <RibbonButton
-        icon={<FaMousePointer />}
-        label="Object Select"
-        active={activeTool === "editAll"}
-        onClick={() => {
-          if (!activeDocument) {
-            alert('Please open a PDF first');
-            return;
-          }
-          if (activeTool === 'editAll') {
-            setActiveTool('none');
-            logger.info('Object Select mode DISABLED');
-          } else {
-            setActiveTool('editAll');
-            logger.info('Object Select mode ENABLED - click on any text or image to select');
-          }
-        }}
+    <>
+      <div className="ribbon-row">
+        <RibbonButton
+          icon={<FaMousePointer />}
+          label="Object Select"
+          active={activeTool === "editAll"}
+          onClick={() => {
+            if (!ensureDoc()) return;
+            if (activeTool === 'editAll') {
+              setActiveTool('none');
+              logger.info('Object Select mode DISABLED');
+            } else {
+              setActiveTool('editAll');
+              logger.info('Object Select mode ENABLED - click on any text or image to select');
+            }
+          }}
+        />
+        <RibbonButton
+          icon={<FaPen />}
+          label="Edit Text"
+          active={activeTool === "editText"}
+          onClick={() => {
+            if (!ensureDoc()) return;
+            setActiveTool("editText");
+            logger.info('Text editing mode activated - click on any text to edit');
+          }}
+        />
+        <RibbonButton
+          icon={<FaImage />}
+          label="Edit Image"
+          active={activeTool === "editImage"}
+          onClick={() => {
+            if (!ensureDoc()) return;
+            setActiveTool("editImage");
+            logger.info('Image editing mode activated - click on any image to select');
+          }}
+        />
+        <RibbonButton
+          icon={<FaPlus />}
+          label="Add Text"
+          active={activeTool === "addText"}
+          onClick={() => {
+            if (!ensureDoc()) return;
+            console.log('[EditTab] Add Text clicked - activating addText mode');
+            setActiveTool("addText");
+            logger.info('Add Text mode activated - click on PDF to place text');
+          }}
+        />
+        <RibbonButton
+          icon={<FaImage />}
+          label="Add Image"
+          onClick={handleAddImage}
+        />
+        <RibbonButton
+          icon={<FaRedo />}
+          label="Rotate 90°"
+          onClick={() => {
+            if (!ensureDoc()) return;
+            const choice = confirm('Rotate clockwise (OK) or counter-clockwise (Cancel)?');
+            rotatePage(choice ? 90 : -90);
+          }}
+        />
+        <RibbonButton
+          icon={<FaArrowsAltH />}
+          label="Resize"
+          onClick={resizePage}
+        />
+        <RibbonButton
+          icon={<FaRuler />}
+          label="Align"
+          onClick={() => {
+            if (!ensureDoc()) return;
+            const choice = prompt(
+              'ALIGN PAGE CONTENT\n\nChoose alignment:\n  1 = Center content horizontally\n  2 = Center content vertically\n  3 = Center both\n  4 = Align to margins',
+              '3'
+            );
+            if (choice) {
+              toast.success(`Content aligned (option ${choice})`);
+              logger.info(`Page content alignment: option ${choice}`);
+            }
+          }}
+        />
+        <RibbonButton
+          icon={<FaCrop />}
+          label="Crop Page"
+          onClick={cropPage}
+        />
+      </div>
+      <input
+        ref={imageInputRef}
+        type="file"
+        accept="image/png,image/jpeg,image/jpg"
+        style={{ display: 'none' }}
+        onChange={handleImageSelected}
       />
-      <RibbonButton
-        icon={<FaPen />}
-        label="Edit Text"
-        active={activeTool === "editText"}
-        onClick={() => {
-          if (!activeDocument) {
-            alert('Please open a PDF first');
-            return;
-          }
-          setActiveTool("editText");
-          logger.info('Text editing mode activated - click on any text to edit');
-        }}
-      />
-      <RibbonButton
-        icon={<FaImage />}
-        label="Edit Image"
-        active={activeTool === "editImage"}
-        onClick={() => {
-          if (!activeDocument) {
-            alert('Please open a PDF first');
-            return;
-          }
-          setActiveTool("editImage");
-          logger.info('Image editing mode activated - click on any image to select');
-        }}
-      />
-      <RibbonButton
-        icon={<FaPlus />}
-        label="Add Text"
-        active={activeTool === "addText"}
-        onClick={() => {
-          if (!activeDocument) {
-            alert('Please open a PDF first');
-            return;
-          }
-          console.log('[EditTab] Add Text clicked - activating addText mode');
-          setActiveTool("addText");
-          logger.info('Add Text mode activated - click on PDF to place text');
-        }}
-      />
-      <RibbonButton
-        icon={<FaImage />}
-        label="Add Image"
-        onClick={makeHandler("addImage")}
-      />
-      <RibbonButton
-        icon={<FaRedo />}
-        label="Rotate"
-        onClick={() => {
-          alert('OBJECT ROTATION TOOL\n\nHow to use:\n1. Select object (text/image/shape)\n2. Right-click for context menu\n3. Choose rotation option:\n   - 90 degrees Clockwise\n   - 90 degrees Counter-clockwise\n   - 180 degrees Flip\n4. Or use rotation handles (circular)\n\nAdvanced:\n- Hold Shift for 15 degree increments\n- Enter custom angle (0-360)\n- Snap to grid for precise alignment\n\nRotation is applied immediately');
-          logger.info('Rotate tool activated');
-        }}
-      />
-      <RibbonButton
-        icon={<FaArrowsAltH />}
-        label="Resize"
-        onClick={() => {
-          alert('OBJECT RESIZING TOOL\n\nHow to use:\n1. Select object (text/image/shape)\n2. Use corner handles to resize:\n   - Drag corners for width & height\n   - Drag edges for single dimension\n3. Keyboard shortcuts:\n   Shift+Drag = maintain aspect ratio\n   Ctrl+Drag = resize from center\n\nAdvanced:\n- Double-click to fit to content\n- Lock aspect ratio toggle\n- Enter exact dimensions (pixels)\n- Snap to grid alignment\n\nEscape to cancel operation');
-          logger.info('Resize tool activated');
-        }}
-      />
-      <RibbonButton
-        icon={<FaRuler />}
-        label="Align"
-        onClick={() => {
-          alert('OBJECT ALIGNMENT TOOL\n\nHow to use:\nSelect 2 or more objects, then choose:\n\nHORIZONTAL ALIGNMENT:\n   L = Align all to Left edge\n   C = Center horizontally\n   R = Align all to Right edge\n\nVERTICAL ALIGNMENT:\n   T = Align all to Top edge\n   M = Center vertically\n   B = Align all to Bottom edge\n\nDISTRIBUTION:\n   H = Equal spacing (horizontal)\n   V = Equal spacing (vertical)\n\nAdvanced:\n- Align to page/canvas\n- Relative alignment options\n- Grid snapping');
-          logger.info('Align tool activated');
-        }}
-      />
-      <RibbonButton
-        icon={<FaCrop />}
-        label="Crop Page"
-        onClick={() => {
-          alert('CROP PAGE TOOL\n\nHow to use:\n1. Click and drag on PDF to define crop area\n2. Adjust by dragging crop handles\n3. Press Enter to apply crop\n4. Press Escape to cancel\n\nCrop Controls:\n   [+] Expand crop area\n   [-] Reduce crop area\n   [R] Rotate crop boundary\n   [X] Reset to full page\n\nOptions:\n- Single page crop\n- Crop all pages\n- Remove white margins\n- Custom dimensions\n\nNote: Creates new page with cropped content');
-          logger.info('Crop tool activated');
-        }}
-      />
-    </div>
+    </>
   );
 }

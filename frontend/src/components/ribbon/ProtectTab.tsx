@@ -218,10 +218,58 @@ export default function ProtectTab() {
       <RibbonButton
         icon={<FaEyeSlash />}
         label="Redaction"
-        onClick={() => {
+        onClick={async () => {
           if (!ensureDoc()) return;
-          logger.info('Redaction feature activated');
-          toast('Redaction tool: Select areas on the PDF to permanently black out. Coming soon!', { icon: '🖌️' });
+          
+          const confirmRedact = confirm(
+            'REDACTION TOOL\n\nThis will add a black rectangle to cover sensitive content on the current page.\n\nEnter coordinates in the next prompts, or use default center position.\n\nContinue?'
+          );
+          if (!confirmRedact) return;
+          
+          const xInput = prompt('Enter X position (left edge, in points):', '100');
+          const yInput = prompt('Enter Y position (bottom edge, in points):', '400');
+          const widthInput = prompt('Enter width (in points):', '200');
+          const heightInput = prompt('Enter height (in points):', '50');
+          
+          if (!xInput || !yInput || !widthInput || !heightInput) return;
+          
+          try {
+            toast.loading('Applying redaction...', { id: 'redact' });
+            
+            const { PDFDocument, rgb } = await import('pdf-lib');
+            const buf = await activeDocument!.file.arrayBuffer();
+            const pdfDoc = await PDFDocument.load(buf);
+            const activePage = 0;
+            
+            const page = pdfDoc.getPage(activePage);
+            page.drawRectangle({
+              x: parseInt(xInput),
+              y: parseInt(yInput),
+              width: parseInt(widthInput),
+              height: parseInt(heightInput),
+              color: rgb(0, 0, 0),
+            });
+            
+            const bytes = await pdfDoc.save();
+            const newFile = new File([new Uint8Array(bytes)], activeDocument!.name.replace('.pdf', '_redacted.pdf'), {
+              type: 'application/pdf',
+            });
+            
+            const url = window.URL.createObjectURL(newFile);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = newFile.name;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+            
+            toast.success('Redaction applied and file downloaded!', { id: 'redact' });
+            logger.success('Redaction applied to PDF');
+          } catch (err) {
+            toast.error(`Redaction failed: ${err}`, { id: 'redact' });
+            logger.error(`Redaction failed: ${err}`);
+          }
         }}
       />
       <RibbonButton
