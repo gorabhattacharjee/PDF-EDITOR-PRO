@@ -209,15 +209,15 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
       console.log('[FileMenu] Starting export:', format);
       alert(`Exporting to ${format.toUpperCase()}... This may take a moment.`);
       
-      const response = await fetch('http://localhost:5000/api/convert/pdf', {
+      const response = await fetch('/api/convert', {
         method: 'POST',
         body: formData,
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('[FileMenu] Backend error:', errorText);
-        throw new Error(`Export failed: ${response.statusText} - ${errorText}`);
+        const errorData = await response.json().catch(() => ({ error: response.statusText }));
+        console.error('[FileMenu] Backend error:', errorData);
+        throw new Error(`Export failed: ${response.statusText} - ${JSON.stringify(errorData)}`);
       }
 
       const blob = await response.blob();
@@ -249,7 +249,7 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
     } catch (error) {
       console.error('[FileMenu] Export error:', error);
       logger.error(`Export failed: ${error}`);
-      alert(`Export failed: ${error}\n\nNote: Conversion services depend on backend. Ensure backend server is running at http://localhost:5000`);
+      alert(`Export failed: ${error}`);
     }
   };
   const handleCloseDoc = () => {
@@ -330,15 +330,15 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
       formData.append('format', 'text');
 
       console.log('[FileMenu] Starting text extraction');
-      const response = await fetch('http://localhost:5000/api/convert/pdf', {
+      const response = await fetch('/api/convert', {
         method: 'POST',
         body: formData,
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('[FileMenu] Backend error:', errorText);
-        throw new Error(`Text extraction failed: ${response.statusText} - ${errorText}`);
+        const errorData = await response.json().catch(() => ({ error: response.statusText }));
+        console.error('[FileMenu] Backend error:', errorData);
+        throw new Error(`Text extraction failed: ${response.statusText} - ${JSON.stringify(errorData)}`);
       }
 
       const blob = await response.blob();
@@ -363,7 +363,7 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
     } catch (error) {
       console.error('[FileMenu] Text export error:', error);
       logger.error(`Text export failed: ${error}`);
-      alert(`Text extraction failed: ${error}\n\nNote: Text extraction depends on backend service. Ensure backend server is running.`);
+      alert(`Text extraction failed: ${error}`);
     }
   };
 
