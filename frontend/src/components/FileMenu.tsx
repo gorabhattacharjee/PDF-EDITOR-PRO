@@ -88,9 +88,52 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
     }
   };
   
-  const handleSaveAs = () => ensureDoc() && alert("Save As (wire later)");
+  const handleSaveAs = async () => {
+    if (!ensureDoc() || !activeDocument?.file) return;
+    
+    const newName = prompt('Enter new filename:', activeDocument.name.replace('.pdf', '_copy.pdf'));
+    if (!newName) return;
+    
+    try {
+      const highlights = useAnnotationsStore.getState().highlights[activeDocument.id] || [];
+      const textEdits = useTextEditsStore.getState().edits[activeDocument.id] || [];
+      const imageEdits = useImageEditsStore.getState().edits[activeDocument.id] || [];
+      
+      let pdfBlob: Blob;
+      if (highlights.length > 0 || textEdits.length > 0 || imageEdits.length > 0) {
+        const pdfBytes = await activeDocument.file.arrayBuffer();
+        const modifiedPdfBytes = await applyAllModificationsToPdf(pdfBytes, highlights, textEdits, imageEdits);
+        pdfBlob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+      } else {
+        pdfBlob = activeDocument.file;
+      }
+      
+      const url = URL.createObjectURL(pdfBlob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = newName.endsWith('.pdf') ? newName : newName + '.pdf';
+      link.click();
+      URL.revokeObjectURL(url);
+      
+      toast.success(`Saved as: ${link.download}`);
+      logger.success(`PDF saved as: ${link.download}`);
+      onClose?.();
+    } catch (err) {
+      toast.error('Save As failed: ' + err);
+      logger.error('Save As failed: ' + err);
+    }
+  };
   const handlePrint = () => ensureDoc() && window.print();
-  const handleCloseDoc = () => ensureDoc() && alert("Close document");
+  const handleCloseDoc = () => {
+    if (!ensureDoc()) return;
+    const confirmed = confirm(`Close "${activeDocument?.name}"?\n\nAny unsaved changes will be lost.`);
+    if (confirmed && activeDocument) {
+      useDocumentsStore.getState().closeDocument(activeDocument.id);
+      toast.success('Document closed');
+      logger.info(`Closed document: ${activeDocument.name}`);
+      onClose?.();
+    }
+  };
   const handleDownloadLog = () => {
     logger.download(`pdf-editor-log-${Date.now()}.txt`);
   };
