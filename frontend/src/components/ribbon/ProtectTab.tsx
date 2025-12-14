@@ -3,9 +3,9 @@
 import React from "react";
 import { PDFDocument } from "pdf-lib";
 import { useDocumentsStore } from "@/stores/useDocumentsStore";
-import { openPDFandGenerate } from "@/components/openDocument";
 import logger from "@/utils/logger";
 import RibbonButton from "./RibbonButton";
+import toast from "react-hot-toast";
 import {
   FaLock,
   FaShieldAlt,
@@ -15,11 +15,11 @@ import {
 } from "react-icons/fa";
 
 export default function ProtectTab() {
-  const { activeDocument, closeDocument } = useDocumentsStore();
+  const { activeDocument, closeDocument, openDocument } = useDocumentsStore();
 
   const ensureDoc = () => {
     if (!activeDocument) {
-      alert("No active document");
+      toast.error("No active document");
       return false;
     }
     return true;
@@ -33,27 +33,25 @@ export default function ProtectTab() {
 
     const ownerPassword = prompt("Enter owner password (required - for opening unrestricted):");
     if (!ownerPassword) {
-      alert('Owner password is required for encryption.');
+      toast.error('Owner password is required for encryption.');
       return;
     }
 
     try {
-      alert('Encrypting PDF with AES-256... This may take a moment.');
+      toast.loading('Encrypting PDF...', { id: 'encrypt' });
       logger.info('PDF encryption started with backend');
       
-      // Send PDF to backend for strong encryption
       const formData = new FormData();
       formData.append('file', activeDocument!.file);
       formData.append('userPassword', userPassword || '');
       formData.append('ownerPassword', ownerPassword);
 
-      const response = await fetch('http://localhost:5000/api/encrypt-pdf', {
+      const response = await fetch('/api/encrypt-pdf', {
         method: 'POST',
         body: formData,
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
         throw new Error(`Encryption service error: ${response.statusText}`);
       }
 
@@ -62,7 +60,6 @@ export default function ProtectTab() {
         throw new Error('Backend returned empty file');
       }
 
-      // Download encrypted file
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
@@ -72,41 +69,129 @@ export default function ProtectTab() {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
 
-      logger.success('PDF encrypted successfully with AES-256');
-      alert(`✓ PDF Encrypted Successfully!
-
-File: ${link.download}
-
-🔐 Encryption Details:
-✓ AES-256 encryption
-✓ User Password: ${userPassword || '(none)'}
-✓ Owner Password: Protected
-
-Security Level: STRONG
-
-The PDF is now password-protected and requires password to open.`);
+      logger.success('PDF encrypted successfully');
+      toast.success('PDF encrypted and downloaded!', { id: 'encrypt' });
     } catch (err) {
       logger.error('Encryption failed: ' + err);
-      alert(`✗ Encryption failed: ${err}
-
-Make sure:
-1. Backend server is running at http://localhost:5000
-2. Try again or use external encryption tools`);
+      toast.error(`Encryption failed: ${err}`, { id: 'encrypt' });
     }
   };
 
-  const stub = (msg: string) => {
+  const removeMetadata = async () => {
     if (!ensureDoc()) return;
-    logger.info(`${msg} feature activated - Coming soon`);
-    alert(`${msg}
 
-ℹ️ This feature is coming soon!
+    try {
+      toast.loading('Removing metadata...', { id: 'metadata' });
+      logger.info('Remove metadata started');
 
-Planned for next release.
+      const buf = await activeDocument!.file.arrayBuffer();
+      const srcPdf = await PDFDocument.load(buf);
 
-For now:
-- Use external PDF encryption tools
-- Or restart backend server to reset state`);
+      const oldTitle = srcPdf.getTitle();
+      const oldAuthor = srcPdf.getAuthor();
+      const oldSubject = srcPdf.getSubject();
+      const oldKeywords = srcPdf.getKeywords();
+      const oldCreator = srcPdf.getCreator();
+      const oldProducer = srcPdf.getProducer();
+
+      srcPdf.setTitle('');
+      srcPdf.setAuthor('');
+      srcPdf.setSubject('');
+      srcPdf.setKeywords([]);
+      srcPdf.setCreator('');
+      srcPdf.setProducer('');
+      srcPdf.setCreationDate(new Date(0));
+      srcPdf.setModificationDate(new Date(0));
+
+      const bytes = await srcPdf.save();
+      const cleanFile = new File(
+        [new Uint8Array(bytes)],
+        activeDocument!.name.replace('.pdf', '_clean.pdf'),
+        { type: 'application/pdf' }
+      );
+
+      const url = window.URL.createObjectURL(cleanFile);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = cleanFile.name;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      logger.success('Metadata removed successfully');
+      toast.success('Metadata removed! Clean PDF downloaded.', { id: 'metadata' });
+
+      let removedInfo = 'Removed metadata:\n';
+      if (oldTitle) removedInfo += `- Title: "${oldTitle}"\n`;
+      if (oldAuthor) removedInfo += `- Author: "${oldAuthor}"\n`;
+      if (oldSubject) removedInfo += `- Subject: "${oldSubject}"\n`;
+      if (oldKeywords) removedInfo += `- Keywords: "${oldKeywords}"\n`;
+      if (oldCreator) removedInfo += `- Creator: "${oldCreator}"\n`;
+      if (oldProducer) removedInfo += `- Producer: "${oldProducer}"\n`;
+      
+      if (removedInfo === 'Removed metadata:\n') {
+        removedInfo = 'No metadata was found in the document.';
+      }
+      
+      alert(`Metadata Removed Successfully!\n\n${removedInfo}\n\nClean PDF saved as: ${cleanFile.name}`);
+    } catch (err) {
+      logger.error('Remove metadata failed: ' + err);
+      toast.error(`Failed to remove metadata: ${err}`, { id: 'metadata' });
+    }
+  };
+
+  const setPermissions = async () => {
+    if (!ensureDoc()) return;
+
+    const ownerPwd = prompt('Enter owner password (required to set permissions):');
+    if (!ownerPwd) {
+      toast.error('Owner password is required');
+      return;
+    }
+
+    const allowPrint = confirm('Allow printing? (OK = Yes, Cancel = No)');
+    const allowCopy = confirm('Allow copying text? (OK = Yes, Cancel = No)');
+    const allowModify = confirm('Allow modifications? (OK = Yes, Cancel = No)');
+
+    try {
+      toast.loading('Setting permissions...', { id: 'permissions' });
+      logger.info('Setting PDF permissions');
+
+      const formData = new FormData();
+      formData.append('file', activeDocument!.file);
+      formData.append('ownerPassword', ownerPwd);
+      formData.append('allowPrint', allowPrint.toString());
+      formData.append('allowCopy', allowCopy.toString());
+      formData.append('allowModify', allowModify.toString());
+
+      const response = await fetch('/api/set-permissions', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Permissions service error: ${response.statusText}`);
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = activeDocument!.name.replace('.pdf', '_protected.pdf');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      toast.success('Permissions set and PDF downloaded!', { id: 'permissions' });
+      logger.success('PDF permissions set successfully');
+
+      alert(`Permissions Applied!\n\nPrint: ${allowPrint ? 'Allowed' : 'Denied'}\nCopy: ${allowCopy ? 'Allowed' : 'Denied'}\nModify: ${allowModify ? 'Allowed' : 'Denied'}\n\nFile: ${link.download}`);
+    } catch (err) {
+      logger.error('Set permissions failed: ' + err);
+      toast.error(`Failed to set permissions: ${err}`, { id: 'permissions' });
+    }
   };
 
   return (
@@ -119,11 +204,7 @@ For now:
       <RibbonButton
         icon={<FaShieldAlt />}
         label="Permissions"
-        onClick={() => {
-          if (!ensureDoc()) return;
-          logger.info('Permissions feature activated');
-          alert('🔐 PDF PERMISSIONS CONTROL\n\nRestrict user actions without encryption:\n\n✓ PRINT:\n  - Allow/Disallow printing\n  - High quality printing only\n\n✓ COPY/PASTE:\n  - Allow/Disallow text copying\n  - Prevent content extraction\n\n✓ EDIT:\n  - Disallow editing\n  - Disallow comments\n  - Allow form filling only\n\n✓ COMMENTS:\n  - Allow/Disallow comments\n  - Allow/Disallow annotations\n\nNote: Requires password to modify permissions\n✅ Coming soon in next release');
-        }}
+        onClick={setPermissions}
       />
       <RibbonButton
         icon={<FaSignature />}
@@ -131,7 +212,7 @@ For now:
         onClick={() => {
           if (!ensureDoc()) return;
           logger.info('Digital signature feature activated');
-          alert('✍️ DIGITAL SIGNATURE\n\nLegally sign PDF documents:\n\nSignature Details:\n✓ Certificate-based signature\n✓ Timestamp (server/internet)\n✓ Signature reason\n✓ Signing location\n✓ Contact information\n\nFeatures:\n✓ Visible signature field\n✓ Signature image/stamp\n✓ Certification level (Author/Form filler/Approver)\n\nVerification:\n✓ View signature status\n✓ Check validity\n✓ Verify certificate chain\n✓ See timestamp details\n\nSecurity:\n✓ Prevents tampering detection\n✓ Non-repudiation proof\n✓ Legal validity\n\n✅ Coming soon in next release');
+          toast('Digital signature requires a certificate. Feature coming soon!', { icon: '✍️' });
         }}
       />
       <RibbonButton
@@ -140,17 +221,13 @@ For now:
         onClick={() => {
           if (!ensureDoc()) return;
           logger.info('Redaction feature activated');
-          alert('🖌️ REDACTION TOOL\n\nPermanently remove sensitive content:\n\n✓ REDACTION METHODS:\n1. Rectangle redaction: Black out areas\n2. Free-form: Draw custom shapes\n3. Text search: Find & redact keywords\n\n✓ FEATURES:\n- Visual selection tool\n- Multiple redaction areas\n- Preview before applying\n- Undo/Redo support\n- Batch redaction\n\n✓ SECURITY:\n- Permanent content removal\n- Prevents recovery\n- Metadata handled\n- Verification of redaction\n\n✓ USE CASES:\n- Hide personal information (SSN, DOB)\n- Remove confidential business data\n- Protect client information\n- Comply with regulations\n\n⚠️ Once applied, cannot be undone!\n✅ Coming soon in next release');
+          toast('Redaction tool: Select areas on the PDF to permanently black out. Coming soon!', { icon: '🖌️' });
         }}
       />
       <RibbonButton
         icon={<FaTrashAlt />}
         label="Remove Metadata"
-        onClick={() => {
-          if (!ensureDoc()) return;
-          logger.info('Remove metadata feature activated');
-          alert('🗑️ REMOVE METADATA\n\nStrip all metadata for privacy:\n\n✓ DOCUMENT PROPERTIES:\n- Author\n- Title\n- Subject\n- Keywords\n- Creator application\n- Producer\n- Creation date\n- Modification date\n\n✓ HIDDEN CONTENT:\n- Comments\n- Markup\n- Attachments metadata\n- Custom properties\n- Revision information\n\n✓ FEATURES:\n- Preview what will be removed\n- Selective removal (choose what to keep)\n- Preserve document quality\n- Verify cleanup\n\n✓ PRIVACY BENEFITS:\n- Remove personal information\n- Remove tracking data\n- Prevent information leakage\n- GDPR/Privacy compliance\n\nResult: Clean PDF with no metadata\n✅ Coming soon in next release');
-        }}
+        onClick={removeMetadata}
       />
     </div>
   );

@@ -125,36 +125,55 @@ export default function ToolsTab() {
         <RibbonButton
           icon={<FaFileArchive />}
           label="Compress"
-          onClick={() => {
+          onClick={async () => {
             if (!ensure()) return;
             const quality = prompt('COMPRESS PDF\n\nEnter compression quality (1-100):\n\n  100 = Best quality, largest file\n   75 = Recommended (good balance)\n   50 = Good compression\n    1 = Maximum compression, lowest quality\n\nDefault: 75', '75');
-            if (quality) {
-              const q = parseInt(quality);
-              if (q >= 1 && q <= 100) {
-                alert(`PDF COMPRESSION
-
-Quality: ${q}%
-
-Compressing PDF...
-Reducing file size
-Optimizing images
-Removing redundancy
-
-Result:
-- Original size: (calculated)
-- Compressed size: ~${Math.ceil(100 - q/2)}% smaller
-- Quality: ${q}% preserved
-
-Tips:
-- 75% = Best for general use
-- 50% = For web/email
-- 90%+ = For printing
-
-Coming soon in next release`);
-                logger.info(`PDF compression to ${q}% requested`);
-              } else {
-                alert('Invalid quality value. Please enter 1-100.');
+            if (!quality) return;
+            
+            const q = parseInt(quality);
+            if (q < 1 || q > 100) {
+              toast.error('Invalid quality value. Please enter 1-100.');
+              return;
+            }
+            
+            try {
+              toast.loading('Compressing PDF...', { id: 'compress' });
+              logger.info(`PDF compression to ${q}% started`);
+              
+              const formData = new FormData();
+              formData.append('file', activeDocument!.file);
+              formData.append('quality', q.toString());
+              
+              const response = await fetch('/api/compress-pdf', {
+                method: 'POST',
+                body: formData,
+              });
+              
+              if (!response.ok) {
+                throw new Error(`Compression failed: ${response.statusText}`);
               }
+              
+              const blob = await response.blob();
+              const originalSize = parseInt(response.headers.get('X-Original-Size') || '0');
+              const compressedSize = parseInt(response.headers.get('X-Compressed-Size') || blob.size.toString());
+              const reduction = originalSize > 0 ? ((originalSize - compressedSize) / originalSize * 100).toFixed(1) : '0';
+              
+              const url = window.URL.createObjectURL(blob);
+              const link = document.createElement('a');
+              link.href = url;
+              link.download = activeDocument!.name.replace('.pdf', '_compressed.pdf');
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              window.URL.revokeObjectURL(url);
+              
+              toast.success(`Compressed! ${reduction}% smaller`, { id: 'compress' });
+              logger.success(`PDF compressed: ${(originalSize/1024).toFixed(1)}KB -> ${(compressedSize/1024).toFixed(1)}KB (${reduction}% reduction)`);
+              
+              alert(`PDF Compressed Successfully!\n\nOriginal: ${(originalSize/1024).toFixed(1)} KB\nCompressed: ${(compressedSize/1024).toFixed(1)} KB\nReduction: ${reduction}%\n\nFile: ${link.download}`);
+            } catch (err) {
+              toast.error(`Compression failed: ${err}`, { id: 'compress' });
+              logger.error(`PDF compression failed: ${err}`);
             }
           }}
         />

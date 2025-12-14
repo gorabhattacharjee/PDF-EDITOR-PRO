@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-PDF Encryption Script using PyPDF2 with AES-256 support
-Supports both user and owner passwords with strong encryption
+PDF Encryption Script using PyPDF2
+Supports both user and owner passwords with AES-128 encryption
 """
 
 import sys
@@ -42,17 +42,13 @@ def encrypt_pdf(input_path, output_path, user_password, owner_password):
         if reader.metadata:
             writer.add_metadata(reader.metadata)
         
-        # Encrypt with AES-256 (algorithm R=4 is AES-128, algorithm R=5 is AES-256)
-        # PyPDF2 will use AES-256 when permissions are specified
-        print(f"[Encryption] Applying AES-256 encryption")
+        # PyPDF2 3.x uses AES-128 by default for encryption
+        print(f"[Encryption] Applying AES-128 encryption")
         
         # Encrypt the PDF with both user and owner passwords
-        # is_physical_only=False allows all operations by default
         writer.encrypt(
-            user_password=user_password if user_password else None,
-            owner_password=owner_password,
-            permissions_flag=-1,  # All permissions restricted until password provided
-            algorithm="AES-256"
+            user_password=user_password if user_password else "",
+            owner_password=owner_password
         )
         
         # Write the encrypted PDF
@@ -69,7 +65,7 @@ def encrypt_pdf(input_path, output_path, user_password, owner_password):
         print(f"[Encryption] Success! Encrypted PDF created: {output_path}")
         print(f"[Encryption] File size: {file_size} bytes")
         print(f"[Encryption] Encryption Details:")
-        print(f"  - Algorithm: AES-256")
+        print(f"  - Algorithm: AES-128")
         print(f"  - User Password: {'Set' if user_password else 'Not set'}")
         print(f"  - Owner Password: Set")
         
