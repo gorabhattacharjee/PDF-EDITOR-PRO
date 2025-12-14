@@ -4,6 +4,7 @@ import React from "react";
 import useDocumentsStore from "@/stores/useDocumentsStore";
 import useUIStore from "@/stores/useUIStore";
 import logger from "@/utils/logger";
+import { performImageExport } from "@/utils/imageExport";
 import { PDFDocument } from "pdf-lib";
 import RibbonButton from "./RibbonButton";
 import {
@@ -163,65 +164,7 @@ export default function ConvertTab() {
       alert('Please load a PDF first');
       return;
     }
-    
-    try {
-      alert('🖼️ EXPORT TO IMAGE\n\nConvert PDF pages to images\n\nSupported Formats:\n✓ PNG (lossless, best for graphics)\n✓ JPEG (compressed, smaller size)\n✓ WebP (modern, optimized)\n✓ TIFF (professional, lossless)\n✓ BMP (uncompressed, legacy)\n\nProcessing...');
-      logger.info('Image export requested');
-      
-      // Wait for canvas
-      let canvasElement: HTMLCanvasElement | null = null;
-      for (let i = 0; i < 50; i++) {
-        canvasElement = document.querySelector('canvas[class*="shadow"]') as HTMLCanvasElement;
-        if (canvasElement && canvasElement.width > 0) break;
-        await new Promise(resolve => setTimeout(resolve, 100));
-      }
-      
-      if (!canvasElement || canvasElement.width === 0) {
-        alert('✗ ERROR: PDF canvas not rendered\n\nMake sure:\n1. PDF is fully loaded\n2. Canvas is visible\n3. Try again');
-        return;
-      }
-      
-      const format = prompt('EXPORT FORMAT\n\n1 = PNG (lossless)\n2 = JPEG (compressed)\n3 = WebP (modern)\n\nEnter 1-3:', '1');
-      let mimeType = 'image/png';
-      let ext = 'png';
-      
-      if (format === '2') {
-        mimeType = 'image/jpeg';
-        ext = 'jpg';
-      } else if (format === '3') {
-        mimeType = 'image/webp';
-        ext = 'webp';
-      } else if (!format) {
-        return;
-      }
-      
-      logger.info(`Exporting current page as ${ext.toUpperCase()}`);
-      
-      canvasElement.toBlob((blob) => {
-        if (blob) {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `${activeDocument!.name.replace('.pdf', '')}_page_${new Date().getTime()}.${ext}`;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-          
-          logger.success(`Page exported as ${ext.toUpperCase()}`);
-          alert(`✓ Page exported as ${ext.toUpperCase()}!
-
-File: ${a.download}
-
-💡 Tip: Use Home tab > To Image for current page, or Convert > To Image for batch export`);
-        } else {
-          alert('✗ Failed to export image');
-        }
-      }, mimeType);
-    } catch (err) {
-      logger.error('Image export failed: ' + err);
-      alert(`✗ Export failed: ${err}`);
-    }
+    await performImageExport(activeDocument.name, activePage);
   };
 
   const exportPDFa = async () => {
