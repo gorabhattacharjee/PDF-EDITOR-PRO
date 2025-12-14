@@ -8,6 +8,7 @@ import { useTextEditsStore } from "@/stores/useTextEditsStore";
 import { useImageEditsStore } from "@/stores/useImageEditsStore";
 import { applyAllModificationsToPdf } from "@/adapters/pdf-lib";
 import logger from "@/utils/logger";
+import { performImageExport as exportImageUtil } from "@/utils/imageExport";
 import {
   FiFile,
   FiSave,
@@ -301,47 +302,12 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
   };
   
   const performImageExport = async () => {
-    try {
-      if (!activeDocument) {
-        logger.error('No active document');
-        alert('No PDF document loaded');
-        return;
-      }
-  
-      console.log('[FileMenu] activeDocument:', activeDocument);
-      console.log('[FileMenu] numPages:', activeDocument.numPages);
-  
-      // Export first page by rendering canvas from the PDF viewer
-      const canvas = document.querySelector('canvas');
-      if (!canvas) {
-        logger.error('PDF canvas not found. Make sure PDF is loaded and displayed.');
-        alert('PDF must be displayed on screen to export as image.');
-        return;
-      }
-  
-      const pageCount = activeDocument.numPages || 1;
-      logger.success(`Exporting PDF page 1 to image (Total ${pageCount} pages)...`);
-  
-      // Get canvas data
-      canvas.toBlob((blob) => {
-        if (!blob) {
-          logger.error('Failed to convert canvas to image');
-          return;
-        }
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `${activeDocument.name.replace('.pdf', '')}_page_1.png`;
-        link.click();
-        window.URL.revokeObjectURL(url);
-        logger.success(`Exported to image: ${link.download}`);
-      }, 'image/png');
-  
-      onClose?.();
-    } catch (error) {
-      logger.error(`Image export failed: ${error}`);
-      alert(`Image export failed: ${error}`);
+    if (!activeDocument) {
+      alert('No PDF document loaded');
+      return;
     }
+    await exportImageUtil(activeDocument.name, activeDocument.currentPage || 1);
+    onClose?.();
   };
 
   const performTextExport = async () => {

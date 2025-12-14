@@ -9,6 +9,7 @@ import { useTextEditsStore } from "@/stores/useTextEditsStore";
 import { useImageEditsStore } from "@/stores/useImageEditsStore";
 import { applyAllModificationsToPdf } from "@/adapters/pdf-lib";
 import logger from "@/utils/logger";
+import { performImageExport } from "@/utils/imageExport";
 import { openPDFandGenerate } from "@/components/openDocument";
 import RibbonButton from "./RibbonButton";
 import ColorPickerModal from "@/components/ColorPickerModal";
@@ -373,67 +374,7 @@ export default function HomeTab() {
               alert('Please load a PDF first');
               return;
             }
-            try {
-              // Wait for canvas to be available - look for canvas in the canvas-panel
-              let canvasElement: HTMLCanvasElement | null = null;
-              const canvasPanel = document.querySelector('.canvas-panel');
-              if (canvasPanel) {
-                for (let i = 0; i < 50; i++) {
-                  const canvases = canvasPanel.querySelectorAll('canvas');
-                  if (canvases.length > 0) {
-                    const mainCanvas = canvases[0] as HTMLCanvasElement;
-                    if (mainCanvas && mainCanvas.width > 0) {
-                      canvasElement = mainCanvas;
-                      break;
-                    }
-                  }
-                  await new Promise(resolve => setTimeout(resolve, 100));
-                }
-              }
-              
-              if (!canvasElement || canvasElement.width === 0) {
-                alert('ERROR: PDF canvas not rendered.\n\n✗ Make sure:\n1. PDF is fully loaded\n2. Canvas is visible on screen\n3. Wait 2-3 seconds after loading PDF\n4. Try again');
-                return;
-              }
-              
-              const format = prompt('Choose image format:\n1 = PNG (lossless)\n2 = JPEG (compressed)\n3 = WebP (modern)', '1');
-              let mimeType = 'image/png';
-              let ext = 'png';
-              
-              if (format === '2') {
-                mimeType = 'image/jpeg';
-                ext = 'jpg';
-              } else if (format === '3') {
-                mimeType = 'image/webp';
-                ext = 'webp';
-              } else if (!format) {
-                return;
-              }
-              
-              logger.info(`Exporting current page as ${ext.toUpperCase()}`);
-              
-              // Export the rendered PDF canvas as image
-              canvasElement!.toBlob((blob) => {
-                if (blob) {
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = `page_${new Date().getTime()}.${ext}`;
-                  document.body.appendChild(a);
-                  a.click();
-                  document.body.removeChild(a);
-                  URL.revokeObjectURL(url);
-                  
-                  logger.success(`Page exported as ${ext.toUpperCase()}`);
-                  alert(`✓ Page exported as ${ext.toUpperCase()}!`);
-                } else {
-                  alert('✗ Failed to export image');
-                }
-              }, mimeType);
-            } catch (err) {
-              logger.error('Image export failed: ' + err);
-              alert('✗ Export failed: ' + err);
-            }
+            await performImageExport(activeDocument.name, activeDocument.currentPage);
           }}
         />
         <RibbonButton
