@@ -91,7 +91,9 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
   const handleSaveAs = () => ensureDoc() && alert("Save As (wire later)");
   const handlePrint = () => ensureDoc() && window.print();
   const handleCloseDoc = () => ensureDoc() && alert("Close document");
-  const handleDownloadLog = () => alert("Download Log not implemented");
+  const handleDownloadLog = () => {
+    logger.download(`pdf-editor-log-${Date.now()}.txt`);
+  };
   const handleProperties = () => {
     if (!ensureDoc()) return;
     alert(`Document Properties\n\nName: ${activeDocument?.name}`);
