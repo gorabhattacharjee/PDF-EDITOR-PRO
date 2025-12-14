@@ -335,65 +335,325 @@ const RibbonBar: React.FC<{ onOpenImageExport?: () => void }> = ({ onOpenImageEx
     // Handled by ConvertTab component
     console.log("Text export is handled by ConvertTab");
   };
-  const handleInsertPage = () => {
+  
+  const mutateActivePdf = async (
+    toastId: string,
+    mutationFn: (workingDoc: PDFDocument, currentPageIndex: number, docId: string) => Promise<{ updateNumPages?: boolean } | void>
+  ): Promise<boolean> => {
+    const { activeDocument: latestDoc, updateDocument, setCurrentPage } = useDocumentsStore.getState();
+    if (!latestDoc || !latestDoc.pdfLibDoc) {
+      toast.error("No PDF document available", { id: toastId });
+      return false;
+    }
+    
+    try {
+      const clonedBytes = await latestDoc.pdfLibDoc.save();
+      const workingDoc = await PDFDocument.load(clonedBytes);
+      const currentPageIndex = (latestDoc.currentPage || 1) - 1;
+      
+      const result = await mutationFn(workingDoc, currentPageIndex, latestDoc.id);
+      
+      const finalBytes = await workingDoc.save();
+      const finalBuffer = new Uint8Array(finalBytes).slice().buffer;
+      const finalDoc = await PDFDocument.load(finalBuffer);
+      
+      const newPageCount = finalDoc.getPageCount();
+      const updates: any = {
+        pdfBytes: finalBuffer,
+        pdfLibDoc: finalDoc,
+      };
+      
+      if ((result && result.updateNumPages) || newPageCount !== latestDoc.numPages) {
+        updates.numPages = newPageCount;
+        const newCurrentPage = Math.min(latestDoc.currentPage || 1, newPageCount);
+        if (newCurrentPage !== latestDoc.currentPage) {
+          setCurrentPage(newCurrentPage);
+        }
+      }
+      
+      updateDocument(latestDoc.id, updates);
+      return true;
+    } catch (err) {
+      console.error("PDF mutation failed:", err);
+      toast.error(`Operation failed: ${err}`, { id: toastId });
+      return false;
+    }
+  };
+
+  const handleInsertPage = async () => {
     if (!activeDocument) {
-      alert("Please load a PDF first");
+      toast.error("Please load a PDF first");
       return;
     }
-    alert("Insert page functionality - Will create new blank page");
-    logger.info("Insert page requested");
-  };
-  const handleDeletePage = () => {
-    if (!activeDocument) {
-      alert("Please load a PDF first");
+    
+    const choice = window.prompt(
+      "Insert new page:\n\n1 = Blank page (A4 size)\n2 = Blank page (Letter size)\n3 = From another PDF file\n\nEnter choice (1, 2, or 3):",
+      "1"
+    );
+    
+    if (!choice || !["1", "2", "3"].includes(choice)) return;
+    
+    if (choice === "3") {
+      const docId = activeDocument.id;
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.pdf';
+      input.onchange = async (e: any) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        try {
+          toast.loading("Inserting page from file...", { id: "insertPage" });
+          const fileBytes = await file.arrayBuffer();
+          const srcDoc = await PDFDocument.load(fileBytes);
+          const srcPages = srcDoc.getPageCount();
+          const pageInput = window.prompt(`PDF has ${srcPages} pages. Which page to insert? (1-${srcPages})`, "1");
+          const pageNum = parseInt(pageInput || "1") - 1;
+          if (pageNum >= 0 && pageNum < srcPages) {
+            const success = await mutateActivePdf("insertPage", async (workingDoc, currentIdx) => {
+              const [copiedPage] = await workingDoc.copyPages(srcDoc, [pageNum]);
+              workingDoc.insertPage(currentIdx + 1, copiedPage);
+              return { updateNumPages: true };
+            });
+            if (success) {
+              toast.success(`Inserted page from ${file.name}`, { id: "insertPage" });
+              logger.success(`Page inserted from external PDF`);
+            }
+          }
+        } catch (err) {
+          toast.error(`Failed to insert page: ${err}`, { id: "insertPage" });
+        }
+      };
+      input.click();
       return;
     }
-    const confirmDelete = window.confirm("Delete current page? This action cannot be undone.");
-    if (confirmDelete) {
-      alert("Page deleted successfully");
-      logger.success("Page deleted");
+    
+    toast.loading("Inserting page...", { id: "insertPage" });
+    const pageSize = choice === "1" ? [595.28, 841.89] : [612, 792];
+    const sizeName = choice === "1" ? "A4" : "Letter";
+    
+    const success = await mutateActivePdf("insertPage", async (workingDoc, currentIdx) => {
+      workingDoc.insertPage(currentIdx + 1, pageSize as [number, number]);
+      return { updateNumPages: true };
+    });
+    
+    if (success) {
+      toast.success(`Blank ${sizeName} page inserted`, { id: "insertPage" });
+      logger.success(`Page inserted`);
     }
   };
-  const handleExtractPage = () => {
+  
+  const handleDeletePage = async () => {
     if (!activeDocument) {
-      alert("Please load a PDF first");
+      toast.error("Please load a PDF first");
       return;
     }
-    alert("Extracting current page to new PDF...");
-    logger.info("Page extraction started");
-  };
-  const handleRotatePage = () => {
-    if (!activeDocument) {
-      alert("Please load a PDF first");
+    
+    const numPages = activeDocument.numPages || 1;
+    if (numPages <= 1) {
+      toast.error("Cannot delete the only page in the document");
       return;
     }
-    alert("Page rotated 90 degrees clockwise");
-    logger.success("Page rotated");
+    
+    const confirmDelete = window.confirm(`Delete page ${activeDocument.currentPage}? This action cannot be undone.`);
+    if (!confirmDelete) return;
+    
+    toast.loading("Deleting page...", { id: "deletePage" });
+    const pageToDelete = activeDocument.currentPage;
+    
+    const success = await mutateActivePdf("deletePage", async (workingDoc, currentIdx) => {
+      workingDoc.removePage(currentIdx);
+      return { updateNumPages: true };
+    });
+    
+    if (success) {
+      toast.success(`Page ${pageToDelete} deleted`, { id: "deletePage" });
+      logger.success(`Page deleted`);
+    }
   };
-  const handleReverseRotate = () => {
+  
+  const handleExtractPage = async () => {
     if (!activeDocument) {
-      alert("Please load a PDF first");
+      toast.error("Please load a PDF first");
       return;
     }
-    alert("Page rotated 90 degrees counter-clockwise");
-    logger.success("Page rotated");
+    
+    try {
+      toast.loading("Extracting page...", { id: "extractPage" });
+      const { activeDocument: latestDoc } = useDocumentsStore.getState();
+      if (!latestDoc || !latestDoc.pdfLibDoc) {
+        toast.error("PDF document not available", { id: "extractPage" });
+        return;
+      }
+      
+      const newDoc = await PDFDocument.create();
+      const currentPageIndex = (latestDoc.currentPage || 1) - 1;
+      const [copiedPage] = await newDoc.copyPages(latestDoc.pdfLibDoc, [currentPageIndex]);
+      newDoc.addPage(copiedPage);
+      
+      const extractedBytes = await newDoc.save();
+      const blob = new Blob([extractedBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${latestDoc.name.replace('.pdf', '')}_page${latestDoc.currentPage}.pdf`;
+      link.click();
+      
+      URL.revokeObjectURL(url);
+      toast.success(`Page ${latestDoc.currentPage} extracted and downloaded`, { id: "extractPage" });
+      logger.success(`Page extracted to separate PDF`);
+    } catch (err) {
+      console.error("Extract page failed:", err);
+      toast.error(`Extract page failed: ${err}`, { id: "extractPage" });
+    }
   };
-  const handleReorderPages = () => {
+  
+  const handleRotatePage = async () => {
     if (!activeDocument) {
-      alert("Please load a PDF first");
+      toast.error("Please load a PDF first");
       return;
     }
-    alert("Drag pages in thumbnail panel to reorder. Drop to new position.");
-    logger.info("Page reorder mode activated");
+    
+    const choice = window.prompt(
+      "Rotate current page:\n\n1 = 90° clockwise\n2 = 180°\n\nEnter choice (1 or 2):",
+      "1"
+    );
+    
+    if (!choice || !["1", "2"].includes(choice)) return;
+    
+    toast.loading("Rotating page...", { id: "rotatePage" });
+    const rotateBy = choice === "1" ? 90 : 180;
+    
+    const success = await mutateActivePdf("rotatePage", async (workingDoc, currentIdx) => {
+      const page = workingDoc.getPages()[currentIdx];
+      const currentRotation = page.getRotation().angle;
+      const newRotation = (currentRotation + rotateBy) % 360;
+      page.setRotation({ type: 'degrees', angle: newRotation } as any);
+    });
+    
+    if (success) {
+      toast.success(`Page rotated ${rotateBy}° clockwise`, { id: "rotatePage" });
+      logger.success(`Page rotated`);
+    }
   };
-  const handleDuplicatePage = () => {
+  
+  const handleReverseRotate = async () => {
     if (!activeDocument) {
-      alert("Please load a PDF first");
+      toast.error("Please load a PDF first");
       return;
     }
-    alert("Current page duplicated successfully");
-    logger.success("Page duplicated");
+    
+    toast.loading("Rotating page...", { id: "reverseRotate" });
+    
+    const success = await mutateActivePdf("reverseRotate", async (workingDoc, currentIdx) => {
+      const page = workingDoc.getPages()[currentIdx];
+      const currentRotation = page.getRotation().angle;
+      const newRotation = (currentRotation - 90 + 360) % 360;
+      page.setRotation({ type: 'degrees', angle: newRotation } as any);
+    });
+    
+    if (success) {
+      toast.success(`Page rotated 90° counter-clockwise`, { id: "reverseRotate" });
+      logger.success(`Page rotated`);
+    }
   };
+  
+  const handleReorderPages = async () => {
+    if (!activeDocument) {
+      toast.error("Please load a PDF first");
+      return;
+    }
+    
+    const { activeDocument: latestDoc } = useDocumentsStore.getState();
+    if (!latestDoc) return;
+    
+    const numPages = latestDoc.numPages || 1;
+    if (numPages < 2) {
+      toast.error("Need at least 2 pages to reorder");
+      return;
+    }
+    
+    const currentOrder = Array.from({ length: numPages }, (_, i) => i + 1).join(", ");
+    const newOrderStr = window.prompt(
+      `Current page order: ${currentOrder}\n\nEnter new page order (comma-separated):\nExample: 3,1,2 moves page 3 to first position\n\nNew order:`,
+      currentOrder
+    );
+    
+    if (!newOrderStr) return;
+    
+    const newOrder = newOrderStr.split(",").map(s => parseInt(s.trim()) - 1);
+    
+    if (newOrder.length !== numPages || newOrder.some(isNaN) || 
+        newOrder.some(i => i < 0 || i >= numPages) ||
+        new Set(newOrder).size !== numPages) {
+      toast.error("Invalid page order. Each page must appear exactly once.");
+      return;
+    }
+    
+    try {
+      toast.loading("Reordering pages...", { id: "reorderPages" });
+      const { activeDocument: freshDoc, updateDocument } = useDocumentsStore.getState();
+      if (!freshDoc || !freshDoc.pdfLibDoc) {
+        toast.error("PDF document not available", { id: "reorderPages" });
+        return;
+      }
+      
+      const newDoc = await PDFDocument.create();
+      const copiedPages = await newDoc.copyPages(freshDoc.pdfLibDoc, newOrder);
+      copiedPages.forEach(page => newDoc.addPage(page));
+      
+      const finalBytes = await newDoc.save();
+      const finalBuffer = new Uint8Array(finalBytes).slice().buffer;
+      const finalDoc = await PDFDocument.load(finalBuffer);
+      
+      updateDocument(freshDoc.id, {
+        pdfBytes: finalBuffer,
+        pdfLibDoc: finalDoc,
+      });
+      
+      toast.success(`Pages reordered successfully`, { id: "reorderPages" });
+      logger.success(`Pages reordered to: ${newOrderStr}`);
+    } catch (err) {
+      console.error("Reorder pages failed:", err);
+      toast.error(`Reorder pages failed: ${err}`, { id: "reorderPages" });
+    }
+  };
+  
+  const handleDuplicatePage = async () => {
+    if (!activeDocument) {
+      toast.error("Please load a PDF first");
+      return;
+    }
+    
+    const countStr = window.prompt(
+      "How many copies of the current page?\n(1-100):",
+      "1"
+    );
+    
+    if (!countStr) return;
+    
+    const count = parseInt(countStr);
+    if (isNaN(count) || count < 1 || count > 100) {
+      toast.error("Please enter a number between 1 and 100");
+      return;
+    }
+    
+    toast.loading(`Duplicating page ${count} time(s)...`, { id: "duplicatePage" });
+    
+    const success = await mutateActivePdf("duplicatePage", async (workingDoc, currentIdx) => {
+      for (let i = 0; i < count; i++) {
+        const [copiedPage] = await workingDoc.copyPages(workingDoc, [currentIdx]);
+        workingDoc.insertPage(currentIdx + 1 + i, copiedPage);
+      }
+      return { updateNumPages: true };
+    });
+    
+    if (success) {
+      toast.success(`Page duplicated ${count} time(s)`, { id: "duplicatePage" });
+      logger.success(`Page duplicated`);
+    }
+  };
+  
   const handleAddPDFs = () => mergeFileInputRef.current?.click();
   
   const handleMergeNow = async () => {
