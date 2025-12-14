@@ -25,11 +25,8 @@ export default function PDFEditor() {
       {/* MAIN BODY AREA */}
       <div className="flex flex-col flex-1 overflow-hidden">
         
-        {/* BODY AREA WITH AD SIDEBAR + THUMBNAILS + CANVAS */}
+        {/* BODY AREA WITH THUMBNAILS + CANVAS + AD SIDEBAR */}
         <div className="flex flex-row flex-1 overflow-hidden">
-
-          {/* LEFT AD SIDEBAR - 4 VERTICAL COMPARTMENTS */}
-          <AdSidebar />
 
           {/* THUMBNAIL SIDEBAR ALWAYS VISIBLE */}
           <div className="w-64 border-r bg-white overflow-y-auto">
@@ -43,6 +40,9 @@ export default function PDFEditor() {
               <Canvas />
             </div>
           </div>
+
+          {/* RIGHT AD SIDEBAR - 4 VERTICAL COMPARTMENTS */}
+          <AdSidebar />
 
         </div>
 

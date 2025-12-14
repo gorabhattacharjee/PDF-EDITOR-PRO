@@ -4,7 +4,7 @@ import React from "react";
 
 export default function AdSidebar() {
   return (
-    <div className="w-[120px] h-full bg-gray-100 border-r border-gray-300 flex flex-col flex-shrink-0">
+    <div className="w-[120px] h-full bg-gray-100 border-l border-gray-300 flex flex-col flex-shrink-0">
       {[1, 2, 3, 4].map((slot) => (
         <div
           key={slot}
