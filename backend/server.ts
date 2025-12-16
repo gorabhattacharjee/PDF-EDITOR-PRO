@@ -12,7 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = 3001;
+const port = 5000;
 
 app.use(cors({
   origin: '*',
@@ -45,7 +45,129 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
   });
 });
 
-// PDF Conversion API
+// PDF Conversion API - Main endpoint (used by frontend)
+app.post('/api/convert', upload.single('file'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No PDF file uploaded' });
+    }
+
+    const format = req.body.format as string;
+    if (!['word', 'excel', 'ppt', 'html', 'text'].includes(format)) {
+      return res.status(400).json({ error: 'Invalid format. Must be word, excel, ppt, html, or text' });
+    }
+
+    const inputPath = req.file.path;
+    const uploadDir = path.join(__dirname, 'uploads');
+    await fs.mkdir(uploadDir, { recursive: true });
+
+    const baseName = path.parse(req.file.originalname).name;
+    const extensions: { [key: string]: string } = {
+      word: '.docx',
+      excel: '.xlsx',
+      ppt: '.pptx',
+      html: '.html',
+      text: '.txt',
+    };
+
+    const outputPath = path.join(uploadDir, `${baseName}_converted${extensions[format]}`);
+
+    // Call Python conversion script
+    const pythonPath = path.join(__dirname, 'python', 'py_word_excel_html_ppt.py');
+    const textPythonPath = path.join(__dirname, 'python', 'pdf_to_text.py');
+    
+    // Use dedicated text extraction script for text format
+    const scriptToRun = format === 'text' ? textPythonPath : pythonPath;
+    
+    console.log(`[Conversion] Starting ${format} conversion...`);
+    console.log(`[Conversion] Input: ${inputPath}`);
+    console.log(`[Conversion] Output: ${outputPath}`);
+    console.log(`[Conversion] Python script: ${scriptToRun}`);
+
+    const pythonArgs = format === 'text' 
+      ? [scriptToRun, inputPath, outputPath]
+      : [scriptToRun, format, inputPath, outputPath];
+
+    const pythonProcess = spawn('python', pythonArgs);
+
+    let stdout = '';
+    let stderr = '';
+
+    pythonProcess.stdout?.on('data', (data) => {
+      stdout += data.toString();
+      console.log(`[Python stdout] ${data}`);
+    });
+
+    pythonProcess.stderr?.on('data', (data) => {
+      stderr += data.toString();
+      console.log(`[Python stderr] ${data}`);
+    });
+
+    pythonProcess.on('close', async (code) => {
+      try {
+        if (code !== 0) {
+          console.error(`[Conversion] Python process exited with code ${code}`);
+          console.error(`[Conversion] stderr: ${stderr}`);
+          return res.status(500).json({ error: 'Conversion failed', details: stderr });
+        }
+
+        // Read and send the converted file
+        const fileData = await fs.readFile(outputPath);
+        
+        console.log(`[Conversion] File read successfully, size: ${fileData.length} bytes`);
+        
+        // Set appropriate content type
+        const contentTypes: { [key: string]: string } = {
+          word: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          excel: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          ppt: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+          html: 'text/html',
+          text: 'text/plain',
+        };
+
+        res.setHeader('Content-Type', contentTypes[format]);
+        res.setHeader('Content-Disposition', `attachment; filename="${baseName}_converted${extensions[format]}"`);
+        res.send(fileData);
+
+        console.log(`[Conversion] Response sent successfully`);
+
+        // Clean up temporary files (increased delay to 10 seconds to ensure download completes)
+        setTimeout(async () => {
+          try {
+            await fs.unlink(inputPath);
+            await fs.unlink(outputPath);
+            console.log(`[Conversion] Cleanup completed for ${baseName}`);
+          } catch (cleanupErr) {
+            console.warn(`[Conversion] Cleanup warning: ${cleanupErr}`);
+          }
+        }, 10000);
+
+      } catch (err) {
+        console.error(`[Conversion] Error in completion handler:`, err);
+        if (!res.headersSent) {
+          res.status(500).json({ error: 'Internal server error', details: String(err) });
+        }
+      }
+    });
+
+    pythonProcess.on('error', (err) => {
+      console.error(`[Conversion] Failed to start Python process:`, err);
+      res.status(500).json({
+        error: 'Failed to start conversion process',
+        details: err.message,
+      });
+    });
+
+  } catch (err) {
+    console.error('[Conversion] Server error:', err);
+    res.status(500).json({
+      error: 'Server error during conversion',
+      details: String(err),
+    });
+  }
+});
+
+// PDF Conversion API - Legacy endpoint (backward compatibility)
 app.post('/api/convert/pdf', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
@@ -292,6 +414,121 @@ app.post('/api/encrypt-pdf', upload.single('file'), async (req, res) => {
     console.error('[Encryption] Server error:', err);
     res.status(500).json({
       error: 'Server error during encryption',
+      details: String(err),
+    });
+  }
+});
+
+// PDF Decryption API - Remove password protection
+app.post('/api/decrypt-pdf', upload.single('file'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No PDF file uploaded' });
+    }
+
+    const password = req.body.password;
+
+    if (!password) {
+      return res.status(400).json({ error: 'Password is required for decryption' });
+    }
+
+    const inputPath = req.file.path;
+    const uploadDir = path.join(__dirname, 'uploads');
+    await fs.mkdir(uploadDir, { recursive: true });
+
+    const baseName = path.parse(req.file.originalname).name;
+    const outputPath = path.join(uploadDir, `${baseName}_decrypted.pdf`);
+
+    // Call Python decryption script
+    const pythonPath = path.join(__dirname, 'python', 'decrypt_pdf.py');
+    
+    console.log(`[Decryption] Starting PDF decryption...`);
+    console.log(`[Decryption] Input: ${inputPath}`);
+    console.log(`[Decryption] Output: ${outputPath}`);
+
+    const pythonProcess = spawn('python', [
+      pythonPath,
+      inputPath,
+      outputPath,
+      password
+    ]);
+
+    let stdout = '';
+    let stderr = '';
+
+    pythonProcess.stdout?.on('data', (data) => {
+      stdout += data.toString();
+      console.log(`[Python stdout] ${data}`);
+    });
+
+    pythonProcess.stderr?.on('data', (data) => {
+      stderr += data.toString();
+      console.error(`[Python stderr] ${data}`);
+    });
+
+    pythonProcess.on('close', async (code) => {
+      try {
+        if (code !== 0) {
+          console.error(`[Decryption] Python process exited with code ${code}`);
+          return res.status(500).json({
+            error: `Decryption failed - password may be incorrect or PDF may be corrupted`,
+            details: stderr,
+          });
+        }
+
+        // Check if output file exists
+        try {
+          await fs.access(outputPath);
+        } catch (err) {
+          console.error(`[Decryption] Output file not found at ${outputPath}`);
+          return res.status(500).json({
+            error: 'Decryption completed but output file not found',
+            details: stderr,
+          });
+        }
+
+        // Read and send the decrypted file
+        const fileData = await fs.readFile(outputPath);
+        
+        console.log(`[Decryption] File read successfully, size: ${fileData.length} bytes`);
+        
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `attachment; filename="${baseName}_decrypted.pdf"`);
+        res.send(fileData);
+
+        console.log(`[Decryption] Response sent successfully`);
+
+        // Clean up temporary files
+        setTimeout(async () => {
+          try {
+            await fs.unlink(inputPath);
+            await fs.unlink(outputPath);
+            console.log(`[Decryption] Cleanup completed for ${baseName}`);
+          } catch (cleanupErr) {
+            console.warn(`[Decryption] Cleanup warning: ${cleanupErr}`);
+          }
+        }, 10000);
+
+      } catch (err) {
+        console.error(`[Decryption] Error in completion handler:`, err);
+        if (!res.headersSent) {
+          res.status(500).json({ error: 'Internal server error', details: String(err) });
+        }
+      }
+    });
+
+    pythonProcess.on('error', (err) => {
+      console.error(`[Decryption] Failed to start Python process:`, err);
+      res.status(500).json({
+        error: 'Failed to start decryption process',
+        details: err.message,
+      });
+    });
+
+  } catch (err) {
+    console.error('[Decryption] Server error:', err);
+    res.status(500).json({
+      error: 'Server error during decryption',
       details: String(err),
     });
   }
