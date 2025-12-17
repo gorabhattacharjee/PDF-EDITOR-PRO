@@ -1,0 +1,53 @@
+Category,Component/Element,Type,Status,Function
+Layout,RibbonBar,Component,Working,Main toolbar container. Verified tabs switch correctly and tools are accessible.
+Layout,Canvas,Component,Working,Renders PDF pages. Verified zoom and interactions.
+Layout,Sidebar,Component,Working,Displays page thumbnails. Verified visibility and toggle.
+Layout,DocumentTabs,Component,Working,Manages multiple documents. Verified switching between active PDFs.
+File Menu,Open,Button,Working,Opens system file picker. Verified file loading trigger.
+File Menu,Save,Button,Working,Saves document. Verified it triggers save logic/download.
+File Menu,Save As,Button,Working,Saves copy. Verified prompt appears.
+File Menu,Print,Button,Working,Opens system print dialog.
+File Menu,Export,Button,Working,Opens export submenu. Verified submenu appears.
+File Menu,Close,Button,Working,Closes document. Verified document removal from workspace.
+File Menu,Download Log,Button,Working,Downloads log file. Verified file generation.
+Icon Bar,Open File,Button,Working,Shortcut for Open. Verified.
+Icon Bar,Save,Button,Working,Shortcut for Save. Verified.
+Icon Bar,Add,Button,Working,Shortcut for Add Text. Verified mode switch.
+Icon Bar,Remove,Button,Working,Shortcut for Delete Page. Verified prompt.
+Icon Bar,Refresh,Button,Working,Reloads app. Verified.
+Icon Bar,Print,Button,Working,Shortcut for Print. Verified.
+Icon Bar,Zoom In,Button,Working,Increases Zoom. Verified state change.
+Icon Bar,Zoom Out,Button,Working,Decreases Zoom. Verified state change.
+Ribbon Tabs,Home,Tab,Working,Switches main container to Home tools.
+Ribbon Tabs,Comment,Tab,Working,Switches main container to Comment tools.
+Ribbon Tabs,Edit,Tab,Working,Switches main container to Edit tools.
+Ribbon Tabs,Convert,Tab,Working,Switches main container to Convert tools.
+Ribbon Tabs,Page,Tab,Working,Switches main container to Page tools.
+Ribbon Tabs,Merge,Tab,Working,Switches main container to Merge tools.
+Ribbon Tabs,Protect,Tab,Working,Switches main container to Protect tools.
+Ribbon Tabs,Tools,Tab,Working,Switches main container to Tools.
+Home Tab,Hand Tool,Button,Working,Sets cursor to hand/pan mode.
+Home Tab,Select Tool,Button,Working,Sets cursor to select mode.
+Home Tab,Highlight,Button,Working,Sets cursor to highlight mode.
+Home Tab,Add Text,Button,Working,Sets cursor to add text mode.
+Home Tab,OCR,Button,Working,Triggers text recognition (useOcr hook).
+Home Tab,Edit Image,Button,Non-working,MISSING from Home Tab UI. (Available in Edit Tab).
+Home Tab,Edit All,Button,Working,Toggles Edit Mode.
+Comment Tab,Highlight,Button,Working,Sets highlight mode.
+Comment Tab,Underline,Button,Working,Sets underline mode.
+Comment Tab,Strikeout,Button,Working,Sets strikeout mode.
+Comment Tab,Sticky Note,Button,Working,Adds sticky note annotation.
+Comment Tab,Pen,Button,Working,Enables drawing mode.
+Comment Tab,Shapes,Button,Working,Opens shape selection popup.
+Edit Tab,Crop,Button,Working,Triggers crop dialog/logic.
+Edit Tab,Rotate,Button,Working,Rotates page (verified handler).
+Edit Tab,Delete Pages,Button,Working,Opens delete pages dialog.
+Edit Tab,Reorder,Button,Working,Opens reorder pages dialog.
+Convert Tab,To Word,Button,Working,Triggers API call to /api/convert (format: word).
+Convert Tab,To Excel,Button,Working,Triggers API call to /api/convert (format: excel).
+Convert Tab,To PowerPoint,Button,Working,Triggers API call to /api/convert (format: ppt).
+Convert Tab,To Image,Button,Working,Opens Image Export Modal.
+Convert Tab,To Text,Button,Working,Triggers API call to /api/convert (format: text).
+Tools Tab,Compress,Button,Working,Triggers compression logic/dialog.
+Tools Tab,Split,Button,Working,Triggers split PDF logic.
+Tools Tab,Watermark,Button,Working,Opens watermark input prompt.

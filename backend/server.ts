@@ -13,6 +13,9 @@ const __dirname = path.dirname(__filename);
 // Path to Python scripts - go up from dist/ to find python/
 const pythonDir = path.resolve(__dirname, "..", "python");
 
+// Create uploads directory at project root level for persistence
+const uploadsBaseDir = process.env.UPLOADS_DIR || path.resolve(__dirname, "..", "uploads");
+
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
 
@@ -28,7 +31,7 @@ app.use(bodyParser.json());
 
 const storage = multer.diskStorage({
   destination: async (_req, _file, cb) => {
-    const dir = path.join(__dirname, "uploads", "temp");
+    const dir = path.join(uploadsBaseDir, "temp");
     await fs.mkdir(dir, { recursive: true });
     cb(null, dir);
   },
@@ -59,7 +62,7 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     }
 
     const inputPath = req.file.path;
-    const uploadDir = path.join(__dirname, "uploads");
+    const uploadDir = uploadsBaseDir;
     await fs.mkdir(uploadDir, { recursive: true });
 
     const baseName = path.parse(req.file.originalname).name;
