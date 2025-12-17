@@ -64,3 +64,37 @@ frontend/.next/
 frontend/tests/__pycache__/
 frontend/generate_test_pdf.js
 frontend/test_document.pdf
+# Local docs/reports (not for repo)
+00_START_HERE.txt
+COMPLETE_IMPLEMENTATION_SUMMARY.txt
+DETAILED_TEST_STATISTICS.txt
+IMPLEMENTATION_STATISTICS.txt
+PARTIAL_FEATURES_IMPLEMENTATION_STATUS.txt
+PROJECT_COMPLETION_CERTIFICATE.txt
+
+# Inventories / reports
+*_UI_ELEMENTS_INVENTORY.csv
+UI_ELEMENTS_INVENTORY.csv
+COMPLETE_UI_ELEMENTS_INVENTORY.csv
+
+# Local Python test runners
+test_runner.py
+PROFESSIONAL_COMPREHENSIVE_TEST.py
+TEST_PAGE_TAB_FUNCTIONALITY.py
+
+# Local docs scratch
+docs/1/
+docs/1/*
+
+# Untracked feature prototypes (components/services)
+frontend/src/components/ArchiveModal.tsx
+frontend/src/components/DigitalSignatureModal.tsx
+frontend/src/components/EpubExportModal.tsx
+frontend/src/components/LinkModal.tsx
+frontend/src/components/VoiceNoteRecorder.tsx
+frontend/src/services/digitalSignatureService.ts
+frontend/src/services/epubService.ts
+frontend/src/services/linkService.ts
+frontend/src/services/partialFeaturesService.ts
+frontend/src/services/pdf_aService.ts
+frontend/src/services/voiceNoteService.ts
