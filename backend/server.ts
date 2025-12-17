@@ -88,11 +88,8 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
         : [scriptToRun, format, inputPath, outputPath];
 
     const python = spawn("python3", pythonArgs, {
-      shell: true,
-      env: {
-        ...process.env,
-        PATH: `/usr/local/bin:/usr/bin:/bin:${process.env.PATH}`,
-      },
+      env: process.env,
+      stdio: ["pipe", "pipe", "pipe"],
     });
 
     let stderr = "";
