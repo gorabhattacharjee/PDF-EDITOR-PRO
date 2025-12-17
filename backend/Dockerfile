@@ -15,7 +15,7 @@ COPY package.json pnpm-lock.yaml* ./
 RUN pnpm install --no-frozen-lockfile
 
 # Copy Python requirements and install
-COPY python/requirements.txt ./python/
+COPY python/ ./python/
 RUN pip3 install --no-cache-dir -r python/requirements.txt || true
 
 # Copy source

@@ -10,6 +10,9 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Path to Python scripts - go up from dist/ to find python/
+const pythonDir = path.resolve(__dirname, "..", "python");
+
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
 
@@ -71,8 +74,8 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
 
     const outputPath = path.join(uploadDir, `${baseName}_converted${extensions[format]}`);
 
-    const pythonConvertScript = path.join(__dirname, "python", "py_word_excel_html_ppt.py");
-    const pythonTextScript = path.join(__dirname, "python", "pdf_to_text.py");
+    const pythonConvertScript = path.join(pythonDir, "py_word_excel_html_ppt.py");
+    const pythonTextScript = path.join(pythonDir, "pdf_to_text.py");
 
     const scriptToRun = format === "text" ? pythonTextScript : pythonConvertScript;
 
