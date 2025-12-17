@@ -12,7 +12,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = 5000;
+const port = Number(process.env.PORT || 5000);
+
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Backend server listening on port ${port}`);
+  const pythonDir = path.join(__dirname, 'python');
+  console.log(`Python conversion scripts location: ${pythonDir}`);
+});
+
 
 app.use(cors({
   origin: '*',
