@@ -11,10 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-
-// ✅ Render uses process.env.PORT
-const PORT = Number(process.env.PORT || 5000);
-app.listen(PORT, "0.0.0.0", () => { ... });
+const PORT = Number(process.env.PORT) || 5000;
 
 app.use(
   cors({
@@ -44,15 +41,10 @@ app.get("/", (_req, res) => {
 });
 
 app.post("/api/upload", upload.single("file"), (req, res) => {
-  if (!req.file) return res.status(400).json({ error: "No file uploaded." });
-
-  res.status(200).json({
-    message: "File uploaded successfully",
-    filename: req.file.originalname,
-  });
+  if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+  return res.json({ message: "File uploaded successfully", filename: req.file.originalname });
 });
 
-// Main conversion endpoint
 app.post("/api/convert", upload.single("file"), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: "No PDF file uploaded" });
@@ -79,7 +71,6 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
 
     const outputPath = path.join(uploadDir, `${baseName}_converted${extensions[format]}`);
 
-    // ✅ DO NOT let this filename get cut — must be full and correct
     const pythonConvertScript = path.join(__dirname, "python", "py_word_excel_html_ppt.py");
     const pythonTextScript = path.join(__dirname, "python", "pdf_to_text.py");
 
@@ -90,42 +81,24 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
         ? [scriptToRun, inputPath, outputPath]
         : [scriptToRun, format, inputPath, outputPath];
 
-    const pythonProcess = spawn("python", pythonArgs);
+    const python = spawn("python", pythonArgs);
 
     let stderr = "";
+    python.stderr?.on("data", (d) => (stderr += d.toString()));
 
-    pythonProcess.stderr?.on("data", (data) => {
-      stderr += data.toString();
-      console.error(`[Python stderr] ${data}`);
-    });
-
-    pythonProcess.on("error", (err) => {
-      console.error("[Conversion] Failed to start Python:", err);
+    python.on("error", (err) => {
       if (!res.headersSent) res.status(500).json({ error: "Failed to start conversion", details: err.message });
     });
 
-    pythonProcess.on("close", async (code) => {
+    python.on("close", async (code) => {
       try {
-        if (code !== 0) {
-          return res.status(500).json({ error: "Conversion failed", details: stderr });
-        }
+        if (code !== 0) return res.status(500).json({ error: "Conversion failed", details: stderr });
 
         const fileData = await fs.readFile(outputPath);
 
-        // content types
-        const contentTypes: Record<string, string> = {
-          word: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-          excel: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-          ppt: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-          html: "text/html",
-          text: "text/plain",
-        };
-
-        res.setHeader("Content-Type", contentTypes[format]);
         res.setHeader("Content-Disposition", `attachment; filename="${path.basename(outputPath)}"`);
         res.send(fileData);
 
-        // cleanup later
         setTimeout(async () => {
           try {
             await fs.unlink(inputPath);
@@ -133,17 +106,14 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
           } catch {}
         }, 5000);
       } catch (err) {
-        console.error("[Conversion] Completion handler error:", err);
         if (!res.headersSent) res.status(500).json({ error: "Internal server error", details: String(err) });
       }
     });
   } catch (err) {
-    console.error("[Conversion] Server error:", err);
-    res.status(500).json({ error: "Server error during conversion", details: String(err) });
+    return res.status(500).json({ error: "Server error during conversion", details: String(err) });
   }
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`✅ Backend running on port ${PORT}`);
-  console.log(`📁 Python scripts dir: ${path.join(__dirname, "python")}`);
+  console.log(`Backend running on port ${PORT}`);
 });
