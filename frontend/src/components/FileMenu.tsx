@@ -65,7 +65,7 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
         console.log('[FileMenu] Applying modifications...');
         const pdfBytes = await activeDocument.file.arrayBuffer();
         const modifiedPdfBytes = await applyAllModificationsToPdf(pdfBytes, highlights, textEdits, imageEdits);
-        pdfBlob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+        pdfBlob = new Blob([modifiedPdfBytes as BlobPart], { type: 'application/pdf' });
         console.log('[FileMenu] Modifications applied!');
         toast.success(`Saved with ${highlights.length} highlights, ${textEdits.length} text edits, ${imageEdits.length} image edits`);
       } else {
@@ -103,7 +103,7 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
       if (highlights.length > 0 || textEdits.length > 0 || imageEdits.length > 0) {
         const pdfBytes = await activeDocument.file.arrayBuffer();
         const modifiedPdfBytes = await applyAllModificationsToPdf(pdfBytes, highlights, textEdits, imageEdits);
-        pdfBlob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+        pdfBlob = new Blob([modifiedPdfBytes as BlobPart], { type: 'application/pdf' });
       } else {
         pdfBlob = activeDocument.file;
       }
@@ -135,7 +135,7 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
       if (highlights.length > 0 || textEdits.length > 0 || imageEdits.length > 0) {
         const pdfBytes = await activeDocument.file.arrayBuffer();
         const modifiedPdfBytes = await applyAllModificationsToPdf(pdfBytes, highlights, textEdits, imageEdits);
-        pdfBlob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+        pdfBlob = new Blob([modifiedPdfBytes as BlobPart], { type: 'application/pdf' });
       } else {
         pdfBlob = activeDocument.file;
       }

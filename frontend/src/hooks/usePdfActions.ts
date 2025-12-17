@@ -57,7 +57,7 @@ export const usePdfActions = () => {
   };
 
   const addText = () => {
-    ensureActiveDocument() && setActiveTool("selectText");
+    ensureActiveDocument() && setActiveTool("addText");
   };
 
   const highlightText = () => {

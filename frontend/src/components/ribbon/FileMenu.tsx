@@ -85,7 +85,7 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
       if (docHighlights.length > 0 || docTextEdits.length > 0 || docImageEdits.length > 0) {
         const pdfBytes = await activeDocument.file.arrayBuffer();
         const modifiedPdfBytes = await applyAllModificationsToPdf(pdfBytes, docHighlights, docTextEdits, docImageEdits);
-        pdfBlob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+        pdfBlob = new Blob([modifiedPdfBytes as BlobPart], { type: 'application/pdf' });
         logger.info(`Embedded ${docHighlights.length} highlights, ${docTextEdits.length} text edits, and ${docImageEdits.length} image edits into PDF`);
       } else {
         pdfBlob = activeDocument.file;
@@ -127,7 +127,7 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
       if (docHighlights.length > 0 || docTextEdits.length > 0 || docImageEdits.length > 0) {
         const pdfBytes = await activeDocument.file.arrayBuffer();
         const modifiedPdfBytes = await applyAllModificationsToPdf(pdfBytes, docHighlights, docTextEdits, docImageEdits);
-        pdfBlob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+        pdfBlob = new Blob([modifiedPdfBytes as BlobPart], { type: 'application/pdf' });
         logger.info(`Embedded ${docHighlights.length} highlights, ${docTextEdits.length} text edits, and ${docImageEdits.length} image edits into PDF`);
       } else {
         pdfBlob = activeDocument.file;
@@ -163,7 +163,7 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
       if (docHighlights.length > 0 || docTextEdits.length > 0 || docImageEdits.length > 0) {
         const pdfBytes = await activeDocument.file.arrayBuffer();
         const modifiedPdfBytes = await applyAllModificationsToPdf(pdfBytes, docHighlights, docTextEdits, docImageEdits);
-        pdfBlob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+        pdfBlob = new Blob([modifiedPdfBytes as BlobPart], { type: 'application/pdf' });
       } else {
         pdfBlob = activeDocument.file;
       }

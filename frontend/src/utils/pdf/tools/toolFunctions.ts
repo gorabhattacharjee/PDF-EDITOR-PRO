@@ -131,7 +131,7 @@ export function createToolsHandlers({
       }
 
       const bytes = await outPdf.save();
-      downloadBlob(new Blob([bytes]), finalName);
+      downloadBlob(new Blob([bytes as BlobPart]), finalName);
 
       toast.success("Pages extracted");
       setShowExtractDialog(false);

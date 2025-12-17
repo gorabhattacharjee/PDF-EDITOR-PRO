@@ -84,7 +84,7 @@ export default function HomeTab() {
         console.log('[HomeTab Save] Applying modifications...');
         const pdfBytes = await activeDocument.file.arrayBuffer();
         const modifiedPdfBytes = await applyAllModificationsToPdf(pdfBytes, docHighlights, docTextEdits, docImageEdits);
-        pdfBlob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+        pdfBlob = new Blob([modifiedPdfBytes as BlobPart], { type: 'application/pdf' });
         console.log('[HomeTab Save] Modifications applied, blob size:', pdfBlob.size);
         toast.success(`Saved with ${docHighlights.length} highlights, ${docTextEdits.length} text edits, ${docImageEdits.length} image edits`);
       } else {

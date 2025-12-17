@@ -10,18 +10,18 @@
 export interface UIHelperDeps {
   setActiveTab: (tab: string) => void;
 
-  setShowFilePanel: (v: boolean) => void;
-  setIsFileMenuOpen: (v: boolean) => void;
-  setIsExportMenuOpen: (v: boolean) => void;
+  setShowFilePanel?: (v: boolean | ((prev: boolean) => boolean)) => void;
+  setIsFileMenuOpen?: (v: boolean) => void;
+  setIsExportMenuOpen?: (v: boolean) => void;
 
-  setIsMergeDialogOpen: (v: boolean) => void;
-  setShowExtractDialog: (v: boolean) => void;
+  setIsMergeDialogOpen?: (v: boolean) => void;
+  setShowExtractDialog?: (v: boolean) => void;
 
-  setSidebarOpen?: (v: boolean) => void;
-  setShowOutline?: (v: boolean) => void;
-  setShowThumbnails?: (v: boolean) => void;
-  setShowBookmarks?: (v: boolean) => void;
-  setShowAttachments?: (v: boolean) => void;
+  setSidebarOpen?: (v: boolean | ((prev: boolean) => boolean)) => void;
+  setShowOutline?: (v: boolean | ((prev: boolean) => boolean)) => void;
+  setShowThumbnails?: (v: boolean | ((prev: boolean) => boolean)) => void;
+  setShowBookmarks?: (v: boolean | ((prev: boolean) => boolean)) => void;
+  setShowAttachments?: (v: boolean | ((prev: boolean) => boolean)) => void;
 
   toast?: any;
 }

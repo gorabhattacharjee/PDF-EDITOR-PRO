@@ -178,7 +178,7 @@ const RibbonBar: React.FC = () => {
       page.setRotation(degrees((currentRotation + angle) % 360));
 
       const bytes = await pdfDoc.save();
-      const newFile = new File([bytes], activeDocument.name, {
+      const newFile = new File([bytes as BlobPart], activeDocument.name, {
         type: 'application/pdf',
       });
 
@@ -238,7 +238,7 @@ const RibbonBar: React.FC = () => {
       page.setCropBox(margin, margin, width - margin * 2, height - margin * 2);
 
       const bytes = await pdfDoc.save();
-      const newFile = new File([bytes], activeDocument.name, {
+      const newFile = new File([bytes as BlobPart], activeDocument.name, {
         type: 'application/pdf',
       });
 
@@ -304,7 +304,7 @@ const RibbonBar: React.FC = () => {
       const finalDoc = await PDFDocument.load(finalBuffer, { ignoreEncryption: true });
 
       // Create a new File object from the modified bytes for proper saving
-      const finalBlob = new Blob([finalUint8Array], { type: 'application/pdf' });
+      const finalBlob = new Blob([finalUint8Array as BlobPart], { type: 'application/pdf' });
       const newFile = new File([finalBlob], currentDoc.name || 'document.pdf', { type: 'application/pdf' });
 
       const { updateDocument } = useDocumentsStore.getState();
@@ -392,7 +392,7 @@ const RibbonBar: React.FC = () => {
       const finalDoc = await PDFDocument.load(finalBuffer, { ignoreEncryption: true });
 
       // Create a new File object from the modified bytes for proper saving
-      const finalBlob = new Blob([finalUint8Array], { type: 'application/pdf' });
+      const finalBlob = new Blob([finalUint8Array as BlobPart], { type: 'application/pdf' });
       const newFile = new File([finalBlob], currentDoc.name || 'document.pdf', { type: 'application/pdf' });
 
       const { updateDocument } = useDocumentsStore.getState();
@@ -463,7 +463,7 @@ const RibbonBar: React.FC = () => {
       const finalDoc = await PDFDocument.load(finalBuffer, { ignoreEncryption: true });
 
       // Create a new File object from the modified bytes for proper saving
-      const finalBlob = new Blob([finalUint8Array], { type: 'application/pdf' });
+      const finalBlob = new Blob([finalUint8Array as BlobPart], { type: 'application/pdf' });
       const newFile = new File([finalBlob], currentDoc.name || 'document.pdf', { type: 'application/pdf' });
 
       const { updateDocument } = useDocumentsStore.getState();
@@ -834,7 +834,7 @@ const RibbonBar: React.FC = () => {
       newDoc.addPage(copiedPage);
 
       const extractedBytes = await newDoc.save();
-      const blob = new Blob([extractedBytes], { type: 'application/pdf' });
+      const blob = new Blob([extractedBytes as BlobPart], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
 
       const link = document.createElement('a');
@@ -984,7 +984,7 @@ Examples:
       }
 
       const bytes = await pdfDoc.save();
-      const newFile = new File([bytes], activeDocument.name, {
+      const newFile = new File([bytes as BlobPart], activeDocument.name, {
         type: 'application/pdf',
       });
 
@@ -1058,7 +1058,7 @@ Duplicate pages to repeat them.`,
       }
 
       const bytes = await newPdf.save();
-      const newFile = new File([bytes], activeDocument.name, {
+      const newFile = new File([bytes as BlobPart], activeDocument.name, {
         type: 'application/pdf',
       });
 
@@ -1244,7 +1244,7 @@ Duplicate pages to repeat them.`,
       
       // Save without encryption
       const decryptedBytes = await pdfDoc.save();
-      const decryptedBlob = new Blob([new Uint8Array(decryptedBytes)], { type: 'application/pdf' });
+      const decryptedBlob = new Blob([new Uint8Array(decryptedBytes) as BlobPart], { type: 'application/pdf' });
       
       const url = window.URL.createObjectURL(decryptedBlob);
       const link = document.createElement('a');
@@ -1421,8 +1421,8 @@ Duplicate pages to repeat them.`,
       const name1 = activeDocument.name.replace(".pdf", "_part1.pdf");
       const name2 = activeDocument.name.replace(".pdf", "_part2.pdf");
 
-      const file1 = new File([bytes1], name1, { type: 'application/pdf' });
-      const file2 = new File([bytes2], name2, { type: 'application/pdf' });
+      const file1 = new File([bytes1 as BlobPart], name1, { type: 'application/pdf' });
+      const file2 = new File([bytes2 as BlobPart], name2, { type: 'application/pdf' });
 
       const { openDocument } = useDocumentsStore.getState();
       await openDocument(file1);
@@ -1726,10 +1726,7 @@ Duplicate pages to repeat them.`,
           sourceBytes,
           highlights,
           textEdits,
-          imageEdits,
-          stickyNotes,
-          penStrokes,
-          shapes
+          imageEdits
         );
         // Debug logging for corrupted file issue
         console.log('[RibbonBar Save] Modified PDF bytes length:', modifiedPdfBytes.length);
@@ -1781,10 +1778,7 @@ Duplicate pages to repeat them.`,
           sourceBytes,
           docHighlights,
           docTextEdits,
-          docImageEdits,
-          docStickyNotes,
-          docPenStrokes,
-          docShapes
+          docImageEdits
         );
         pdfBlob = new Blob([modifiedPdfBytes as any], { type: 'application/pdf' });
       } else {
@@ -1930,7 +1924,7 @@ Duplicate pages to repeat them.`,
               className={tool === "editAll" ? "active" : ""}
               style={{ color: '#6366f1', cursor: 'pointer' }}
             ><FiEdit style={{ display: 'inline', marginRight: '6px' }} />Edit All</div>
-            <div onClick={addTextTool} className={tool === "selectText" ? "active" : ""} style={{ color: '#8b5cf6' }}><FiFileText style={{ display: 'inline', marginRight: '6px' }} />Add Text</div>
+            <div onClick={addTextTool} className={tool === "addText" ? "active" : ""} style={{ color: '#8b5cf6' }}><FiFileText style={{ display: 'inline', marginRight: '6px' }} />Add Text</div>
             <div onClick={runOCR} style={{ color: '#06b6d4' }}><FiCode style={{ display: 'inline', marginRight: '6px' }} />OCR</div>
             <div
               className="relative"
@@ -2208,7 +2202,7 @@ Duplicate pages to repeat them.`,
 
       <div className="ribbon-subbar">{renderSubButtons()}</div>
 
-      {tool === "selectText" && <TextEditorPanel />}
+      {tool === "addText" && <TextEditorPanel />}
 
       <input
         ref={singleFileInputRef}

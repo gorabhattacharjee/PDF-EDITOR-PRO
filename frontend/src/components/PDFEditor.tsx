@@ -11,15 +11,20 @@ import ImageExportModal from "@/components/ImageExportModal";
 import AddTextModal from "@/components/AddTextModal";
 import AdSidebar from "@/components/AdSidebar";
 import AdBottomBar from "@/components/AdBottomBar";
+import useDocumentsStore from "@/stores/useDocumentsStore";
+import useUIStore from "@/stores/useUIStore";
 
 export default function PDFEditor() {
-  const [showImageExport, setShowImageExport] = useState(false);
+  const activeDocument = useDocumentsStore((s) => s.activeDocument);
+  const activePage = useUIStore((s) => s.activePage);
+  const showImageExport = useUIStore((s) => s.isImageExportModalOpen);
+  const closeImageExport = useUIStore((s) => s.closeImageExportModal);
   return (
     <div className="flex flex-col w-full h-screen overflow-hidden relative">
 
       {/* RIBBON ALWAYS VISIBLE */}
       <div className="w-full flex-shrink-0">
-        <RibbonBar onOpenImageExport={() => setShowImageExport(true)} />
+        <RibbonBar />
       </div>
 
       {/* MAIN BODY AREA */}
@@ -59,8 +64,11 @@ export default function PDFEditor() {
 
       {/* IMAGE EXPORT MODAL */}
       <ImageExportModal
-        isOpen={showImageExport}
-        onClose={() => setShowImageExport(false)}
+        isOpen={showImageExport && !!activeDocument}
+        onClose={() => closeImageExport()}
+        documentName={activeDocument?.name || ""}
+        currentPage={activePage || 1}
+        totalPages={activeDocument?.numPages || 1}
       />
 
       {/* ADD TEXT MODAL */}

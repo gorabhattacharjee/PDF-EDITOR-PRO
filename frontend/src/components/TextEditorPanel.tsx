@@ -16,7 +16,7 @@ export default function TextEditorPanel() {
 
   useEffect(() => {
     const handleClick = async (e: MouseEvent) => {
-      if (activeTool !== 'selectText' || !activeDoc) return;
+      if (activeTool !== 'addText' || !activeDoc) return;
 
       try {
         const { offsetX, offsetY } = e as MouseEvent;
@@ -54,8 +54,8 @@ export default function TextEditorPanel() {
     return () => window.removeEventListener('click', handleClick);
   }, [activeTool, activeDoc, fontSize, fontColor, fontFamily, updateDocument]);
 
-  // ← LOGIC CHANGE: Only show if tool === 'selectText'
-  if (activeTool !== 'selectText') return null;
+  // ← LOGIC CHANGE: Only show if tool === 'addText'
+  if (activeTool !== 'addText') return null;
 
   return (
     <div

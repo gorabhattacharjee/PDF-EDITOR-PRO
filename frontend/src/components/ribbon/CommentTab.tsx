@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useUIStore, ActiveTool } from "@/stores/useUIStore";
+import { useUIStore, Tool } from "@/stores/useUIStore";
 import RibbonButton from "./RibbonButton";
 import {
   FaHighlighter,
@@ -42,7 +42,7 @@ export default function CommentTab() {
     setSelectedShapeType,
   } = useUIStore();
 
-  const handleToolClick = (tool: ActiveTool, toolName: string) => {
+  const handleToolClick = (tool: Tool, toolName: string) => {
     if (activeTool === tool) {
       setActiveTool("none");
       toast.success(`${toolName} tool deactivated`);

@@ -1,80 +1,55 @@
 import { create } from "zustand";
 
-// Which ribbon tab is active
-export type RibbonTab =
-  | "home"
-  | "comment"
-  | "edit"
-  | "convert"
-  | "page"
-  | "merge"
-  | "protect"
-  | "tools";
-
-// Which tool is active (you can extend this as you wire more buttons)
-export type ActiveTool =
-  | "none"
+export type Tool =
   | "hand"
   | "select"
   | "highlight"
   | "underline"
   | "strikeout"
+  | "comment"
+  | "draw"
+  | "shape"
+  | "editText"
+  | "editImage"
+  | "editAll"
+  | "addText"
+  | "ocr"
   | "pen"
   | "shapes"
   | "sticky-note"
-  | "selectText"
-  | "addText"
-  | "editText"
-  | "editImage"
-  | "editAll";
+  | "none";
 
-// UI state shape
+export type PendingAddTextPosition = {
+  page: number;
+  x: number;
+  y: number;
+  zoom: number;
+};
+
+export type AddTextConfig = {
+  text: string;
+  fontFamily: string;
+  fontSize: number;
+  fontColor: string; // hex like "#000000"
+};
+
 export interface UIState {
-  // Ribbon
-  activeTab: RibbonTab;
-  setActiveTab: (tab: RibbonTab) => void;
-
-  // Tools
-  activeTool: ActiveTool;
-  setActiveTool: (tool: ActiveTool) => void;
+  // Active tool
+  activeTool: Tool;
+  setActiveTool: (tool: Tool) => void;
 
   // Page navigation
   activePage: number;
   setActivePage: (page: number) => void;
 
-  // Zoom
+  // Zoom level
   zoom: number;
   setZoom: (zoom: number) => void;
   zoomIn: () => void;
   zoomOut: () => void;
   resetZoom: () => void;
 
-  // File menu
-  isFileMenuOpen: boolean;
-  openFileMenu: () => void;
-  closeFileMenu: () => void;
-  toggleFileMenu: () => void;
-
-  // Sanitize Modal
-  isSanitizeModalOpen: boolean;
-  openSanitizeModal: () => void;
-  closeSanitizeModal: () => void;
-
-  // Comments Panel
-  isCommentsPanelOpen: boolean;
-  toggleCommentsPanel: () => void;
-
-  // Document Properties Modal
-  isPropertiesModalOpen: boolean;
-  openPropertiesModal: () => void;
-  closePropertiesModal: () => void;
-
-  // To Office Conversion Modal
-  isToOfficeModalOpen: boolean;
-  openToOfficeModal: () => void;
-  closeToOfficeModal: () => void;
-
-  // Highlight color
+  // Highlight settings
   highlightColor: string;
   setHighlightColor: (color: string) => void;
 
@@ -83,129 +58,119 @@ export interface UIState {
   setDrawingColor: (color: string) => void;
   drawingStrokeWidth: number;
   setDrawingStrokeWidth: (width: number) => void;
-  selectedShapeType: "rectangle" | "circle" | "line" | "arrow";
-  setSelectedShapeType: (type: "rectangle" | "circle" | "line" | "arrow") => void;
 
-  // Add Text Modal
+  // Shape settings
+  selectedShapeType: string;
+  setSelectedShapeType: (type: string) => void;
+
+  // Comments panel
+  isCommentsPanelOpen: boolean;
+  toggleCommentsPanel: () => void;
+
+  // Add Text modal state
   isAddTextModalOpen: boolean;
   openAddTextModal: () => void;
   closeAddTextModal: () => void;
-  
-  // Pending Add Text Position (captured when user clicks on PDF)
-  pendingAddTextPosition: {
-    page: number;
-    x: number;
-    y: number;
-    zoom: number;
-  } | null;
-  setPendingAddTextPosition: (pos: { page: number; x: number; y: number; zoom: number } | null) => void;
+
+  // Pending "Add Text" position (click point on canvas)
+  pendingAddTextPosition: PendingAddTextPosition | null;
+  setPendingAddTextPosition: (pos: PendingAddTextPosition | null) => void;
   clearPendingAddText: () => void;
+
+  // Pending "Add Text" config (what user typed / chose)
+  pendingAddTextConfig: AddTextConfig | null;
+  setPendingAddTextConfig: (cfg: AddTextConfig | null) => void;
+  clearPendingAddTextConfig: () => void;
+
+  // Image Export Modal
+  isImageExportModalOpen: boolean;
+  openImageExportModal: () => void;
+  closeImageExportModal: () => void;
+
+  // Office Conversion Modal
+  isToOfficeModalOpen: boolean;
+  openToOfficeModal: () => void;
+  closeToOfficeModal: () => void;
+
+  // Document Properties Modal
+  isPropertiesModalOpen: boolean;
+  openPropertiesModal: () => void;
+  closePropertiesModal: () => void;
+
+  // Sanitize Modal
+  isSanitizeModalOpen: boolean;
+  openSanitizeModal: () => void;
+  closeSanitizeModal: () => void;
 }
 
-// MAIN STORE
 export const useUIStore = create<UIState>((set) => ({
-  // Default to Home tab
-  activeTab: "home",
-  setActiveTab: (tab) => set({ activeTab: tab }),
-
-  // Default tool = none
+  // Active tool
   activeTool: "none",
   setActiveTool: (tool) => set({ activeTool: tool }),
 
-  // Default to first page
+  // Page navigation
   activePage: 0,
-  setActivePage: (page) =>
-    set({
-      activePage: page < 0 ? 0 : page,
-    }),
+  setActivePage: (page) => set({ activePage: page }),
 
-  // Zoom (1.0 = 100%)
+  // Zoom level
   zoom: 1,
-  setZoom: (zoom) =>
-    set({
-      zoom: zoom <= 0.1 ? 0.1 : zoom,
-    }),
-  zoomIn: () =>
-    set((state) => {
-      const next = state.zoom + 0.1;
-      return { zoom: next > 4 ? 4 : next }; // clamp max 400%
-    }),
-  zoomOut: () =>
-    set((state) => {
-      const next = state.zoom - 0.1;
-      return { zoom: next < 0.1 ? 0.1 : next }; // clamp min 10%
-    }),
+  setZoom: (zoom) => set({ zoom }),
+  zoomIn: () => set((state) => ({ zoom: Math.min(state.zoom + 0.2, 3) })),
+  zoomOut: () => set((state) => ({ zoom: Math.max(state.zoom - 0.2, 0.5) })),
   resetZoom: () => set({ zoom: 1 }),
 
-  // File menu open/close
-  isFileMenuOpen: false,
-  openFileMenu: () => set({ isFileMenuOpen: true }),
-  closeFileMenu: () => set({ isFileMenuOpen: false }),
-  toggleFileMenu: () => set((state) => ({ isFileMenuOpen: !state.isFileMenuOpen })),
+  // Highlight settings
+  highlightColor: "#FFFF00",
+  setHighlightColor: (color) => set({ highlightColor: color }),
 
-  // Sanitize Modal
-  isSanitizeModalOpen: false,
-  openSanitizeModal: () => set({ isSanitizeModalOpen: true }),
-  closeSanitizeModal: () => set({ isSanitizeModalOpen: false }),
+  // Drawing settings
+  drawingColor: "#000000",
+  setDrawingColor: (color) => set({ drawingColor: color }),
+  drawingStrokeWidth: 2,
+  setDrawingStrokeWidth: (width) => set({ drawingStrokeWidth: width }),
 
-  // Comments Panel
+  // Shape settings
+  selectedShapeType: "rectangle",
+  setSelectedShapeType: (type) => set({ selectedShapeType: type }),
+
+  // Comments panel
   isCommentsPanelOpen: false,
   toggleCommentsPanel: () => set((state) => ({ isCommentsPanelOpen: !state.isCommentsPanelOpen })),
+
+  // Add Text modal state
+  isAddTextModalOpen: false,
+  openAddTextModal: () => set({ isAddTextModalOpen: true }),
+  closeAddTextModal: () => set({ isAddTextModalOpen: false }),
+
+  // Pending "Add Text" position (click point on canvas)
+  pendingAddTextPosition: null,
+  setPendingAddTextPosition: (pos) => set({ pendingAddTextPosition: pos }),
+  clearPendingAddText: () => set({ pendingAddTextPosition: null, isAddTextModalOpen: false }),
+
+  // Pending "Add Text" config (what user typed / chose)
+  pendingAddTextConfig: null,
+  setPendingAddTextConfig: (cfg) => set({ pendingAddTextConfig: cfg }),
+  clearPendingAddTextConfig: () => set({ pendingAddTextConfig: null }),
+
+  // Image Export Modal
+  isImageExportModalOpen: false,
+  openImageExportModal: () => set({ isImageExportModalOpen: true }),
+  closeImageExportModal: () => set({ isImageExportModalOpen: false }),
+
+  // Office Conversion Modal
+  isToOfficeModalOpen: false,
+  openToOfficeModal: () => set({ isToOfficeModalOpen: true }),
+  closeToOfficeModal: () => set({ isToOfficeModalOpen: false }),
 
   // Document Properties Modal
   isPropertiesModalOpen: false,
   openPropertiesModal: () => set({ isPropertiesModalOpen: true }),
   closePropertiesModal: () => set({ isPropertiesModalOpen: false }),
 
-  // To Office Conversion Modal
-  isToOfficeModalOpen: false,
-  openToOfficeModal: () => {
-    console.log('[UIStore] openToOfficeModal called');
-    set({ isToOfficeModalOpen: true });
-    console.log('[UIStore] isToOfficeModalOpen set to true');
-  },
-  closeToOfficeModal: () => {
-    console.log('[UIStore] closeToOfficeModal called');
-    set({ isToOfficeModalOpen: false });
-    console.log('[UIStore] isToOfficeModalOpen set to false');
-  },
-
-  // Highlight color (default yellow)
-  highlightColor: '#FFFF00',
-  setHighlightColor: (color) => set({ highlightColor: color }),
-
-  // Drawing settings
-  drawingColor: '#FF0000',
-  setDrawingColor: (color) => set({ drawingColor: color }),
-  drawingStrokeWidth: 3,
-  setDrawingStrokeWidth: (width) => set({ drawingStrokeWidth: width }),
-  selectedShapeType: 'rectangle',
-  setSelectedShapeType: (type) => set({ selectedShapeType: type }),
-
-  // Add Text Modal
-  isAddTextModalOpen: false,
-  openAddTextModal: () => {
-    console.log('[UIStore] openAddTextModal called');
-    set({ isAddTextModalOpen: true });
-    console.log('[UIStore] isAddTextModalOpen set to true');
-  },
-  closeAddTextModal: () => {
-    console.log('[UIStore] closeAddTextModal called');
-    set({ isAddTextModalOpen: false });
-  },
-  
-  // Pending Add Text Position (captured when user clicks on PDF)
-  pendingAddTextPosition: null,
-  setPendingAddTextPosition: (pos) => set({ pendingAddTextPosition: pos }),
-  clearPendingAddText: () => set({ 
-    pendingAddTextPosition: null, 
-    isAddTextModalOpen: false,
-    activeTool: 'none'
-  }),
+  // Sanitize Modal
+  isSanitizeModalOpen: false,
+  openSanitizeModal: () => set({ isSanitizeModalOpen: true }),
+  closeSanitizeModal: () => set({ isSanitizeModalOpen: false }),
 }));
 
-// Support both:
-//   import { useUIStore } from "@/stores/useUIStore";
-// and
-//   import useUIStore from "@/stores/useUIStore";
 export default useUIStore;

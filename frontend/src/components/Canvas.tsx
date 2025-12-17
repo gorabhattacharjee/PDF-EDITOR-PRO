@@ -833,7 +833,7 @@ export default function Canvas() {
             activeTool={isPenMode ? 'pen' : 'shapes'}
             strokeColor={drawingColor}
             strokeWidth={drawingStrokeWidth}
-            selectedShape={selectedShapeType}
+            selectedShape={selectedShapeType as 'rectangle' | 'circle' | 'line' | 'arrow'}
           />
         )}
         
