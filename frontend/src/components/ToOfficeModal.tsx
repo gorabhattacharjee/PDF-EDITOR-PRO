@@ -5,6 +5,7 @@ import useDocumentsStore from '@/stores/useDocumentsStore';
 import useUIStore from '@/stores/useUIStore';
 import logger from '@/utils/logger';
 import { getConvertUrl } from '@/config/api';
+import toast from 'react-hot-toast';
 import { FiX } from 'react-icons/fi';
 import { FaFileWord, FaFileExcel, FaFilePowerpoint, FaFileAlt } from 'react-icons/fa';
 
@@ -40,6 +41,7 @@ export default function ToOfficeModal() {
     setConversionFormat(format);
 
     try {
+      toast.loading('Converting...', { id: 'convert' });
       const formData = new FormData();
       formData.append('file', activeDocument.file);
       formData.append('format', format);
@@ -53,7 +55,9 @@ export default function ToOfficeModal() {
       });
 
       if (!response.ok) {
-        throw new Error(`Conversion failed: ${response.statusText}`);
+        const errorText = await response.text();
+        console.error('[ToOfficeModal] Error response:', errorText);
+        throw new Error(`Conversion failed: ${response.statusText} - ${errorText}`);
       }
 
       const blob = await response.blob();
@@ -73,10 +77,14 @@ export default function ToOfficeModal() {
       link.click();
       window.URL.revokeObjectURL(url);
 
+      toast.success(`Converted to ${format}!`, { id: 'convert' });
       logger.success(`Successfully converted to ${format}: ${link.download}`);
       closeToOfficeModal();
-    } catch (error) {
-      logger.error(`Conversion failed: ${error}`);
+    } catch (error: any) {
+      const errorMessage = error?.message || String(error);
+      toast.error(`Conversion failed: ${errorMessage}`, { id: 'convert' });
+      logger.error(`Conversion failed: ${errorMessage}`);
+      console.error('[ToOfficeModal] Full error:', error);
     } finally {
       setConverting(false);
       setConversionFormat(null);
