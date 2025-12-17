@@ -21,3 +21,23 @@ Thumbs.db
 .vscode/
 .idea/
 .turbo/
+# Replit / agent / local
+.agent/
+.local/
+
+# Temporary images / outputs
+temp_img_*.png
+*.zip
+__pycache__/
+frontend/tests/__pycache__/
+
+# Local test artifacts / reports (keep if you truly want them tracked)
+*_REPORT*.txt
+*_RESULTS*.csv
+*TEST*.py
+test_results.csv
+functional_testing.csv
+line_analysis.txt
+component_status.csv
+package - Copy.json
+zip-repl-work-required.zip
