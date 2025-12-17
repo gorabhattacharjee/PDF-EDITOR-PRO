@@ -81,9 +81,13 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
         ? [scriptToRun, inputPath, outputPath]
         : [scriptToRun, format, inputPath, outputPath];
 
-    // Use full Python path for Windows compatibility
-    const pythonPath = process.platform === "win32" ? "C:\\Python314\\python.exe" : "python";
-    const python = spawn(pythonPath, pythonArgs);
+    const python = spawn("python3", pythonArgs, {
+      shell: true,
+      env: {
+        ...process.env,
+        PATH: `/usr/local/bin:/usr/bin:/bin:${process.env.PATH}`,
+      },
+    });
 
     let stderr = "";
     python.stderr?.on("data", (d) => (stderr += d.toString()));
