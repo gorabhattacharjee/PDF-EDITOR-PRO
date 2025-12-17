@@ -90,15 +90,29 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     });
 
     let stderr = "";
-    python.stderr?.on("data", (d) => (stderr += d.toString()));
+    let stdout = "";
+    python.stderr?.on("data", (d) => {
+      stderr += d.toString();
+      console.error(`[Python stderr] ${d.toString()}`);
+    });
+    python.stdout?.on("data", (d) => {
+      stdout += d.toString();
+      console.log(`[Python stdout] ${d.toString()}`);
+    });
 
     python.on("error", (err) => {
+      console.error(`[Spawn error] ${err.message}`);
       if (!res.headersSent) res.status(500).json({ error: "Failed to start conversion", details: err.message });
     });
 
     python.on("close", async (code) => {
       try {
-        if (code !== 0) return res.status(500).json({ error: "Conversion failed", details: stderr });
+        console.log(`[Python exit code] ${code}`);
+        if (code !== 0) {
+          const errorMsg = stderr || stdout || "Unknown error";
+          console.error(`[Conversion failed] ${errorMsg}`);
+          return res.status(500).json({ error: "Conversion failed", details: errorMsg });
+        }
 
         const fileData = await fs.readFile(outputPath);
 
