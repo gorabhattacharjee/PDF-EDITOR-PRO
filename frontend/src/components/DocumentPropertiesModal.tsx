@@ -30,19 +30,21 @@ export default function DocumentPropertiesModal() {
 
   const handleChange = () => {
     setHasChanges(true);
+    console.log('[DocumentPropertiesModal] Change detected - metadata updated');
   };
 
   const handleSave = () => {
     if (!activeDocument) return;
 
-    updateDocument(activeDocument.id, {
-      metadata: {
-        title: title || undefined,
-        author: author || undefined,
-        subject: subject || undefined,
-        keywords: keywords || undefined,
-      },
-    });
+    const metadata = {
+      title: title || undefined,
+      author: author || undefined,
+      subject: subject || undefined,
+      keywords: keywords || undefined,
+    };
+
+    console.log('[DocumentPropertiesModal] Saving metadata:', metadata);
+    updateDocument(activeDocument.id, { metadata });
 
     logger.success('Document properties updated');
     setHasChanges(false);
