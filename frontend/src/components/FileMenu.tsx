@@ -8,6 +8,7 @@ import { useImageEditsStore } from "@/stores/useImageEditsStore";
 import { applyAllModificationsToPdf } from "@/adapters/pdf-lib";
 import logger from "@/utils/logger";
 import toast from "react-hot-toast";
+import { getConvertUrl } from "@/config/api";
 
 interface FileMenuProps {
   onClose?: () => void;
@@ -217,7 +218,7 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
       formData.append('format', format);
 
       console.log('[FileMenu] Calling backend at /api/convert');
-      const response = await fetch('/api/convert', {
+      const response = await fetch(getConvertUrl(), {
         method: 'POST',
         body: formData,
       });

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import useDocumentsStore from "@/stores/useDocumentsStore";
 import useUIStore from "@/stores/useUIStore";
 import logger from "@/utils/logger";
+import { getConvertUrl } from "@/config/api";
 import { PDFDocument } from "pdf-lib";
 import RibbonButton from "./RibbonButton";
 import ImageExportModal from "@/components/ImageExportModal";
@@ -50,7 +51,7 @@ export default function ConvertTab() {
 
       console.log('[ConvertTab] FormData created, sending to backend...');
       
-      const response = await fetch('/api/convert', {
+      const response = await fetch(getConvertUrl(), {
         method: 'POST',
         body: formData,
       });
@@ -117,7 +118,7 @@ export default function ConvertTab() {
       formData.append('format', 'text');
 
       console.log('[ConvertTab] FormData created, sending to backend...');
-      const response = await fetch('/api/convert', {
+      const response = await fetch(getConvertUrl(), {
         method: 'POST',
         body: formData,
       });
@@ -202,7 +203,11 @@ export default function ConvertTab() {
       URL.revokeObjectURL(a.href);
 
       logger.success("Exported PDF/A compatible document");
-      alert(`PDF/A export completed!\n\nFile: ${a.download}\n\nThis PDF includes standard archival metadata for long-term preservation.`);
+      alert(`PDF/A export completed!
+
+File: ${a.download}
+
+This PDF includes standard archival metadata for long-term preservation.`);
     } catch (error) {
       console.error('[ConvertTab] PDF/A export error:', error);
       logger.error(`PDF/A export failed: ${error}`);

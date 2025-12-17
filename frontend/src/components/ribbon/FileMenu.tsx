@@ -8,6 +8,7 @@ import { useTextEditsStore } from "@/stores/useTextEditsStore";
 import { useImageEditsStore } from "@/stores/useImageEditsStore";
 import { applyAllModificationsToPdf } from "@/adapters/pdf-lib";
 import logger from "@/utils/logger";
+import { getConvertUrl } from "@/config/api";
 import {
   FiFile,
   FiSave,
@@ -239,7 +240,7 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
       console.log('[FileMenu] Starting export:', format);
       alert(`Exporting to ${format.toUpperCase()}... This may take a moment.`);
       
-      const response = await fetch('/api/convert', {
+      const response = await fetch(getConvertUrl(), {
         method: 'POST',
         body: formData,
       });
@@ -316,7 +317,7 @@ export default function FileMenu({ onClose, onOpenImageExport }: FileMenuProps) 
       formData.append('format', 'text');
 
       console.log('[FileMenu] Starting text extraction');
-      const response = await fetch('/api/convert', {
+      const response = await fetch(getConvertUrl(), {
         method: 'POST',
         body: formData,
       });

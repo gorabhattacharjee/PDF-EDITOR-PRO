@@ -9,6 +9,7 @@ import { useTextEditsStore } from "@/stores/useTextEditsStore";
 import { useImageEditsStore } from "@/stores/useImageEditsStore";
 import { applyAllModificationsToPdf } from "@/adapters/pdf-lib";
 import logger from "@/utils/logger";
+import { getConvertUrl } from "@/config/api";
 import { openPDFandGenerate } from "@/components/openDocument";
 import RibbonButton from "./RibbonButton";
 import ColorPickerModal from "@/components/ColorPickerModal";
@@ -402,7 +403,7 @@ export default function HomeTab() {
               formData.append('file', activeDocument.file);
               formData.append('format', 'text');
 
-              const response = await fetch('/api/convert', {
+              const response = await fetch(getConvertUrl(), {
                 method: 'POST',
                 body: formData,
               });

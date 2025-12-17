@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import useDocumentsStore from '@/stores/useDocumentsStore';
 import useUIStore from '@/stores/useUIStore';
 import logger from '@/utils/logger';
+import { getConvertUrl } from '@/config/api';
 import { FiX } from 'react-icons/fi';
 import { FaFileWord, FaFileExcel, FaFilePowerpoint, FaFileAlt } from 'react-icons/fa';
 
@@ -46,7 +47,7 @@ export default function ToOfficeModal() {
       console.log('[ToOfficeModal] Starting conversion:', format);
       console.log('[ToOfficeModal] File:', activeDocument.name);
       console.log('[ToOfficeModal] Calling backend at /api/convert');
-      const response = await fetch('/api/convert', {
+      const response = await fetch(getConvertUrl(), {
         method: 'POST',
         body: formData,
       });

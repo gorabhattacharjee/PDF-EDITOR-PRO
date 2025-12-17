@@ -9,6 +9,7 @@ import { useTextEditsStore } from "@/stores/useTextEditsStore";
 import { useImageEditsStore } from "@/stores/useImageEditsStore";
 import { applyAllModificationsToPdf } from "@/adapters/pdf-lib";
 import logger from "@/utils/logger";
+import { getConvertUrl } from "@/config/api";
 import TextEditorPanel from "./TextEditorPanel";
 import { useUIStore } from "@/stores/useUIStore";
 import { useOcr } from "@/hooks/useOcr";
@@ -499,7 +500,7 @@ const RibbonBar: React.FC = () => {
       formData.append('format', 'word');
 
       // Call backend conversion API
-      const response = await fetch('/api/convert', {
+      const response = await fetch(getConvertUrl(), {
         method: 'POST',
         body: formData,
       });
@@ -542,7 +543,7 @@ const RibbonBar: React.FC = () => {
       formData.append('file', activeDocument.file);
       formData.append('format', 'excel');
 
-      const response = await fetch('/api/convert', {
+      const response = await fetch(getConvertUrl(), {
         method: 'POST',
         body: formData,
       });
@@ -584,7 +585,7 @@ const RibbonBar: React.FC = () => {
       formData.append('file', activeDocument.file);
       formData.append('format', 'ppt');
 
-      const response = await fetch('/api/convert', {
+      const response = await fetch(getConvertUrl(), {
         method: 'POST',
         body: formData,
       });
@@ -640,7 +641,7 @@ const RibbonBar: React.FC = () => {
       formData.append('file', activeDocument.file);
       formData.append('format', 'text');
 
-      const response = await fetch('/api/convert', {
+      const response = await fetch(getConvertUrl(), {
         method: 'POST',
         body: formData,
       });
