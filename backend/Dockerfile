@@ -1,26 +1,24 @@
-# ---- Base ----
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Install pnpm
+# pnpm
 RUN corepack enable && corepack prepare pnpm@10.24.0 --activate
 
-# Copy only backend manifests first (better caching)
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY backend/package.json ./backend/package.json
+# Copy ONLY backend package files (because build context = backend/)
+COPY package.json pnpm-lock.yaml* ./
 
-# Install dependencies for backend (workspace-aware)
-RUN pnpm -C backend install --no-frozen-lockfile
+# Install deps
+RUN pnpm install --no-frozen-lockfile
 
-# Copy backend source
-COPY backend ./backend
+# Copy source
+COPY . .
 
-# Build TypeScript -> dist/
-RUN pnpm -C backend run build
+# Build TS -> dist/
+RUN pnpm run build
 
-# Expose (Render uses PORT env; this is just informational)
+# Render provides PORT, we just expose for clarity
 EXPOSE 5000
 
-# Start backend
-CMD ["pnpm", "-C", "backend", "start"]
+# Start compiled server
+CMD ["pnpm", "start"]
