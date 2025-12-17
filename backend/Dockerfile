@@ -1,28 +1,26 @@
-FROM node:20-bullseye
-
-# Install Python (for your spawn('python', ...) calls)
-RUN apt-get update && apt-get install -y python3 python3-pip && rm -rf /var/lib/apt/lists/*
+# ---- Base ----
+FROM node:20-alpine
 
 WORKDIR /app
 
 # Install pnpm
 RUN corepack enable && corepack prepare pnpm@10.24.0 --activate
 
-# Copy backend package files first (better caching)
-COPY package.json pnpm-lock.yaml* ./
+# Copy only backend manifests first (better caching)
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY backend/package.json ./backend/package.json
 
-# Install deps
-RUN pnpm install --prod
+# Install dependencies for backend (workspace-aware)
+RUN pnpm -C backend install --no-frozen-lockfile
 
 # Copy backend source
-COPY . .
+COPY backend ./backend
 
-# If you have Python requirements, install them (recommended)
-# If you don’t have requirements.txt yet, create it later.
-RUN if [ -f "python/requirements.txt" ]; then pip3 install -r python/requirements.txt; fi
+# Build TypeScript -> dist/
+RUN pnpm -C backend run build
 
-ENV NODE_ENV=production
+# Expose (Render uses PORT env; this is just informational)
 EXPOSE 5000
 
-# Run backend
-CMD ["pnpm", "start"]
+# Start backend
+CMD ["pnpm", "-C", "backend", "start"]
