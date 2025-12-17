@@ -3,7 +3,7 @@ FROM node:20-alpine
 WORKDIR /app
 
 # Install Python and required system dependencies
-RUN apk add --no-cache python3 py3-pip gcc musl-dev python3-dev
+RUN apk add --no-cache python3 py3-pip gcc musl-dev python3-dev libffi-dev openssl-dev
 
 # pnpm
 RUN corepack enable && corepack prepare pnpm@10.24.0 --activate
@@ -16,7 +16,7 @@ RUN pnpm install --no-frozen-lockfile
 
 # Copy Python requirements and install
 COPY python/ ./python/
-RUN pip3 install --no-cache-dir -r python/requirements.txt || true
+RUN pip3 install --no-cache-dir -r python/requirements.txt
 
 # Copy source
 COPY . .
