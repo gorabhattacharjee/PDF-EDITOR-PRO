@@ -2,62 +2,65 @@ node_modules/
 .next/
 dist/
 build/
+out/
+coverage/
+
 *.log
+.pnpm-debug.log*
 .DS_Store
+Thumbs.db
+
 .env
 .env.local
 .env.*.local
+
 .vercel
-coverage/
 .eslintcache
-pnpm-lock.yaml
+*.tsbuildinfo
 
-# Test files and reports
-*.csv
-*.txt
-test_*.py
-*_test.py
-COMPREHENSIVE_*.txt
-FEATURE_*.txt
-FUNCTIONAL_*.txt
-TEST_*.py
-TEST_*.md
-PROFESSIONAL_*.py
-
-# Temporary files
-temp_*.png
-line_analysis.txt
-test_results.csv
-functional_testing.csv
-*.zip
-
-# IDE and local
+# IDE
 .vscode/
-.local/
 .idea/
+.turbo/
 
-# Python
+# Replit / agent / local
+.agent/
+.local/
+
+# Python caches
 __pycache__/
 *.pyc
 *.pyo
 *.egg-info/
 .pytest_cache/
 
-# Backend
+# Temporary images / outputs
+temp_*.png
+temp_img_*.png
+*.zip
+
+# Test artifacts / reports (targeted, not all txt/csv)
+*_REPORT*.txt
+*_RESULTS*.csv
+COMPREHENSIVE_*.txt
+FEATURE_*.txt
+FUNCTIONAL_*.txt
+TEST_EXECUTION_SUMMARY.txt
+TEST_REPORTS_INDEX.md
+test_results.csv
+functional_testing.csv
+line_analysis.txt
+component_status.csv
+package - Copy.json
+zip-repl-work-required.zip
+
+# Backend generated / local folders
 backend/uploads/
 backend/python_fastapi/
 backend/python/backup/
 
-# Frontend build
-frontend/tsconfig.tsbuildinfo
+# Frontend generated / test artifacts
 frontend/.next/
+frontend/tests/__pycache__/
 frontend/generate_test_pdf.js
 frontend/test_document.pdf
-
-# Untracked components and services
-frontend/src/components/Archive*.tsx
-frontend/src/components/DigitalSignature*.tsx
-frontend/src/components/EpubExport*.tsx
-frontend/src/components/Link*.tsx
-frontend/src/components/VoiceNote*.tsx
-frontend/src/services/*Service.ts
