@@ -1,4 +1,4 @@
-pdf2docx==1.4.2
+pdf2docx==0.5.8
 PyMuPDF==1.24.1
 openpyxl==3.11.0
 python-pptx==0.6.23
