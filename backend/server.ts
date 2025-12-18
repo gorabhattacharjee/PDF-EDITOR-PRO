@@ -82,6 +82,8 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     console.log(`[File upload] Original filename: ${req.file.originalname}`);
     console.log(`[File upload] Actual saved path: ${inputPath}`);
     console.log(`[File upload] Base name: ${baseName}`);
+    console.log(`[File upload] Ends with .pdf: ${req.file.originalname.endsWith('.pdf')}`);
+    console.log(`[File upload] Filename length: ${req.file.originalname.length}`);
     
     // Verify the file actually exists
     try {
