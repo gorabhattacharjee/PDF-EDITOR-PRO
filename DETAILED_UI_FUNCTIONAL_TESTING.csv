@@ -1,0 +1,118 @@
+UI_Section,Menu_Name,Sub_Menu,Button_Name,Sub_Button,Button_Action,Test_Status,Functionality_Status,Notes,Last_Tested,Severity
+Welcome_Screen,N/A,N/A,Open PDF,N/A,Open file dialog to upload PDF,TESTED,WORKING,User can browse and select PDF files,2025-12-18,Normal
+Ribbon_Bar,File,Open,Open PDF,N/A,Open file browser dialog,TESTED,WORKING,Allows selection and loading of PDF files,2025-12-18,Normal
+Ribbon_Bar,File,Recent,Recent Files,N/A,List recently opened PDFs,TESTED,WORKING,Shows recent files for quick access,2025-12-18,Normal
+Ribbon_Bar,File,Save,Save PDF,N/A,Save current PDF with modifications,TESTED,WORKING,Saves edited PDF to default location,2025-12-18,Normal
+Ribbon_Bar,File,Save As,Save As,N/A,Save PDF with new filename,TESTED,WORKING,Allows custom naming and location selection,2025-12-18,Normal
+Ribbon_Bar,File,Export,Export as PDF,N/A,Export modified document as PDF,TESTED,WORKING,Downloads edited PDF file,2025-12-18,Normal
+Ribbon_Bar,File,Export,Export as Image,PNG,Export current page as PNG image,TESTED,WORKING,Downloads page as PNG image file,2025-12-18,Normal
+Ribbon_Bar,File,Export,Export as Image,JPG,Export current page as JPG image,TESTED,WORKING,Downloads page as JPG image file,2025-12-18,Normal
+Ribbon_Bar,File,Print,Print PDF,N/A,Print current PDF document,TESTED,WORKING,Opens print dialog with PDF preview,2025-12-18,Normal
+Ribbon_Bar,File,Document Properties,Document Properties,N/A,View and edit document metadata,TESTED,WORKING,Modal shows file info and editable metadata fields,2025-12-18,Normal
+Ribbon_Bar,File,Download Log,Download Log,N/A,Download application activity log,TESTED,WORKING,Downloads session log file,2025-12-18,Normal
+Ribbon_Bar,File,Close,Close Document,N/A,Close current PDF document,TESTED,WORKING,Closes active tab and removes document,2025-12-18,Normal
+Ribbon_Bar,Home,Hand Tool,Hand Tool,N/A,Activate hand/grab tool for navigation,TESTED,WORKING,Allows scrolling and panning PDF,2025-12-18,Normal
+Ribbon_Bar,Home,Select Tool,Select Tool,N/A,Activate selection tool,TESTED,WORKING,Allows selecting text and objects,2025-12-18,Normal
+Ribbon_Bar,Edit,Edit Text,Edit Text,N/A,Enable text editing mode,TESTED,WORKING,Click to edit existing text in PDF,2025-12-18,Normal
+Ribbon_Bar,Edit,Edit Image,Edit Image,N/A,Enable image editing mode,TESTED,WORKING,Allows modifying images in PDF,2025-12-18,Normal
+Ribbon_Bar,Edit,Add Text,Add Text,N/A,Add new text to PDF page,TESTED,WORKING,Click on page to add text box,2025-12-18,Normal
+Ribbon_Bar,Edit,Add Image,Add Image,N/A,Insert image from disk into PDF,TESTED,WORKING,Opens file dialog to select image file,2025-12-18,Normal
+Ribbon_Bar,Edit,Highlight,Highlight Text,N/A,Highlight text with yellow marker,TESTED,WORKING,Drag to select text and highlight it,2025-12-18,Normal
+Ribbon_Bar,Edit,Highlight Color,Color Picker,Yellow,Change highlight color to yellow,TESTED,WORKING,Yellow highlight applied to selected text,2025-12-18,Normal
+Ribbon_Bar,Edit,Highlight Color,Color Picker,Green,Change highlight color to green,TESTED,WORKING,Green highlight applied to selected text,2025-12-18,Normal
+Ribbon_Bar,Edit,Highlight Color,Color Picker,Blue,Change highlight color to blue,TESTED,WORKING,Blue highlight applied to selected text,2025-12-18,Normal
+Ribbon_Bar,Edit,Highlight Color,Color Picker,Red,Change highlight color to red,TESTED,WORKING,Red highlight applied to selected text,2025-12-18,Normal
+Ribbon_Bar,Edit,Underline,Underline Text,N/A,Underline text in PDF,TESTED,WORKING,Text underlined with selected color,2025-12-18,Normal
+Ribbon_Bar,Edit,Strikethrough,Strikethrough Text,N/A,Strike through text in PDF,TESTED,WORKING,Text crossed out with line,2025-12-18,Normal
+Ribbon_Bar,Edit,Merge,Merge PDFs,N/A,Combine multiple PDFs into one,TESTED,WORKING,Opens dialog to select and merge multiple files,2025-12-18,Normal
+Ribbon_Bar,Edit,Compress,Compress PDF,N/A,Reduce PDF file size,TESTED,WORKING,Applies compression algorithm to reduce size,2025-12-18,Normal
+Ribbon_Bar,Edit,Rotate,Rotate Left,N/A,Rotate page 90 degrees left,TESTED,WORKING,Page rotates counter-clockwise,2025-12-18,Normal
+Ribbon_Bar,Edit,Rotate,Rotate Right,N/A,Rotate page 90 degrees right,TESTED,WORKING,Page rotates clockwise,2025-12-18,Normal
+Ribbon_Bar,Edit,Delete Page,Delete Page,N/A,Delete current page from PDF,TESTED,WORKING,Page removed with confirmation,2025-12-18,Normal
+Ribbon_Bar,Edit,Add Page,Add Page,N/A,Add blank page to PDF,TESTED,WORKING,New blank page inserted,2025-12-18,Normal
+Ribbon_Bar,Protect,Encrypt,Encrypt PDF,N/A,Add password protection to PDF,TESTED,WORKING,Modal to set encryption password,2025-12-18,Normal
+Ribbon_Bar,Protect,Permissions,Set Permissions,Print,Allow or restrict printing,TESTED,WORKING,Print permission toggle enabled,2025-12-18,Normal
+Ribbon_Bar,Protect,Permissions,Set Permissions,Copy,Allow or restrict copying,TESTED,WORKING,Copy permission toggle enabled,2025-12-18,Normal
+Ribbon_Bar,Protect,Permissions,Set Permissions,Modify,Allow or restrict modifications,TESTED,WORKING,Modify permission toggle enabled,2025-12-18,Normal
+Ribbon_Bar,Protect,Digital Signature,Digital Signature,N/A,Add digital signature to PDF,PENDING,NOT_AVAILABLE,Coming soon - feature not yet implemented,2025-12-18,High
+Ribbon_Bar,Protect,Redaction,Redact Content,N/A,Permanently remove sensitive content,TESTED,WORKING,Select area to redact content,2025-12-18,Normal
+Ribbon_Bar,Convert,To Office,Word Format,N/A,Convert PDF to Word document,TESTED,DISABLED,"Word conversion disabled (Alpine compatibility)",2025-12-18,Info
+Ribbon_Bar,Convert,To Office,Excel Format,N/A,Convert PDF to Excel spreadsheet,TESTED,WORKING,Downloads converted Excel file,2025-12-18,Normal
+Ribbon_Bar,Convert,To Office,PowerPoint Format,N/A,Convert PDF to PowerPoint presentation,TESTED,WORKING,Downloads converted PowerPoint file,2025-12-18,Normal
+Ribbon_Bar,Convert,To Office,HTML Format,N/A,Convert PDF to HTML document,TESTED,WORKING,Downloads converted HTML file,2025-12-18,Normal
+Ribbon_Bar,Convert,To Text,Extract Text,N/A,Extract text from PDF to TXT file,TESTED,WORKING,Downloads plain text file,2025-12-18,Normal
+Ribbon_Bar,Tools,OCR,Run OCR,N/A,Recognize text from scanned images,TESTED,WORKING,Processes PDF for text recognition,2025-12-18,Normal
+Ribbon_Bar,Tools,Comments,Comments Panel,N/A,Open comments panel for annotations,TESTED,WORKING,Shows/hides comments panel on right side,2025-12-18,Normal
+Ribbon_Bar,Tools,Pen,Drawing Pen,N/A,Activate freehand drawing tool,TESTED,WORKING,Draw on PDF with pen tool,2025-12-18,Normal
+Ribbon_Bar,Tools,Shapes,Shapes,Rectangle,Draw rectangle shape,TESTED,WORKING,Rectangle drawn on page,2025-12-18,Normal
+Ribbon_Bar,Tools,Shapes,Shapes,Circle,Draw circle shape,TESTED,WORKING,Circle drawn on page,2025-12-18,Normal
+Ribbon_Bar,Tools,Shapes,Shapes,Line,Draw line shape,TESTED,WORKING,Line drawn on page,2025-12-18,Normal
+Ribbon_Bar,Tools,Sticky Notes,Sticky Note,N/A,Add sticky note to PDF page,TESTED,WORKING,Yellow note added to page,2025-12-18,Normal
+Ribbon_Bar,Tools,Search,Find Text,N/A,Search for text in PDF,TESTED,WORKING,Search bar appears with results highlighting,2025-12-18,Normal
+Ribbon_Bar,Tools,Inspect,Inspect Document,N/A,View document structure and metadata,TESTED,WORKING,Modal shows detailed document info,2025-12-18,Normal
+Ribbon_Bar,Tools,Sanitize,Sanitize Document,N/A,Remove metadata and clean document,TESTED,WORKING,Removes embedded data and metadata,2025-12-18,Normal
+Ribbon_Bar,Tools,Watermark,Add Watermark,N/A,Add watermark to all pages,TESTED,WORKING,Watermark text applied to PDF,2025-12-18,Normal
+Utility_Bar,Navigation,Previous,Previous Page,N/A,Go to previous page,TESTED,WORKING,Navigates to previous page if available,2025-12-18,Normal
+Utility_Bar,Navigation,Next,Next Page,N/A,Go to next page,TESTED,WORKING,Navigates to next page if available,2025-12-18,Normal
+Utility_Bar,Navigation,Page Input,Go to Page,N/A,Jump to specific page number,TESTED,WORKING,Enter page number and press Enter,2025-12-18,Normal
+Utility_Bar,Zoom,Zoom Out,Zoom Out,N/A,Decrease zoom level,TESTED,WORKING,Reduces PDF zoom percentage,2025-12-18,Normal
+Utility_Bar,Zoom,Zoom Percentage,Zoom Level,N/A,Display current zoom percentage,TESTED,WORKING,Shows zoom percentage (e.g., 100%),2025-12-18,Normal
+Utility_Bar,Zoom,Zoom In,Zoom In,N/A,Increase zoom level,TESTED,WORKING,Increases PDF zoom percentage,2025-12-18,Normal
+Sidebar,Thumbnails,Page Thumbnail,Page 1,N/A,Click to navigate to page 1,TESTED,WORKING,Displays page 1 in main canvas,2025-12-18,Normal
+Sidebar,Thumbnails,Page Thumbnail,Page N,N/A,Click to navigate to any page,TESTED,WORKING,Displays selected page in main canvas,2025-12-18,Normal
+Sidebar,Thumbnails,Context Menu,Delete Page,N/A,Right-click page to delete,TESTED,WORKING,Page deleted from PDF,2025-12-18,Normal
+Sidebar,Thumbnails,Context Menu,Reorder Page,N/A,Drag page to reorder,TESTED,WORKING,Page moved to new position,2025-12-18,Normal
+Main_Canvas,PDF Display,Page Rendering,PDF Content,N/A,Render PDF page in canvas,TESTED,WORKING,Page displays with all content,2025-12-18,Normal
+Main_Canvas,Interaction,Text Selection,Select Text,N/A,Click and drag to select text,TESTED,WORKING,Text selected and highlighted,2025-12-18,Normal
+Main_Canvas,Interaction,Right Click Menu,Context Menu,Copy,Copy selected text,TESTED,WORKING,Text copied to clipboard,2025-12-18,Normal
+Main_Canvas,Interaction,Right Click Menu,Context Menu,Delete,Delete selected annotation,TESTED,WORKING,Annotation removed from page,2025-12-18,Normal
+Modals,Document Properties,Metadata Section,Edit Title,N/A,Edit document title field,TESTED,WORKING,Title text input functional,2025-12-18,Normal
+Modals,Document Properties,Metadata Section,Edit Author,N/A,Edit document author field,TESTED,WORKING,Author text input functional,2025-12-18,Normal
+Modals,Document Properties,Metadata Section,Edit Subject,N/A,Edit document subject field,TESTED,WORKING,Subject text input functional,2025-12-18,Normal
+Modals,Document Properties,Metadata Section,Edit Keywords,N/A,Edit document keywords field,TESTED,WORKING,Keywords text input functional,2025-12-18,Normal
+Modals,Add Text,Text Input,Text Box,N/A,Type text in modal,TESTED,WORKING,Text input accepts characters,2025-12-18,Normal
+Modals,Add Text,Font Options,Font Size,N/A,Change text font size,TESTED,WORKING,Font size dropdown functional,2025-12-18,Normal
+Modals,Add Text,Font Options,Font Color,N/A,Change text color,TESTED,WORKING,Color picker for text functional,2025-12-18,Normal
+Modals,Add Text,Actions,Add Text,N/A,Confirm and add text to PDF,TESTED,WORKING,Text added to PDF page,2025-12-18,Normal
+Modals,Add Text,Actions,Cancel,N/A,Close modal without adding,TESTED,WORKING,Modal closes without changes,2025-12-18,Normal
+Modals,Image Editor,Image Display,Image Preview,N/A,Display selected image for editing,TESTED,WORKING,Image shown with selection handles,2025-12-18,Normal
+Modals,Image Editor,Adjustments,Brightness,N/A,Adjust image brightness,TESTED,WORKING,Slider adjusts brightness value,2025-12-18,Normal
+Modals,Image Editor,Adjustments,Contrast,N/A,Adjust image contrast,TESTED,WORKING,Slider adjusts contrast value,2025-12-18,Normal
+Modals,Image Editor,Adjustments,Rotation,N/A,Rotate image angle,TESTED,WORKING,Slider rotates image,2025-12-18,Normal
+Modals,Image Editor,Actions,Save Changes,N/A,Apply image edits to PDF,TESTED,WORKING,Modified image saved to page,2025-12-18,Normal
+Modals,Image Editor,Actions,Cancel,N/A,Discard image changes,TESTED,WORKING,Modal closes without applying changes,2025-12-18,Normal
+Modals,Encrypt PDF,Security,Password Input,N/A,Enter encryption password,TESTED,WORKING,Password field accepts input,2025-12-18,Normal
+Modals,Encrypt PDF,Security,Confirm Password,N/A,Confirm encryption password,TESTED,WORKING,Confirmation password field functional,2025-12-18,Normal
+Modals,Encrypt PDF,Actions,Encrypt,N/A,Apply encryption to PDF,TESTED,WORKING,PDF encrypted with password,2025-12-18,Normal
+Modals,Encrypt PDF,Actions,Cancel,N/A,Close without encrypting,TESTED,WORKING,Modal closes without changes,2025-12-18,Normal
+Modals,To Office Conversion,Format Selection,Word Button,N/A,Convert to Word format,TESTED,DISABLED,Word conversion disabled (message shown),2025-12-18,Info
+Modals,To Office Conversion,Format Selection,Excel Button,N/A,Convert to Excel format,TESTED,WORKING,Excel conversion initiated,2025-12-18,Normal
+Modals,To Office Conversion,Format Selection,PowerPoint Button,N/A,Convert to PowerPoint format,TESTED,WORKING,PowerPoint conversion initiated,2025-12-18,Normal
+Modals,To Office Conversion,Format Selection,HTML Button,N/A,Convert to HTML format,TESTED,WORKING,HTML conversion initiated,2025-12-18,Normal
+Modals,To Office Conversion,Actions,Cancel,N/A,Close conversion modal,TESTED,WORKING,Modal closes without conversion,2025-12-18,Normal
+Modals,Page Reorder,Page List,Drag Handle,N/A,Drag to reorder pages,TESTED,WORKING,Pages reorder by drag operation,2025-12-18,Normal
+Modals,Page Reorder,Actions,Save Order,N/A,Confirm page reordering,TESTED,WORKING,New page order applied,2025-12-18,Normal
+Modals,Page Reorder,Actions,Cancel,N/A,Discard reordering,TESTED,WORKING,Original page order restored,2025-12-18,Normal
+Notifications,Toast Messages,Success,Conversion Success,N/A,Show successful conversion message,TESTED,WORKING,Toast shows success notification,2025-12-18,Normal
+Notifications,Toast Messages,Error,Conversion Error,N/A,Show conversion error message,TESTED,WORKING,Toast shows error with details,2025-12-18,Normal
+Notifications,Toast Messages,Loading,Processing,N/A,Show loading/processing message,TESTED,WORKING,Toast shows loading spinner,2025-12-18,Normal
+Notifications,Toast Messages,Info,Feature Info,N/A,Show informational message,TESTED,WORKING,Toast shows info message,2025-12-18,Normal
+Document_Tabs,Tab Bar,Tabs,Open Document Tab,N/A,Click tab to switch document,TESTED,WORKING,Active document switched to tab,2025-12-18,Normal
+Document_Tabs,Tab Bar,Close Button,Close Tab,X,Click X to close document tab,TESTED,WORKING,Document tab closed,2025-12-18,Normal
+Document_Tabs,Tab Bar,Tab Context,Tab Name,N/A,Display document filename in tab,TESTED,WORKING,Tab shows document name,2025-12-18,Normal
+Comments_Panel,Comments,Comment Entry,Add Comment,N/A,Type comment text,TESTED,WORKING,Comment text input functional,2025-12-18,Normal
+Comments_Panel,Comments,Comment Actions,Post Comment,N/A,Submit new comment,TESTED,WORKING,Comment added to list,2025-12-18,Normal
+Comments_Panel,Comments,Comment Actions,Edit Comment,N/A,Edit existing comment,TESTED,WORKING,Comment text can be modified,2025-12-18,Normal
+Comments_Panel,Comments,Comment Actions,Delete Comment,N/A,Remove comment,TESTED,WORKING,Comment deleted from list,2025-12-18,Normal
+Drawing_Tools,Drawing Canvas,Pen Tool,Freehand Draw,N/A,Draw freehand on PDF,TESTED,WORKING,Freehand lines drawn on page,2025-12-18,Normal
+Drawing_Tools,Drawing Canvas,Pen Properties,Pen Color,N/A,Change pen color,TESTED,WORKING,Color picker selects drawing color,2025-12-18,Normal
+Drawing_Tools,Drawing Canvas,Pen Properties,Pen Width,N/A,Change pen stroke width,TESTED,WORKING,Stroke width slider functional,2025-12-18,Normal
+Drawing_Tools,Drawing Canvas,Shapes,Rectangle Tool,N/A,Draw rectangle shape,TESTED,WORKING,Rectangle drawn with handles,2025-12-18,Normal
+Drawing_Tools,Drawing Canvas,Shapes,Circle Tool,N/A,Draw circle/ellipse shape,TESTED,WORKING,Circle drawn with handles,2025-12-18,Normal
+Drawing_Tools,Drawing Canvas,Shapes,Line Tool,N/A,Draw straight line,TESTED,WORKING,Line drawn between points,2025-12-18,Normal
+Drawing_Tools,Drawing Canvas,Eraser,Eraser Tool,N/A,Erase drawn content,TESTED,WORKING,Drawing erased with eraser tool,2025-12-18,Normal
+Text_Editor,Inline Editor,Text Input,Edit Text Content,N/A,Modify text in place,TESTED,WORKING,Text edited inline on page,2025-12-18,Normal
+Text_Editor,Inline Editor,Formatting,Text Size,N/A,Change text size,TESTED,WORKING,Font size selector functional,2025-12-18,Normal
+Text_Editor,Inline Editor,Formatting,Text Color,N/A,Change text color,TESTED,WORKING,Color picker for text functional,2025-12-18,Normal
+Text_Editor,Inline Editor,Actions,Confirm,N/A,Save text changes,TESTED,WORKING,Text changes applied,2025-12-18,Normal
+Text_Editor,Inline Editor,Actions,Cancel,N/A,Discard text changes,TESTED,WORKING,Text reverted to original,2025-12-18,Normal
