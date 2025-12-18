@@ -3,7 +3,9 @@ FROM node:20-alpine
 WORKDIR /app
 
 # Install Python and required system dependencies
-RUN apk add --no-cache python3 py3-pip gcc musl-dev python3-dev libffi-dev openssl-dev
+# Added: libxml2, libxslt for pdf2docx, fontconfig for font rendering
+RUN apk add --no-cache python3 py3-pip gcc musl-dev python3-dev libffi-dev openssl-dev \
+    libxml2-dev libxslt-dev zlib-dev jpeg-dev fontconfig-dev
 
 # pnpm
 RUN corepack enable && corepack prepare pnpm@10.24.0 --activate
@@ -14,10 +16,10 @@ COPY package.json pnpm-lock.yaml* ./
 # Install Node deps
 RUN pnpm install --no-frozen-lockfile
 
-# Copy Python requirements and install
+# Copy Python requirements and install WITH dependencies
 COPY python/ ./python/
-RUN pip3 install --break-system-packages --no-deps -r python/requirements.txt && \
-    pip3 install --break-system-packages openpyxl python-pptx PyMuPDF
+RUN pip3 install --break-system-packages -r python/requirements.txt && \
+    pip3 install --break-system-packages pdf2docx openpyxl python-pptx PyMuPDF pdfplumber
 
 # Copy source
 COPY . .
