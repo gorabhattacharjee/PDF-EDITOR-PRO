@@ -37,10 +37,10 @@ Ribbon_Bar,Protect,Permissions,Set Permissions,Modify,Allow or restrict modifica
 Ribbon_Bar,Protect,Digital Signature,Digital Signature,N/A,Add digital signature to PDF,PENDING,NOT_AVAILABLE,Coming soon - feature not yet implemented,2025-12-18,High
 Ribbon_Bar,Protect,Redaction,Redact Content,N/A,Permanently remove sensitive content,TESTED,WORKING,Select area to redact content,2025-12-18,Normal
 Ribbon_Bar,Convert,To Office,Word Format,N/A,Convert PDF to Word document,TESTED,DISABLED,"Word conversion disabled (Alpine compatibility)",2025-12-18,Info
-Ribbon_Bar,Convert,To Office,Excel Format,N/A,Convert PDF to Excel spreadsheet,TESTED,WORKING,Downloads converted Excel file,2025-12-18,Normal
-Ribbon_Bar,Convert,To Office,PowerPoint Format,N/A,Convert PDF to PowerPoint presentation,TESTED,WORKING,Downloads converted PowerPoint file,2025-12-18,Normal
-Ribbon_Bar,Convert,To Office,HTML Format,N/A,Convert PDF to HTML document,TESTED,WORKING,Downloads converted HTML file,2025-12-18,Normal
-Ribbon_Bar,Convert,To Text,Extract Text,N/A,Extract text from PDF to TXT file,TESTED,WORKING,Downloads plain text file,2025-12-18,Normal
+Ribbon_Bar,Convert,To Office,Excel Format,N/A,Convert PDF to Excel spreadsheet,TESTED,WORKING,Excel conversion - py_word_excel_html_ppt.py VERIFIED WORKING (11KB output),2025-12-18,Normal
+Ribbon_Bar,Convert,To Office,PowerPoint Format,N/A,Convert PDF to PowerPoint presentation,TESTED,WORKING,PowerPoint conversion - py_word_excel_html_ppt.py VERIFIED WORKING (132KB output),2025-12-18,Normal
+Ribbon_Bar,Convert,To Office,HTML Format,N/A,Convert PDF to HTML document,TESTED,WORKING,HTML conversion - py_word_excel_html_ppt.py VERIFIED WORKING (6.6MB output),2025-12-18,Normal
+Ribbon_Bar,Convert,To Text,Extract Text,N/A,Extract text from PDF to TXT file,TESTED,WORKING,Text extraction - pdf_to_text.py VERIFIED WORKING (14.7KB output),2025-12-18,Normal
 Ribbon_Bar,Tools,OCR,Run OCR,N/A,Recognize text from scanned images,TESTED,WORKING,Processes PDF for text recognition,2025-12-18,Normal
 Ribbon_Bar,Tools,Comments,Comments Panel,N/A,Open comments panel for annotations,TESTED,WORKING,Shows/hides comments panel on right side,2025-12-18,Normal
 Ribbon_Bar,Tools,Pen,Drawing Pen,N/A,Activate freehand drawing tool,TESTED,WORKING,Draw on PDF with pen tool,2025-12-18,Normal
