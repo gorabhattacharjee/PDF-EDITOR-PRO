@@ -12,29 +12,16 @@ interface ImageExportModalProps {
   totalPages: number;
 }
 
-// Extended format list with all requested formats
+// Browser-supported image formats only - remove unsupported formats
 const ALL_FORMATS = [
-  // Standard formats
-  { id: 'jpg', name: 'JPG', extension: 'jpg', description: 'JPEG - Compressed, smaller size', supported: true },
   { id: 'png', name: 'PNG', extension: 'png', description: 'PNG - Lossless, best quality', supported: true },
+  { id: 'jpg', name: 'JPG', extension: 'jpg', description: 'JPEG - Compressed, smaller size', supported: true },
   { id: 'gif', name: 'GIF', extension: 'gif', description: 'GIF - Animation support', supported: true },
   { id: 'webp', name: 'WebP', extension: 'webp', description: 'WebP - Modern, optimized', supported: true },
   { id: 'bmp', name: 'BMP', extension: 'bmp', description: 'BMP - Uncompressed bitmap', supported: true },
   { id: 'ico', name: 'ICO', extension: 'ico', description: 'ICO - Windows icon', supported: true },
   { id: 'tiff', name: 'TIFF', extension: 'tiff', description: 'TIFF - Print-ready format', supported: true },
   { id: 'svg', name: 'SVG', extension: 'svg', description: 'SVG - Scalable vector graphics', supported: true },
-  // Advanced formats - LIMITED SUPPORT (exports as PNG)
-  { id: 'avif', name: 'AVIF', extension: 'avif', description: 'AVIF - Exports as PNG', supported: false },
-  { id: 'heif', name: 'HEIF', extension: 'heif', description: 'HEIF - Exports as PNG', supported: false },
-  { id: 'psd', name: 'PSD', extension: 'psd', description: 'PSD - Exports as PNG', supported: false },
-  { id: 'xcf', name: 'XCF', extension: 'xcf', description: 'XCF - Exports as PNG', supported: false },
-  { id: 'ai', name: 'AI', extension: 'ai', description: 'AI - Exports as PNG', supported: false },
-  { id: 'eps', name: 'EPS', extension: 'eps', description: 'EPS - Exports as PNG', supported: false },
-  { id: 'wmf', name: 'WMF', extension: 'wmf', description: 'WMF - Exports as PNG', supported: false },
-  { id: 'emf', name: 'EMF', extension: 'emf', description: 'EMF - Exports as PNG', supported: false },
-  { id: 'raw', name: 'RAW', extension: 'raw', description: 'RAW - Exports as PNG', supported: false },
-  { id: 'dng', name: 'DNG', extension: 'dng', description: 'DNG - Exports as PNG', supported: false },
-  { id: 'icns', name: 'ICNS', extension: 'icns', description: 'ICNS - Exports as PNG', supported: false },
 ];
 
 export default function ImageExportModal({
@@ -208,20 +195,11 @@ export default function ImageExportModal({
               fontWeight: 500,
             }}
           >
-            <optgroup label="Standard Formats (Full Support)">
-              {ALL_FORMATS.filter(f => f.supported).map((format) => (
-                <option key={format.id} value={format.id}>
-                  {format.name} - {format.description}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label="Advanced Formats (Exports as PNG)">
-              {ALL_FORMATS.filter(f => !f.supported).map((format) => (
-                <option key={format.id} value={format.id}>
-                  {format.name} - {format.description}
-                </option>
-              ))}
-            </optgroup>
+            {ALL_FORMATS.map((format) => (
+              <option key={format.id} value={format.id}>
+                {format.name} - {format.description}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -243,21 +221,6 @@ export default function ImageExportModal({
               <span>Smaller file</span>
               <span>Better quality</span>
             </div>
-          </div>
-        )}
-
-        {/* Format Support Warning */}
-        {selectedFormat && !ALL_FORMATS.find(f => f.id === selectedFormat)?.supported && (
-          <div style={{
-            marginBottom: "20px",
-            padding: "12px",
-            backgroundColor: "#FEF3C7",
-            border: "1px solid #FBBF24",
-            borderRadius: "6px",
-            fontSize: "14px",
-            color: "#92400E"
-          }}>
-            <strong>Note:</strong> {selectedFormat.toUpperCase()} exports as PNG. Use professional software for native format.
           </div>
         )}
 
