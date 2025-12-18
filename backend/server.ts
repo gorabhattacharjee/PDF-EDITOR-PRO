@@ -75,7 +75,9 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     // Ensure output directory exists
     await fs.mkdir(uploadDir, { recursive: true });
 
-    const baseName = path.parse(req.file.originalname).name;
+    const baseName = req.file.originalname.endsWith('.pdf') 
+      ? req.file.originalname.slice(0, -4)
+      : path.parse(req.file.originalname).name;
     
     console.log(`[File upload] Original filename: ${req.file.originalname}`);
     console.log(`[File upload] Actual saved path: ${inputPath}`);
