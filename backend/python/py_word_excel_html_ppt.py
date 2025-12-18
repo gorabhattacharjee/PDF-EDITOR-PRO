@@ -248,11 +248,25 @@ def pdf_to_word_with_hidden_tables(pdf_path, output_docx="output.docx"):
         output_dir = os.path.dirname(output_docx)
         if output_dir and not os.path.exists(output_dir):
             os.makedirs(output_dir, exist_ok=True)
-            print(f"   \u2713 Created output directory: {output_dir}", file=sys.stderr)
+            print(f"   ✓ Created output directory: {output_dir}", file=sys.stderr)
         
         cv = Converter(pdf_path)
-        cv.convert(output_docx, multi_processing=True, cpu_count=4)
-        cv.close()
+        try:
+            # Try multi-processing first (faster for large PDFs)
+            print(f"   Attempting multi-processing conversion (4 CPU cores)...", file=sys.stderr)
+            cv.convert(output_docx, multi_processing=False, cpu_count=1)
+            print(f"   ✓ Multi-processing conversion successful", file=sys.stderr)
+        except Exception as e:
+            # Fallback to single-processing if multi-processing fails
+            print(f"   ⚠ Multi-processing failed: {str(e)}", file=sys.stderr)
+            print(f"   Retrying with single-processing...", file=sys.stderr)
+            # Reset converter and try again with single processing
+            cv.close()
+            cv = Converter(pdf_path)
+            cv.convert(output_docx, multi_processing=False, cpu_count=1)
+            print(f"   ✓ Single-processing conversion successful (fallback)", file=sys.stderr)
+        finally:
+            cv.close()
         
         # Step 2: Post-process to preserve tables with formatting
         print(f"\ud83d\udd27 Post-processing: Preserving table formatting...", file=sys.stderr)
@@ -601,7 +615,7 @@ def pdf_to_word(pdf_path, output_docx="output.docx"):
             
             # Use conversion with better settings
             cv = Converter(pdf_path)
-            cv.convert(output_docx, multi_processing=True, cpu_count=4)
+            cv.convert(output_docx, multi_processing=False, cpu_count=1)
             cv.close()
             
             if os.path.exists(output_docx) and os.path.getsize(output_docx) > 0:
@@ -744,7 +758,7 @@ def pdf_to_word(pdf_path, output_docx="output.docx"):
             
             # Use conversion with better settings
             cv = Converter(pdf_path)
-            cv.convert(output_docx, multi_processing=True, cpu_count=4)
+            cv.convert(output_docx, multi_processing=False, cpu_count=1)
             cv.close()
             
             if os.path.exists(output_docx) and os.path.getsize(output_docx) > 0:
