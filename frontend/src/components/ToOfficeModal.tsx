@@ -48,6 +48,8 @@ export default function ToOfficeModal() {
 
       console.log('[ToOfficeModal] Starting conversion:', format);
       console.log('[ToOfficeModal] File:', activeDocument.name);
+      console.log('[ToOfficeModal] File object:', activeDocument.file);
+      console.log('[ToOfficeModal] File.name property:', activeDocument.file.name);
       console.log('[ToOfficeModal] Calling backend at /api/convert');
       const response = await fetch(getConvertUrl(), {
         method: 'POST',
