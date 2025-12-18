@@ -25,6 +25,12 @@ COPY . .
 # Build TS -> dist/
 RUN pnpm run build
 
+# Create uploads directory for conversion output
+RUN mkdir -p /app/uploads
+
+# Set production environment
+ENV NODE_ENV=production
+
 # Render provides PORT, we just expose for clarity
 EXPOSE 5000
 

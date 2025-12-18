@@ -10,11 +10,11 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Path to Python scripts - go up from dist/ to find python/
-const pythonDir = path.resolve(__dirname, "..", "python");
+// Path to Python scripts - in Docker, compiled JS is in /app/dist/
+const pythonDir = process.env.PYTHON_DIR || path.resolve(__dirname, "..", "python");
 
-// Create uploads directory at project root level for persistence
-const uploadsBaseDir = process.env.UPLOADS_DIR || path.resolve(__dirname, "..", "uploads");
+// Use /app/uploads in production (Docker), otherwise use local path
+const uploadsBaseDir = process.env.UPLOADS_DIR || (process.env.NODE_ENV === 'production' ? "/app/uploads" : path.resolve(__dirname, "..", "uploads"));
 
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
