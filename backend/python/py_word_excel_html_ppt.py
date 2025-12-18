@@ -387,7 +387,15 @@ def pdf_to_word_with_hidden_tables(pdf_path, output_docx="output.docx"):
         # Save the enhanced document
         doc.save(output_docx)
         
-        print(f"✅ Conversion complete:", file=sys.stderr)
+        # Verify the file was actually created
+        import os
+        if os.path.exists(output_docx):
+            file_size = os.path.getsize(output_docx)
+            print(f"✅ Conversion complete: {file_size} bytes saved to {output_docx}", file=sys.stderr)
+        else:
+            print(f"❌ ERROR: Output file was not created at {output_docx}", file=sys.stderr)
+            print(f"   Current working directory: {os.getcwd()}", file=sys.stderr)
+            print(f"   Absolute path would be: {os.path.abspath(output_docx)}", file=sys.stderr)
         print(f"   ✓ Tables structure and formatting preserved", file=sys.stderr)
         print(f"   ✓ All content and layout maintained", file=sys.stderr)
         print(f"   ✓ Page dimensions matched exactly", file=sys.stderr)
@@ -1940,6 +1948,7 @@ def pdf_to_text(pdf_path, output_txt="output.txt"):
 
 if __name__ == "__main__":
     import sys
+    import os
     if len(sys.argv) < 4:
         print("Usage: python pdf_convert.py <format> <input_pdf> <output_file>")
         print("Formats: word, excel, ppt, html, text")
@@ -1948,6 +1957,13 @@ if __name__ == "__main__":
     format_type = sys.argv[1].lower()
     input_pdf = sys.argv[2]
     output_file = sys.argv[3]
+    
+    # Log input parameters
+    print(f"[Main] Format: {format_type}", file=sys.stderr)
+    print(f"[Main] Input PDF: {input_pdf}", file=sys.stderr)
+    print(f"[Main] Output file: {output_file}", file=sys.stderr)
+    print(f"[Main] CWD: {os.getcwd()}", file=sys.stderr)
+    print(f"[Main] Absolute output path: {os.path.abspath(output_file)}", file=sys.stderr)
     
     if format_type == "word":
         # Check if input is HTML or PDF
