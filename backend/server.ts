@@ -69,8 +69,10 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     }
 
     // IMPORTANT: req.file.path is the actual uploaded file path (includes temp/ subdirectory)
-    const inputPath = req.file.path;  // e.g., c:\pdf-editor-pro\uploads\temp\filename.pdf
+    const inputPath = req.file.path;  // e.g., /app/uploads/temp/filename.pdf
     const uploadDir = uploadsBaseDir;
+    
+    // Ensure output directory exists
     await fs.mkdir(uploadDir, { recursive: true });
 
     const baseName = path.parse(req.file.originalname).name;
@@ -194,6 +196,15 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
         } catch (readErr) {
           console.error(`[File read error] Could not read output file: ${outputPath}`);
           console.error(`[File read error] ${String(readErr)}`);
+          
+          // Try to list files in upload directory to debug
+          try {
+            const filesInDir = await fs.readdir(uploadDir);
+            console.error(`[Debug] Files in ${uploadDir}: ${filesInDir.join(', ')}`);
+          } catch (e) {
+            console.error(`[Debug] Could not list directory: ${String(e)}`);
+          }
+          
           return res.status(500).json({ error: "Conversion completed but output file not found", details: `Expected file: ${outputPath}` });
         }
       } catch (err) {
