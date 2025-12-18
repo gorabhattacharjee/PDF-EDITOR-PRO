@@ -1972,8 +1972,8 @@ if __name__ == "__main__":
     import sys
     import os
     if len(sys.argv) < 4:
-        print("Usage: python pdf_convert.py <format> <input_pdf> <output_file>")
-        print("Formats: word, excel, ppt, html, text")
+        print("Usage: python pdf_convert.py <format> <input_pdf> <output_file>", file=sys.stderr)
+        print("Formats: word, excel, ppt, html, text", file=sys.stderr)
         sys.exit(1)
     
     format_type = sys.argv[1].lower()
@@ -1987,22 +1987,41 @@ if __name__ == "__main__":
     print(f"[Main] CWD: {os.getcwd()}", file=sys.stderr)
     print(f"[Main] Absolute output path: {os.path.abspath(output_file)}", file=sys.stderr)
     
-    if format_type == "word":
-        # Check if input is HTML or PDF
-        if input_pdf.lower().endswith('.html'):
-            html_to_word(input_pdf, output_file)
+    try:
+        if format_type == "word":
+            # Check if input is HTML or PDF
+            if input_pdf.lower().endswith('.html'):
+                html_to_word(input_pdf, output_file)
+            else:
+                # Use hybrid approach: pdf2docx layout + hidden tables for pixel-perfect similarity
+                pdf_to_word_with_hidden_tables(input_pdf, output_file)
+        elif format_type == "excel":
+            # Use the new pipeline: PDF -> Word -> Excel for better structure
+            pdf_to_excel_via_word(input_pdf, output_file)
+        elif format_type == "ppt":
+            pdf_to_ppt(input_pdf, output_file)
+        elif format_type == "html":
+            pdf_to_html(input_pdf, output_file)
+        elif format_type == "text":
+            pdf_to_text(input_pdf, output_file)
         else:
-            # Use hybrid approach: pdf2docx layout + hidden tables for pixel-perfect similarity
-            pdf_to_word_with_hidden_tables(input_pdf, output_file)
-    elif format_type == "excel":
-        # Use the new pipeline: PDF -> Word -> Excel for better structure
-        pdf_to_excel_via_word(input_pdf, output_file)
-    elif format_type == "ppt":
-        pdf_to_ppt(input_pdf, output_file)
-    elif format_type == "html":
-        pdf_to_html(input_pdf, output_file)
-    elif format_type == "text":
-        pdf_to_text(input_pdf, output_file)
-    else:
-        print(f"Unknown format: {format_type}")
+            print(f"Unknown format: {format_type}", file=sys.stderr)
+            sys.exit(1)
+        
+        # After conversion succeeds, read the output file and write to stdout
+        print(f"[Main] Conversion completed, reading output file...", file=sys.stderr)
+        if os.path.exists(output_file):
+            print(f"[Main] Output file exists: {os.path.getsize(output_file)} bytes", file=sys.stderr)
+            with open(output_file, 'rb') as f:
+                output_data = f.read()
+            # Write binary data to stdout
+            sys.stdout.buffer.write(output_data)
+            print(f"[Main] Wrote {len(output_data)} bytes to stdout", file=sys.stderr)
+        else:
+            print(f"[Main] ERROR: Output file not found: {output_file}", file=sys.stderr)
+            sys.exit(1)
+    except Exception as e:
+        print(f"[Main] EXCEPTION: {str(e)}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
         sys.exit(1)
