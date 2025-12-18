@@ -6,7 +6,7 @@ WORKDIR /app
 # Using slim image which has build tools needed for Python packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nodejs npm curl git build-essential \
-    libxml2-dev libxslt-dev libffi-dev openssl-dev \
+    libxml2-dev libxslt-dev libffi-dev libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pnpm
