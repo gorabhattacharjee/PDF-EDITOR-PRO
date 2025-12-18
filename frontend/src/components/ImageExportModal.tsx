@@ -12,8 +12,9 @@ interface ImageExportModalProps {
   totalPages: number;
 }
 
-// Browser-supported image formats only - remove unsupported formats
+// All requested image formats - browser supported and professional formats
 const ALL_FORMATS = [
+  // Browser-supported standard formats
   { id: 'png', name: 'PNG', extension: 'png', description: 'PNG - Lossless, best quality', supported: true },
   { id: 'jpg', name: 'JPG', extension: 'jpg', description: 'JPEG - Compressed, smaller size', supported: true },
   { id: 'gif', name: 'GIF', extension: 'gif', description: 'GIF - Animation support', supported: true },
@@ -22,6 +23,18 @@ const ALL_FORMATS = [
   { id: 'ico', name: 'ICO', extension: 'ico', description: 'ICO - Windows icon', supported: true },
   { id: 'tiff', name: 'TIFF', extension: 'tiff', description: 'TIFF - Print-ready format', supported: true },
   { id: 'svg', name: 'SVG', extension: 'svg', description: 'SVG - Scalable vector graphics', supported: true },
+  // Professional formats
+  { id: 'avif', name: 'AVIF', extension: 'avif', description: 'AVIF - Next-gen format', supported: false },
+  { id: 'heif', name: 'HEIF', extension: 'heif', description: 'HEIF - Apple/iOS format', supported: false },
+  { id: 'psd', name: 'PSD', extension: 'psd', description: 'PSD - Adobe Photoshop', supported: false },
+  { id: 'xcf', name: 'XCF', extension: 'xcf', description: 'XCF - GIMP native format', supported: false },
+  { id: 'ai', name: 'AI', extension: 'ai', description: 'AI - Adobe Illustrator', supported: false },
+  { id: 'eps', name: 'EPS', extension: 'eps', description: 'EPS - Encapsulated PostScript', supported: false },
+  { id: 'wmf', name: 'WMF', extension: 'wmf', description: 'WMF - Windows Metafile', supported: false },
+  { id: 'emf', name: 'EMF', extension: 'emf', description: 'EMF - Enhanced Metafile', supported: false },
+  { id: 'raw', name: 'RAW', extension: 'raw', description: 'RAW - Raw image data', supported: false },
+  { id: 'dng', name: 'DNG', extension: 'dng', description: 'DNG - Digital Negative', supported: false },
+  { id: 'icns', name: 'ICNS', extension: 'icns', description: 'ICNS - macOS icon format', supported: false },
 ];
 
 export default function ImageExportModal({
@@ -195,11 +208,20 @@ export default function ImageExportModal({
               fontWeight: 500,
             }}
           >
-            {ALL_FORMATS.map((format) => (
-              <option key={format.id} value={format.id}>
-                {format.name} - {format.description}
-              </option>
-            ))}
+            <optgroup label="Standard Formats (Full Support)">
+              {ALL_FORMATS.filter(f => f.supported).map((format) => (
+                <option key={format.id} value={format.id}>
+                  {format.name} - {format.description}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Professional Formats">
+              {ALL_FORMATS.filter(f => !f.supported).map((format) => (
+                <option key={format.id} value={format.id}>
+                  {format.name} - {format.description}
+                </option>
+              ))}
+            </optgroup>
           </select>
         </div>
 
@@ -221,6 +243,21 @@ export default function ImageExportModal({
               <span>Smaller file</span>
               <span>Better quality</span>
             </div>
+          </div>
+        )}
+
+        {/* Format Support Info */}
+        {selectedFormat && !ALL_FORMATS.find(f => f.id === selectedFormat)?.supported && (
+          <div style={{
+            marginBottom: "20px",
+            padding: "12px",
+            backgroundColor: "#FEF3C7",
+            border: "1px solid #FBBF24",
+            borderRadius: "6px",
+            fontSize: "14px",
+            color: "#92400E"
+          }}>
+            <strong>Note:</strong> {selectedFormat.toUpperCase()} conversion will export as PNG. For native {selectedFormat.toUpperCase()} files, use professional software.
           </div>
         )}
 
