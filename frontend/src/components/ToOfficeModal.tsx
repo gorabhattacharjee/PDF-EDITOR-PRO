@@ -107,10 +107,10 @@ export default function ToOfficeModal() {
               <p style={{ color: '#666', marginBottom: '20px' }}>Select the format you want to convert <strong>{activeDocument?.name || 'document'}</strong> to:</p>
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
-                <button onClick={() => handleConvert('word')} disabled={converting} style={{ padding: '16px', border: '2px solid #3b82f6', borderRadius: '6px', backgroundColor: 'white', cursor: converting ? 'not-allowed' : 'pointer', opacity: converting ? 0.5 : 1, textAlign: 'center' }}>
+                <button onClick={() => handleConvert('word')} disabled={true} title="Word conversion unavailable" style={{ padding: '16px', border: '2px solid #ccc', borderRadius: '6px', backgroundColor: '#f5f5f5', cursor: 'not-allowed', opacity: 0.5, textAlign: 'center' }}>
                   <div style={{ fontSize: '32px', marginBottom: '8px' }}>📘</div>
-                  <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>Word</div>
-                  <div style={{ fontSize: '12px', color: '#999' }}>(.docx)</div>
+                  <div style={{ fontWeight: 'bold', marginBottom: '4px', color: '#999' }}>Word</div>
+                  <div style={{ fontSize: '11px', color: '#999' }}>Not Available</div>
                 </button>
                 
                 <button onClick={() => handleConvert('excel')} disabled={converting} style={{ padding: '16px', border: '2px solid #10b981', borderRadius: '6px', backgroundColor: 'white', cursor: converting ? 'not-allowed' : 'pointer', opacity: converting ? 0.5 : 1, textAlign: 'center' }}>
@@ -130,6 +130,10 @@ export default function ToOfficeModal() {
                   <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>HTML</div>
                   <div style={{ fontSize: '12px', color: '#999' }}>(.html)</div>
                 </button>
+              </div>
+              
+              <div style={{ backgroundColor: '#fef3c7', border: '1px solid #fcd34d', borderRadius: '4px', padding: '12px', marginTop: '16px', fontSize: '13px', color: '#92400e' }}>
+                <strong>ℹ️ Note:</strong> Word conversion is currently unavailable. Please use Excel or PowerPoint conversion instead.
               </div>
             </div>
             

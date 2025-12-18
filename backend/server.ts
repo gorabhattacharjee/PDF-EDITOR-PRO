@@ -56,9 +56,18 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     if (!req.file) return res.status(400).json({ error: "No PDF file uploaded" });
 
     const format = String(req.body.format || "").toLowerCase();
-    const allowed = ["word", "excel", "ppt", "html", "text"];
+    const allowed = ["excel", "ppt", "html", "text"];
+    
+    // Word conversion is not available due to pdf2docx dependency issues
+    if (format === "word") {
+      return res.status(501).json({ 
+        error: "Word conversion not available", 
+        details: "Word conversion requires pdf2docx which has compatibility issues on Alpine Linux. Please use Excel or PowerPoint conversion instead." 
+      });
+    }
+    
     if (!allowed.includes(format)) {
-      return res.status(400).json({ error: "Invalid format. Must be word, excel, ppt, html, or text" });
+      return res.status(400).json({ error: "Invalid format. Must be excel, ppt, html, or text" });
     }
 
     const inputPath = req.file.path;
