@@ -10,9 +10,13 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Path to Python scripts - in Docker, compiled JS is in /app/dist/
-// In local dev: __dirname is /backend/dist, so go up 2 levels to project root
-const pythonDir = process.env.PYTHON_DIR || path.resolve(__dirname, "..", "..", "backend", "python");
+// Path to Python scripts
+// In production Docker: Python scripts copied to /app/python/ by Dockerfile
+// In local dev: __dirname is /backend/dist, resolve to /backend/python
+const pythonDir = process.env.PYTHON_DIR || 
+  (process.env.NODE_ENV === 'production'
+    ? path.join("/app", "python")
+    : path.resolve(__dirname, "..", "..", "backend", "python"));
 
 // Use /app/uploads in production (Docker), otherwise use local path
 // In local dev: go up 2 levels from /backend/dist to project root, then into uploads
@@ -121,7 +125,9 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     // Create environment with Python paths
     const pythonEnv = {
       ...process.env,
-      PYTHONPATH: 'C:\\Users\\GoraBhattacharjee\\AppData\\Roaming\\Python\\Python314\\site-packages;' + (process.env.PYTHONPATH || ''),
+      PYTHONPATH: process.env.NODE_ENV === 'production' 
+        ? (process.env.PYTHONPATH || '')
+        : ('C:\\Users\\GoraBhattacharjee\\AppData\\Roaming\\Python\\Python314\\site-packages;' + (process.env.PYTHONPATH || '')),
     };
     
     const python = spawn(pythonCmd, pythonArgs, {
