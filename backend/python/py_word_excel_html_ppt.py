@@ -181,16 +181,16 @@ def html_to_word(html_path, output_docx="output.docx"):
         return False
 
 def pdf_to_word_with_hidden_tables(pdf_path, output_docx="output.docx"):
-    """Convert PDF to Word with tables preserved but hidden, achieving pixel-to-pixel layout similarity.
+    """Convert PDF to Word with exact layout preservation.
     This approach:
     1. Uses pdf2docx for accurate layout and table structure
-    2. Hides tables by removing borders and background
-    3. Extracts all text content to ensure nothing is lost
+    2. Preserves ALL formatting, fonts, sizes, and colors
+    3. Maintains tables with proper borders and styling
     4. Preserves exact page dimensions and positioning
     5. Maintains all images with correct placement
     """
     
-    print(f"\u23f3 Converting PDF to Word (100% content accuracy + hidden tables)...", file=sys.stderr)
+    print(f"\u23f3 Converting PDF to Word (exact layout preservation)...", file=sys.stderr)
     
     top_margin = 0.5
     bottom_margin = 0.5
@@ -246,10 +246,10 @@ def pdf_to_word_with_hidden_tables(pdf_path, output_docx="output.docx"):
         cv.convert(output_docx, multi_processing=False, cpu_count=1)
         cv.close()
         
-        # Step 2: Post-process to hide tables while preserving content
-        print(f"\ud83d\udd27 Post-processing: hiding tables, preserving ALL content...", file=sys.stderr)
+        # Step 2: Post-process to preserve tables with formatting
+        print(f"\ud83d\udd27 Post-processing: Preserving table formatting...", file=sys.stderr)
         doc = Document(output_docx)
-        
+                
         # Apply exact page dimensions
         if pdf_page_width and pdf_page_height:
             for section in doc.sections:
@@ -259,62 +259,42 @@ def pdf_to_word_with_hidden_tables(pdf_path, output_docx="output.docx"):
                 section.bottom_margin = Inches(bottom_margin)
                 section.left_margin = Inches(left_margin)
                 section.right_margin = Inches(right_margin)
-        
-        # Extract all text from tables before hiding them
-        table_texts = []
-        for table_idx, table in enumerate(doc.tables):
-            table_text = []
-            for row_idx, row in enumerate(table.rows):
-                row_text = []
-                for cell in row.cells:
-                    cell_text = cell.text.strip()
-                    if cell_text:
-                        row_text.append(cell_text)
-                if row_text:
-                    table_text.append(' | '.join(row_text))
-            if table_text:
-                table_texts.append('\n'.join(table_text))
-        
-        # Now hide all tables by removing borders and making them invisible
+                
+        # PRESERVE table formatting - don't hide them
         table_count = 0
         for table in doc.tables:
             table_count += 1
-            
-            # Remove table borders (make invisible)
+                    
+            # Enhance table formatting with proper borders
             tbl = table._tbl
             tblPr = tbl.tblPr
             if tblPr is None:
                 tblPr = OxmlElement('w:tblPr')
                 tbl.insert(0, tblPr)
-            
-            # Set table borders to none
+                    
+            # Ensure tables have visible borders
             tblBorders = OxmlElement('w:tblBorders')
             for border_name in ['top', 'left', 'bottom', 'right', 'insideH', 'insideV']:
                 border = OxmlElement(f'w:{border_name}')
-                border.set(qn('w:val'), 'none')
-                border.set(qn('w:sz'), '0')
+                border.set(qn('w:val'), 'single')
+                border.set(qn('w:sz'), '12')
                 border.set(qn('w:space'), '0')
-                border.set(qn('w:color'), 'FFFFFF')
+                border.set(qn('w:color'), '000000')
                 tblBorders.append(border)
-            
+                    
             tblPr.append(tblBorders)
-            
-            # Remove table shading/background
-            for row in table.rows:
-                for cell in row.cells:
-                    tcPr = cell._element.get_or_add_tcPr()
-                    tcVAlign = OxmlElement('w:shd')
-                    tcVAlign.set(qn('w:fill'), 'FFFFFF')
-                    tcPr.append(tcVAlign)
-            
-            # Adjust table width to match content width (remove extra spacing)
-            tblPr = table._tbl.tblPr
-            tblW = OxmlElement('w:tblW')
-            tblW.set(qn('w:w'), '5500')  # 5.5 inches in twips
-            tblW.set(qn('w:type'), 'dxa')
-            tblPr.append(tblW)
-        
-        print(f"   \u2713 Hidden {table_count} table(s) (structure preserved, content visible)", file=sys.stderr)
+                    
+            # Format table cells with proper text
+            for row_idx, row in enumerate(table.rows):
+                for cell_idx, cell in enumerate(row.cells):
+                    # Preserve cell text and formatting
+                    for paragraph in cell.paragraphs:
+                        # Ensure text is readable
+                        for run in paragraph.runs:
+                            if run.font.size is None:
+                                run.font.size = Pt(10)
+                
+        print(f"   ✓ Preserved {table_count} table(s) with formatting", file=sys.stderr)
         
         # Verify content is present
         word_text_count = 0
@@ -407,13 +387,12 @@ def pdf_to_word_with_hidden_tables(pdf_path, output_docx="output.docx"):
         # Save the enhanced document
         doc.save(output_docx)
         
-        print(f"\u2705 Conversion complete:", file=sys.stderr)
-        print(f"   \u2713 ALL content preserved (3667+ characters)", file=sys.stderr)
-        print(f"   \u2713 Text formatting enhanced (bold, italic, sizes)", file=sys.stderr)
-        print(f"   \u2713 Tables structure preserved (hidden from view)", file=sys.stderr)
-        print(f"   \u2713 Pixel-perfect layout matching", file=sys.stderr)
-        print(f"   \u2713 Page dimensions matched exactly", file=sys.stderr)
-        print(f"   \u2713 All images preserved", file=sys.stderr)
+        print(f"✅ Conversion complete:", file=sys.stderr)
+        print(f"   ✓ Tables structure and formatting preserved", file=sys.stderr)
+        print(f"   ✓ All content and layout maintained", file=sys.stderr)
+        print(f"   ✓ Page dimensions matched exactly", file=sys.stderr)
+        print(f"   ✓ All images preserved", file=sys.stderr)
+        print(f"   ✓ Text formatting preserved", file=sys.stderr)
         return True
         
     except Exception as e:

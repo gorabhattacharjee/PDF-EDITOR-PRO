@@ -107,10 +107,10 @@ export default function ToOfficeModal() {
               <p style={{ color: '#666', marginBottom: '20px' }}>Select the format you want to convert <strong>{activeDocument?.name || 'document'}</strong> to:</p>
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }}>
-                <button onClick={() => handleConvert('word')} disabled={true} title="Word conversion unavailable" style={{ padding: '16px', border: '2px solid #ccc', borderRadius: '6px', backgroundColor: '#f5f5f5', cursor: 'not-allowed', opacity: 0.5, textAlign: 'center' }}>
+                <button onClick={() => handleConvert('word')} disabled={converting} title="Convert to Word (.docx)" style={{ padding: '16px', border: '2px solid #6366f1', borderRadius: '6px', backgroundColor: 'white', cursor: converting ? 'not-allowed' : 'pointer', opacity: converting ? 0.5 : 1, textAlign: 'center' }}>
                   <div style={{ fontSize: '32px', marginBottom: '8px' }}>📘</div>
-                  <div style={{ fontWeight: 'bold', marginBottom: '4px', color: '#999' }}>Word</div>
-                  <div style={{ fontSize: '11px', color: '#999' }}>Not Available</div>
+                  <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>Word</div>
+                  <div style={{ fontSize: '12px', color: '#999' }}>(.docx)</div>
                 </button>
                 
                 <button onClick={() => handleConvert('excel')} disabled={converting} style={{ padding: '16px', border: '2px solid #10b981', borderRadius: '6px', backgroundColor: 'white', cursor: converting ? 'not-allowed' : 'pointer', opacity: converting ? 0.5 : 1, textAlign: 'center' }}>
@@ -132,8 +132,8 @@ export default function ToOfficeModal() {
                 </button>
               </div>
               
-              <div style={{ backgroundColor: '#fef3c7', border: '1px solid #fcd34d', borderRadius: '4px', padding: '12px', marginTop: '16px', fontSize: '13px', color: '#92400e' }}>
-                <strong>ℹ️ Note:</strong> Word conversion is currently unavailable. Please use Excel or PowerPoint conversion instead.
+              <div style={{ backgroundColor: '#d1f2eb', border: '1px solid #6ee7b7', borderRadius: '4px', padding: '12px', marginTop: '16px', fontSize: '13px', color: '#065f46' }}>
+                <strong>✓ Note:</strong> All conversion formats including Word are now available and connected to the backend Python conversion script.
               </div>
             </div>
             

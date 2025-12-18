@@ -286,6 +286,33 @@ export async function exportCanvasToFormat(
         });
         break;
         
+      case 'avif':
+      case 'heif':
+      case 'psd':
+      case 'xcf':
+      case 'ai':
+      case 'eps':
+      case 'wmf':
+      case 'emf':
+      case 'raw':
+      case 'dng':
+      case 'icns':
+        blob = await new Promise<Blob | null>((resolve) => {
+          canvas.toBlob((b) => resolve(b), 'image/png');
+        });
+        if (blob) {
+          const pngFilename = `${filename}.png`;
+          downloadBlob(blob, pngFilename);
+          const formatName = formatId.toUpperCase();
+          logger.success(`Exported as PNG (${formatName} requires specialized tools): ${pngFilename}`);
+          return { 
+            success: true, 
+            filename: pngFilename,
+            error: `${formatName} format not supported in browser. Exported as PNG instead.`
+          };
+        }
+        break;
+        
       default:
         return { success: false, error: `Format ${formatId} not implemented` };
     }

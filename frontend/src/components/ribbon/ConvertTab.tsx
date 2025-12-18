@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import useDocumentsStore from "@/stores/useDocumentsStore";
 import useUIStore from "@/stores/useUIStore";
 import logger from "@/utils/logger";
@@ -21,7 +21,8 @@ import { MdImage } from "react-icons/md";
 export default function ConvertTab() {
   const activeDocument = useDocumentsStore((s) => s.activeDocument);
   const activePage = useUIStore((s) => s.activePage);
-  const [showImageExportModal, setShowImageExportModal] = useState(false);
+  const isImageExportModalOpen = useUIStore((s) => s.isImageExportModalOpen);
+  const closeImageExportModal = useUIStore((s) => s.closeImageExportModal);
 
   const ensureDoc = () => {
     if (!activeDocument) {
@@ -166,7 +167,7 @@ export default function ConvertTab() {
       alert('Please load a PDF first');
       return;
     }
-    setShowImageExportModal(true);
+    useUIStore.getState().openImageExportModal();
   };
 
   const exportPDFa = async () => {
@@ -250,10 +251,10 @@ This PDF includes standard archival metadata for long-term preservation.`);
       
       {activeDocument && (
         <ImageExportModal
-          isOpen={showImageExportModal}
-          onClose={() => setShowImageExportModal(false)}
+          isOpen={isImageExportModalOpen}
+          onClose={closeImageExportModal}
           documentName={activeDocument.name}
-          currentPage={activePage || 1}
+          currentPage={activePage}
           totalPages={activeDocument.numPages || 1}
         />
       )}

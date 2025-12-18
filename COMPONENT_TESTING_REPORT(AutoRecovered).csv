@@ -1,0 +1,34 @@
+Component Name,Feature,Test Case,Status,Notes,Last Tested,Tester
+File Management,Open PDF,Upload and load PDF file,PENDING,Awaiting test execution,N/A,N/A
+File Management,Close Document,Close open PDF document,PENDING,Awaiting test execution,N/A,N/A
+File Management,Save Document,Save modifications to PDF,PENDING,Awaiting test execution,N/A,N/A
+File Management,Save As,Save PDF with new filename,PENDING,Awaiting test execution,N/A,N/A
+PDF Editing,Add Text,Add text to PDF page,PENDING,Awaiting test execution,N/A,N/A
+PDF Editing,Add Images,Insert images into PDF,PENDING,Awaiting test execution,N/A,N/A
+PDF Editing,Highlight Text,Highlight text on page,PENDING,Awaiting test execution,N/A,N/A
+PDF Editing,Add Comments,Add comments and notes,PENDING,Awaiting test execution,N/A,N/A
+PDF Editing,Annotations,Draw/annotate on PDF,PENDING,Awaiting test execution,N/A,N/A
+Conversion,Convert to Excel,Export PDF to Excel format,PENDING,Awaiting test execution,N/A,N/A
+Conversion,Convert to PowerPoint,Export PDF to PowerPoint format,PENDING,Awaiting test execution,N/A,N/A
+Conversion,Convert to HTML,Export PDF to HTML format,PENDING,Awaiting test execution,N/A,N/A
+Conversion,Convert to Text,Extract text from PDF,PENDING,Awaiting test execution,N/A,N/A
+Conversion,Word Conversion Disabled,Verify Word conversion is disabled,PENDING,Awaiting test execution,N/A,N/A
+PDF Manipulation,Merge PDFs,Merge multiple PDF files,PENDING,Awaiting test execution,N/A,N/A
+PDF Manipulation,Compress PDF,Reduce PDF file size,PENDING,Awaiting test execution,N/A,N/A
+PDF Manipulation,Delete Page,Remove page from PDF,PENDING,Awaiting test execution,N/A,N/A
+PDF Manipulation,Reorder Pages,Change page order,PENDING,Awaiting test execution,N/A,N/A
+Security,Encrypt PDF,Add password protection,PENDING,Awaiting test execution,N/A,N/A
+Security,Set Permissions,Restrict PDF permissions,PENDING,Awaiting test execution,N/A,N/A
+Security,Redact Content,Permanently remove content,PENDING,Awaiting test execution,N/A,N/A
+OCR & Text Extraction,Extract Text,Extract text from PDF,PENDING,Awaiting test execution,N/A,N/A
+OCR & Text Extraction,OCR Recognition,Recognize text from scanned images,PENDING,Awaiting test execution,N/A,N/A
+Document Properties,Edit Metadata,Edit document metadata,PENDING,Awaiting test execution,N/A,N/A
+Document Properties,View Document Info,View file information,PENDING,Awaiting test execution,N/A,N/A
+User Interface,Ribbon Bar Navigation,Navigate using ribbon tabs,PENDING,Awaiting test execution,N/A,N/A
+User Interface,Sidebar Navigation,Use sidebar for navigation,PENDING,Awaiting test execution,N/A,N/A
+User Interface,Zoom Controls,Zoom in/out of PDF,PENDING,Awaiting test execution,N/A,N/A
+User Interface,Page Navigation,Navigate between pages,PENDING,Awaiting test execution,N/A,N/A
+Multi-Document Support,Multiple Tabs,Open multiple PDFs,PENDING,Awaiting test execution,N/A,N/A
+Multi-Document Support,Tab Management,Switch and close tabs,PENDING,Awaiting test execution,N/A,N/A
+Export & Download,Export as PDF,Export modified PDF,PENDING,Awaiting test execution,N/A,N/A
+Export & Download,Export as Image,Export PDF pages as images,PENDING,Awaiting test execution,N/A,N/A

@@ -11,10 +11,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Path to Python scripts - in Docker, compiled JS is in /app/dist/
-const pythonDir = process.env.PYTHON_DIR || path.resolve(__dirname, "..", "python");
+// In local dev: __dirname is /backend/dist, so go up 2 levels to project root
+const pythonDir = process.env.PYTHON_DIR || path.resolve(__dirname, "..", "..", "backend", "python");
 
 // Use /app/uploads in production (Docker), otherwise use local path
-const uploadsBaseDir = process.env.UPLOADS_DIR || (process.env.NODE_ENV === 'production' ? "/app/uploads" : path.resolve(__dirname, "..", "uploads"));
+// In local dev: go up 2 levels from /backend/dist to project root, then into uploads
+const uploadsBaseDir = process.env.UPLOADS_DIR || (process.env.NODE_ENV === 'production' ? "/app/uploads" : path.resolve(__dirname, "..", "..", "uploads"));
 
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
@@ -56,25 +58,31 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     if (!req.file) return res.status(400).json({ error: "No PDF file uploaded" });
 
     const format = String(req.body.format || "").toLowerCase();
-    const allowed = ["excel", "ppt", "html", "text"];
-    
-    // Word conversion is not available due to pdf2docx dependency issues
-    if (format === "word") {
-      return res.status(501).json({ 
-        error: "Word conversion not available", 
-        details: "Word conversion requires pdf2docx which has compatibility issues on Alpine Linux. Please use Excel or PowerPoint conversion instead." 
-      });
-    }
+    const allowed = ["word", "excel", "ppt", "html", "text"];
     
     if (!allowed.includes(format)) {
-      return res.status(400).json({ error: "Invalid format. Must be excel, ppt, html, or text" });
+      return res.status(400).json({ error: "Invalid format. Must be word, excel, ppt, html, or text" });
     }
 
-    const inputPath = req.file.path;
+    // IMPORTANT: req.file.path is the actual uploaded file path (includes temp/ subdirectory)
+    const inputPath = req.file.path;  // e.g., c:\pdf-editor-pro\uploads\temp\filename.pdf
     const uploadDir = uploadsBaseDir;
     await fs.mkdir(uploadDir, { recursive: true });
 
     const baseName = path.parse(req.file.originalname).name;
+    
+    console.log(`[File upload] Original filename: ${req.file.originalname}`);
+    console.log(`[File upload] Actual saved path: ${inputPath}`);
+    console.log(`[File upload] Base name: ${baseName}`);
+    
+    // Verify the file actually exists
+    try {
+      await fs.stat(inputPath);
+      console.log(`[File upload] ✓ File exists and is readable`);
+    } catch (err) {
+      console.error(`[File upload] ✗ File not found or not readable: ${inputPath}`);
+      return res.status(500).json({ error: "Uploaded file cannot be accessed", details: `File path: ${inputPath}` });
+    }
 
     const extensions: Record<string, string> = {
       word: ".docx",
@@ -95,17 +103,47 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
       format === "text"
         ? [scriptToRun, inputPath, outputPath]
         : [scriptToRun, format, inputPath, outputPath];
+    
+    // Log Word conversion when requested
+    if (format === "word") {
+      console.log(`[Conversion] ENABLED: Word (.docx) conversion requested`);
+    }
 
-    // Use python3 on Unix/Linux/Mac, python on Windows
-    const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
+    // Use full path to Python on Windows to ensure correct environment
+    const pythonCmd = process.platform === 'win32' ? 'C:\\Python314\\python.exe' : 'python3';
+    
+    console.log(`[Conversion] Starting ${format} conversion`);
+    console.log(`[Conversion] Python command: ${pythonCmd}`);
+    console.log(`[Conversion] Script: ${scriptToRun}`);
+    console.log(`[Conversion] Input: ${inputPath}`);
+    console.log(`[Conversion] Output: ${outputPath}`);
+    
+    // Create environment with Python paths
+    const pythonEnv = {
+      ...process.env,
+      PYTHONPATH: 'C:\\Users\\GoraBhattacharjee\\AppData\\Roaming\\Python\\Python314\\site-packages;' + (process.env.PYTHONPATH || ''),
+    };
     
     const python = spawn(pythonCmd, pythonArgs, {
-      env: process.env,
+      env: pythonEnv,
       stdio: ["pipe", "pipe", "pipe"],
+      shell: false,
     });
 
     let stderr = "";
     let stdout = "";
+    let timedOut = false;
+    
+    // Set a 120 second timeout
+    const timeout = setTimeout(() => {
+      timedOut = true;
+      console.error(`[Conversion timeout] ${format} conversion exceeded 120 seconds`);
+      python.kill();
+      if (!res.headersSent) {
+        res.status(500).json({ error: "Conversion timeout", details: `${format} conversion took too long (>120s)` });
+      }
+    }, 120000);
+    
     python.stderr?.on("data", (d) => {
       stderr += d.toString();
       console.error(`[Python stderr] ${d.toString()}`);
@@ -116,11 +154,15 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     });
 
     python.on("error", (err) => {
+      clearTimeout(timeout);
       console.error(`[Spawn error] ${err.message}`);
       if (!res.headersSent) res.status(500).json({ error: "Failed to start conversion", details: err.message });
     });
 
     python.on("close", async (code) => {
+      clearTimeout(timeout);
+      if (timedOut) return;
+      
       try {
         console.log(`[Python exit code] ${code}`);
         if (code !== 0) {
@@ -129,17 +171,25 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
           return res.status(500).json({ error: "Conversion failed", details: errorMsg });
         }
 
-        const fileData = await fs.readFile(outputPath);
+        // Check if output file was created
+        try {
+          const fileData = await fs.readFile(outputPath);
+          console.log(`[Conversion success] File size: ${fileData.length} bytes`);
+          
+          res.setHeader("Content-Disposition", `attachment; filename="${path.basename(outputPath)}"`);
+          res.send(fileData);
 
-        res.setHeader("Content-Disposition", `attachment; filename="${path.basename(outputPath)}"`);
-        res.send(fileData);
-
-        setTimeout(async () => {
-          try {
-            await fs.unlink(inputPath);
-            await fs.unlink(outputPath);
-          } catch {}
-        }, 5000);
+          setTimeout(async () => {
+            try {
+              await fs.unlink(inputPath);
+              await fs.unlink(outputPath);
+            } catch {}
+          }, 5000);
+        } catch (readErr) {
+          console.error(`[File read error] Could not read output file: ${outputPath}`);
+          console.error(`[File read error] ${String(readErr)}`);
+          return res.status(500).json({ error: "Conversion completed but output file not found", details: `Expected file: ${outputPath}` });
+        }
       } catch (err) {
         if (!res.headersSent) res.status(500).json({ error: "Internal server error", details: String(err) });
       }

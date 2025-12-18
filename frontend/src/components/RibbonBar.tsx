@@ -2181,7 +2181,10 @@ Duplicate pages to repeat them.`,
           <div className="text-sm" style={{ width: '40px', textAlign: 'center' }}>{Math.round(zoom * 100)}%</div>
           <div className="icon-button" onClick={handleZoomIn} title="Zoom In" style={{ color: '#8b5cf6' }}><FiZoomIn style={{ fontSize: '20px' }} /></div>
         </div>
-        {fileMenuOpen && <FileMenu onClose={() => setFileMenuOpen(false)} />}
+        {fileMenuOpen && <FileMenu onClose={() => setFileMenuOpen(false)} onOpenImageExport={() => {
+          setFileMenuOpen(false);
+          useUIStore.getState().openImageExportModal();
+        }} />}
       </div>
 
       <div className="ribbon-tabs">
