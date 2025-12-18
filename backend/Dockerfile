@@ -16,7 +16,8 @@ RUN pnpm install --no-frozen-lockfile
 
 # Copy Python requirements and install
 COPY python/ ./python/
-RUN pip3 install --break-system-packages -r python/requirements.txt
+RUN pip3 install --break-system-packages --no-deps -r python/requirements.txt && \
+    pip3 install --break-system-packages openpyxl python-pptx PyMuPDF
 
 # Copy source
 COPY . .
