@@ -96,7 +96,10 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
         ? [scriptToRun, inputPath, outputPath]
         : [scriptToRun, format, inputPath, outputPath];
 
-    const python = spawn("python3", pythonArgs, {
+    // Use python3 on Unix/Linux/Mac, python on Windows
+    const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
+    
+    const python = spawn(pythonCmd, pythonArgs, {
       env: process.env,
       stdio: ["pipe", "pipe", "pipe"],
     });
