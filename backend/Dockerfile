@@ -16,7 +16,7 @@ RUN pnpm install --no-frozen-lockfile
 
 # Copy Python requirements and install
 COPY python/ ./python/
-RUN pip3 install --no-cache-dir --break-system-packages -r python/requirements.txt
+RUN pip3 install --break-system-packages -r python/requirements.txt
 
 # Copy source
 COPY . .
