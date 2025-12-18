@@ -210,6 +210,9 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
           try {
             const filesInDir = await fs.readdir(uploadDir);
             console.error(`[Debug] Files in ${uploadDir}: ${filesInDir.join(', ')}`);
+            console.error(`[Debug] Expected filename: ${path.basename(outputPath)}`);
+            const similarFiles = filesInDir.filter(f => f.includes(baseName));
+            if (similarFiles.length > 0) console.error(`[Debug] Similar files found: ${similarFiles.join(', ')}`);
           } catch (e) {
             console.error(`[Debug] Could not list directory: ${String(e)}`);
           }
