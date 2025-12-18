@@ -144,16 +144,20 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     let stdout = "";
     let timedOut = false;
     
-    // Set timeout based on format (Word conversions need more time)
-    const timeoutMs = format === 'word' ? 300000 : 120000;  // 5 min for Word, 2 min for others
-    const timeout = setTimeout(() => {
-      timedOut = true;
-      console.error(`[Conversion timeout] ${format} conversion exceeded ${timeoutMs/1000} seconds`);
-      python.kill();
-      if (!res.headersSent) {
-        res.status(500).json({ error: "Conversion timeout", details: `${format} conversion took too long (>${timeoutMs/1000}s)` });
-      }
-    }, timeoutMs);
+    // Don't set timeout for Word conversions - they can take as long as needed
+    let timeout: NodeJS.Timeout | undefined = undefined;
+    if (format !== 'word') {
+      timeout = setTimeout(() => {
+        timedOut = true;
+        console.error(`[Conversion timeout] ${format} conversion exceeded 120 seconds`);
+        python.kill();
+        if (!res.headersSent) {
+          res.status(500).json({ error: "Conversion timeout", details: `${format} conversion took too long (>120s)` });
+        }
+      }, 120000);
+    } else {
+      console.log(`[Conversion] Word conversion started - no timeout limit`);
+    }
     
     python.stderr?.on("data", (d) => {
       stderr += d.toString();

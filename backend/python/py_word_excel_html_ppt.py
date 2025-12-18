@@ -251,7 +251,7 @@ def pdf_to_word_with_hidden_tables(pdf_path, output_docx="output.docx"):
             print(f"   \u2713 Created output directory: {output_dir}", file=sys.stderr)
         
         cv = Converter(pdf_path)
-        cv.convert(output_docx, multi_processing=False, cpu_count=1)
+        cv.convert(output_docx, multi_processing=True, cpu_count=4)
         cv.close()
         
         # Step 2: Post-process to preserve tables with formatting
@@ -601,7 +601,7 @@ def pdf_to_word(pdf_path, output_docx="output.docx"):
             
             # Use conversion with better settings
             cv = Converter(pdf_path)
-            cv.convert(output_docx, multi_processing=False, cpu_count=1)
+            cv.convert(output_docx, multi_processing=True, cpu_count=4)
             cv.close()
             
             if os.path.exists(output_docx) and os.path.getsize(output_docx) > 0:
@@ -744,7 +744,7 @@ def pdf_to_word(pdf_path, output_docx="output.docx"):
             
             # Use conversion with better settings
             cv = Converter(pdf_path)
-            cv.convert(output_docx, multi_processing=False, cpu_count=1)
+            cv.convert(output_docx, multi_processing=True, cpu_count=4)
             cv.close()
             
             if os.path.exists(output_docx) and os.path.getsize(output_docx) > 0:
