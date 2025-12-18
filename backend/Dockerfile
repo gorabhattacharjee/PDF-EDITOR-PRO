@@ -1,14 +1,16 @@
-FROM node:20-alpine
+FROM python:3.12-slim
 
 WORKDIR /app
 
-# Install Python and required system dependencies
-# Added: libxml2, libxslt for pdf2docx, fontconfig for font rendering
-RUN apk add --no-cache python3 py3-pip gcc musl-dev python3-dev libffi-dev openssl-dev \
-    libxml2-dev libxslt-dev zlib-dev jpeg-dev fontconfig-dev
+# Install Node.js and required system dependencies
+# Using slim image which has build tools needed for Python packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    nodejs npm curl git build-essential \
+    libxml2-dev libxslt-dev libffi-dev openssl-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# pnpm
-RUN corepack enable && corepack prepare pnpm@10.24.0 --activate
+# Install pnpm
+RUN npm install -g pnpm
 
 # Copy ONLY backend package files (because build context = backend/)
 COPY package.json pnpm-lock.yaml* ./
@@ -16,10 +18,10 @@ COPY package.json pnpm-lock.yaml* ./
 # Install Node deps
 RUN pnpm install --no-frozen-lockfile
 
-# Copy Python requirements and install WITH dependencies
+# Copy Python requirements and install
 COPY python/ ./python/
-RUN pip3 install --break-system-packages -r python/requirements.txt && \
-    pip3 install --break-system-packages pdf2docx openpyxl python-pptx PyMuPDF pdfplumber
+RUN pip install --no-cache-dir -r python/requirements.txt && \
+    pip install --no-cache-dir pdf2docx openpyxl python-pptx PyMuPDF pdfplumber
 
 # Copy source
 COPY . .
