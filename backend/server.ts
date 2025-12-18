@@ -168,13 +168,20 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
       console.log(`[Conversion] Word conversion started - no timeout limit`);
     }
     
+    // Collect stderr for error messages (text only)
     python.stderr?.on("data", (d) => {
       stderr += d.toString();
       console.error(`[Python stderr] ${d.toString()}`);
     });
-    python.stdout?.on("data", (d) => {
-      stdout += d.toString();
-      console.log(`[Python stdout] ${d.toString()}`);
+    
+    // Collect stdout as buffer (could be binary file data)
+    const stdoutBuffers: Buffer[] = [];
+    python.stdout?.on("data", (d: Buffer) => {
+      stdoutBuffers.push(d);
+      // Don't log binary data - just log that we received it
+      if (d.length < 200) {
+        stdout += d.toString('utf8', 0, Math.min(100, d.length));
+      }
     });
 
     python.on("error", (err) => {
@@ -189,29 +196,40 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
       
       try {
         console.log(`[Python exit code] ${code}`);
-        console.log(`[Conversion debug] Expected output path: ${outputPath}`);
-        console.log(`[Conversion debug] Output directory contents before check:`);
-        
-        // List directory contents for debugging
-        try {
-          const dirContents = await fs.readdir(uploadDir);
-          console.log(`[Conversion debug] Files in ${uploadDir}:`);
-          for (const file of dirContents) {
-            const filePath = path.join(uploadDir, file);
-            const stats = await fs.stat(filePath);
-            console.log(`  - ${file} (${stats.size} bytes)`);
-          }
-        } catch (e) {
-          console.error(`[Conversion debug] Could not list directory: ${String(e)}`);
-        }
+        console.log(`[Conversion] Received ${stdoutBuffers.length} chunks from Python stdout`);
+        console.log(`[Conversion] Total stdout size: ${stdoutBuffers.reduce((sum, b) => sum + b.length, 0)} bytes`);
         
         if (code !== 0) {
           const errorMsg = stderr || stdout || "Unknown error";
           console.error(`[Conversion failed] Exit code ${code}: ${errorMsg}`);
           return res.status(500).json({ error: "Conversion failed", details: errorMsg });
         }
-
-        // Check if output file was created
+        
+        // If Python succeeded and wrote to stdout, use stdout data directly
+        if (stdoutBuffers.length > 0) {
+          const combinedBuffer = Buffer.concat(stdoutBuffers);
+          console.log(`[Conversion success] Sending ${combinedBuffer.length} bytes from stdout`);
+          
+          res.setHeader("Content-Disposition", `attachment; filename="${path.basename(outputPath)}"`);
+          res.setHeader("Content-Type", "application/octet-stream");
+          res.setHeader("Content-Length", combinedBuffer.length);
+          res.send(combinedBuffer);
+          
+          // Clean up input file
+          setTimeout(async () => {
+            try {
+              await fs.unlink(inputPath);
+              console.log(`[Cleanup] Deleted input file`);
+            } catch (e) {
+              console.error(`[Cleanup error] ${String(e)}`);
+            }
+          }, 5000);
+          
+          return;
+        }
+        
+        // Fallback: try to read from file system (old method)
+        console.log(`[Conversion debug] No stdout data, trying file system: ${outputPath}`);
         try {
           const fileData = await fs.readFile(outputPath);
           console.log(`[Conversion success] File size: ${fileData.length} bytes`);
@@ -233,19 +251,7 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
           console.error(`[File read error] Could not read output file: ${outputPath}`);
           console.error(`[File read error] ${String(readErr)}`);
           
-          // Try to list files in upload directory to debug
-          try {
-            const filesInDir = await fs.readdir(uploadDir);
-            console.error(`[Debug] Files in ${uploadDir}: ${filesInDir.join(', ')}`);
-            console.error(`[Debug] Expected filename: ${path.basename(outputPath)}`);
-            console.error(`[Debug] Upload dir exists: ${await fs.stat(uploadDir).then(() => 'yes').catch(() => 'no')}`);
-            const similarFiles = filesInDir.filter(f => f.includes(baseName));
-            if (similarFiles.length > 0) console.error(`[Debug] Similar files found: ${similarFiles.join(', ')}`);
-          } catch (e) {
-            console.error(`[Debug] Could not list directory: ${String(e)}`);
-          }
-          
-          return res.status(500).json({ error: "Conversion completed but output file not found", details: `Expected file: ${outputPath}` });
+          return res.status(500).json({ error: "Conversion completed but no output received", details: `Expected file: ${outputPath}` });
         }
       } catch (err) {
         if (!res.headersSent) res.status(500).json({ error: "Internal server error", details: String(err) });
