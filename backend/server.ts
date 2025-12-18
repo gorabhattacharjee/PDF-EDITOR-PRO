@@ -89,8 +89,8 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     
     // Verify the file actually exists
     try {
-      await fs.stat(inputPath);
-      console.log(`[File upload] ✓ File exists and is readable`);
+      const stats = await fs.stat(inputPath);
+      console.log(`[File upload] ✓ File exists and is readable, size: ${stats.size} bytes`);
     } catch (err) {
       console.error(`[File upload] ✗ File not found or not readable: ${inputPath}`);
       return res.status(500).json({ error: "Uploaded file cannot be accessed", details: `File path: ${inputPath}` });
@@ -104,7 +104,10 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
       text: ".txt",
     };
 
-    const outputPath = path.join(uploadDir, `${baseName}_converted${extensions[format]}`);
+    // Use unique output filename with timestamp to avoid conflicts
+    const timestamp = Date.now();
+    const uniqueBaseName = `${baseName}_${timestamp}`;
+    const outputPath = path.join(uploadDir, `${uniqueBaseName}_converted${extensions[format]}`);
 
     const pythonConvertScript = path.join(pythonDir, "py_word_excel_html_ppt.py");
     const pythonTextScript = path.join(pythonDir, "pdf_to_text.py");
@@ -186,11 +189,25 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
       
       try {
         console.log(`[Python exit code] ${code}`);
-        console.log(`[Conversion debug] Looking for file: ${outputPath}`);
+        console.log(`[Conversion debug] Expected output path: ${outputPath}`);
+        console.log(`[Conversion debug] Output directory contents before check:`);
+        
+        // List directory contents for debugging
+        try {
+          const dirContents = await fs.readdir(uploadDir);
+          console.log(`[Conversion debug] Files in ${uploadDir}:`);
+          for (const file of dirContents) {
+            const filePath = path.join(uploadDir, file);
+            const stats = await fs.stat(filePath);
+            console.log(`  - ${file} (${stats.size} bytes)`);
+          }
+        } catch (e) {
+          console.error(`[Conversion debug] Could not list directory: ${String(e)}`);
+        }
         
         if (code !== 0) {
           const errorMsg = stderr || stdout || "Unknown error";
-          console.error(`[Conversion failed] ${errorMsg}`);
+          console.error(`[Conversion failed] Exit code ${code}: ${errorMsg}`);
           return res.status(500).json({ error: "Conversion failed", details: errorMsg });
         }
 
