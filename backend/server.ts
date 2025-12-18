@@ -6,6 +6,7 @@ import path from "path";
 import { promises as fs } from "fs";
 import { spawn } from "child_process";
 import { fileURLToPath } from "url";
+import os from "os";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,9 +19,9 @@ const pythonDir = process.env.PYTHON_DIR ||
     ? path.join("/app", "python")
     : path.resolve(__dirname, "..", "..", "backend", "python"));
 
-// Use /app/uploads in production (Docker), otherwise use local path
-// In local dev: go up 2 levels from /backend/dist to project root, then into uploads
-const uploadsBaseDir = process.env.UPLOADS_DIR || (process.env.NODE_ENV === 'production' ? "/app/uploads" : path.resolve(__dirname, "..", "..", "uploads"));
+// Use system temp directory for file operations (works on all platforms)
+// This ensures files can be written and read reliably on Render and other containers
+const uploadsBaseDir = process.env.UPLOADS_DIR || path.join(os.tmpdir(), 'pdf-conversions');
 
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
@@ -37,9 +38,9 @@ app.use(bodyParser.json());
 
 const storage = multer.diskStorage({
   destination: async (_req, _file, cb) => {
-    const dir = path.join(uploadsBaseDir, "temp");
-    await fs.mkdir(dir, { recursive: true });
-    cb(null, dir);
+    // Create uploads directory in temp location
+    await fs.mkdir(uploadsBaseDir, { recursive: true });
+    cb(null, uploadsBaseDir);
   },
   filename: (_req, file, cb) => {
     cb(null, file.originalname);
@@ -68,9 +69,9 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
       return res.status(400).json({ error: "Invalid format. Must be word, excel, ppt, html, or text" });
     }
 
-    // IMPORTANT: req.file.path is the actual uploaded file path (includes temp/ subdirectory)
-    const inputPath = req.file.path;  // e.g., /app/uploads/temp/filename.pdf
-    const uploadDir = uploadsBaseDir;
+    // IMPORTANT: req.file.path is the actual uploaded file path
+    const inputPath = req.file.path;  // e.g., /tmp/pdf-conversions/filename.pdf
+    const uploadDir = uploadsBaseDir;  // Output directory for converted files
     
     // Ensure output directory exists
     await fs.mkdir(uploadDir, { recursive: true });
@@ -81,9 +82,10 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     
     console.log(`[File upload] Original filename: ${req.file.originalname}`);
     console.log(`[File upload] Actual saved path: ${inputPath}`);
+    console.log(`[File upload] Upload directory: ${uploadDir}`);
     console.log(`[File upload] Base name: ${baseName}`);
-    console.log(`[File upload] Ends with .pdf: ${req.file.originalname.endsWith('.pdf')}`);
-    console.log(`[File upload] Filename length: ${req.file.originalname.length}`);
+    console.log(`[File upload] Node ENV: ${process.env.NODE_ENV}`);
+    console.log(`[File upload] Temp dir: ${os.tmpdir()}`);
     
     // Verify the file actually exists
     try {
@@ -120,6 +122,7 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     }
 
     // Use full path to Python on Windows to ensure correct environment
+    // On Render (production), use 'python3'. On Windows dev, use full path
     const pythonCmd = process.platform === 'win32' ? 'C:\\Python314\\python.exe' : 'python3';
     
     console.log(`[Conversion] Starting ${format} conversion`);
@@ -128,12 +131,13 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     console.log(`[Conversion] Input: ${inputPath}`);
     console.log(`[Conversion] Output: ${outputPath}`);
     
-    // Create environment with Python paths
+    // Create environment for Python subprocess
+    // Ensure Python can access required libraries
     const pythonEnv = {
       ...process.env,
-      PYTHONPATH: process.env.NODE_ENV === 'production' 
-        ? (process.env.PYTHONPATH || '')
-        : ('C:\\Users\\GoraBhattacharjee\\AppData\\Roaming\\Python\\Python314\\site-packages;' + (process.env.PYTHONPATH || '')),
+      // Ensure temp directory is accessible
+      TMPDIR: os.tmpdir(),
+      TEMP: os.tmpdir(),
     };
     
     const python = spawn(pythonCmd, pythonArgs, {
@@ -182,6 +186,8 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
       
       try {
         console.log(`[Python exit code] ${code}`);
+        console.log(`[Conversion debug] Looking for file: ${outputPath}`);
+        
         if (code !== 0) {
           const errorMsg = stderr || stdout || "Unknown error";
           console.error(`[Conversion failed] ${errorMsg}`);
@@ -196,11 +202,15 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
           res.setHeader("Content-Disposition", `attachment; filename="${path.basename(outputPath)}"`);
           res.send(fileData);
 
+          // Clean up temp files after response sent
           setTimeout(async () => {
             try {
               await fs.unlink(inputPath);
               await fs.unlink(outputPath);
-            } catch {}
+              console.log(`[Cleanup] Deleted temp files: input and output`);
+            } catch (e) {
+              console.error(`[Cleanup error] ${String(e)}`);
+            }
           }, 5000);
         } catch (readErr) {
           console.error(`[File read error] Could not read output file: ${outputPath}`);
@@ -211,6 +221,7 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
             const filesInDir = await fs.readdir(uploadDir);
             console.error(`[Debug] Files in ${uploadDir}: ${filesInDir.join(', ')}`);
             console.error(`[Debug] Expected filename: ${path.basename(outputPath)}`);
+            console.error(`[Debug] Upload dir exists: ${await fs.stat(uploadDir).then(() => 'yes').catch(() => 'no')}`);
             const similarFiles = filesInDir.filter(f => f.includes(baseName));
             if (similarFiles.length > 0) console.error(`[Debug] Similar files found: ${similarFiles.join(', ')}`);
           } catch (e) {
