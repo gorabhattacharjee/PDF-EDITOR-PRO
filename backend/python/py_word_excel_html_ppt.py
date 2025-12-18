@@ -242,6 +242,14 @@ def pdf_to_word_with_hidden_tables(pdf_path, output_docx="output.docx"):
         
         # Step 1: Convert PDF to Word using pdf2docx (preserves layout and tables)
         print(f"\ud83d\udd25 Converting with pdf2docx (layout + structure)...", file=sys.stderr)
+        
+        # Ensure output directory exists
+        import os
+        output_dir = os.path.dirname(output_docx)
+        if output_dir and not os.path.exists(output_dir):
+            os.makedirs(output_dir, exist_ok=True)
+            print(f"   \u2713 Created output directory: {output_dir}", file=sys.stderr)
+        
         cv = Converter(pdf_path)
         cv.convert(output_docx, multi_processing=False, cpu_count=1)
         cv.close()
