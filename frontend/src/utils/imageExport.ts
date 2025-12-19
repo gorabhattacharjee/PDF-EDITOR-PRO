@@ -11,14 +11,27 @@ export interface ImageFormat {
 }
 
 export const IMAGE_FORMATS: ImageFormat[] = [
+  // Standard formats - fully supported in browser
   { id: 'png', name: 'PNG', extension: 'png', mimeType: 'image/png', supported: true, category: 'standard', description: 'Lossless, best quality' },
   { id: 'jpg', name: 'JPEG', extension: 'jpg', mimeType: 'image/jpeg', supported: true, category: 'standard', description: 'Compressed, smaller size' },
   { id: 'webp', name: 'WebP', extension: 'webp', mimeType: 'image/webp', supported: true, category: 'standard', description: 'Modern, optimized' },
   { id: 'gif', name: 'GIF', extension: 'gif', mimeType: 'image/gif', supported: true, category: 'standard', description: 'Animation support' },
   { id: 'bmp', name: 'BMP', extension: 'bmp', mimeType: 'image/bmp', supported: true, category: 'standard', description: 'Uncompressed bitmap' },
   { id: 'ico', name: 'ICO', extension: 'ico', mimeType: 'image/x-icon', supported: true, category: 'standard', description: 'Windows icon' },
-  { id: 'tiff', name: 'TIFF', extension: 'png', mimeType: 'image/png', supported: true, category: 'professional', description: 'Print-ready (exports as PNG)' },
+  { id: 'tiff', name: 'TIFF', extension: 'tiff', mimeType: 'image/tiff', supported: true, category: 'professional', description: 'Print-ready TIFF' },
   { id: 'svg', name: 'SVG', extension: 'svg', mimeType: 'image/svg+xml', supported: true, category: 'vector', description: 'Scalable vector' },
+  // Professional formats - partial/fallback support
+  { id: 'avif', name: 'AVIF', extension: 'avif', mimeType: 'image/avif', supported: false, category: 'professional', description: 'Next-gen format (exports as PNG)' },
+  { id: 'heif', name: 'HEIF', extension: 'heif', mimeType: 'image/heif', supported: false, category: 'professional', description: 'Apple/iOS format (exports as PNG)' },
+  { id: 'psd', name: 'PSD', extension: 'psd', mimeType: 'image/vnd.adobe.photoshop', supported: false, category: 'professional', description: 'Adobe Photoshop (exports as PNG)' },
+  { id: 'xcf', name: 'XCF', extension: 'xcf', mimeType: 'image/x-xcf', supported: false, category: 'professional', description: 'GIMP native format (exports as PNG)' },
+  { id: 'ai', name: 'AI', extension: 'ai', mimeType: 'image/x-adobe-illustrator', supported: false, category: 'professional', description: 'Adobe Illustrator (exports as PNG)' },
+  { id: 'eps', name: 'EPS', extension: 'eps', mimeType: 'application/postscript', supported: false, category: 'professional', description: 'Encapsulated PostScript (exports as PNG)' },
+  { id: 'wmf', name: 'WMF', extension: 'wmf', mimeType: 'image/x-wmf', supported: false, category: 'professional', description: 'Windows Metafile (exports as PNG)' },
+  { id: 'emf', name: 'EMF', extension: 'emf', mimeType: 'image/x-emf', supported: false, category: 'professional', description: 'Enhanced Metafile (exports as PNG)' },
+  { id: 'raw', name: 'RAW', extension: 'raw', mimeType: 'image/x-raw', supported: false, category: 'raw', description: 'Raw image data (exports as PNG)' },
+  { id: 'dng', name: 'DNG', extension: 'dng', mimeType: 'image/x-dng', supported: false, category: 'raw', description: 'Digital Negative (exports as PNG)' },
+  { id: 'icns', name: 'ICNS', extension: 'icns', mimeType: 'image/x-icns', supported: false, category: 'professional', description: 'macOS icon format (exports as PNG)' },
 ];
 
 export const SUPPORTED_FORMATS = IMAGE_FORMATS.filter(f => f.supported);
@@ -281,9 +294,7 @@ export async function exportCanvasToFormat(
         break;
         
       case 'tiff':
-        blob = await new Promise<Blob | null>((resolve) => {
-          canvas.toBlob((b) => resolve(b), 'image/png');
-        });
+        blob = canvasToTIFF(canvas);
         break;
         
       case 'avif':
