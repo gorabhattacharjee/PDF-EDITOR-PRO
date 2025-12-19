@@ -1,0 +1,15 @@
+# Render Web Service Configuration for MCP Server
+# Save this as render.yaml in your project root
+
+services:
+  - type: web
+    name: pdf-editor-pro-mcp
+    runtime: python
+    pythonVersion: 3.11
+    buildCommand: pip install -r backend/mcp_requirements.txt
+    startCommand: python backend/mcp_server.py
+    envVars:
+      - key: BACKEND_URL
+        value: http://pdf-editor-pro-backend:5000
+      - key: PYTHONUNBUFFERED
+        value: "true"

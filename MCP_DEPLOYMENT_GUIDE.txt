@@ -1,0 +1,246 @@
+================================================================================
+      MCP SERVER DEPLOYMENT GUIDE - PDF EDITOR PRO
+================================================================================
+
+OVERVIEW:
+MCP (Model Context Protocol) Server exposes your PDF Editor Pro operations as
+callable tools for AI models and external integrations.
+
+FEATURES:
+✅ Convert PDF to Word
+✅ Convert PDF to Excel  
+✅ Compress PDF files
+✅ Extract text with OCR
+✅ Check backend status
+
+================================================================================
+DEPLOYMENT ON RENDER
+================================================================================
+
+STEP 1: Configure Render Dashboard
+---------------------------------
+1. Go to https://dashboard.render.com
+2. Click "New Web Service"
+3. Fill in the form:
+
+   Name: pdf-editor-pro-mcp
+   Source Code: gorabhattacharjee/PDF-EDITOR-PRO (main branch)
+   Language: Python 3
+   Build Command: pip install -r backend/mcp_requirements.txt
+   Start Command: python backend/mcp_server.py
+   Instance Type: Free (or upgrade for production)
+   Region: Virginia (US East)
+
+STEP 2: Environment Variables
+------------------------------
+Add in Render dashboard:
+
+   BACKEND_URL: http://pdf-editor-pro-backend:5000
+   PYTHONUNBUFFERED: true
+
+Note: Replace with your actual backend URL if deployed separately
+
+STEP 3: Deploy
+--------------
+Click "Deploy Web Service" and wait for deployment to complete
+
+Expected deployment time: 2-5 minutes
+
+================================================================================
+LOCAL TESTING
+================================================================================
+
+STEP 1: Install Dependencies
+-----------------------------
+cd c:\pdf-editor-pro
+pip install -r backend/mcp_requirements.txt
+
+STEP 2: Start Backend Server
+-----------------------------
+In one terminal:
+cd c:\pdf-editor-pro\backend
+npm run dev
+# Or: pnpm start
+
+STEP 3: Start MCP Server
+------------------------
+In another terminal:
+cd c:\pdf-editor-pro
+python backend/mcp_server.py
+
+Expected output:
+  INFO:root:Starting PDF Editor Pro MCP Server
+  INFO:root:Backend URL: http://localhost:5000
+  INFO:root:MCP Server running
+
+STEP 4: Test with cURL
+----------------------
+Check available tools:
+  curl http://localhost:3000/tools
+
+Convert PDF to Word:
+  curl -X POST http://localhost:3000/tools/convert_pdf_to_word \
+    -H "Content-Type: application/json" \
+    -d '{"file_path": "/path/to/file.pdf"}'
+
+Convert PDF to Excel:
+  curl -X POST http://localhost:3000/tools/convert_pdf_to_excel \
+    -H "Content-Type: application/json" \
+    -d '{"file_path": "/path/to/file.pdf"}'
+
+Compress PDF:
+  curl -X POST http://localhost:3000/tools/compress_pdf \
+    -H "Content-Type: application/json" \
+    -d '{"file_path": "/path/to/file.pdf", "quality": "medium"}'
+
+Extract Text:
+  curl -X POST http://localhost:3000/tools/extract_text \
+    -H "Content-Type: application/json" \
+    -d '{"file_path": "/path/to/file.pdf"}'
+
+Check Status:
+  curl http://localhost:3000/tools/check_backend_status
+
+================================================================================
+INTEGRATION WITH AI MODELS
+================================================================================
+
+Using with Claude / OpenAI:
+
+1. Your MCP server URL: https://pdf-editor-pro-mcp.onrender.com
+2. Available tools are automatically exposed
+3. AI can call tools like:
+   - "Convert this PDF to Excel"
+   - "Compress this PDF to 50% size"
+   - "Extract all text from this PDF"
+
+Example in Python:
+```python
+import httpx
+
+mcp_url = "https://pdf-editor-pro-mcp.onrender.com"
+client = httpx.Client()
+
+# List available tools
+tools = client.get(f"{mcp_url}/tools").json()
+
+# Call a tool
+result = client.post(
+    f"{mcp_url}/tools/convert_pdf_to_word",
+    json={"file_path": "/path/to/file.pdf"}
+)
+```
+
+================================================================================
+ARCHITECTURE
+================================================================================
+
+┌─────────────────────────────────────────┐
+│   AI Model / External Client            │
+│   (Claude, GPT, Custom App)             │
+└────────────────┬────────────────────────┘
+                 │
+                 │ HTTP Requests
+                 ▼
+┌─────────────────────────────────────────┐
+│   MCP Server (pdf-editor-pro-mcp)       │
+│   - Lists available tools               │
+│   - Handles tool calls                  │
+│   - Routes to backend                   │
+└────────────────┬────────────────────────┘
+                 │
+                 │ HTTP/API Calls
+                 ▼
+┌─────────────────────────────────────────┐
+│   PDF Editor Pro Backend                │
+│   - PDF to Word conversion              │
+│   - PDF to Excel conversion             │
+│   - Compression                         │
+│   - OCR text extraction                 │
+└─────────────────────────────────────────┘
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Issue: "Connection refused to backend"
+Solution: 
+  1. Verify backend is running on correct URL
+  2. Check BACKEND_URL environment variable
+  3. Ensure networks can reach each other
+
+Issue: "MCP package not found"
+Solution:
+  pip install mcp
+
+Issue: "Port already in use"
+Solution:
+  Change port in environment or restart terminal
+
+Issue: "Timeout on file operations"
+Solution:
+  1. Increase API_TIMEOUT in mcp_server.py
+  2. Check file path is correct
+  3. Verify file size is reasonable
+
+Issue: "Tool not found"
+Solution:
+  Restart MCP server to refresh tool list
+
+================================================================================
+PRODUCTION CHECKLIST
+================================================================================
+
+Before deploying to production:
+
+☐ Test all tools locally
+☐ Verify backend URL is production URL
+☐ Set appropriate timeouts (API_TIMEOUT)
+☐ Enable logging and monitoring
+☐ Set up error alerts
+☐ Configure auto-restart on failures
+☐ Use paid instance type for reliability
+☐ Enable HTTPS/SSL on Render
+☐ Set up backup and recovery procedures
+☐ Document all endpoints
+☐ Create API rate limiting if needed
+☐ Monitor resource usage
+
+================================================================================
+FILES CREATED
+================================================================================
+
+1. backend/mcp_server.py (284 lines)
+   - Main MCP server implementation
+   - Tool definitions and handlers
+   - Backend client integration
+
+2. backend/mcp_requirements.txt
+   - Python dependencies for MCP server
+   - mcp, httpx, python-dotenv
+
+3. render.yaml
+   - Render deployment configuration
+   - Build and start commands
+   - Environment variables
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+1. Commit and push to GitHub:
+   git add backend/mcp_server.py backend/mcp_requirements.txt render.yaml
+   git commit -m "Add MCP server for PDF operations"
+   git push origin main
+
+2. Go to Render dashboard and create new web service
+
+3. Test tools locally:
+   python backend/mcp_server.py
+
+4. Once deployed, test with:
+   curl https://your-mcp-url.onrender.com/tools
+
+5. Integrate with AI models or applications
+
+================================================================================
