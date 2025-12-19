@@ -625,6 +625,7 @@ export default function HomeTab() {
           documentName={activeDocument.name}
           currentPage={activeDocument.currentPage || 1}
           totalPages={activeDocument.numPages || 1}
+          pdfFile={activeDocument.file}
         />
       )}
     </>

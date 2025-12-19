@@ -10,6 +10,7 @@ interface ImageExportModalProps {
   documentName: string;
   currentPage: number;
   totalPages: number;
+  pdfFile?: File; // Optional: PDF file for backend conversion
 }
 
 // All requested image formats - browser supported and professional formats
@@ -43,6 +44,7 @@ export default function ImageExportModal({
   documentName,
   currentPage,
   totalPages,
+  pdfFile,
 }: ImageExportModalProps) {
   const [selectedFormat, setSelectedFormat] = useState<string>("png");
   const [quality, setQuality] = useState<number>(92);
@@ -112,6 +114,45 @@ export default function ImageExportModal({
       // Export each selected page
       for (const pageNum of pagesToExport) {
         try {
+          // Try backend conversion first if PDF file is available
+          if (pdfFile) {
+            const formData = new FormData();
+            formData.append('file', pdfFile);
+            formData.append('format', selectedFormat);
+            formData.append('page', pageNum.toString());
+            formData.append('quality', quality.toString());
+            formData.append('dpi', '300');
+
+            try {
+              const response = await fetch('/api/pdf-to-image', {
+                method: 'POST',
+                body: formData,
+              });
+
+              if (response.ok) {
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${documentName.replace('.pdf', '')}_page${pageNum}.${selectedFormat}`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                successCount++;
+                toast.success(`Exported page ${pageNum} via backend`);
+                continue; // Skip canvas fallback
+              } else {
+                const error = await response.json();
+                console.warn('Backend conversion failed, falling back to canvas:', error);
+              }
+            } catch (backendErr) {
+              console.warn('Backend API error, falling back to canvas:', backendErr);
+            }
+          }
+          
+          // Fallback: Use canvas-based export
           const result = await performImageExport(
             documentName,
             selectedFormat,

@@ -256,6 +256,7 @@ This PDF includes standard archival metadata for long-term preservation.`);
           documentName={activeDocument.name}
           currentPage={activePage}
           totalPages={activeDocument.numPages || 1}
+          pdfFile={activeDocument.file}
         />
       )}
     </div>

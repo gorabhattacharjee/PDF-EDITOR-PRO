@@ -69,6 +69,7 @@ export default function PDFEditor() {
         documentName={activeDocument?.name || ""}
         currentPage={activePage || 1}
         totalPages={activeDocument?.numPages || 1}
+        pdfFile={activeDocument?.file}
       />
 
       {/* ADD TEXT MODAL */}

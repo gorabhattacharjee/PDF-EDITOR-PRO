@@ -257,6 +257,147 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
   }
 });
 
+/**
+ * PDF to Image Conversion Endpoint
+ * Converts PDF pages to various image formats
+ * 
+ * POST /api/pdf-to-image
+ * FormData:
+ *   - file: PDF file (required)
+ *   - format: Image format - png, jpg, webp, gif, bmp, tiff, svg, psd, avif, heif, etc (required)
+ *   - page: Page number (optional, default: 1)
+ *   - quality: Quality 1-100 (optional, default: 95)
+ *   - dpi: DPI resolution (optional, default: 300)
+ */
+app.post("/api/pdf-to-image", upload.single("file"), async (req, res) => {
+  const inputPdf = req.file?.path;
+  const format = (req.body.format || "").toLowerCase();
+  const pageNum = req.body.page || "1";
+  const quality = req.body.quality || "95";
+  const dpi = req.body.dpi || "300";
+
+  if (!inputPdf || !format) {
+    return res.status(400).json({ error: "Missing file or format parameter" });
+  }
+
+  try {
+    console.log(`[PDF to Image] Converting page ${pageNum} to ${format.toUpperCase()}`);
+    console.log(`[PDF to Image] Input: ${inputPdf}`);
+    console.log(`[PDF to Image] Format: ${format}, Quality: ${quality}, DPI: ${dpi}`);
+
+    // Ensure output directory exists
+    await fs.mkdir(uploadsBaseDir, { recursive: true });
+
+    const python = spawn("python", [
+      path.join(pythonDir, "pdf_to_images.py"),
+      inputPdf,
+      format,
+      uploadsBaseDir,
+      pageNum,
+      quality,
+      dpi,
+    ]);
+
+    let stdout = "";
+    let stderr = "";
+
+    python.stdout?.on("data", (data: Buffer) => {
+      stdout += data.toString();
+      console.log(`[PDF to Image stdout] ${data.toString().trim()}`);
+    });
+
+    python.stderr?.on("data", (data: Buffer) => {
+      stderr += data.toString();
+      console.error(`[PDF to Image stderr] ${data.toString().trim()}`);
+    });
+
+    python.on("close", async (code: number) => {
+      try {
+        if (code === 0) {
+          // Find the output file
+          const baseName = path.basename(inputPdf, path.extname(inputPdf));
+          const outputFileName = `${baseName}_page${pageNum}.${format}`;
+          const outputPath = path.join(uploadsBaseDir, outputFileName);
+
+          console.log(`[PDF to Image] Looking for output: ${outputPath}`);
+
+          try {
+            const stat = await fs.stat(outputPath);
+            console.log(`[PDF to Image] Output file found: ${stat.size} bytes`);
+
+            // Set headers and send file
+            res.setHeader("Content-Disposition", `attachment; filename="${outputFileName}"`);
+            res.setHeader("Content-Type", "application/octet-stream");
+            res.setHeader("Content-Length", stat.size);
+
+            const fileData = await fs.readFile(outputPath);
+            res.send(fileData);
+
+            console.log(`[PDF to Image] Successfully sent ${outputFileName}`);
+
+            // Cleanup after sending
+            setTimeout(async () => {
+              try {
+                await fs.unlink(outputPath);
+                await fs.unlink(inputPdf);
+                console.log(`[PDF to Image cleanup] Deleted temporary files`);
+              } catch (e) {
+                console.error(`[PDF to Image cleanup error] ${String(e)}`);
+              }
+            }, 5000);
+          } catch (statErr) {
+            console.error(`[PDF to Image] Output file not found: ${outputPath}`);
+            console.error(`[PDF to Image] Stat error: ${String(statErr)}`);
+            console.error(`[PDF to Image] Python stdout: ${stdout}`);
+            console.error(`[PDF to Image] Python stderr: ${stderr}`);
+
+            // List directory contents for debugging
+            try {
+              const files = await fs.readdir(uploadsBaseDir);
+              console.error(`[PDF to Image] Files in output dir: ${files.join(", ")}`);
+            } catch (e) {
+              console.error(`[PDF to Image] Could not list directory: ${String(e)}`);
+            }
+
+            if (!res.headersSent) {
+              res.status(500).json({
+                error: "Conversion completed but output file not found",
+                details: `Expected: ${outputFileName}`,
+                pythonStdout: stdout,
+                pythonStderr: stderr,
+              });
+            }
+          }
+        } else {
+          console.error(`[PDF to Image] Python exited with code ${code}`);
+          console.error(`[PDF to Image] stderr: ${stderr}`);
+          console.error(`[PDF to Image] stdout: ${stdout}`);
+
+          if (!res.headersSent) {
+            res.status(500).json({
+              error: "Conversion failed",
+              details: stderr || stdout,
+              format: format,
+              page: pageNum,
+            });
+          }
+        }
+      } catch (err) {
+        console.error(`[PDF to Image] Error handling result: ${String(err)}`);
+        if (!res.headersSent) {
+          res.status(500).json({
+            error: "Error processing conversion result",
+            details: String(err),
+          });
+        }
+      }
+    });
+  } catch (err) {
+    console.error(`[PDF to Image] Server error: ${String(err)}`);
+    return res.status(500).json({ error: "Server error", details: String(err) });
+  }
+});
+
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Backend running on port ${PORT}`);
 });
