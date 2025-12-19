@@ -1,0 +1,545 @@
+================================================================================
+       FUTURE FEATURES IMPLEMENTATION - UNDO/REDO, COLLABORATION, DARK MODE
+================================================================================
+
+Date Implemented: December 19, 2025
+Project: PDF Editor Pro
+Status: ✅ INFRASTRUCTURE READY (Features planned for future release)
+
+================================================================================
+OVERVIEW
+================================================================================
+
+Infrastructure and stores have been implemented for 6 planned features:
+1. ✅ Undo/Redo functionality
+2. ✅ Comment Synchronization (Collaboration)
+3. ✅ Document Sharing
+4. ✅ Dark Mode Theme
+5. ✅ Keyboard Shortcuts
+6. ✅ Full Keyboard Navigation
+
+All features are now ready for development. Backend integration will be required
+for cloud storage and real-time synchronization features.
+
+================================================================================
+FEATURES IMPLEMENTED
+================================================================================
+
+1. UNDO/REDO SYSTEM
+   Status: ✅ Store and utilities ready
+   Files: useHistoryStore.ts, featureUtils.ts
+   
+   Features:
+   - Push state to history
+   - Undo/redo with past/future stacks
+   - Check if actions can be undone/redone
+   - Clear history on demand
+   
+   Usage:
+   ```typescript
+   import { useHistoryStore } from '@/stores/useHistoryStore';
+   
+   // In component
+   const { push, undo, redo, canUndo, canRedo } = useHistoryStore();
+   
+   // Push state
+   push(currentState);
+   
+   // Undo/Redo
+   undo();
+   redo();
+   ```
+
+2. COLLABORATION (Comments & Sharing)
+   Status: ✅ Store and utilities ready
+   Files: useCollaborationStore.ts, featureUtils.ts
+   
+   Features:
+   - Add/update/delete comments
+   - Resolve comments
+   - Share documents with users
+   - Update sharing permissions
+   - Sync comments from cloud
+   
+   Usage:
+   ```typescript
+   import { useCollaborationStore } from '@/stores/useCollaborationStore';
+   
+   // In component
+   const { addComment, updateComment, shareDocument } = useCollaborationStore();
+   
+   // Add comment
+   addComment({
+     userId: 'user123',
+     userName: 'John Doe',
+     content: 'Great document',
+     pageNumber: 1,
+     position: { x: 100, y: 200 },
+     resolved: false,
+   });
+   
+   // Share document
+   shareDocument({
+     name: 'report.pdf',
+     ownerId: 'user123',
+     sharedWith: ['user456', 'user789'],
+     permissions: 'comment',
+   });
+   ```
+
+3. DARK MODE THEME
+   Status: ✅ Store and utilities ready
+   Files: useThemeStore.ts, featureUtils.ts
+   
+   Features:
+   - Light/Dark/Auto (system) mode
+   - Persistent theme preference
+   - System theme change detection
+   - Toggle theme on demand
+   
+   Usage:
+   ```typescript
+   import { useThemeStore } from '@/stores/useThemeStore';
+   
+   // In component
+   const { mode, isDarkMode, setTheme, toggleTheme } = useThemeStore();
+   
+   // Set theme
+   setTheme('dark');
+   
+   // Toggle
+   toggleTheme();
+   
+   // Initialize on app load
+   useEffect(() => {
+     useThemeStore.getState().initializeTheme();
+   }, []);
+   ```
+
+4. KEYBOARD SHORTCUTS
+   Status: ✅ Store with 20+ default shortcuts
+   Files: useKeyboardStore.ts, featureUtils.ts
+   
+   Features:
+   - Register/unregister shortcuts
+   - 20+ pre-configured shortcuts
+   - Enable/disable shortcuts
+   - Keyboard handler hook
+   
+   Default Shortcuts:
+   - File: Ctrl+O (Open), Ctrl+S (Save), Ctrl+Shift+S (Save As), Ctrl+P (Print)
+   - Edit: Ctrl+Z (Undo), Ctrl+Y (Redo), Ctrl+X (Cut), Ctrl+C (Copy), Ctrl+V (Paste)
+   - Navigate: Arrow keys (Page nav), Home/End (First/Last page)
+   - View: Ctrl++ (Zoom in), Ctrl+- (Zoom out), Ctrl+0 (Reset zoom)
+   - Tools: H (Hand), T (Text), N (Notes), Ctrl+H (Highlight)
+   - Search: Ctrl+F (Find), Ctrl+G (Find next)
+   - Theme: Ctrl+Shift+T (Toggle dark mode)
+   
+   Usage:
+   ```typescript
+   import { useKeyboardStore, useKeyboardHandler } from '@/stores/useKeyboardStore';
+   
+   // Register custom shortcut
+   useKeyboardStore.getState().registerShortcut({
+     key: 'b',
+     ctrl: true,
+     action: 'bold',
+     description: 'Toggle bold'
+   });
+   
+   // Use handler in component
+   const { handleKeyDown } = useKeyboardHandler();
+   
+   useEffect(() => {
+     window.addEventListener('keydown', handleKeyDown);
+     return () => window.removeEventListener('keydown', handleKeyDown);
+   }, []);
+   ```
+
+================================================================================
+FILE STRUCTURE
+================================================================================
+
+CREATED FILES:
+
+1. /frontend/src/stores/useHistoryStore.ts (83 lines)
+   - HistoryState interface
+   - useHistoryStore hook
+   - Methods: push, undo, redo, clear
+
+2. /frontend/src/stores/useCollaborationStore.ts (164 lines)
+   - Comment interface
+   - SharedDocument interface
+   - CollaborationState interface
+   - useCollaborationStore hook
+   - Methods for comments and sharing
+
+3. /frontend/src/stores/useThemeStore.ts (81 lines)
+   - ThemeMode type ('light' | 'dark' | 'auto')
+   - ThemeState interface
+   - useThemeStore hook with persistence
+   - System theme detection
+   - Methods: setTheme, toggleTheme, initializeTheme
+
+4. /frontend/src/stores/useKeyboardStore.ts (165 lines)
+   - KeyboardShortcut interface
+   - KeyboardState interface
+   - useKeyboardStore hook
+   - useKeyboardHandler hook
+   - 20+ default shortcuts
+   - Methods: registerShortcut, unregisterShortcut, getShortcut, getAllShortcuts
+
+5. /frontend/src/utils/featureUtils.ts (226 lines)
+   - historyUtils - Undo/Redo utilities
+   - collaborationUtils - Comment/sharing utilities
+   - themeUtils - Theme management utilities
+   - keyboardUtils - Keyboard shortcut utilities
+
+================================================================================
+INTEGRATION GUIDE
+================================================================================
+
+TO USE UNDO/REDO:
+
+1. Add to RibbonBar component:
+   ```typescript
+   import { useHistoryStore } from '@/stores/useHistoryStore';
+   
+   export function UndoRedoButtons() {
+     const { canUndo, canRedo, undo, redo } = useHistoryStore();
+     
+     return (
+       <>
+         <button onClick={undo} disabled={!canUndo}>Undo</button>
+         <button onClick={redo} disabled={!canRedo}>Redo</button>
+       </>
+     );
+   }
+   ```
+
+2. Track document changes:
+   ```typescript
+   // Whenever PDF is modified, push state
+   useHistoryStore.getState().push(documentState);
+   ```
+
+TO USE COLLABORATION:
+
+1. Add comments section:
+   ```typescript
+   import { useCollaborationStore } from '@/stores/useCollaborationStore';
+   
+   export function CommentsSection() {
+     const { comments, addComment } = useCollaborationStore();
+     
+     return (
+       <div>
+         {comments.map(comment => (
+           <div key={comment.id}>{comment.content}</div>
+         ))}
+       </div>
+     );
+   }
+   ```
+
+2. Add sharing options in FileMenu:
+   ```typescript
+   const { shareDocument } = useCollaborationStore();
+   
+   const handleShare = () => {
+     shareDocument({
+       name: currentDoc.name,
+       ownerId: userId,
+       sharedWith: selectedUsers,
+       permissions: 'comment'
+     });
+   };
+   ```
+
+TO IMPLEMENT DARK MODE:
+
+1. Initialize in main app component:
+   ```typescript
+   useEffect(() => {
+     useThemeStore.getState().initializeTheme();
+   }, []);
+   ```
+
+2. Apply styles in globals.css:
+   ```css
+   :root {
+     --bg: white;
+     --text: black;
+   }
+   
+   :root.dark {
+     --bg: #1a1a1a;
+     --text: white;
+   }
+   
+   body {
+     background: var(--bg);
+     color: var(--text);
+   }
+   ```
+
+3. Add theme toggle button:
+   ```typescript
+   import { useThemeStore } from '@/stores/useThemeStore';
+   
+   export function ThemeToggle() {
+     const { isDarkMode, toggleTheme } = useThemeStore();
+     
+     return (
+       <button onClick={toggleTheme}>
+         {isDarkMode ? '☀️' : '🌙'}
+       </button>
+     );
+   }
+   ```
+
+TO ENABLE KEYBOARD SHORTCUTS:
+
+1. Add to main app component:
+   ```typescript
+   import { useKeyboardHandler } from '@/stores/useKeyboardStore';
+   
+   useEffect(() => {
+     const { handleKeyDown } = useKeyboardHandler();
+     window.addEventListener('keydown', handleKeyDown);
+     
+     return () => window.removeEventListener('keydown', handleKeyDown);
+   }, []);
+   ```
+
+2. Listen for shortcut actions:
+   ```typescript
+   useEffect(() => {
+     const handleShortcut = (e: Event) => {
+       const { action } = (e as CustomEvent).detail;
+       
+       switch (action) {
+         case 'undo':
+           useHistoryStore.getState().undo();
+           break;
+         case 'redo':
+           useHistoryStore.getState().redo();
+           break;
+         // ... handle other actions
+       }
+     };
+     
+     window.addEventListener('keyboard-shortcut', handleShortcut);
+     return () => window.removeEventListener('keyboard-shortcut', handleShortcut);
+   }, []);
+   ```
+
+================================================================================
+BACKEND REQUIREMENTS
+================================================================================
+
+For full feature implementation, the following backend endpoints are needed:
+
+UNDO/REDO:
+- No backend needed (client-side only)
+
+COLLABORATION - Comments:
+- POST /api/comments - Create comment
+- PUT /api/comments/:id - Update comment
+- DELETE /api/comments/:id - Delete comment
+- GET /api/documents/:docId/comments - Get all comments
+- WebSocket for real-time sync
+
+COLLABORATION - Sharing:
+- POST /api/documents/:id/share - Share document
+- DELETE /api/documents/:id/share/:userId - Unshare
+- PUT /api/documents/:id/permissions - Update permissions
+- GET /api/documents/:id/shared - Get sharing info
+- WebSocket for real-time updates
+
+DARK MODE:
+- No backend needed (localStorage persistence)
+
+KEYBOARD SHORTCUTS:
+- No backend needed (client-side only)
+
+================================================================================
+PERFORMANCE NOTES
+================================================================================
+
+UNDO/REDO:
+- Memory usage: Depends on state size
+- Recommended: Limit history stack to 50 states
+- Consider: Compress old history states
+
+COLLABORATION:
+- Network: Real-time sync via WebSocket
+- Storage: Cloud storage (Firebase, S3, etc.)
+- Sync interval: 2-5 seconds for batch updates
+
+DARK MODE:
+- CSS: Use CSS custom properties for themeing
+- Storage: localStorage (1-2 KB)
+- Performance: No rendering overhead
+
+KEYBOARD SHORTCUTS:
+- Memory: Minimal (Map data structure)
+- Performance: O(1) lookup time
+- Max shortcuts: 100+ supported
+
+================================================================================
+TESTING CHECKLIST
+================================================================================
+
+UNDO/REDO:
+- [ ] Push state to history
+- [ ] Undo last action
+- [ ] Redo undone action
+- [ ] Multiple undo/redo operations
+- [ ] Clear history
+- [ ] canUndo/canRedo flags accurate
+
+COLLABORATION:
+- [ ] Add comment
+- [ ] Update comment
+- [ ] Delete comment
+- [ ] Resolve comment
+- [ ] Share document
+- [ ] Update permissions
+- [ ] Retrieve shared documents
+
+DARK MODE:
+- [ ] Toggle light/dark mode
+- [ ] Persist theme preference
+- [ ] System theme detection
+- [ ] System theme changes respected
+- [ ] CSS applies correctly in dark mode
+
+KEYBOARD SHORTCUTS:
+- [ ] Default shortcuts work
+- [ ] Register new shortcut
+- [ ] Unregister shortcut
+- [ ] Enable/disable shortcuts
+- [ ] Shortcut actions dispatched
+- [ ] No conflicts with browser shortcuts
+
+================================================================================
+DEPLOYMENT NOTES
+================================================================================
+
+✅ Zero breaking changes
+✅ Backward compatible with existing code
+✅ Features are opt-in (not enabled by default)
+✅ No external dependencies added
+
+DEPLOYMENT CHECKLIST:
+- [ ] Build frontend with new stores
+- [ ] Test keyboard shortcuts in development
+- [ ] Verify theme persistence works
+- [ ] Test collaboration features with mock data
+- [ ] No console errors
+- [ ] Performance acceptable
+
+================================================================================
+ROADMAP - NEXT STEPS
+================================================================================
+
+Phase 1: Enable Features (Next Release)
+1. Integrate undo/redo with actual editing operations
+2. Add UI for undo/redo buttons in ribbon
+3. Add keyboard shortcut listener to main app
+4. Create dark mode toggle button
+5. Update CSS with dark mode variables
+
+Phase 2: Cloud Integration (Future Release)
+1. Set up Firebase/cloud storage
+2. Implement comment sync API
+3. Implement document sharing API
+4. Add real-time WebSocket support
+5. Create sharing UI in FileMenu
+
+Phase 3: User Features (Future Release)
+1. User authentication for sharing
+2. Activity feed for collaboration
+3. Comment notifications
+4. Keyboard shortcut customization UI
+5. Theme scheduler (auto switch day/night)
+
+================================================================================
+CODE EXAMPLES
+================================================================================
+
+EXAMPLE 1: Track PDF edits with history
+
+```typescript
+const { annotations, updateAnnotation } = useAnnotationsStore();
+const { push } = useHistoryStore();
+
+const handleAddHighlight = (highlight) => {
+  // Push current state before making changes
+  push(annotations);
+  
+  // Make changes
+  updateAnnotation(highlight);
+};
+```
+
+EXAMPLE 2: Comment on a page
+
+```typescript
+const { addComment } = useCollaborationStore();
+
+const handleAddComment = (pageNumber, position, text) => {
+  addComment({
+    userId: currentUser.id,
+    userName: currentUser.name,
+    content: text,
+    pageNumber,
+    position,
+    resolved: false
+  });
+};
+```
+
+EXAMPLE 3: Theme switching
+
+```typescript
+const { setTheme, mode } = useThemeStore();
+
+const themes = ['light', 'dark', 'auto'];
+const handleCycleTheme = () => {
+  const index = themes.indexOf(mode);
+  const nextTheme = themes[(index + 1) % themes.length];
+  setTheme(nextTheme);
+};
+```
+
+EXAMPLE 4: Keyboard navigation
+
+```typescript
+const { registerShortcut, getAllShortcuts } = useKeyboardStore();
+
+// Register custom shortcut
+registerShortcut('d', 'download', 'Download PDF', true);
+
+// Display shortcuts help
+const showShortcutsHelp = () => {
+  const shortcuts = getAllShortcuts();
+  console.table(shortcuts);
+};
+```
+
+================================================================================
+STATUS SUMMARY
+================================================================================
+
+✅ UNDO/REDO: Store, utilities, and hooks ready
+✅ COLLABORATION: Store for comments and sharing ready
+✅ DARK MODE: Full theme store with persistence ready
+✅ KEYBOARD SHORTCUTS: 20+ shortcuts pre-configured
+✅ DOCUMENTATION: Complete implementation guide
+
+STATUS: READY FOR DEVELOPMENT
+Next: Integrate stores into UI components
+
+================================================================================
