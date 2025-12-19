@@ -20,40 +20,38 @@
    ================================================================ */
 
 @media (max-width: 767px) {
-  /* RIBBON BAR - COLLAPSE AND STACK */
-  .ribbon-container {
-    flex-direction: column;
+  /* RIBBON BAR - COLLAPSE AND GRID LAYOUT */
+  .ribbon-container,
+  [class*="RibbonBar"],
+  .ribbon-bar {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
     padding: 8px 4px;
-    gap: 8px;
-  }
-
-  /* FILE BUTTON - REPOSITION */
-  .file-button {
-    position: relative;
-    left: auto;
-    top: auto;
     width: 100%;
-    text-align: center;
-    padding: 10px 8px;
-    font-size: 13px;
+    flex-direction: row;
   }
 
-  /* TOP ROW - FULL WIDTH STACKING */
-  .ribbon-top-row {
-    width: 100%;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 0;
-  }
-
-  /* ICON BAR - HORIZONTAL SCROLL */
+  /* ICON BAR - GRID */
   .icon-bar {
     width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 6px 0;
-    gap: 8px;
-    font-size: 18px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    overflow-x: visible;
+    overflow-y: visible;
+    padding: 6px 4px;
+    gap: 6px;
+    font-size: 16px;
+  }
+
+  .icon-bar > button,
+  .icon-bar > div {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   /* TABS - HORIZONTAL SCROLL */
@@ -120,26 +118,39 @@
   }
 
   /* SIDEBAR - HIDE ON MOBILE, SHOW IN DRAWER */
-  .w-64 {
-    display: none;
+  .w-64,
+  [class*="Sidebar"],
+  .sidebar {
+    display: none !important;
   }
 
   /* CANVAS AREA - FULL WIDTH */
-  .flex-1.bg-white.overflow-hidden.flex.flex-col {
-    width: 100%;
+  .flex-1.bg-white.overflow-hidden.flex.flex-col,
+  [class*="Canvas"],
+  .canvas-container {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
   /* AD SIDEBAR - HIDE ON MOBILE */
   [class*="ad-sidebar"],
-  [class*="AdSidebar"] {
-    display: none;
+  [class*="AdSidebar"],
+  [class*="ad"],
+  .ad-sidebar,
+  .ad-container,
+  aside[class*="ad"] {
+    display: none !important;
   }
 
   /* AD BOTTOM BAR - MINIMAL HEIGHT */
   [class*="ad-bottom"],
-  [class*="AdBottomBar"] {
-    max-height: 60px;
-    min-height: 0;
+  [class*="AdBottomBar"],
+  .ad-bottom {
+    display: none !important;
+    max-height: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   /* UTILITY BAR - MOBILE OPTIMIZED */
