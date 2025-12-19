@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename);
 const pythonDir = process.env.PYTHON_DIR || 
   (process.env.NODE_ENV === 'production'
     ? path.join("/app", "python")
-    : path.resolve(__dirname, "..", "..", "backend", "python"));
+    : path.join(process.cwd(), "python"));
 
 // Use system temp directory for file operations (works on all platforms)
 // This ensures files can be written and read reliably on Render and other containers
@@ -115,10 +115,11 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     const uniqueBaseName = `${baseName}_${timestamp}`;
     const outputPath = path.join(uploadDir, `${uniqueBaseName}_converted${extensions[format]}`);
 
-    const pythonConvertScript = path.join(pythonDir, "py_word_excel_html_ppt.py");
+    const pythonConvertScript = path.join(pythonDir, "simple_pdf_converter.py");
+    const pythonExcelScript = path.join(pythonDir, "py_word_excel_html_ppt.py");
     const pythonTextScript = path.join(pythonDir, "pdf_to_text.py");
 
-    const scriptToRun = format === "text" ? pythonTextScript : pythonConvertScript;
+    const scriptToRun = format === "text" ? pythonTextScript : (format === "excel" ? pythonExcelScript : pythonConvertScript);
 
     const pythonArgs =
       format === "text"

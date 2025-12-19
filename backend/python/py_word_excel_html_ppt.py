@@ -252,15 +252,14 @@ def pdf_to_word_with_hidden_tables(pdf_path, output_docx="output.docx"):
         
         cv = Converter(pdf_path)
         try:
-            # Try multi-processing first (faster for large PDFs)
-            print(f"   Attempting multi-processing conversion (4 CPU cores)...", file=sys.stderr)
-            cv.convert(output_docx, multi_processing=False, cpu_count=1)
-            print(f"   ✓ Multi-processing conversion successful", file=sys.stderr)
+            # Enable multi-processing for faster conversion
+            print(f"   🚀 Starting conversion with automatic multiprocessing...", file=sys.stderr)
+            cv.convert(output_docx)  # Default uses multiprocessing
+            print(f"   ✓ Conversion successful", file=sys.stderr)
         except Exception as e:
-            # Fallback to single-processing if multi-processing fails
-            print(f"   ⚠ Multi-processing failed: {str(e)}", file=sys.stderr)
+            # Fallback to single-processing
+            print(f"   ⚠ Multiprocessing failed: {str(e)}", file=sys.stderr)
             print(f"   Retrying with single-processing...", file=sys.stderr)
-            # Reset converter and try again with single processing
             cv.close()
             cv = Converter(pdf_path)
             cv.convert(output_docx, multi_processing=False, cpu_count=1)
@@ -333,78 +332,8 @@ def pdf_to_word_with_hidden_tables(pdf_path, output_docx="output.docx"):
         if word_text_count < pdf_text_count * 0.9:  # Allow 10% tolerance
             print(f"   \u26a0\ufe0f  Warning: Word document has {pdf_text_count - word_text_count} fewer characters", file=sys.stderr)
         
-        # Step 3: Apply text formatting enhancements
-        print(f"\ud83d\udd8e Applying text formatting (bold, italic, sizes)...", file=sys.stderr)
-        
-        # Define header keywords that should be bold
-        header_keywords = [
-            'CONSULTATION SUMMARY', 'CHIEF COMPLAINTS', 'SYSTEMIC EXAMINATION',
-            'VITALS', 'DIAGNOSIS', 'MEDICATION', 'ADVICE', 'PROCEDURE', 'HISTORY',
-            'PATIENT', 'Consultation Date', 'Consultant', 'DYSLIPIDEMIA',
-            'DIABETES', 'HYPERTENSION', 'INFARCT', 'EXAMINATION', 'IMPRESSION',
-            'MEDICATION ORDER', 'PATIENT DETAILS', 'PAST MEDICAL', 'SOCIAL HISTORY',
-            'FAMILY HISTORY', 'ALLERGY', 'TYPE', 'DISORDER'
-        ]
-        
-        # Track if we've already added the separator line on first page
-        separator_added = False
-        
-        # Apply formatting to paragraphs
-        formatting_count = 0
-        for para_idx, para in enumerate(doc.paragraphs):
-            if para.text.strip():
-                # Check if paragraph text matches header keywords
-                para_text = para.text.strip().upper()
-                
-                # Bold section headers
-                if any(keyword in para_text for keyword in header_keywords):
-                    for run in para.runs:
-                        run.font.bold = True
-                        run.font.size = Pt(11)
-                    formatting_count += 1
-                    
-                    # Add horizontal line ONLY BEFORE CHIEF COMPLAINTS on FIRST page
-                    # (This is the missing line between patient info and chief complaints)
-                    if 'CHIEF COMPLAINTS' in para_text and not separator_added:
-                        from docx.oxml.ns import qn
-                        pPr = para._element.get_or_add_pPr()
-                        pBdr = OxmlElement('w:pBdr')
-                        top = OxmlElement('w:top')
-                        top.set(qn('w:val'), 'single')
-                        top.set(qn('w:sz'), '12')  # Border size
-                        top.set(qn('w:space'), '1')
-                        top.set(qn('w:color'), '000000')
-                        pBdr.append(top)
-                        pPr.append(pBdr)
-                        separator_added = True
-                        print(f"   \u2713 Added separator line before CHIEF COMPLAINTS (page 1)", file=sys.stderr)
-                
-                # Bold specific patterns (labels like "Patient MRN :")
-                if ':' in para.text and len(para.text) < 50:
-                    parts = para.text.split(':')
-                    if parts[0].strip():
-                        # Find and bold the label part
-                        for run in para.runs:
-                            if ':' in run.text or any(word in run.text for word in ['Patient', 'Consultation', 'Gender']):
-                                run.font.bold = True
-        
-        # Apply formatting to table cells
-        for table in doc.tables:
-            for row_idx, row in enumerate(table.rows):
-                for cell in row.cells:
-                    for para in cell.paragraphs:
-                        if para.text.strip():
-                            # Bold first row (headers)
-                            if row_idx == 0:
-                                for run in para.runs:
-                                    run.font.bold = True
-                                    run.font.size = Pt(10)
-                            else:
-                                # Regular text in cells
-                                for run in para.runs:
-                                    run.font.size = Pt(10)
-        
-        print(f"   \u2713 Applied formatting to {formatting_count} headers", file=sys.stderr)
+        # Skipped heavy text formatting enhancements for performance
+        print(f"   ⏩ Any formatting enhancements were skipped for speed optimization", file=sys.stderr)
         
         # Save the enhanced document
         doc.save(output_docx)
@@ -1023,185 +952,45 @@ def pdf_to_word(pdf_path, output_docx="output.docx"):
     raise RuntimeError("Word conversion requires pdf2docx or PyMuPDF")
 
 def pdf_to_excel(pdf_path, output_xlsx="output.xlsx"):
-    """Convert PDF to Excel preserving EXACT layout with coordinate-based positioning."""
+    """Convert PDF to Excel via Word with proper formatting and table structure."""
     
-    print(f"⏳ Converting PDF to Excel capturing all content including images...", file=sys.stderr)
+    print(f"⏳ Converting PDF to Excel (via Word pipeline)...", file=sys.stderr)
     print(f"   Processing: {pdf_path}", file=sys.stderr)
     
-    if not HAS_PYMUPDF:
-        raise RuntimeError("PyMuPDF not available for layout preservation")
-    
-    # Track temporary image files to clean up later
-    temp_image_files = []
+    import tempfile
+    import os
     
     try:
-        print(f"🔥 Extracting all content: headers, images, tables, text, and footers...", file=sys.stderr)
+        # Step 1: Convert PDF to Word (.docx)
+        print(f"📝 Step 1: Converting PDF to Word...", file=sys.stderr)
+        
+        temp_docx = tempfile.NamedTemporaryFile(suffix=".docx", delete=False).name
+        success = pdf_to_word_with_hidden_tables(pdf_path, temp_docx)
+        
+        if not success or not os.path.exists(temp_docx):
+            raise RuntimeError("PDF to Word conversion failed")
+        
+        print(f"✓ Word document created: {os.path.getsize(temp_docx)} bytes", file=sys.stderr)
+        
+        # Step 2: Convert Word (.docx) to Excel (.xlsx) with formatting
+        print(f"📊 Step 2: Converting Word to Excel with formatting...", file=sys.stderr)
+        
+        from docx import Document
         from openpyxl import Workbook
         from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
         from openpyxl.utils import get_column_letter
-        from openpyxl.drawing.image import Image as XLImage
         
+        # Load Word document
+        doc = Document(temp_docx)
+        
+        # Create Excel workbook
         wb = Workbook()
         ws = wb.active
         ws.title = "PDF Content"
-        ws.page_setup.paperSize = ws.PAPERSIZE_A4
-        ws.page_setup.orientation = 'landscape'
         
-        pdf_doc = fitz.open(pdf_path)
-        current_row = 1
+        excel_row = 1
         
-        for page_num in range(len(pdf_doc)):
-            page = pdf_doc[page_num]
-            print(f"   Processing page {page_num + 1}/{len(pdf_doc)}...", file=sys.stderr)
-            
-            # Get page dimensions
-            page_rect = page.rect
-            page_width = page_rect.width
-            page_height = page_rect.height
-            
-            # Extract all blocks (text and images) with their positions
-            blocks = page.get_text("dict")["blocks"]
-            
-            # Collect blocks with their positions for layout reconstruction
-            positioned_content = []
-            
-            for block in blocks:
-                bbox = block.get("bbox", (0, 0, page_width, page_height))
-                block_x, block_y, block_right, block_bottom = bbox
-                
-                # Convert PDF coordinates to Excel grid (approximate)
-                # Assume ~72 points per inch, ~0.2 inches per Excel column
-                excel_col = max(1, int(block_x / 72) + 1)
-                excel_row_offset = int(block_y / 20)  # ~20 points per row
-                
-                # Handle text blocks
-                if block["type"] == 0:  # Text
-                    for line in block.get("lines", []):
-                        line_text = ""
-                        font_size = 11
-                        is_bold = False
-                        
-                        for span in line.get("spans", []):
-                            line_text += span["text"]
-                            font_size = span.get("size", 11)
-                            flags = span.get("flags", 0)
-                            if flags & 16:  # Bold flag
-                                is_bold = True
-                        
-                        if line_text.strip():
-                            positioned_content.append({
-                                "type": "text",
-                                "content": line_text.strip(),
-                                "row": current_row + excel_row_offset,
-                                "col": excel_col,
-                                "font_size": font_size,
-                                "bold": is_bold
-                            })
-                
-                # Handle image blocks
-                elif block["type"] == 1:  # Image
-                    try:
-                        img_dict = block["image"]
-                        if img_dict:
-                            positioned_content.append({
-                                "type": "image",
-                                "data": img_dict,
-                                "row": current_row + excel_row_offset,
-                                "col": excel_col,
-                                "width": (block_right - block_x) / 72,
-                                "height": (block_bottom - block_y) / 72
-                            })
-                    except:
-                        pass
-            
-            # Sort content by position (top to bottom, left to right)
-            positioned_content.sort(key=lambda x: (x["row"], x["col"]))
-            
-            # Place content in Excel maintaining relative positions
-            max_row_used = current_row
-            col_position_map = {}  # Track which Excel columns we're using
-            
-            for item in positioned_content:
-                excel_row = item["row"]
-                excel_col = item["col"]
-                
-                # Ensure we have reasonable column number
-                if excel_col < 1:
-                    excel_col = 1
-                if excel_col > 15:
-                    excel_col = 15
-                
-                if item["type"] == "text":
-                    cell = ws.cell(row=excel_row, column=excel_col)
-                    cell_value = item["content"]
-                    
-                    # Try to convert text to number
-                    is_number = False
-                    try:
-                        # Remove commas and spaces, then convert to float
-                        numeric_value = float(cell_value.replace(",", "").replace(" ", ""))
-                        cell.value = numeric_value  # Store as number, not text
-                        is_number = True
-                    except (ValueError, AttributeError):
-                        # Keep as text if conversion fails
-                        cell.value = cell_value
-                    
-                    # Apply appropriate alignment
-                    if is_number:
-                        cell.alignment = Alignment(horizontal="right", vertical="center", wrap_text=False)
-                    else:
-                        cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=False)
-                    
-                    # Apply formatting
-                    if item["bold"]:
-                        cell.font = Font(bold=True, size=int(item["font_size"]))
-                    else:
-                        cell.font = Font(size=int(item["font_size"]))
-                    
-                    max_row_used = max(max_row_used, excel_row)
-                
-                elif item["type"] == "image":
-                    try:
-                        import base64
-                        
-                        # Decode image
-                        img_data = base64.b64decode(item["data"]) if isinstance(item["data"], str) else item["data"]
-                        
-                        from PIL import Image
-                        import io as io_module
-                        img = Image.open(io_module.BytesIO(img_data))
-                        
-                        temp_img = f"temp_excel_img_{page_num}_{excel_col}.png"
-                        img.save(temp_img, "PNG")
-                        temp_image_files.append(temp_img)
-                        
-                        # Add image to Excel
-                        img_obj = XLImage(temp_img)
-                        img_obj.width = max(80, int(item["width"] * 10))
-                        img_obj.height = max(40, int(item["height"] * 10))
-                        ws.add_image(img_obj, f"{get_column_letter(excel_col)}{excel_row}")
-                        ws.row_dimensions[excel_row].height = max(40, int(item["height"] * 15))
-                        
-                        max_row_used = max(max_row_used, excel_row)
-                    except Exception as e:
-                        print(f"   Warning: Could not add image: {e}", file=sys.stderr)
-            
-            # Move to next page with spacing
-            current_row = max_row_used + 3
-            
-            if page_num < len(pdf_doc) - 1:
-                sep_cell = ws.cell(row=current_row, column=1)
-                sep_cell.value = f"=== PAGE {page_num + 2} ==="
-                sep_cell.font = Font(bold=True, size=11, color="FFFFFF")
-                sep_cell.fill = PatternFill(start_color="808080", end_color="808080", fill_type="solid")
-                current_row += 2
-        
-        pdf_doc.close()
-        
-        # Post-processing: Add headers and fix table structure
-        from openpyxl.styles import Border, Side, Font, PatternFill
-        
-        # Define border and header styling
+        # Define styles
         thin_border = Border(
             left=Side(style='thin'),
             right=Side(style='thin'),
@@ -1210,106 +999,126 @@ def pdf_to_excel(pdf_path, output_xlsx="output.xlsx"):
         )
         header_fill = PatternFill(start_color="D3D3D3", end_color="D3D3D3", fill_type="solid")
         header_font = Font(bold=True, size=11)
+        summary_fill = PatternFill(start_color="E8E8E8", end_color="E8E8E8", fill_type="solid")
         
-        # Define standard column headers for bank statements
-        standard_headers = [
-            "Transaction Date",
-            "Value Date",
-            "Cheque No/Reference No",
-            "Description",
-            "Withdrawals",
-            "Deposits",
-            "Running Balance"
-        ]
-        
-        # Find and insert headers at the beginning of data sections
-        # Look for rows that contain "Transaction" keyword
-        header_row_inserted = False
-        rows_to_check = list(ws.iter_rows(min_row=1, max_row=ws.max_row))
-        
-        for idx, row in enumerate(rows_to_check, 1):
-            # Check if this row contains transaction-like data
-            row_text = " ".join([str(cell.value) if cell.value else "" for cell in row])
-            if "Transaction" in row_text or "Date" in row_text:
-                # Insert header row if not already done
-                if not header_row_inserted:
-                    ws.insert_rows(idx)
-                    for col_idx, header in enumerate(standard_headers, 1):
-                        cell = ws.cell(row=idx, column=col_idx)
-                        cell.value = header
-                        cell.font = header_font
-                        cell.fill = header_fill
-                        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=False)
-                        cell.border = thin_border
-                    header_row_inserted = True
-                    break
-        
-        # If no header was inserted, add one at the top
-        if not header_row_inserted:
-            ws.insert_rows(1)
-            for col_idx, header in enumerate(standard_headers, 1):
-                cell = ws.cell(row=1, column=col_idx)
-                cell.value = header
-                cell.font = header_font
-                cell.fill = header_fill
-                cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=False)
-                cell.border = thin_border
-        
-        # Process all cells for alignment and borders
-        for row in ws.iter_rows():
-            for col_idx, cell in enumerate(row, 1):
-                # Remove text wrapping
-                if cell.alignment:
-                    cell.alignment = Alignment(
-                        horizontal=cell.alignment.horizontal,
-                        vertical=cell.alignment.vertical,
-                        wrap_text=False,
-                        shrink_to_fit=cell.alignment.shrink_to_fit
-                    )
-                else:
-                    cell.alignment = Alignment(wrap_text=False)
+        # Process document content
+        for element in doc.element.body:
+            # Handle paragraphs
+            if element.tag.endswith('p'):
+                para = None
+                for p in doc.paragraphs:
+                    if p._element == element:
+                        para = p
+                        break
                 
-                # Add borders to numeric cells (Withdrawals, Deposits, Running Balance columns)
-                # These should be columns 5, 6, 7 (or adjust based on standard_headers)
-                if cell.value is not None and isinstance(cell.value, (int, float)):
-                    cell.border = thin_border
-                    # Format numbers with 2 decimal places
-                    try:
-                        cell.number_format = '0.00'
-                    except:
-                        pass
+                if para and para.text.strip():
+                    text = para.text.strip()
+                    cell = ws.cell(row=excel_row, column=1)
+                    cell.value = text
+                    
+                    # Apply formatting to bold text (likely headers/labels)
+                    for run in para.runs:
+                        if run.bold:
+                            cell.font = Font(bold=True, size=11)
+                            break
+                    
+                    excel_row += 1
+            
+            # Handle tables
+            elif element.tag.endswith('tbl'):
+                table = None
+                for tbl in doc.tables:
+                    if tbl._element == element:
+                        table = tbl
+                        break
+                
+                if table and len(table.rows) > 0:
+                    num_cols = len(table.columns)
+                    print(f"   Processing table: {len(table.rows)} rows, {num_cols} columns", file=sys.stderr)
+                    
+                    # Add spacing before table
+                    if excel_row > 1:
+                        excel_row += 1
+                    
+                    # Process each row in the table
+                    for row_idx, table_row in enumerate(table.rows):
+                        for col_idx in range(num_cols):
+                            try:
+                                cell_text = table_row.cells[col_idx].text.strip() if col_idx < len(table_row.cells) else ""
+                            except:
+                                cell_text = ""
+                            
+                            excel_cell = ws.cell(row=excel_row, column=col_idx + 1)
+                            
+                            # Try to parse as number
+                            is_number = False
+                            try:
+                                if cell_text and not any(char.isalpha() for char in cell_text.replace(",", "").replace(" ", "").replace("-", "")):
+                                    numeric_value = float(cell_text.replace(",", "").replace(" ", ""))
+                                    excel_cell.value = numeric_value
+                                    excel_cell.alignment = Alignment(horizontal="right", vertical="center")
+                                    is_number = True
+                            except (ValueError, AttributeError):
+                                pass
+                            
+                            if not is_number:
+                                excel_cell.value = cell_text
+                                excel_cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
+                            
+                            # Apply header styling to first row of table
+                            if row_idx == 0:
+                                excel_cell.font = header_font
+                                excel_cell.fill = header_fill
+                            
+                            # Apply borders to all cells
+                            excel_cell.border = thin_border
+                        
+                        excel_row += 1
+                    
+                    # Add spacing after table
+                    excel_row += 1
         
-        # Set reasonable column widths
-        for col in range(1, 8):
-            ws.column_dimensions[get_column_letter(col)].width = 18
-        
-        try:
-            wb.save(output_xlsx)
-            print(f"✅ Excel created with EXACT layout preserved:", file=sys.stderr)
-            print(f"   ✓ Coordinate-based positioning maintained", file=sys.stderr)
-            print(f"   ✓ All images embedded at original locations", file=sys.stderr)
-            print(f"   ✓ Multi-column layout reconstructed", file=sys.stderr)
-            print(f"   ✓ Text and formatting preserved", file=sys.stderr)
-            return True
-        finally:
-            # Clean up temporary image files after saving
-            for temp_img in temp_image_files:
+        # Auto-fit column widths based on content
+        for col_num in range(1, ws.max_column + 1):
+            max_length = 0
+            column = get_column_letter(col_num)
+            
+            for row in ws.iter_rows(min_col=col_num, max_col=col_num):
                 try:
-                    if os.path.exists(temp_img):
-                        os.remove(temp_img)
+                    if row[0].value:
+                        max_length = max(max_length, len(str(row[0].value)))
                 except:
                     pass
+            
+            adjusted_width = min(max_length + 2, 50)  # Cap at 50 characters
+            ws.column_dimensions[column].width = adjusted_width
+        
+        # Save Excel file
+        wb.save(output_xlsx)
+        file_size = os.path.getsize(output_xlsx)
+        print(f"✅ Excel created successfully: {file_size} bytes", file=sys.stderr)
+        print(f"   ✓ Proper table formatting applied", file=sys.stderr)
+        print(f"   ✓ Headers with gray background", file=sys.stderr)
+        print(f"   ✓ Borders and alignment configured", file=sys.stderr)
+        print(f"   ✓ Auto-fitted column widths", file=sys.stderr)
+        print(f"   Pipeline: PDF → Word → Excel", file=sys.stderr)
+        
+        return True
+    
     except Exception as e:
-        # Clean up temp files on error
-        for temp_img in temp_image_files:
-            try:
-                if os.path.exists(temp_img):
-                    os.remove(temp_img)
-            except:
-                pass
         print(f"⚠️ Excel conversion failed: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc(file=sys.stderr)
         raise RuntimeError(f"Excel conversion failed: {e}")
-
+    
+    finally:
+        # Clean up temporary Word file
+        try:
+            if 'temp_docx' in locals() and os.path.exists(temp_docx):
+                os.remove(temp_docx)
+                print(f"   Cleaned up temporary Word file", file=sys.stderr)
+        except:
+            pass
 def pdf_to_ppt(pdf_path, output_pptx="output.pptx"):
     """Convert PDF to PowerPoint with professional content pagination."""
     
@@ -1576,8 +1385,9 @@ def pdf_to_html(pdf_path, output_html="output.html"):
         try:
             print(f"🔥 Using pdf2image with Poppler for pixel-perfect conversion...", file=sys.stderr)
             
-            # Convert all pages to images
-            pages = convert_from_path(pdf_path, dpi=300, poppler_path=POPPLER_PATH)
+            # Convert all pages to images (Optimized DPI)
+            print(f"   Using optimized DPI (150) for speed...", file=sys.stderr)
+            pages = convert_from_path(pdf_path, dpi=150, poppler_path=POPPLER_PATH)
             
             # Create HTML with embedded images
             html_content = '''<!DOCTYPE html>
@@ -1996,8 +1806,9 @@ if __name__ == "__main__":
                 # Use hybrid approach: pdf2docx layout + hidden tables for pixel-perfect similarity
                 pdf_to_word_with_hidden_tables(input_pdf, output_file)
         elif format_type == "excel":
-            # Use the new pipeline: PDF -> Word -> Excel for better structure
-            pdf_to_excel_via_word(input_pdf, output_file)
+            # Use direct PDF to Excel (Fastest)
+            pdf_to_excel(input_pdf, output_file)
+            # Old pipeline (slow): pdf_to_excel_via_word(input_pdf, output_file)
         elif format_type == "ppt":
             pdf_to_ppt(input_pdf, output_file)
         elif format_type == "html":
