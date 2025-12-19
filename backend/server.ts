@@ -76,9 +76,15 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     // Ensure output directory exists
     await fs.mkdir(uploadDir, { recursive: true });
 
-    const baseName = req.file.originalname.endsWith('.pdf') 
-      ? req.file.originalname.slice(0, -4)
-      : path.parse(req.file.originalname).name;
+    // Sanitize filename - remove 'undefined' and clean up
+    let cleanFilename = req.file.originalname.replace(/undefined/g, '').replace(/\.{2,}/g, '.');
+    if (cleanFilename.startsWith('.')) cleanFilename = cleanFilename.substring(1);
+    if (cleanFilename.endsWith('.')) cleanFilename = cleanFilename.substring(0, cleanFilename.length - 1);
+    if (!cleanFilename || cleanFilename === 'pdf') cleanFilename = 'document.pdf';
+    
+    const baseName = cleanFilename.endsWith('.pdf') 
+      ? cleanFilename.slice(0, -4)
+      : path.parse(cleanFilename).name;
     
     console.log(`[File upload] Original filename: ${req.file.originalname}`);
     console.log(`[File upload] Actual saved path: ${inputPath}`);
