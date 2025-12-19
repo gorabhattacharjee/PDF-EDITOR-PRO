@@ -153,20 +153,9 @@ app.post("/api/convert", upload.single("file"), async (req, res) => {
     let stdout = "";
     let timedOut = false;
     
-    // Don't set timeout for Word conversions - they can take as long as needed
+    // No timeout limits - conversions can take as long as needed
+    // This allows complex PDFs and large files to convert properly
     let timeout: NodeJS.Timeout | undefined = undefined;
-    if (format !== 'word') {
-      timeout = setTimeout(() => {
-        timedOut = true;
-        console.error(`[Conversion timeout] ${format} conversion exceeded 120 seconds`);
-        python.kill();
-        if (!res.headersSent) {
-          res.status(500).json({ error: "Conversion timeout", details: `${format} conversion took too long (>120s)` });
-        }
-      }, 120000);
-    } else {
-      console.log(`[Conversion] Word conversion started - no timeout limit`);
-    }
     
     // Collect stderr for error messages (text only)
     python.stderr?.on("data", (d) => {
