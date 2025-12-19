@@ -1,184 +1,184 @@
-Component/Feature,Element Type,Test Case ID,Test Description,Functional Testing Type,Performance Testing Type,Visibility/Knowledge Type,Expected Result,Actual Result,Status,Notes,Priority,Environment,Date
-WelcomeBox,Main UI,TC-WB-001,Display welcome message on app startup,Smoke Testing,N/A,Black Box Testing,"Welcome message visible, Open PDF button displayed",,,High,Production,2025-12-19
-WelcomeBox,Button,TC-WB-002,Click 'Open PDF' button to trigger file dialog,Sanity Testing,N/A,Black Box Testing,File dialog opens for PDF selection,,,High,Production,2025-12-19
-WelcomeBox,File Input,TC-WB-003,Select valid PDF file from system,Smoke Testing,N/A,Black Box Testing,PDF file selected and loaded into editor,,,High,Production,2025-12-19
-WelcomeBox,Error Handling,TC-WB-004,Attempt to select non-PDF file,Sanity Testing,N/A,Black Box Testing,Error message displayed: "Please select a valid PDF file",,,Medium,Production,2025-12-19
-WelcomeBox,Regression Test,TC-WB-005,Verify welcome box disappears after PDF load,Regression Testing,N/A,Black Box Testing,Welcome box hidden when PDF is active,,,Medium,Production,2025-12-19
-RibbonBar,Main Navigation,TC-RB-001,Verify ribbon bar displays on page load,Smoke Testing,N/A,Black Box Testing,Ribbon bar visible with all tabs,,,High,Production,2025-12-19
-RibbonBar,Tab System,TC-RB-002,Click each ribbon tab (Home/Edit/Insert/Convert/Tools/Pages),Sanity Testing,N/A,Black Box Testing,Tab switches without errors; correct content displayed,,,High,Production,2025-12-19
-RibbonBar - Home Tab,Button,TC-HT-001,Click 'Open' button in Home tab,Smoke Testing,N/A,Black Box Testing,File dialog opens for PDF selection,,,High,Production,2025-12-19
-RibbonBar - Home Tab,Button,TC-HT-002,Click 'Save' button in Home tab,Smoke Testing,N/A,Black Box Testing,PDF downloaded with current name,,,High,Production,2025-12-19
-RibbonBar - Home Tab,Button,TC-HT-003,Click 'Save As' button in Home tab,Sanity Testing,N/A,Black Box Testing,Dialog for filename input appears,,,Medium,Production,2025-12-19
-RibbonBar - Home Tab,Button,TC-HT-004,Click 'Hand Tool' (pan/scroll mode),Sanity Testing,N/A,Black Box Testing,Cursor changes to hand; page can be panned,,,Medium,Production,2025-12-19
-RibbonBar - Home Tab,Button,TC-HT-005,Click 'Pointer Tool' (selection mode),Sanity Testing,N/A,Black Box Testing,Cursor changes to pointer; text selection enabled,,,Medium,Production,2025-12-19
-RibbonBar - Home Tab,Button,TC-HT-006,Click 'Highlight Tool' button,Sanity Testing,N/A,Black Box Testing,Highlight mode enabled; color picker appears,,,Medium,Production,2025-12-19
-RibbonBar - Home Tab,Color Picker,TC-HT-007,Click highlight color button and select color,Sanity Testing,N/A,Black Box Testing,Color picker modal opens; color selection works,,,Medium,Production,2025-12-19
-RibbonBar - Home Tab,Button,TC-HT-008,Click 'Freehand Drawing' tool,Sanity Testing,N/A,Black Box Testing,Drawing mode activated; canvas ready for drawing,,,Medium,Production,2025-12-19
-RibbonBar - Home Tab,Button,TC-HT-009,Click 'Edit Text' tool,Sanity Testing,N/A,Black Box Testing,Text editing mode activated,,,Medium,Production,2025-12-19
-RibbonBar - Home Tab,Button,TC-HT-010,Click 'Add Text' button,Sanity Testing,N/A,Black Box Testing,Modal opens for text input; click on PDF to place text,,,Medium,Production,2025-12-19
-RibbonBar - Home Tab,Modal,TC-HT-011,Enter text in 'Add Text' modal,Smoke Testing,N/A,Black Box Testing,Text input accepted; preview shows text,,,Medium,Production,2025-12-19
-RibbonBar - Home Tab,Button,TC-HT-012,Click 'Export to Image' button,Smoke Testing,N/A,Black Box Testing,Image export modal opens with format options,,,High,Production,2025-12-19
-RibbonBar - Home Tab,Button,TC-HT-013,Click 'Print' button,Smoke Testing,N/A,Black Box Testing,Print dialog opens or preview shown,,,Medium,Production,2025-12-19
-RibbonBar - Edit Tab,Button,TC-ET-001,Click 'Rotate Clockwise' button,Sanity Testing,N/A,Black Box Testing,Page rotates 90 degrees clockwise,,,Medium,Production,2025-12-19
-RibbonBar - Edit Tab,Button,TC-ET-002,Click 'Crop Page' button,Sanity Testing,N/A,Black Box Testing,Crop tool activated; crop handles appear,,,Medium,Production,2025-12-19
-RibbonBar - Edit Tab,Button,TC-ET-003,Click 'Bates Numbering' button,Sanity Testing,N/A,Black Box Testing,Modal opens for Bates number configuration,,,Medium,Production,2025-12-19
-RibbonBar - Insert Tab,Button,TC-IT-001,Click 'Insert Image' button,Sanity Testing,N/A,Black Box Testing,File dialog opens for image selection,,,Medium,Production,2025-12-19
-RibbonBar - Insert Tab,Button,TC-IT-002,Click 'Insert Stamp' button,Sanity Testing,N/A,Black Box Testing,Stamp options displayed or modal opens,,,Low,Production,2025-12-19
-RibbonBar - Insert Tab,Button,TC-IT-003,Click 'Add Signature' button,Sanity Testing,N/A,Black Box Testing,Signature input modal or canvas appears,,,Medium,Production,2025-12-19
-RibbonBar - Insert Tab,Button,TC-IT-004,Click 'Insert Sticky Note' button,Sanity Testing,N/A,Black Box Testing,Sticky note added to current page,,,Medium,Production,2025-12-19
-RibbonBar - Convert Tab,Button,TC-CT-001,Click 'To Word' button,Smoke Testing,Load Testing,Black Box Testing,Conversion dialog or loading spinner appears; Word file generated,,,High,Production,2025-12-19
-RibbonBar - Convert Tab,Button,TC-CT-002,Click 'To Excel' button,Smoke Testing,Load Testing,Black Box Testing,Conversion dialog appears; Excel file generated,,,High,Production,2025-12-19
-RibbonBar - Convert Tab,Button,TC-CT-003,Click 'To PowerPoint' button,Smoke Testing,Load Testing,Black Box Testing,Conversion dialog appears; PowerPoint file generated,,,High,Production,2025-12-19
-RibbonBar - Convert Tab,Button,TC-CT-004,Click 'To Image' button,Smoke Testing,N/A,Black Box Testing,Image export modal opens with 19 format options,,,High,Production,2025-12-19
-RibbonBar - Convert Tab,Button,TC-CT-005,Click 'To HTML' button,Sanity Testing,Load Testing,Black Box Testing,HTML conversion initiated; HTML file generated,,,Medium,Production,2025-12-19
-RibbonBar - Convert Tab,Button,TC-CT-006,Click 'To Text' button,Sanity Testing,Load Testing,Black Box Testing,Text extraction initiated; TXT file generated,,,Medium,Production,2025-12-19
-RibbonBar - Tools Tab,Button,TC-TT-001,Click 'Merge' button,Smoke Testing,Load Testing,Black Box Testing,File dialog opens to select PDFs for merging,,,High,Production,2025-12-19
-RibbonBar - Tools Tab,Button,TC-TT-002,Click 'Split' button,Sanity Testing,N/A,Black Box Testing,Dialog prompts for page to split at,,,Medium,Production,2025-12-19
-RibbonBar - Tools Tab,Button,TC-TT-003,Click 'Compress' button,Sanity Testing,Load Testing,Black Box Testing,Dialog prompts for compression quality level,,,Medium,Production,2025-12-19
-RibbonBar - Tools Tab,Button,TC-TT-004,Click 'Encrypt' button,Sanity Testing,N/A,Black Box Testing,Modal opens for password entry,,,Medium,Production,2025-12-19
-RibbonBar - Tools Tab,Button,TC-TT-005,Click 'Set Permissions' button,Sanity Testing,N/A,Black Box Testing,Modal opens for permission configuration,,,Low,Production,2025-12-19
-RibbonBar - Tools Tab,Button,TC-TT-006,Click 'Find Text' button,Sanity Testing,N/A,Black Box Testing,Search dialog opens; text search functionality enabled,,,Medium,Production,2025-12-19
-RibbonBar - Tools Tab,Button,TC-TT-007,Click 'Inspect' button,Sanity Testing,N/A,Black Box Testing,Inspect modal opens showing PDF structure,,,Low,Production,2025-12-19
-RibbonBar - Pages Tab,Button,TC-PT-001,Click 'Insert Page' button,Sanity Testing,N/A,Black Box Testing,New blank page inserted after current page,,,Medium,Production,2025-12-19
-RibbonBar - Pages Tab,Button,TC-PT-002,Click 'Delete Page' button,Sanity Testing,N/A,Black Box Testing,Confirmation dialog appears; page deleted if confirmed,,,Medium,Production,2025-12-19
-RibbonBar - Pages Tab,Button,TC-PT-003,Click 'Reorder Pages' button,Sanity Testing,N/A,Black Box Testing,Page reorder modal opens with drag-and-drop interface,,,Medium,Production,2025-12-19
-RibbonBar - Pages Tab,Button,TC-PT-004,Click 'Extract Pages' button,Sanity Testing,N/A,Black Box Testing,Modal opens for page range specification,,,Medium,Production,2025-12-19
-Sidebar - Thumbnails,Scroll,TC-TN-001,Verify thumbnail panel displays page thumbnails,Smoke Testing,N/A,Black Box Testing,All page thumbnails visible; scrollbar present if many pages,,,High,Production,2025-12-19
-Sidebar - Thumbnails,Scroll Bar,TC-TN-002,Scroll through thumbnail panel using scrollbar,Sanity Testing,N/A,Black Box Testing,Thumbnails scroll smoothly; scrollbar responds to click/drag,,,Medium,Production,2025-12-19
-Sidebar - Thumbnails,Click,TC-TN-003,Click on thumbnail to navigate to page,Smoke Testing,N/A,Black Box Testing,Current page changes to selected thumbnail page,,,High,Production,2025-12-19
-Sidebar - Thumbnails,Right-Click,TC-TN-004,Right-click on thumbnail for context menu,Exploratory Testing,N/A,Black Box Testing,Context menu appears with page operations,,,Low,Production,2025-12-19
-Canvas - Main Display,Rendering,TC-CD-001,Verify PDF page displays correctly in canvas,Smoke Testing,N/A,Black Box Testing,PDF page rendered with proper layout and text,,,High,Production,2025-12-19
-Canvas - Main Display,Zoom,TC-CD-002,Click zoom in button (increase magnification),Smoke Testing,Load Testing,Black Box Testing,Page magnification increases; content remains sharp,,,High,Production,2025-12-19
-Canvas - Main Display,Zoom,TC-CD-003,Click zoom out button (decrease magnification),Smoke Testing,Load Testing,Black Box Testing,Page magnification decreases; entire page visible,,,High,Production,2025-12-19
-Canvas - Main Display,Zoom,TC-CD-004,Click fit page width button,Sanity Testing,N/A,Black Box Testing,Page zoomed to fit width of viewport,,,Medium,Production,2025-12-19
-Canvas - Main Display,Zoom,TC-CD-005,Click fit page button,Sanity Testing,N/A,Black Box Testing,Entire page fits in viewport,,,Medium,Production,2025-12-19
-Canvas - Main Display,Scroll,TC-CD-006,Scroll using mouse wheel on PDF canvas,Sanity Testing,N/A,Black Box Testing,Page scrolls smoothly; no lag or jitter,,,High,Production,2025-12-19
-Canvas - Main Display,Pan,TC-CD-007,Hold hand tool and drag to pan document,Sanity Testing,N/A,Black Box Testing,Page pans smoothly in all directions,,,High,Production,2025-12-19
-Canvas - Highlighting,Draw,TC-HL-001,Use highlight tool to highlight text area,Smoke Testing,N/A,Black Box Testing,Highlight applied to selected area with chosen color,,,High,Production,2025-12-19
-Canvas - Highlighting,Regression,TC-HL-002,Verify highlights persist after page navigation,Regression Testing,N/A,Black Box Testing,Highlights remain visible when returning to page,,,Medium,Production,2025-12-19
-Canvas - Highlighting,Regression,TC-HL-003,Verify highlights saved in exported PDF,Regression Testing,N/A,Black Box Testing,Highlights included in saved/exported PDF file,,,Medium,Production,2025-12-19
-Canvas - Drawing,Draw,TC-DR-001,Draw freehand on PDF page,Smoke Testing,N/A,Black Box Testing,Freehand drawing appears on canvas with selected color,,,High,Production,2025-12-19
-Canvas - Drawing,Stroke Width,TC-DR-002,Change drawing stroke width,Sanity Testing,N/A,Black Box Testing,Stroke width changes visible in next drawing,,,Medium,Production,2025-12-19
-Canvas - Drawing,Color Selection,TC-DR-003,Change drawing color using color picker,Sanity Testing,N/A,Black Box Testing,Drawing color changes to selected color,,,Medium,Production,2025-12-19
-Canvas - Drawing,Clear,TC-DR-004,Clear all drawings from current page,Sanity Testing,N/A,Black Box Testing,All drawings removed from page canvas,,,Medium,Production,2025-12-19
-Canvas - Annotations,Text Input,TC-AN-001,Add text annotation at arbitrary position,Smoke Testing,N/A,Black Box Testing,Text annotation added at click position,,,High,Production,2025-12-19
-Canvas - Annotations,Delete,TC-AN-002,Delete annotation by right-clicking and selecting delete,Sanity Testing,N/A,Black Box Testing,Annotation removed from canvas,,,Medium,Production,2025-12-19
-Canvas - Annotations,Edit,TC-AN-003,Edit annotation text by double-clicking,Sanity Testing,N/A,Black Box Testing,Annotation text becomes editable; changes saved,,,Medium,Production,2025-12-19
-DocumentTabs,Tab Display,TC-DT-001,Verify document tab displays current PDF name,Smoke Testing,N/A,Black Box Testing,Tab shows PDF filename with icon,,,High,Production,2025-12-19
-DocumentTabs,Multiple Tabs,TC-DT-002,Open multiple PDFs and verify each has its own tab,Sanity Testing,N/A,Black Box Testing,Multiple tabs visible; clicking tab switches documents,,,High,Production,2025-12-19
-DocumentTabs,Close Tab,TC-DT-003,Click close button (X) on document tab,Sanity Testing,N/A,Black Box Testing,Document tab closed; document removed from editor,,,High,Production,2025-12-19
-DocumentTabs,Tab Menu,TC-DT-004,Right-click on tab for context menu,Exploratory Testing,N/A,Black Box Testing,Context menu appears with tab options,,,Low,Production,2025-12-19
-UtilityBar - Navigation,Button,TC-UN-001,Click 'Previous Page' button,Smoke Testing,N/A,Black Box Testing,Current page decreases by 1; disables at page 1,,,High,Production,2025-12-19
-UtilityBar - Navigation,Button,TC-UN-002,Click 'Next Page' button,Smoke Testing,N/A,Black Box Testing,Current page increases by 1; disables at last page,,,High,Production,2025-12-19
-UtilityBar - Navigation,Page Counter,TC-UN-003,Verify page counter displays correct page/total,Smoke Testing,N/A,Black Box Testing,Page counter shows 'Page X / Total' format correctly,,,High,Production,2025-12-19
-UtilityBar - Navigation,Go to Page,TC-UN-004,Click 'Go to Page' and enter valid page number,Sanity Testing,N/A,Black Box Testing,Navigation to specified page successful,,,Medium,Production,2025-12-19
-UtilityBar - Navigation,Invalid Input,TC-UN-005,Click 'Go to Page' and enter invalid number,Sanity Testing,N/A,Black Box Testing,Error message displayed; navigation prevented,,,Medium,Production,2025-12-19
-UtilityBar - Zoom,Input Field,TC-UZ-001,Type zoom percentage in zoom field,Sanity Testing,N/A,Black Box Testing,Page zooms to entered percentage,,,Medium,Production,2025-12-19
-ImageExportModal,Format Selection,TC-IE-001,Open image export modal and view all format options,Smoke Testing,N/A,Black Box Testing,Modal displays 19 image format options (PNG/JPG/PSD/etc),,,High,Production,2025-12-19
-ImageExportModal,Format Export,TC-IE-002,Select PNG format and export page,Smoke Testing,Load Testing,Black Box Testing,PNG image file downloaded successfully,,,High,Production,2025-12-19
-ImageExportModal,Format Export,TC-IE-003,Select JPG format and export with quality adjustment,Smoke Testing,Load Testing,Black Box Testing,JPG file downloaded with specified quality,,,High,Production,2025-12-19
-ImageExportModal,Format Export,TC-IE-004,Select WebP format and export page,Sanity Testing,Load Testing,Black Box Testing,WebP file downloaded; browser fallback to PNG if unsupported,,,Medium,Production,2025-12-19
-ImageExportModal,Format Export,TC-IE-005,Select professional format (PSD/AI/EPS) and export,Exploratory Testing,Load Testing,Black Box Testing,Format exported; professional format or PNG fallback,,,Low,Production,2025-12-19
-ImageExportModal,Page Selection,TC-IE-006,Select 'Current Page' and export,Smoke Testing,Load Testing,Black Box Testing,Only current page exported as image,,,High,Production,2025-12-19
-ImageExportModal,Page Selection,TC-IE-007,Select 'All Pages' and export,Smoke Testing,Load Testing,Black Box Testing,All pages exported as separate image files,,,High,Production,2025-12-19
-ImageExportModal,Page Selection,TC-IE-008,Select 'Range' and specify page numbers,Sanity Testing,Load Testing,Black Box Testing,Only specified pages exported as images,,,Medium,Production,2025-12-19
-ImageExportModal,Quality Slider,TC-IE-009,Adjust quality slider for JPG export,Sanity Testing,N/A,Black Box Testing,Quality slider changes value; preview updates,,,Medium,Production,2025-12-19
-ImageExportModal,Cancel Button,TC-IE-010,Click 'Cancel' button in modal,Smoke Testing,N/A,Black Box Testing,Modal closes without exporting,,,High,Production,2025-12-19
-ToOfficeModal,Format Display,TC-TO-001,Open To Office conversion modal,Smoke Testing,N/A,Black Box Testing,Modal displays Word/Excel/PowerPoint/HTML format buttons,,,High,Production,2025-12-19
-ToOfficeModal,Word Conversion,TC-TO-002,Click 'To Word' button in modal,Smoke Testing,Load Testing,Black Box Testing,DOCX file generated and downloaded,,,High,Production,2025-12-19
-ToOfficeModal,Excel Conversion,TC-TO-003,Click 'To Excel' button in modal,Smoke Testing,Load Testing,Black Box Testing,XLSX file generated and downloaded,,,High,Production,2025-12-19
-ToOfficeModal,PowerPoint Conversion,TC-TO-004,Click 'To PowerPoint' button in modal,Smoke Testing,Load Testing,Black Box Testing,PPTX file generated and downloaded,,,High,Production,2025-12-19
-ToOfficeModal,HTML Conversion,TC-TO-005,Click 'To HTML' button in modal,Smoke Testing,Load Testing,Black Box Testing,HTML file generated and downloaded,,,Medium,Production,2025-12-19
-ToOfficeModal,Close Button,TC-TO-006,Click close/cancel button in modal,Smoke Testing,N/A,Black Box Testing,Modal closes without conversion,,,High,Production,2025-12-19
-AddTextModal,Text Input,TC-ATM-001,Enter text in Add Text modal input field,Smoke Testing,N/A,Black Box Testing,Text input accepted and displayed in modal,,,High,Production,2025-12-19
-AddTextModal,Font Selection,TC-ATM-002,Select different font from dropdown,Sanity Testing,N/A,Black Box Testing,Font selection changes and displays in preview,,,Medium,Production,2025-12-19
-AddTextModal,Font Size,TC-ATM-003,Change font size using input field,Sanity Testing,N/A,Black Box Testing,Font size changes visible in preview,,,Medium,Production,2025-12-19
-AddTextModal,Text Color,TC-ATM-004,Click color button to select text color,Sanity Testing,N/A,Black Box Testing,Color picker opens; selected color applied to preview,,,Medium,Production,2025-12-19
-AddTextModal,Placement,TC-ATM-005,Click on PDF canvas to place text,Smoke Testing,N/A,Black Box Testing,Text placed at click location on PDF,,,High,Production,2025-12-19
-AddTextModal,Cancel,TC-ATM-006,Click 'Cancel' button in modal,Smoke Testing,N/A,Black Box Testing,Modal closes; no text added to PDF,,,Medium,Production,2025-12-19
-ColorPickerModal,Color Selection,TC-CPM-001,Click on color palette to select highlight color,Sanity Testing,N/A,Black Box Testing,Color selection updates and modal shows selection,,,Medium,Production,2025-12-19
-ColorPickerModal,Custom Color,TC-CPM-002,Enter hex color code for custom color,Sanity Testing,N/A,Black Box Testing,Custom color accepted and applied to highlights,,,Medium,Production,2025-12-19
-ColorPickerModal,Apply,TC-CPM-003,Click 'Apply' button after color selection,Smoke Testing,N/A,Black Box Testing,Modal closes; selected color used for highlights,,,Medium,Production,2025-12-19
-DrawingCanvas,Freehand Drawing,TC-DC-001,Draw freehand strokes on canvas,Smoke Testing,N/A,Black Box Testing,Freehand drawing appears smoothly with no lag,,,High,Production,2025-12-19
-DrawingCanvas,Undo,TC-DC-002,Draw on canvas then click Undo,Sanity Testing,N/A,Black Box Testing,Last stroke removed from canvas,,,Medium,Production,2025-12-19
-DrawingCanvas,Clear All,TC-DC-003,Draw multiple strokes then click Clear All,Sanity Testing,N/A,Black Box Testing,All drawings removed from canvas,,,Medium,Production,2025-12-19
-InlineTextEditor,Edit Mode,TC-ITE-001,Double-click on text annotation to edit,Smoke Testing,N/A,Black Box Testing,Text becomes editable with cursor visible,,,High,Production,2025-12-19
-InlineTextEditor,Save Changes,TC-ITE-002,Edit text and click outside to save,Smoke Testing,N/A,Black Box Testing,Text changes saved; editor closes,,,High,Production,2025-12-19
-InlineTextEditor,Cancel Edit,TC-ITE-003,Press Escape key while editing,Sanity Testing,N/A,Black Box Testing,Text edit cancelled; original text restored,,,Medium,Production,2025-12-19
-ImageEditorModal,Image Selection,TC-IEM-001,Click on image on PDF to open image editor,Sanity Testing,N/A,Black Box Testing,Image editor modal opens with image preview,,,Medium,Production,2025-12-19
-ImageEditorModal,Crop Tool,TC-IEM-002,Use crop tool in image editor,Sanity Testing,N/A,Black Box Testing,Crop handles appear; image can be cropped,,,Medium,Production,2025-12-19
-ImageEditorModal,Brightness Adjust,TC-IEM-003,Adjust brightness slider,Sanity Testing,N/A,Black Box Testing,Image brightness changes in preview,,,Low,Production,2025-12-19
-ImageEditorModal,Contrast Adjust,TC-IEM-004,Adjust contrast slider,Sanity Testing,N/A,Black Box Testing,Image contrast changes in preview,,,Low,Production,2025-12-19
-ImageEditorModal,Apply Changes,TC-IEM-005,Click 'Apply' button after image edits,Smoke Testing,N/A,Black Box Testing,Image changes applied to PDF; modal closes,,,Medium,Production,2025-12-19
-StickyNote,Create,TC-SN-001,Insert sticky note on PDF page,Smoke Testing,N/A,Black Box Testing,Sticky note appears on page with default text,,,Medium,Production,2025-12-19
-StickyNote,Edit,TC-SN-002,Click sticky note to edit text,Smoke Testing,N/A,Black Box Testing,Sticky note text becomes editable,,,Medium,Production,2025-12-19
-StickyNote,Delete,TC-SN-003,Right-click sticky note and select delete,Sanity Testing,N/A,Black Box Testing,Sticky note removed from page,,,Medium,Production,2025-12-19
-StickyNote,Persistence,TC-SN-004,Navigate to another page and return,Regression Testing,N/A,Black Box Testing,Sticky notes remain on original page,,,Medium,Production,2025-12-19
-DocumentPropertiesModal,View Properties,TC-DP-001,Click Document Properties button,Sanity Testing,N/A,Black Box Testing,Properties modal opens showing title/author/subject,,,Medium,Production,2025-12-19
-DocumentPropertiesModal,Edit Property,TC-DP-002,Edit document title field,Sanity Testing,N/A,Black Box Testing,Title field editable; text accepted,,,Medium,Production,2025-12-19
-DocumentPropertiesModal,Save Properties,TC-DP-003,Click 'Save' button after editing properties,Smoke Testing,N/A,Black Box Testing,Properties saved to PDF metadata,,,Medium,Production,2025-12-19
-PageReorderModal,Display,TC-PRM-001,Click 'Reorder Pages' button,Smoke Testing,N/A,Black Box Testing,Page reorder modal opens with page list,,,Medium,Production,2025-12-19
-PageReorderModal,Drag Drop,TC-PRM-002,Drag page to new position in reorder modal,Smoke Testing,N/A,Black Box Testing,Page moves to new position; order updates,,,High,Production,2025-12-19
-PageReorderModal,Apply,TC-PRM-003,Click 'Apply' button after reordering,Smoke Testing,N/A,Black Box Testing,Page order changes in main PDF; modal closes,,,High,Production,2025-12-19
-FileMenu,File Operations,TC-FM-001,Click File menu button to open file menu,Smoke Testing,N/A,Black Box Testing,File menu dropdown appears with options,,,High,Production,2025-12-19
-FileMenu,Open Option,TC-FM-002,Click 'Open' option in File menu,Smoke Testing,N/A,Black Box Testing,File dialog opens for PDF selection,,,High,Production,2025-12-19
-FileMenu,Save Option,TC-FM-003,Click 'Save' option in File menu,Smoke Testing,N/A,Black Box Testing,Current PDF downloaded,,,High,Production,2025-12-19
-FileMenu,Print Option,TC-FM-004,Click 'Print' option in File menu,Smoke Testing,N/A,Black Box Testing,Print dialog opens,,,Medium,Production,2025-12-19
-FileMenu,Close Option,TC-FM-005,Click 'Close' option in File menu,Smoke Testing,N/A,Black Box Testing,Document closed; welcome screen displayed,,,Medium,Production,2025-12-19
-UploadModal,Display,TC-UM-001,Verify upload modal displays on startup,Smoke Testing,N/A,Black Box Testing,Upload instructions and file picker visible,,,High,Production,2025-12-19
-UploadModal,File Selection,TC-UM-002,Select PDF file through upload modal,Smoke Testing,N/A,Black Box Testing,File selected and loaded into editor,,,High,Production,2025-12-19
-UploadModal,Invalid File,TC-UM-003,Attempt to upload non-PDF file,Sanity Testing,N/A,Black Box Testing,Error message displayed; upload rejected,,,Medium,Production,2025-12-19
-Performance - Canvas Rendering,Large File,TC-PF-001,Open large PDF (>100 MB) and measure load time,Load Testing,Load Testing,White Box Testing,File loads within 10 seconds; no freezing,,,High,Production,2025-12-19
-Performance - Canvas Rendering,Zoom Performance,TC-PF-002,Rapidly zoom in/out and measure responsiveness,Stress Testing,Stress Testing,White Box Testing,Zoom operations responsive; no lag,,,High,Production,2025-12-19
-Performance - Conversion,PDF to Word Conversion,TC-PC-001,Convert 50-page PDF to Word and measure time,Load Testing,Load Testing,White Box Testing,Conversion completes within 5 minutes,,,High,Production,2025-12-19
-Performance - Conversion,Concurrent Conversions,TC-PC-002,Start multiple format conversions simultaneously,Stress Testing,Stress Testing,White Box Testing,All conversions complete without errors,,,High,Production,2025-12-19
-Performance - Memory,Memory Usage - Idle,TC-PM-001,Measure memory usage when app is idle,Load Testing,Soak Testing,White Box Testing,Memory usage stable below 500 MB,,,Medium,Production,2025-12-19
-Performance - Memory,Memory Usage - After Operations,TC-PM-002,Measure memory after 50 annotation/edit operations,Stress Testing,Soak Testing,White Box Testing,Memory usage does not exceed 800 MB,,,Medium,Production,2025-12-19
-Performance - Soak,Extended Editing Session,TC-PS-001,Keep app open for 8 hours with periodic edits,Soak Testing,Soak Testing,White Box Testing,No memory leaks; app remains responsive,,,Low,Production,2025-12-19
-Performance - Spike,Rapid Page Navigation,TC-PS-002,Navigate through pages rapidly (100+ pages per minute),Spike Testing,Spike Testing,White Box Testing,Navigation remains smooth; no crashes,,,Medium,Production,2025-12-19
-Performance - Spike,Rapid Drawing,TC-PS-003,Draw multiple fast strokes in succession,Spike Testing,Spike Testing,White Box Testing,Drawing responsive; strokes appear in sequence,,,Medium,Production,2025-12-19
-Regression - Navigation,Multi-document Switching,TC-RN-001,Open 5 PDFs and switch between them,Regression Testing,Load Testing,Black Box Testing,Switching between documents works without issues,,,Medium,Production,2025-12-19
-Regression - Navigation,Tab Persistence,TC-RN-002,Close and reopen app with multiple tabs open,Regression Testing,N/A,Black Box Testing,Tab state preserved or recovered on restart,,,Medium,Production,2025-12-19
-Regression - Highlights,Highlight Preservation,TC-RH-001,Add highlights and export to PDF,Regression Testing,N/A,Black Box Testing,Highlights visible in exported PDF,,,High,Production,2025-12-19
-Regression - Highlights,Highlight Removal,TC-RH-002,Remove highlight and verify removal,Regression Testing,N/A,Black Box Testing,Highlight completely removed from PDF,,,Medium,Production,2025-12-19
-Regression - Annotations,Annotation Persistence,TC-RA-001,Add annotations and navigate away/back,Regression Testing,N/A,Black Box Testing,Annotations remain visible when returning,,,High,Production,2025-12-19
-Regression - Annotations,Annotation Export,TC-RA-002,Export PDF with annotations,Regression Testing,N/A,Black Box Testing,Annotations included in exported PDF,,,High,Production,2025-12-19
-Regression - Drawing,Drawing Persistence,TC-RD-001,Draw on page and navigate to other pages,Regression Testing,N/A,Black Box Testing,Drawing persists when returning to page,,,High,Production,2025-12-19
-Regression - Drawing,Drawing Clear,TC-RD-002,Clear drawings and verify complete removal,Regression Testing,N/A,Black Box Testing,All drawings completely removed,,,Medium,Production,2025-12-19
-Exploratory - Edge Cases,Empty PDF,TC-EX-001,Open PDF with no content,Exploratory Testing,N/A,Grey Box Testing,App handles gracefully; no crash,,,Low,Production,2025-12-19
-Exploratory - Edge Cases,Corrupted PDF,TC-EX-002,Attempt to open corrupted PDF file,Exploratory Testing,N/A,Grey Box Testing,Error message displayed; app does not crash,,,Low,Production,2025-12-19
-Exploratory - Edge Cases,Very Large File,TC-EX-003,Open 1000+ page PDF,Exploratory Testing,Load Testing,Grey Box Testing,App loads file; navigation may be slow but functional,,,Low,Production,2025-12-19
-Exploratory - Browser Compatibility,Chrome,TC-EX-BRC-001,Test app in Chrome browser,Exploratory Testing,N/A,Black Box Testing,All features functional; no console errors,,,High,Production,2025-12-19
-Exploratory - Browser Compatibility,Firefox,TC-EX-BRF-001,Test app in Firefox browser,Exploratory Testing,N/A,Black Box Testing,All features functional; no console errors,,,High,Production,2025-12-19
-Exploratory - Browser Compatibility,Safari,TC-EX-BRS-001,Test app in Safari browser,Exploratory Testing,N/A,Black Box Testing,All features functional; no console errors,,,Medium,Production,2025-12-19
-Exploratory - Browser Compatibility,Edge,TC-EX-BRE-001,Test app in Microsoft Edge browser,Exploratory Testing,N/A,Black Box Testing,All features functional; no console errors,,,High,Production,2025-12-19
-Exploratory - Keyboard Shortcuts,Keyboard Navigation,TC-EX-KB-001,Use Tab key to navigate between UI elements,Exploratory Testing,N/A,Grey Box Testing,Tab navigation works; focus visible on elements,,,Medium,Production,2025-12-19
-Exploratory - Keyboard Shortcuts,Undo Shortcut,TC-EX-KB-002,Use Ctrl+Z to undo last action,Exploratory Testing,N/A,Grey Box Testing,Undo function works; last action reversed,,,Medium,Production,2025-12-19
-Exploratory - Keyboard Shortcuts,Redo Shortcut,TC-EX-KB-003,Use Ctrl+Y to redo undone action,Exploratory Testing,N/A,Grey Box Testing,Redo function works; undone action restored,,,Medium,Production,2025-12-19
-Exploratory - Keyboard Shortcuts,Save Shortcut,TC-EX-KB-004,Use Ctrl+S to save PDF,Exploratory Testing,N/A,Grey Box Testing,Save initiated; PDF downloaded,,,Medium,Production,2025-12-19
-Accessibility,Keyboard Navigation,TC-AC-001,Navigate entire app using only keyboard,Exploratory Testing,N/A,Grey Box Testing,All interactive elements accessible via keyboard,,,Medium,Production,2025-12-19
-Accessibility,Screen Reader,TC-AC-002,Test with screen reader (NVDA/JAWS),Exploratory Testing,N/A,Grey Box Testing,App text/buttons properly labeled for screen readers,,,Low,Production,2025-12-19
-Accessibility,Color Contrast,TC-AC-003,Verify text contrast meets WCAG AA standards,Exploratory Testing,N/A,White Box Testing,All text has sufficient contrast ratio (4.5:1),,,Low,Production,2025-12-19
-Security - File Upload,Valid PDF Upload,TC-SEC-001,Upload valid PDF file,Smoke Testing,N/A,Black Box Testing,File uploaded and processed successfully,,,High,Production,2025-12-19
-Security - File Upload,Malicious File Rejection,TC-SEC-002,Attempt to upload .exe or script file,Smoke Testing,N/A,Black Box Testing,File rejected; error message displayed,,,High,Production,2025-12-19
-Security - File Upload,Large File Size,TC-SEC-003,Attempt to upload 1GB+ file,Smoke Testing,Load Testing,Black Box Testing,File size limit enforced; upload rejected with message,,,Medium,Production,2025-12-19
-Security - Export,Export Integrity,TC-SEC-004,Export PDF and verify file integrity,Smoke Testing,N/A,Black Box Testing,Exported PDF opens without corruption,,,High,Production,2025-12-19
-Error Handling - Conversion,Failed Conversion,TC-ERR-001,Trigger conversion error by closing app during conversion,Sanity Testing,N/A,Black Box Testing,Graceful error handling; appropriate message shown,,,Medium,Production,2025-12-19
-Error Handling - Conversion,Timeout Handling,TC-ERR-002,Monitor conversion timeout (if applicable),Sanity Testing,Stress Testing,Black Box Testing,Timeout error handled gracefully with retry option,,,Medium,Production,2025-12-19
-Error Handling - File Operations,Disk Space,TC-ERR-003,Trigger download when disk space insufficient,Sanity Testing,N/A,Grey Box Testing,Error message displayed; download prevented,,,Low,Production,2025-12-19
-Network - API Calls,Backend Availability,TC-NET-001,Verify backend API is reachable,Smoke Testing,Load Testing,Black Box Testing,API responds with HTTP 200 for health check,,,High,Production,2025-12-19
-Network - API Calls,Conversion API,TC-NET-002,Call /api/pdf-to-image endpoint,Smoke Testing,Load Testing,Black Box Testing,API returns image file successfully,,,High,Production,2025-12-19
-Network - API Calls,Large Payload,TC-NET-003,Send large PDF (50+ MB) to API,Load Testing,Load Testing,White Box Testing,API handles large payload; response time <30s,,,Medium,Production,2025-12-19
-Network - Offline Mode,Offline Graceful Handling,TC-NET-OFF-001,Disable internet and attempt conversion,Sanity Testing,N/A,Black Box Testing,Error message displayed; no app crash,,,Medium,Production,2025-12-19
-UI Responsiveness,Mobile Viewport,TC-UI-MOB-001,Test app in mobile viewport (375px width),Smoke Testing,N/A,Black Box Testing,UI adapts to mobile; all buttons accessible,,,Medium,Production,2025-12-19
-UI Responsiveness,Tablet Viewport,TC-UI-TAB-001,Test app in tablet viewport (768px width),Smoke Testing,N/A,Black Box Testing,UI adapts to tablet; layout properly adjusted,,,Medium,Production,2025-12-19
-UI Responsiveness,Desktop Viewport,TC-UI-DES-001,Test app in full desktop viewport (1920px width),Smoke Testing,N/A,Black Box Testing,UI displays properly; no overflow or clipping,,,High,Production,2025-12-19
-UI Responsiveness,Window Resize,TC-UI-RES-001,Resize browser window while app is open,Sanity Testing,N/A,Black Box Testing,UI reflows smoothly; no broken layout,,,Medium,Production,2025-12-19
-Data Persistence,Local Storage,TC-DP-001,Verify settings saved to local storage,Regression Testing,N/A,White Box Testing,Settings persist across browser sessions,,,Low,Production,2025-12-19
-Data Persistence,IndexedDB,TC-DP-002,Verify large data stored in IndexedDB,Regression Testing,N/A,White Box Testing,Document state recoverable from IndexedDB,,,Low,Production,2025-12-19
-Stress Testing,100 Annotations,TC-STRESS-001,Add 100 annotations to single page,Stress Testing,Stress Testing,White Box Testing,App remains responsive; no significant lag,,,Medium,Production,2025-12-19
-Stress Testing,1000 Page Navigation,TC-STRESS-002,Navigate through 1000-page PDF rapidly,Stress Testing,Stress Testing,White Box Testing,Navigation completes without hanging,,,Medium,Production,2025-12-19
-Stress Testing,Memory Leak Detection,TC-STRESS-003,Run app for extended period; monitor memory,Stress Testing,Soak Testing,White Box Testing,No memory leaks detected; stable memory usage,,,Low,Production,2025-12-19
-User Acceptance,Feature Completeness,TC-UAT-001,Verify all documented features present,Regression Testing,N/A,Black Box Testing,All documented features implemented and functional,,,High,Production,2025-12-19
-User Acceptance,Performance Metrics,TC-UAT-002,Verify app performance meets SLA targets,Regression Testing,Load Testing,White Box Testing,Page load <2s; conversions <5 minutes,,,High,Production,2025-12-19
-User Acceptance,Documentation Accuracy,TC-UAT-003,Verify documentation matches actual app behavior,Regression Testing,N/A,Grey Box Testing,User guide accurate; no discrepancies,,,Medium,Production,2025-12-19
+Component/Feature,Element Type,Test Case ID,Test Description,Functional Testing Type,Performance Testing Type,Visibility/Knowledge Type,Expected Result,Actual Result,Status,Notes,Priority,Environment,Date,Comments
+WelcomeBox,Main UI,,Display welcome message on app startup,Smoke Testing,N/A,,"Welcome message visible, Open PDF button displayed",,,High,Production,,,
+WelcomeBox,Button,,Click 'Open PDF' button to trigger file dialog,Sanity Testing,N/A,,File dialog opens for PDF selection,,,High,Production,,,
+WelcomeBox,File Input,,Select valid PDF file from system,Smoke Testing,N/A,,PDF file selected and loaded into editor,,,High,Production,,,
+WelcomeBox,Error Handling,,Attempt to select non-PDF file,Sanity Testing,N/A,,"Error message displayed: ""Please select a valid PDF file""",,,Medium,Production,,,
+WelcomeBox,Regression Test,,Verify welcome box disappears after PDF load,Regression Testing,N/A,,Welcome box hidden when PDF is active,,,Medium,Production,,,
+RibbonBar,Main Navigation,,Verify ribbon bar displays on page load,Smoke Testing,N/A,,Ribbon bar visible with all tabs,,,High,Production,,,
+RibbonBar,Tab System,,Click each ribbon tab (Home/Edit/Insert/Convert/Tools/Pages),Sanity Testing,N/A,,Tab switches without errors; correct content displayed,,,High,Production,,,
+RibbonBar - Home Tab,Button,,Click 'Open' button in Home tab,Smoke Testing,N/A,,File dialog opens for PDF selection,,,High,Production,,,
+RibbonBar - Home Tab,Button,,Click 'Save' button in Home tab,Smoke Testing,N/A,,PDF downloaded with current name,,,High,Production,,,
+RibbonBar - Home Tab,Button,,Click 'Save As' button in Home tab,Sanity Testing,N/A,,Dialog for filename input appears,,,Medium,Production,,,
+RibbonBar - Home Tab,Button,,Click 'Hand Tool' (pan/scroll mode),Sanity Testing,N/A,,Cursor changes to hand; page can be panned,,,Medium,Production,,,
+RibbonBar - Home Tab,Button,,Click 'Pointer Tool' (selection mode),Sanity Testing,N/A,,Cursor changes to pointer; text selection enabled,,,Medium,Production,,,
+RibbonBar - Home Tab,Button,,Click 'Highlight Tool' button,Sanity Testing,N/A,,Highlight mode enabled; color picker appears,,,Medium,Production,,,
+RibbonBar - Home Tab,Color Picker,,Click highlight color button and select color,Sanity Testing,N/A,,Color picker modal opens; color selection works,,,Medium,Production,,,
+RibbonBar - Home Tab,Button,,Click 'Freehand Drawing' tool,Sanity Testing,N/A,,Drawing mode activated; canvas ready for drawing,,,Medium,Production,,,
+RibbonBar - Home Tab,Button,,Click 'Edit Text' tool,Sanity Testing,N/A,,Text editing mode activated,,,Medium,Production,,,
+RibbonBar - Home Tab,Button,,Click 'Add Text' button,Sanity Testing,N/A,,Modal opens for text input; click on PDF to place text,,,Medium,Production,,,
+RibbonBar - Home Tab,Modal,,Enter text in 'Add Text' modal,Smoke Testing,N/A,,Text input accepted; preview shows text,,,Medium,Production,,,
+RibbonBar - Home Tab,Button,,Click 'Export to Image' button,Smoke Testing,N/A,,Image export modal opens with format options,,,High,Production,,,
+RibbonBar - Home Tab,Button,,Click 'Print' button,Smoke Testing,N/A,,Print dialog opens or preview shown,,,Medium,Production,,,
+RibbonBar - Edit Tab,Button,,Click 'Rotate Clockwise' button,Sanity Testing,N/A,,Page rotates 90 degrees clockwise,,,Medium,Production,,,
+RibbonBar - Edit Tab,Button,,Click 'Crop Page' button,Sanity Testing,N/A,,Crop tool activated; crop handles appear,,,Medium,Production,,,
+RibbonBar - Edit Tab,Button,,Click 'Bates Numbering' button,Sanity Testing,N/A,,Modal opens for Bates number configuration,,,Medium,Production,,,
+RibbonBar - Insert Tab,Button,,Click 'Insert Image' button,Sanity Testing,N/A,,File dialog opens for image selection,,,Medium,Production,,,
+RibbonBar - Insert Tab,Button,,Click 'Insert Stamp' button,Sanity Testing,N/A,,Stamp options displayed or modal opens,,,Low,Production,,,
+RibbonBar - Insert Tab,Button,,Click 'Add Signature' button,Sanity Testing,N/A,,Signature input modal or canvas appears,,,Medium,Production,,,
+RibbonBar - Insert Tab,Button,,Click 'Insert Sticky Note' button,Sanity Testing,N/A,,Sticky note added to current page,,,Medium,Production,,,
+RibbonBar - Convert Tab,Button,,Click 'To Word' button,Smoke Testing,Load Testing,,Conversion dialog or loading spinner appears; Word file generated,,,High,Production,,,
+RibbonBar - Convert Tab,Button,,Click 'To Excel' button,Smoke Testing,Load Testing,,Conversion dialog appears; Excel file generated,,,High,Production,,,
+RibbonBar - Convert Tab,Button,,Click 'To PowerPoint' button,Smoke Testing,Load Testing,,Conversion dialog appears; PowerPoint file generated,,,High,Production,,,
+RibbonBar - Convert Tab,Button,,Click 'To Image' button,Smoke Testing,N/A,,Image export modal opens with 19 format options,,,High,Production,,,
+RibbonBar - Convert Tab,Button,,Click 'To HTML' button,Sanity Testing,Load Testing,,HTML conversion initiated; HTML file generated,,,Medium,Production,,,
+RibbonBar - Convert Tab,Button,,Click 'To Text' button,Sanity Testing,Load Testing,,Text extraction initiated; TXT file generated,,,Medium,Production,,,
+RibbonBar - Tools Tab,Button,,Click 'Merge' button,Smoke Testing,Load Testing,,File dialog opens to select PDFs for merging,,,High,Production,,,
+RibbonBar - Tools Tab,Button,,Click 'Split' button,Sanity Testing,N/A,,Dialog prompts for page to split at,,,Medium,Production,,,
+RibbonBar - Tools Tab,Button,,Click 'Compress' button,Sanity Testing,Load Testing,,Dialog prompts for compression quality level,,,Medium,Production,,,
+RibbonBar - Tools Tab,Button,,Click 'Encrypt' button,Sanity Testing,N/A,,Modal opens for password entry,,,Medium,Production,,,
+RibbonBar - Tools Tab,Button,,Click 'Set Permissions' button,Sanity Testing,N/A,,Modal opens for permission configuration,,,Low,Production,,,
+RibbonBar - Tools Tab,Button,,Click 'Find Text' button,Sanity Testing,N/A,,Search dialog opens; text search functionality enabled,,,Medium,Production,,,
+RibbonBar - Tools Tab,Button,,Click 'Inspect' button,Sanity Testing,N/A,,Inspect modal opens showing PDF structure,,,Low,Production,,,
+RibbonBar - Pages Tab,Button,,Click 'Insert Page' button,Sanity Testing,N/A,,New blank page inserted after current page,,,Medium,Production,,,
+RibbonBar - Pages Tab,Button,,Click 'Delete Page' button,Sanity Testing,N/A,,Confirmation dialog appears; page deleted if confirmed,,,Medium,Production,,,
+RibbonBar - Pages Tab,Button,,Click 'Reorder Pages' button,Sanity Testing,N/A,,Page reorder modal opens with drag-and-drop interface,,,Medium,Production,,,
+RibbonBar - Pages Tab,Button,,Click 'Extract Pages' button,Sanity Testing,N/A,,Modal opens for page range specification,,,Medium,Production,,,
+Sidebar - Thumbnails,Scroll,,Verify thumbnail panel displays page thumbnails,Smoke Testing,N/A,,All page thumbnails visible; scrollbar present if many pages,,,High,Production,,,
+Sidebar - Thumbnails,Scroll Bar,,Scroll through thumbnail panel using scrollbar,Sanity Testing,N/A,,Thumbnails scroll smoothly; scrollbar responds to click/drag,,,Medium,Production,,,
+Sidebar - Thumbnails,Click,,Click on thumbnail to navigate to page,Smoke Testing,N/A,,Current page changes to selected thumbnail page,,,High,Production,,,
+Sidebar - Thumbnails,Right-Click,,Right-click on thumbnail for context menu,Exploratory Testing,N/A,,Context menu appears with page operations,,,Low,Production,,,
+Canvas - Main Display,Rendering,,Verify PDF page displays correctly in canvas,Smoke Testing,N/A,,PDF page rendered with proper layout and text,,,High,Production,,,
+Canvas - Main Display,Zoom,,Click zoom in button (increase magnification),Smoke Testing,Load Testing,,Page magnification increases; content remains sharp,,,High,Production,,,
+Canvas - Main Display,Zoom,,Click zoom out button (decrease magnification),Smoke Testing,Load Testing,,Page magnification decreases; entire page visible,,,High,Production,,,
+Canvas - Main Display,Zoom,,Click fit page width button,Sanity Testing,N/A,,Page zoomed to fit width of viewport,,,Medium,Production,,,
+Canvas - Main Display,Zoom,,Click fit page button,Sanity Testing,N/A,,Entire page fits in viewport,,,Medium,Production,,,
+Canvas - Main Display,Scroll,,Scroll using mouse wheel on PDF canvas,Sanity Testing,N/A,,Page scrolls smoothly; no lag or jitter,,,High,Production,,,
+Canvas - Main Display,Pan,,Hold hand tool and drag to pan document,Sanity Testing,N/A,,Page pans smoothly in all directions,,,High,Production,,,
+Canvas - Highlighting,Draw,,Use highlight tool to highlight text area,Smoke Testing,N/A,,Highlight applied to selected area with chosen color,,,High,Production,,,
+Canvas - Highlighting,Regression,,Verify highlights persist after page navigation,Regression Testing,N/A,,Highlights remain visible when returning to page,,,Medium,Production,,,
+Canvas - Highlighting,Regression,,Verify highlights saved in exported PDF,Regression Testing,N/A,,Highlights included in saved/exported PDF file,,,Medium,Production,,,
+Canvas - Drawing,Draw,,Draw freehand on PDF page,Smoke Testing,N/A,,Freehand drawing appears on canvas with selected color,,,High,Production,,,
+Canvas - Drawing,Stroke Width,,Change drawing stroke width,Sanity Testing,N/A,,Stroke width changes visible in next drawing,,,Medium,Production,,,
+Canvas - Drawing,Color Selection,,Change drawing color using color picker,Sanity Testing,N/A,,Drawing color changes to selected color,,,Medium,Production,,,
+Canvas - Drawing,Clear,,Clear all drawings from current page,Sanity Testing,N/A,,All drawings removed from page canvas,,,Medium,Production,,,
+Canvas - Annotations,Text Input,,Add text annotation at arbitrary position,Smoke Testing,N/A,,Text annotation added at click position,,,High,Production,,,
+Canvas - Annotations,Delete,,Delete annotation by right-clicking and selecting delete,Sanity Testing,N/A,,Annotation removed from canvas,,,Medium,Production,,,
+Canvas - Annotations,Edit,,Edit annotation text by double-clicking,Sanity Testing,N/A,,Annotation text becomes editable; changes saved,,,Medium,Production,,,
+DocumentTabs,Tab Display,,Verify document tab displays current PDF name,Smoke Testing,N/A,,Tab shows PDF filename with icon,,,High,Production,,,
+DocumentTabs,Multiple Tabs,,Open multiple PDFs and verify each has its own tab,Sanity Testing,N/A,,Multiple tabs visible; clicking tab switches documents,,,High,Production,,,
+DocumentTabs,Close Tab,,Click close button (X) on document tab,Sanity Testing,N/A,,Document tab closed; document removed from editor,,,High,Production,,,
+DocumentTabs,Tab Menu,,Right-click on tab for context menu,Exploratory Testing,N/A,,Context menu appears with tab options,,,Low,Production,,,
+UtilityBar - Navigation,Button,,Click 'Previous Page' button,Smoke Testing,N/A,,Current page decreases by 1; disables at page 1,,,High,Production,,,
+UtilityBar - Navigation,Button,,Click 'Next Page' button,Smoke Testing,N/A,,Current page increases by 1; disables at last page,,,High,Production,,,
+UtilityBar - Navigation,Page Counter,,Verify page counter displays correct page/total,Smoke Testing,N/A,,Page counter shows 'Page X / Total' format correctly,,,High,Production,,,
+UtilityBar - Navigation,Go to Page,,Click 'Go to Page' and enter valid page number,Sanity Testing,N/A,,Navigation to specified page successful,,,Medium,Production,,,
+UtilityBar - Navigation,Invalid Input,,Click 'Go to Page' and enter invalid number,Sanity Testing,N/A,,Error message displayed; navigation prevented,,,Medium,Production,,,
+UtilityBar - Zoom,Input Field,,Type zoom percentage in zoom field,Sanity Testing,N/A,,Page zooms to entered percentage,,,Medium,Production,,,
+ImageExportModal,Format Selection,,Open image export modal and view all format options,Smoke Testing,N/A,,Modal displays 19 image format options (PNG/JPG/PSD/etc),,,High,Production,,,
+ImageExportModal,Format Export,,Select PNG format and export page,Smoke Testing,Load Testing,,PNG image file downloaded successfully,,,High,Production,,,
+ImageExportModal,Format Export,,Select JPG format and export with quality adjustment,Smoke Testing,Load Testing,,JPG file downloaded with specified quality,,,High,Production,,,
+ImageExportModal,Format Export,,Select WebP format and export page,Sanity Testing,Load Testing,,WebP file downloaded; browser fallback to PNG if unsupported,,,Medium,Production,,,
+ImageExportModal,Format Export,,Select professional format (PSD/AI/EPS) and export,Exploratory Testing,Load Testing,,Format exported; professional format or PNG fallback,,,Low,Production,,,
+ImageExportModal,Page Selection,,Select 'Current Page' and export,Smoke Testing,Load Testing,,Only current page exported as image,,,High,Production,,,
+ImageExportModal,Page Selection,,Select 'All Pages' and export,Smoke Testing,Load Testing,,All pages exported as separate image files,,,High,Production,,,
+ImageExportModal,Page Selection,,Select 'Range' and specify page numbers,Sanity Testing,Load Testing,,Only specified pages exported as images,,,Medium,Production,,,
+ImageExportModal,Quality Slider,,Adjust quality slider for JPG export,Sanity Testing,N/A,,Quality slider changes value; preview updates,,,Medium,Production,,,
+ImageExportModal,Cancel Button,,Click 'Cancel' button in modal,Smoke Testing,N/A,,Modal closes without exporting,,,High,Production,,,
+ToOfficeModal,Format Display,,Open To Office conversion modal,Smoke Testing,N/A,,Modal displays Word/Excel/PowerPoint/HTML format buttons,,,High,Production,,,
+ToOfficeModal,Word Conversion,,Click 'To Word' button in modal,Smoke Testing,Load Testing,,DOCX file generated and downloaded,,,High,Production,,,
+ToOfficeModal,Excel Conversion,,Click 'To Excel' button in modal,Smoke Testing,Load Testing,,XLSX file generated and downloaded,,,High,Production,,,
+ToOfficeModal,PowerPoint Conversion,,Click 'To PowerPoint' button in modal,Smoke Testing,Load Testing,,PPTX file generated and downloaded,,,High,Production,,,
+ToOfficeModal,HTML Conversion,,Click 'To HTML' button in modal,Smoke Testing,Load Testing,,HTML file generated and downloaded,,,Medium,Production,,,
+ToOfficeModal,Close Button,,Click close/cancel button in modal,Smoke Testing,N/A,,Modal closes without conversion,,,High,Production,,,
+AddTextModal,Text Input,,Enter text in Add Text modal input field,Smoke Testing,N/A,,Text input accepted and displayed in modal,,,High,Production,,,
+AddTextModal,Font Selection,,Select different font from dropdown,Sanity Testing,N/A,,Font selection changes and displays in preview,,,Medium,Production,,,
+AddTextModal,Font Size,,Change font size using input field,Sanity Testing,N/A,,Font size changes visible in preview,,,Medium,Production,,,
+AddTextModal,Text Color,,Click color button to select text color,Sanity Testing,N/A,,Color picker opens; selected color applied to preview,,,Medium,Production,,,
+AddTextModal,Placement,,Click on PDF canvas to place text,Smoke Testing,N/A,,Text placed at click location on PDF,,,High,Production,,,
+AddTextModal,Cancel,,Click 'Cancel' button in modal,Smoke Testing,N/A,,Modal closes; no text added to PDF,,,Medium,Production,,,
+ColorPickerModal,Color Selection,,Click on color palette to select highlight color,Sanity Testing,N/A,,Color selection updates and modal shows selection,,,Medium,Production,,,
+ColorPickerModal,Custom Color,,Enter hex color code for custom color,Sanity Testing,N/A,,Custom color accepted and applied to highlights,,,Medium,Production,,,
+ColorPickerModal,Apply,,Click 'Apply' button after color selection,Smoke Testing,N/A,,Modal closes; selected color used for highlights,,,Medium,Production,,,
+DrawingCanvas,Freehand Drawing,,Draw freehand strokes on canvas,Smoke Testing,N/A,,Freehand drawing appears smoothly with no lag,,,High,Production,,,
+DrawingCanvas,Undo,,Draw on canvas then click Undo,Sanity Testing,N/A,,Last stroke removed from canvas,,,Medium,Production,,,
+DrawingCanvas,Clear All,,Draw multiple strokes then click Clear All,Sanity Testing,N/A,,All drawings removed from canvas,,,Medium,Production,,,
+InlineTextEditor,Edit Mode,,Double-click on text annotation to edit,Smoke Testing,N/A,,Text becomes editable with cursor visible,,,High,Production,,,
+InlineTextEditor,Save Changes,,Edit text and click outside to save,Smoke Testing,N/A,,Text changes saved; editor closes,,,High,Production,,,
+InlineTextEditor,Cancel Edit,,Press Escape key while editing,Sanity Testing,N/A,,Text edit cancelled; original text restored,,,Medium,Production,,,
+ImageEditorModal,Image Selection,,Click on image on PDF to open image editor,Sanity Testing,N/A,,Image editor modal opens with image preview,,,Medium,Production,,,
+ImageEditorModal,Crop Tool,,Use crop tool in image editor,Sanity Testing,N/A,,Crop handles appear; image can be cropped,,,Medium,Production,,,
+ImageEditorModal,Brightness Adjust,,Adjust brightness slider,Sanity Testing,N/A,,Image brightness changes in preview,,,Low,Production,,,
+ImageEditorModal,Contrast Adjust,,Adjust contrast slider,Sanity Testing,N/A,,Image contrast changes in preview,,,Low,Production,,,
+ImageEditorModal,Apply Changes,,Click 'Apply' button after image edits,Smoke Testing,N/A,,Image changes applied to PDF; modal closes,,,Medium,Production,,,
+StickyNote,Create,,Insert sticky note on PDF page,Smoke Testing,N/A,,Sticky note appears on page with default text,,,Medium,Production,,,
+StickyNote,Edit,,Click sticky note to edit text,Smoke Testing,N/A,,Sticky note text becomes editable,,,Medium,Production,,,
+StickyNote,Delete,,Right-click sticky note and select delete,Sanity Testing,N/A,,Sticky note removed from page,,,Medium,Production,,,
+StickyNote,Persistence,,Navigate to another page and return,Regression Testing,N/A,,Sticky notes remain on original page,,,Medium,Production,,,
+DocumentPropertiesModal,View Properties,,Click Document Properties button,Sanity Testing,N/A,,Properties modal opens showing title/author/subject,,,Medium,Production,,,
+DocumentPropertiesModal,Edit Property,,Edit document title field,Sanity Testing,N/A,,Title field editable; text accepted,,,Medium,Production,,,
+DocumentPropertiesModal,Save Properties,,Click 'Save' button after editing properties,Smoke Testing,N/A,,Properties saved to PDF metadata,,,Medium,Production,,,
+PageReorderModal,Display,,Click 'Reorder Pages' button,Smoke Testing,N/A,,Page reorder modal opens with page list,,,Medium,Production,,,
+PageReorderModal,Drag Drop,,Drag page to new position in reorder modal,Smoke Testing,N/A,,Page moves to new position; order updates,,,High,Production,,,
+PageReorderModal,Apply,,Click 'Apply' button after reordering,Smoke Testing,N/A,,Page order changes in main PDF; modal closes,,,High,Production,,,
+FileMenu,File Operations,,Click File menu button to open file menu,Smoke Testing,N/A,,File menu dropdown appears with options,,,High,Production,,,
+FileMenu,Open Option,,Click 'Open' option in File menu,Smoke Testing,N/A,,File dialog opens for PDF selection,,,High,Production,,,
+FileMenu,Save Option,,Click 'Save' option in File menu,Smoke Testing,N/A,,Current PDF downloaded,,,High,Production,,,
+FileMenu,Print Option,,Click 'Print' option in File menu,Smoke Testing,N/A,,Print dialog opens,,,Medium,Production,,,
+FileMenu,Close Option,,Click 'Close' option in File menu,Smoke Testing,N/A,,Document closed; welcome screen displayed,,,Medium,Production,,,
+UploadModal,Display,,Verify upload modal displays on startup,Smoke Testing,N/A,,Upload instructions and file picker visible,,,High,Production,,,
+UploadModal,File Selection,,Select PDF file through upload modal,Smoke Testing,N/A,,File selected and loaded into editor,,,High,Production,,,
+UploadModal,Invalid File,,Attempt to upload non-PDF file,Sanity Testing,N/A,,Error message displayed; upload rejected,,,Medium,Production,,,
+Performance - Canvas Rendering,Large File,,Open large PDF (>100 MB) and measure load time,Load Testing,Load Testing,,File loads within 10 seconds; no freezing,,,High,Production,,,
+Performance - Canvas Rendering,Zoom Performance,,Rapidly zoom in/out and measure responsiveness,Stress Testing,Stress Testing,,Zoom operations responsive; no lag,,,High,Production,,,
+Performance - Conversion,PDF to Word Conversion,,Convert 50-page PDF to Word and measure time,Load Testing,Load Testing,,Conversion completes within 5 minutes,,,High,Production,,,
+Performance - Conversion,Concurrent Conversions,,Start multiple format conversions simultaneously,Stress Testing,Stress Testing,,All conversions complete without errors,,,High,Production,,,
+Performance - Memory,Memory Usage - Idle,,Measure memory usage when app is idle,Load Testing,Soak Testing,,Memory usage stable below 500 MB,,,Medium,Production,,,
+Performance - Memory,Memory Usage - After Operations,,Measure memory after 50 annotation/edit operations,Stress Testing,Soak Testing,,Memory usage does not exceed 800 MB,,,Medium,Production,,,
+Performance - Soak,Extended Editing Session,,Keep app open for 8 hours with periodic edits,Soak Testing,Soak Testing,,No memory leaks; app remains responsive,,,Low,Production,,,
+Performance - Spike,Rapid Page Navigation,,Navigate through pages rapidly (100+ pages per minute),Spike Testing,Spike Testing,,Navigation remains smooth; no crashes,,,Medium,Production,,,
+Performance - Spike,Rapid Drawing,,Draw multiple fast strokes in succession,Spike Testing,Spike Testing,,Drawing responsive; strokes appear in sequence,,,Medium,Production,,,
+Regression - Navigation,Multi-document Switching,,Open 5 PDFs and switch between them,Regression Testing,Load Testing,,Switching between documents works without issues,,,Medium,Production,,,
+Regression - Navigation,Tab Persistence,,Close and reopen app with multiple tabs open,Regression Testing,N/A,,Tab state preserved or recovered on restart,,,Medium,Production,,,
+Regression - Highlights,Highlight Preservation,,Add highlights and export to PDF,Regression Testing,N/A,,Highlights visible in exported PDF,,,High,Production,,,
+Regression - Highlights,Highlight Removal,,Remove highlight and verify removal,Regression Testing,N/A,,Highlight completely removed from PDF,,,Medium,Production,,,
+Regression - Annotations,Annotation Persistence,,Add annotations and navigate away/back,Regression Testing,N/A,,Annotations remain visible when returning,,,High,Production,,,
+Regression - Annotations,Annotation Export,,Export PDF with annotations,Regression Testing,N/A,,Annotations included in exported PDF,,,High,Production,,,
+Regression - Drawing,Drawing Persistence,,Draw on page and navigate to other pages,Regression Testing,N/A,,Drawing persists when returning to page,,,High,Production,,,
+Regression - Drawing,Drawing Clear,,Clear drawings and verify complete removal,Regression Testing,N/A,,All drawings completely removed,,,Medium,Production,,,
+Exploratory - Edge Cases,Empty PDF,,Open PDF with no content,Exploratory Testing,N/A,,App handles gracefully; no crash,,,Low,Production,,,
+Exploratory - Edge Cases,Corrupted PDF,,Attempt to open corrupted PDF file,Exploratory Testing,N/A,,Error message displayed; app does not crash,,,Low,Production,,,
+Exploratory - Edge Cases,Very Large File,,Open 1000+ page PDF,Exploratory Testing,Load Testing,,App loads file; navigation may be slow but functional,,,Low,Production,,,
+Exploratory - Browser Compatibility,Chrome,,Test app in Chrome browser,Exploratory Testing,N/A,,All features functional; no console errors,,,High,Production,,,
+Exploratory - Browser Compatibility,Firefox,,Test app in Firefox browser,Exploratory Testing,N/A,,All features functional; no console errors,,,High,Production,,,
+Exploratory - Browser Compatibility,Safari,,Test app in Safari browser,Exploratory Testing,N/A,,All features functional; no console errors,,,Medium,Production,,,
+Exploratory - Browser Compatibility,Edge,,Test app in Microsoft Edge browser,Exploratory Testing,N/A,,All features functional; no console errors,,,High,Production,,,
+Exploratory - Keyboard Shortcuts,Keyboard Navigation,,Use Tab key to navigate between UI elements,Exploratory Testing,N/A,,Tab navigation works; focus visible on elements,,,Medium,Production,,,
+Exploratory - Keyboard Shortcuts,Undo Shortcut,,Use Ctrl+Z to undo last action,Exploratory Testing,N/A,,Undo function works; last action reversed,,,Medium,Production,,,
+Exploratory - Keyboard Shortcuts,Redo Shortcut,,Use Ctrl+Y to redo undone action,Exploratory Testing,N/A,,Redo function works; undone action restored,,,Medium,Production,,,
+Exploratory - Keyboard Shortcuts,Save Shortcut,,Use Ctrl+S to save PDF,Exploratory Testing,N/A,,Save initiated; PDF downloaded,,,Medium,Production,,,
+Accessibility,Keyboard Navigation,,Navigate entire app using only keyboard,Exploratory Testing,N/A,,All interactive elements accessible via keyboard,,,Medium,Production,,,
+Accessibility,Screen Reader,,Test with screen reader (NVDA/JAWS),Exploratory Testing,N/A,,App text/buttons properly labeled for screen readers,,,Low,Production,,,
+Accessibility,Color Contrast,,Verify text contrast meets WCAG AA standards,Exploratory Testing,N/A,,All text has sufficient contrast ratio (4.5:1),,,Low,Production,,,
+Security - File Upload,Valid PDF Upload,,Upload valid PDF file,Smoke Testing,N/A,,File uploaded and processed successfully,,,High,Production,,,
+Security - File Upload,Malicious File Rejection,,Attempt to upload .exe or script file,Smoke Testing,N/A,,File rejected; error message displayed,,,High,Production,,,
+Security - File Upload,Large File Size,,Attempt to upload 1GB+ file,Smoke Testing,Load Testing,,File size limit enforced; upload rejected with message,,,Medium,Production,,,
+Security - Export,Export Integrity,,Export PDF and verify file integrity,Smoke Testing,N/A,,Exported PDF opens without corruption,,,High,Production,,,
+Error Handling - Conversion,Failed Conversion,,Trigger conversion error by closing app during conversion,Sanity Testing,N/A,,Graceful error handling; appropriate message shown,,,Medium,Production,,,
+Error Handling - Conversion,Timeout Handling,,Monitor conversion timeout (if applicable),Sanity Testing,Stress Testing,,Timeout error handled gracefully with retry option,,,Medium,Production,,,
+Error Handling - File Operations,Disk Space,,Trigger download when disk space insufficient,Sanity Testing,N/A,,Error message displayed; download prevented,,,Low,Production,,,
+Network - API Calls,Backend Availability,,Verify backend API is reachable,Smoke Testing,Load Testing,,API responds with HTTP 200 for health check,,,High,Production,,,
+Network - API Calls,Conversion API,,Call /api/pdf-to-image endpoint,Smoke Testing,Load Testing,,API returns image file successfully,,,High,Production,,,
+Network - API Calls,Large Payload,,Send large PDF (50+ MB) to API,Load Testing,Load Testing,,API handles large payload; response time <30s,,,Medium,Production,,,
+Network - Offline Mode,Offline Graceful Handling,,Disable internet and attempt conversion,Sanity Testing,N/A,,Error message displayed; no app crash,,,Medium,Production,,,
+UI Responsiveness,Mobile Viewport,,Test app in mobile viewport (375px width),Smoke Testing,N/A,,UI adapts to mobile; all buttons accessible,,,Medium,Production,,,
+UI Responsiveness,Tablet Viewport,,Test app in tablet viewport (768px width),Smoke Testing,N/A,,UI adapts to tablet; layout properly adjusted,,,Medium,Production,,,
+UI Responsiveness,Desktop Viewport,,Test app in full desktop viewport (1920px width),Smoke Testing,N/A,,UI displays properly; no overflow or clipping,,,High,Production,,,
+UI Responsiveness,Window Resize,,Resize browser window while app is open,Sanity Testing,N/A,,UI reflows smoothly; no broken layout,,,Medium,Production,,,
+Data Persistence,Local Storage,,Verify settings saved to local storage,Regression Testing,N/A,,Settings persist across browser sessions,,,Low,Production,,,
+Data Persistence,IndexedDB,,Verify large data stored in IndexedDB,Regression Testing,N/A,,Document state recoverable from IndexedDB,,,Low,Production,,,
+Stress Testing,100 Annotations,,Add 100 annotations to single page,Stress Testing,Stress Testing,,App remains responsive; no significant lag,,,Medium,Production,,,
+Stress Testing,1000 Page Navigation,,Navigate through 1000-page PDF rapidly,Stress Testing,Stress Testing,,Navigation completes without hanging,,,Medium,Production,,,
+Stress Testing,Memory Leak Detection,,Run app for extended period; monitor memory,Stress Testing,Soak Testing,,No memory leaks detected; stable memory usage,,,Low,Production,,,
+User Acceptance,Feature Completeness,,Verify all documented features present,Regression Testing,N/A,,All documented features implemented and functional,,,High,Production,,,
+User Acceptance,Performance Metrics,,Verify app performance meets SLA targets,Regression Testing,Load Testing,,Page load <2s; conversions <5 minutes,,,High,Production,,,
+User Acceptance,Documentation Accuracy,,Verify documentation matches actual app behavior,Regression Testing,N/A,,User guide accurate; no discrepancies,,,Medium,Production,,,

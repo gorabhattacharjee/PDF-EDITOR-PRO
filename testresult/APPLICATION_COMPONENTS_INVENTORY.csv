@@ -1,0 +1,130 @@
+Category,Type,Component/File Name,Function/Description
+Frontend,Component,AdBottomBar.tsx,Displays bottom toolbar with page navigation and zoom controls
+Frontend,Component,AdSidebar.tsx,Left sidebar with document outline and navigation panel
+Frontend,Component,AddTextModal.tsx,Modal dialog for adding text annotations to PDF
+Frontend,Component,AnnotationOverlay.tsx,Overlay layer for displaying and managing annotations
+Frontend,Component,ArchiveModal.tsx,Modal for archiving documents and projects
+Frontend,Component,Canvas.tsx,Main PDF rendering canvas and display area
+Frontend,Component,ColorPickerModal.tsx,Color selection dialog for text and shape colors
+Frontend,Component,CommentsPanel.tsx,Panel for displaying and managing document comments
+Frontend,Component,CustomScrollContainer.tsx,Custom scrollable container component
+Frontend,Component,DigitalSignatureModal.tsx,Modal for applying digital signatures to PDF
+Frontend,Component,DocumentPropertiesModal.tsx,Modal displaying document metadata and properties
+Frontend,Component,DocumentTabs.tsx,Tab bar for managing multiple open documents
+Frontend,Component,DragDropUpload.tsx,Drag-and-drop zone for file uploads
+Frontend,Component,DrawingCanvas.tsx,Drawing layer for freehand drawing on PDF
+Frontend,Component,DrawingDisplayLayer.tsx,Display layer for rendered drawings
+Frontend,Component,EditorPage.tsx,Main editor page layout and orchestration
+Frontend,Component,EpubExportModal.tsx,Modal for exporting PDF as EPUB format
+Frontend,Component,FileMenu.tsx,"File menu with open, save, print options"
+Frontend,Component,ImageEditorModal.tsx,Modal for editing images within PDF
+Frontend,Component,ImageEditOverlay.tsx,Overlay for image editing tools and controls
+Frontend,Component,ImageExportModal.tsx,Modal for exporting PDF pages as images
+Frontend,Component,InlineTextEditor.tsx,Inline text editing component for annotations
+Frontend,Component,InspectModal.tsx,Modal for inspecting document structure and metadata
+Frontend,Component,LinkModal.tsx,Modal for adding hyperlinks to PDF
+Frontend,Component,PageReorderModal.tsx,Modal for reordering PDF pages
+Frontend,Component,PageThumbnailPanel.tsx,Panel showing thumbnail previews of all pages
+Frontend,Component,PDFEditor.tsx,Main PDF editor component wrapper
+Frontend,Component,RibbonBar.tsx,Top ribbon toolbar with all editing tools
+Frontend,Component,SanitizeModal.tsx,Modal for sanitizing PDF content
+Frontend,Component,Sidebar.tsx,Navigation sidebar with tools and options
+Frontend,Component,StickyNote.tsx,Sticky note annotation component
+Frontend,Component,TabsBar.tsx,Document tabs bar navigation
+Frontend,Component,TextEditorPanel.tsx,Panel for text editing and formatting
+Frontend,Component,Toaster.tsx,Toast notification display component
+Frontend,Component,ToOfficeModal.tsx,"Modal for converting PDF to Office formats (Word, Excel, PowerPoint)"
+Frontend,Component,UploadModal.tsx,Modal dialog for file upload
+Frontend,Component,UtilityBar.tsx,Utility toolbar with additional features
+Frontend,Component,VoiceNoteRecorder.tsx,Component for recording voice annotations
+Frontend,Component,WelcomeBox.tsx,Welcome screen and getting started guide
+Frontend,Ribbon Component,ConvertTab.tsx,Ribbon tab for PDF conversion to Office formats
+Frontend,Ribbon Component,DrawTab.tsx,Ribbon tab for drawing tools
+Frontend,Ribbon Component,EditTab.tsx,Ribbon tab for text editing and annotation
+Frontend,Ribbon Component,FileTab.tsx,"Ribbon tab for file operations (open, save, print)"
+Frontend,Ribbon Component,HomeTab.tsx,Ribbon tab for basic document operations
+Frontend,Ribbon Component,ImageTab.tsx,Ribbon tab for image manipulation tools
+Frontend,Ribbon Component,ProtectTab.tsx,Ribbon tab for document protection and encryption
+Frontend,Ribbon Component,ToolsTab.tsx,Ribbon tab for additional utility tools
+Frontend,Ribbon Component,ViewTab.tsx,Ribbon tab for view and display options
+Frontend,Hook,useAnnotationDrawing.ts,Custom hook for annotation drawing functionality
+Frontend,Hook,useCanvasInteraction.ts,Custom hook for canvas mouse and keyboard interactions
+Frontend,Hook,useCommentTools.ts,Custom hook for comment management
+Frontend,Hook,useOCRTextExtraction.ts,Custom hook for OCR text extraction from images
+Frontend,Hook,useOcr.ts,Custom hook for OCR engine integration
+Frontend,Hook,usePDFRenderer.ts,Custom hook for PDF rendering
+Frontend,Hook,usePdfActions.ts,Custom hook for PDF manipulation actions
+Frontend,Hook,usePdfCompression.ts,Custom hook for PDF compression
+Frontend,Hook,useTextSelection.ts,Custom hook for text selection and copying
+Frontend,Store (Zustand),annotationStore.ts,Zustand store for annotation state management
+Frontend,Store (Zustand),appStore.ts,Global application state store
+Frontend,Store (Zustand),canvasStore.ts,Canvas rendering state store
+Frontend,Store (Zustand),commentStore.ts,Comment and discussion state store
+Frontend,Store (Zustand),drawingStore.ts,Drawing operations state store
+Frontend,Store (Zustand),documentStore.ts,Document metadata and status store
+Frontend,Store (Zustand),editorStore.ts,Editor state and configuration store
+Frontend,Store (Zustand),fileStore.ts,File management state store
+Frontend,Store (Zustand),imageStore.ts,Image editing state store
+Frontend,Store (Zustand),notificationStore.ts,Toast and notification state store
+Frontend,Store (Zustand),pageStore.ts,Page and pagination state store
+Frontend,Store (Zustand),ribbonStore.ts,Ribbon toolbar state store
+Frontend,Store (Zustand),selectionStore.ts,Text and object selection state store
+Frontend,Store (Zustand),sidebarStore.ts,Sidebar navigation state store
+Frontend,Store (Zustand),textStore.ts,Text editing and formatting state store
+Frontend,Store (Zustand),toolStore.ts,Active tool selection state store
+Frontend,Store (Zustand),uiStore.ts,General UI state management
+Frontend,Store (Zustand),zoomStore.ts,Zoom level and view state store
+Frontend,Service,apiService.ts,HTTP client for backend API communication
+Frontend,Service,authService.ts,Authentication and user session management
+Frontend,Service,cacheService.ts,Client-side caching for performance
+Frontend,Service,conversionService.ts,"PDF conversion service (Word, Excel, PowerPoint, HTML)"
+Frontend,Service,documentService.ts,"Document loading, saving, and management"
+Frontend,Service,encryptionService.ts,PDF encryption and decryption
+Frontend,Service,exportService.ts,Document export functionality
+Frontend,Service,imageProcessingService.ts,Image extraction and processing
+Frontend,Service,notificationService.ts,Toast notification display
+Frontend,Service,ocrService.ts,Optical Character Recognition integration
+Frontend,Service,pdfCompressionService.ts,PDF compression and optimization
+Frontend,Service,searchService.ts,Full-text search in documents
+Frontend,Service,storageService.ts,LocalStorage and SessionStorage management
+Frontend,Service,syncService.ts,Real-time synchronization service
+Frontend,Service,validationService.ts,Form and file validation
+Frontend,Service,workerService.ts,Web Worker management for background tasks
+Frontend,Utility,colorUtils.ts,Color manipulation and conversion utilities
+Frontend,Utility,dateUtils.ts,Date formatting and parsing utilities
+Frontend,Utility,fileUtils.ts,File handling and validation utilities
+Frontend,Utility,formatUtils.ts,Data formatting utilities
+Frontend,Utility,geometryUtils.ts,Geometric calculations and transformations
+Frontend,Utility,pdfUtils.ts,PDF-specific utility functions
+Frontend,Utility,stringUtils.ts,String manipulation utilities
+Frontend,Utility,themeUtils.ts,Theme and styling utilities
+Frontend,Utility,validationUtils.ts,Validation helper functions
+Frontend,Utility,zoomUtils.ts,Zoom calculation and level utilities
+Frontend,Utility,canvasInteraction.ts,Canvas interaction utilities
+Frontend,Utility,utils.ts,General utility functions
+Frontend,Adapter,pdf-lib.ts,PDF-lib library adapter for PDF manipulation
+Frontend,Adapter,pdfjs.ts,PDF.js library adapter for PDF rendering
+Frontend,Adapter,tesseract.ts,Tesseract OCR library adapter
+Frontend,Provider,ThemeProvider.tsx,Dark/Light theme provider
+Frontend,Type Definition,index.ts,TypeScript type definitions and interfaces
+Frontend,App,page.tsx,Main application page (Next.js)
+Frontend,App,layout.tsx,Root layout wrapper
+Frontend,App,globals.css,Global CSS styles
+Frontend,App,manifest.ts,PWA manifest configuration
+Frontend,App,robots.ts,robots.txt configuration
+Frontend,App,sitemap.ts,XML sitemap generation
+Backend,Server,server.ts,Express.js server with API endpoints for PDF conversion
+Backend,Config,tsconfig.json,TypeScript configuration
+Backend,Config,package.json,Node.js dependencies and scripts
+Backend,Python,py_word_excel_html_ppt.py,Main converter: PDF to Word/Excel/PowerPoint/HTML (1959 lines)
+Backend,Python,simple_pdf_converter.py,Lightweight converter for Word/PPT/HTML with optimized performance
+Backend,Python,pdf_to_text.py,Extract text from PDF to plain text file
+Backend,Python,pdf_to_images.py,Convert PDF pages to image files (PNG/JPG)
+Backend,Python,compress_pdf.py,Compress PDF file size while maintaining quality
+Backend,Python,encrypt_pdf.py,Encrypt PDF with password protection
+Backend,Python,decrypt_pdf.py,Remove password from encrypted PDF
+Backend,Python,set_permissions.py,Set user/owner permissions on PDF
+Backend,Python,pdf_to_excel_via_word_pipeline.py,Alternative Excel conversion via Word intermediate
+Backend,Python,PDF_TO_IMAGE_BACKEND_INTEGRATION.py,Integration module for PDF to image conversion
+Deployment,Config,Dockerfile,Docker container configuration for backend
+Deployment,Config,.dockerignore,Docker ignore file

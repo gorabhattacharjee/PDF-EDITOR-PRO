@@ -1,0 +1,97 @@
+Category,Component Type,Button/UI Element Name,Icon Library,Icon Name,Location,Function,Sub-Items,Parent Component,Status
+Navigation,Tab Button,Home Tab,Icons,Home Icon,RibbonBar,Activate home tools,Highlight/Underline/Strikethrough/Pen/Shapes/StickyNote,RibbonBar,Active
+Navigation,Tab Button,Edit Tab,Icons,Edit Icon,RibbonBar,Activate edit tools,Edit Text/Edit Image/Add Text/Add Image,RibbonBar,Active
+Navigation,Tab Button,Tools Tab,Icons,Tools Icon,RibbonBar,Activate advanced tools,Merge PDF/OCR/Watermark/Sanitize,RibbonBar,Active
+Navigation,Tab Button,Page Tab,Icons,Page Icon,RibbonBar,Manage pages,Insert/Delete/Rotate/Reorder/Extract,RibbonBar,Active
+Navigation,Tab Button,Convert Tab,Icons,Convert Icon,RibbonBar,Convert formats,Word/Excel/PowerPoint/HTML/Image/Text,RibbonBar,Active
+Navigation,Tab Button,Protect Tab,Icons,Lock Icon,RibbonBar,Security options,Encrypt/Set Permissions,RibbonBar,Active
+Navigation,Tab Button,Comment Tab,Icons,Comment Icon,RibbonBar,Annotation tools,Comments/Sticky Notes/Markup,RibbonBar,Active
+Navigation,Tab Button,Merge Tab,Icons,Merge Icon,RibbonBar,Merge PDFs,PDF Merge Queue,RibbonBar,Active
+Navigation,Menu Button,File Menu,Icons,File Icon,RibbonBar,File operations,Open/Save/Recent/Properties,RibbonBar,Active
+Tool Button,Primary Tool,Hand Tool,FaHandPaper,Open Hand,HomeTab,Navigate and pan PDF,None,HomeTab,Active
+Tool Button,Primary Tool,Selection Tool,FaMousePointer,Mouse Pointer,HomeTab,Select elements on PDF,None,HomeTab,Active
+Tool Button,Annotation,Highlight Tool,FaHighlighter,Highlighter,HomeTab,Highlight text,Color Picker,HomeTab,Active
+Tool Button,Annotation,Underline Tool,FaUnderline,Underline,HomeTab,Underline text,None,HomeTab,Active
+Tool Button,Annotation,Strikethrough Tool,FaStrikethrough,Strikethrough,HomeTab,Strike text,None,HomeTab,Active
+Tool Button,Annotation,Pen Tool,FaPen,Pen,HomeTab,Freehand drawing,Color Picker,HomeTab,Active
+Tool Button,Annotation,Shape Tool,FaShapes,Shapes,HomeTab,Draw geometric shapes,Shape Selector + Color Picker,HomeTab,Active
+Tool Button,Annotation,Sticky Note,FaStickyNote,Sticky Note,HomeTab,Add comment notes,Note Text Input,HomeTab,Active
+Edit Button,Edit Operation,Add Text,FiFileText,File Text,EditTab,Add new text,Text Input + Font Selector,EditTab,Active
+Edit Button,Edit Operation,Edit Text,FiEdit,Edit,EditTab,Edit existing text,In-place Editor,EditTab,Active
+Edit Button,Edit Operation,Edit Image,MdImage,Image,EditTab,Edit images,Image Editor Modal,EditTab,Active
+Edit Button,Edit Operation,Add Image,FiImage,Image,EditTab,Insert image,File Selector,EditTab,Active
+Conversion Button,Format,Convert to Word,FaFileWord,Word Document,ConvertTab,Export as DOCX,Format Modal,ConvertTab,Active
+Conversion Button,Format,Convert to Excel,FaFileExcel,Excel Spreadsheet,ConvertTab,Export as XLSX,Format Modal,ConvertTab,Active
+Conversion Button,Format,Convert to PowerPoint,FaFilePowerpoint,Presentation,ConvertTab,Export as PPTX,Format Modal,ConvertTab,Active
+Conversion Button,Format,Convert to HTML,MdHtml,HTML,ConvertTab,Export as HTML,Format Modal,ConvertTab,Active
+Conversion Button,Format,Export to Image,MdImage,Image,ConvertTab,Export page as image,Image Format Modal,ConvertTab,Active
+Conversion Button,Format,Extract Text,FiFileText,Text File,ConvertTab,Export as TXT,Text Export,ConvertTab,Active
+Page Button,Page Operation,Previous Page,FiChevronLeft,Left Arrow,UtilityBar,Navigate to previous page,None,UtilityBar,Active
+Page Button,Page Operation,Next Page,FiChevronRight,Right Arrow,UtilityBar,Navigate to next page,None,UtilityBar,Active
+Page Button,Page Operation,Go to Page,FiCrosshair,Crosshair,UtilityBar,Jump to specific page,Page Input Field,UtilityBar,Active
+Page Button,Page Operation,Insert Page,AiOutlinePlus,Plus Icon,PageTab,Insert page from file,File Selector,PageTab,Active
+Page Button,Page Operation,Delete Page,AiOutlineDelete,Delete Icon,PageTab,Remove current page,Confirmation Dialog,PageTab,Active
+Page Button,Page Operation,Rotate 90 CW,BiRotateRight,Rotate Right,PageTab,Rotate page clockwise,None,PageTab,Active
+Page Button,Page Operation,Rotate 90 CCW,BiRotateLeft,Rotate Left,PageTab,Rotate page counter-clockwise,None,PageTab,Active
+Page Button,Page Operation,Extract Pages,FaFileArchive,Archive,PageTab,Extract page range,Page Range Selector,PageTab,Active
+Page Button,Page Operation,Reorder Pages,FiLayers,Layers,PageTab,Reorder page order,Page Reorder Modal,PageTab,Active
+View Button,View Control,Zoom In,FiZoomIn,Magnifying Glass +,UtilityBar,Increase zoom level,Zoom Slider,UtilityBar,Active
+View Button,View Control,Zoom Out,FiZoomOut,Magnifying Glass -,UtilityBar,Decrease zoom level,Zoom Slider,UtilityBar,Active
+View Button,View Control,Fit to Width,FaCompress,Compress,UtilityBar,Auto-fit page width,None,UtilityBar,Active
+View Button,View Control,Print,FiPrinter,Printer,UtilityBar,Print document,Print Dialog,UtilityBar,Active
+File Button,File Operation,Open,FaFolderOpen,Folder Open,FileMenu,Open PDF file,File Selector,FileMenu,Active
+File Button,File Operation,Save,FiSave,Save,FileMenu,Save edited PDF,File Saver,FileMenu,Active
+File Button,File Operation,Save As,FiSave,Save,FileMenu,Save with new name,File Saver Dialog,FileMenu,Active
+File Button,File Operation,Recent Files,FiFile,File,FileMenu,Open recent file,File List,FileMenu,Active
+File Button,File Operation,Properties,FiFile,File,FileMenu,View document info,Properties Modal,FileMenu,Active
+Tools Button,Tool Operation,Merge PDF,MdMerge,Merge,ToolsTab,Merge multiple PDFs,PDF File Selector,ToolsTab,Active
+Tools Button,Tool Operation,Extract Text (OCR),FaMagic,Magic Wand,ToolsTab,OCR text extraction,OCR Processing,ToolsTab,Active
+Tools Button,Tool Operation,Add Watermark,FaPen,Pen,ToolsTab,Add watermark,Watermark Text Input,ToolsTab,Active
+Tools Button,Tool Operation,Search,FaSearch,Search Magnifying Glass,ToolsTab,Search in PDF,Search Input,ToolsTab,Active
+Security Button,Security,Encrypt PDF,FaLock,Lock,ProtectTab,Password protect,Password Input,ProtectTab,Active
+Security Button,Security,Set Permissions,FaLockOpen,Open Lock,ProtectTab,Control PDF usage,Permission Checkboxes,ProtectTab,Active
+Input Control,Text Input,Text Content Input,None,Text Field,AddTextModal,Enter text,Font Selector + Color,AddTextModal,Active
+Input Control,Color Picker,Highlight Color,None,Color Palette,ColorPickerModal,Choose highlight color,Color Palette Grid,ColorPickerModal,Active
+Input Control,Font Selector,Font Selection,None,Dropdown,HomeTab,Choose font type,Font List,HomeTab,Active
+Input Control,Zoom Slider,Zoom Percentage,None,Slider,UtilityBar,Adjust zoom level,Zoom Range 0.5-3.0,UtilityBar,Active
+Input Control,Page Number,Page Jump,None,Number Input,UtilityBar,Go to page number,Min: 1 / Max: Total Pages,UtilityBar,Active
+Input Control,Shape Selector,Shape Type,None,Dropdown,HomeTab,Select shape type,Rectangle/Circle/Line/Polygon,HomeTab,Active
+Input Control,Color Input,Drawing Color,None,Color Picker,HomeTab,Select draw color,Color Palette,HomeTab,Active
+Input Control,Checkbox,Permission Toggle,None,Checkbox,ProtectTab,Enable/disable permission,Boolean State,ProtectTab,Active
+Input Control,Radio Button,Tool Select,None,Radio Group,HomeTab,Select editing tool,Tool Options,HomeTab,Active
+Input Control,Dropdown,Format Select,None,Dropdown,ConvertTab,Choose export format,Format Options,ConvertTab,Active
+Input Control,File Input,PDF Upload,None,File Selector,WelcomeBox,Select PDF to open,Accepts *.pdf,WelcomeBox,Active
+Panel,Left Sidebar,Page Thumbnails,None,Thumbnail Grid,PageThumbnailPanel,Navigate pages visually,Thumbnail List,Sidebar,Active
+Panel,Left Sidebar,Comments Panel,None,Comments List,CommentsPanel,View all comments,Comment List,Sidebar,Active
+Panel,Left Sidebar,Layers Panel,None,Layer List,Sidebar,Manage object layers,Layer List,Sidebar,Active
+Panel,Right Sidebar,Text Editor,None,Text Panel,TextEditorPanel,Edit text properties,Font/Size/Color,Sidebar,Active
+Panel,Right Sidebar,Ad Space,None,Ad Banner,AdSidebar,Advertisement display,Ad Area,Sidebar,Active
+Panel,Bottom Area,Utility Bar,None,Control Bar,UtilityBar,Navigation and view controls,Page/Zoom/Print,Bottom,Active
+Panel,Bottom Area,Status Bar,None,Status Display,Bottom,Show current status,Status Text,Bottom,Active
+Panel,Bottom Area,Ad Space,None,Ad Banner,AdBottomBar,Advertisement display,Ad Area,Bottom,Active
+Scroll Control,Scrollbar,Vertical Scroll,None,Scrollbar,CustomScrollContainer,Scroll through pages,Scroll Position,CustomScrollContainer,Active
+Modal Overlay,Modal Dialog,File Dialog,None,Modal Background,FileMenu,File operation modal,Modal Window,Overlay,Active
+Modal Overlay,Modal Dialog,Text Dialog,None,Modal Background,AddTextModal,Text input dialog,Modal Window,Overlay,Active
+Modal Overlay,Modal Dialog,Color Dialog,None,Modal Background,ColorPickerModal,Color selection dialog,Modal Window,Overlay,Active
+Modal Overlay,Modal Dialog,Image Dialog,None,Modal Background,ImageEditorModal,Image editing dialog,Modal Window,Overlay,Active
+Modal Overlay,Modal Dialog,Convert Dialog,None,Modal Background,ToOfficeModal,Format conversion dialog,Modal Window,Overlay,Active
+Modal Overlay,Modal Dialog,Properties Dialog,None,Modal Background,DocumentPropertiesModal,Document info dialog,Modal Window,Overlay,Active
+Modal Overlay,Modal Dialog,Reorder Dialog,None,Modal Background,PageReorderModal,Page reordering dialog,Modal Window,Overlay,Active
+Modal Overlay,Modal Dialog,Inspect Dialog,None,Modal Background,InspectModal,Document inspection dialog,Modal Window,Overlay,Active
+Notification,Toast Message,Success Toast,None,Toast,Toaster,Show success message,Temporary notification,Toaster,Active
+Notification,Toast Message,Error Toast,None,Toast,Toaster,Show error message,Temporary notification,Toaster,Active
+Notification,Toast Message,Info Toast,None,Toast,Toaster,Show info message,Temporary notification,Toaster,Active
+Notification,Toast Message,Loading Toast,None,Toast,Toaster,Show loading message,Temporary notification,Toaster,Active
+Loading,Progress Indicator,Loading Spinner,None,Spinner,Multiple,Show operation progress,Animated Spinner,Multiple,Active
+Loading,Progress Indicator,Progress Bar,None,Progress Bar,Multiple,Show progress percentage,Progress Visualization,Multiple,Active
+Welcome Screen,Welcome Component,Open Button,FaFolderOpen,Folder Open,WelcomeBox,Open PDF,File Selector,WelcomeBox,Active
+Welcome Screen,Welcome Component,Drag Drop Zone,None,Drop Zone,WelcomeBox,Drop PDF files,File Acceptance,WelcomeBox,Active
+Canvas Tools,Drawing Surface,PDF Canvas,None,Canvas Element,Canvas,Render PDF page,PDF Rendering,Canvas,Active
+Canvas Tools,Drawing Layer,Drawing Canvas,None,Canvas,DrawingCanvas,Draw annotations,Drawing Buffer,Canvas,Active
+Canvas Tools,Display Layer,Annotation Display,None,Display Buffer,DrawingDisplayLayer,Show drawings,Rendered Output,Canvas,Active
+Canvas Tools,Image Overlay,Image Editor Box,None,Selection Box,ImageEditOverlay,Select/Edit images,Image Bounds,Canvas,Active
+Canvas Tools,Annotation Layer,Text Overlay,None,Text Layer,AnnotationOverlay,Display text markup,Text Rendering,Canvas,Active
+Canvas Tools,Comment Layer,Sticky Notes,None,Note Widget,StickyNote,Show comment notes,Note Display,Canvas,Active
+Canvas Tools,Edit Layer,Inline Editor,None,Input Field,InlineTextEditor,Edit text inline,Text Editing,Canvas,Active
+Document Control,Tab Control,Document Tab,None,Tab Button,DocumentTabs,Switch document,Document List,DocumentTabs,Active
+Document Control,Tab Control,Close Tab,FiX,X Icon,DocumentTabs,Close document,Tab Removal,DocumentTabs,Active

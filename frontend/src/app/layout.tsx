@@ -8,6 +8,7 @@ export const metadata: Metadata = {
     template: '%s | PDF Editor Pro',
   },
   description: 'Free online PDF editor with powerful features: edit, annotate, highlight, merge, compress, convert to Word/Excel/PowerPoint, add text, images, and more. No installation required.',
+  viewport: 'width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5, user-scalable=yes',
   keywords: [
     'PDF editor',
     'online PDF editor',

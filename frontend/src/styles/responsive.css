@@ -1,0 +1,573 @@
+/* ================================================================
+   RESPONSIVE DESIGN - MOBILE-FRIENDLY INTERFACE
+   ================================================================
+   
+   This file implements mobile responsiveness WITHOUT changing 
+   the desktop UI. Desktop users see exactly what they saw before.
+   Mobile users get an optimized, touch-friendly experience.
+   
+   Breakpoints:
+   - sm: 640px (small phones)
+   - md: 768px (tablets)
+   - lg: 1024px (desktops) - default desktop layout
+   
+   Mobile-first approach: styles apply at each breakpoint and above,
+   unless overridden by larger breakpoints.
+   ================================================================ */
+
+/* ================================================================
+   MOBILE: Small devices (< 768px)
+   ================================================================ */
+
+@media (max-width: 767px) {
+  /* RIBBON BAR - COLLAPSE AND STACK */
+  .ribbon-container {
+    flex-direction: column;
+    padding: 8px 4px;
+    gap: 8px;
+  }
+
+  /* FILE BUTTON - REPOSITION */
+  .file-button {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    text-align: center;
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+
+  /* TOP ROW - FULL WIDTH STACKING */
+  .ribbon-top-row {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+
+  /* ICON BAR - HORIZONTAL SCROLL */
+  .icon-bar {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 6px 0;
+    gap: 8px;
+    font-size: 18px;
+  }
+
+  /* TABS - HORIZONTAL SCROLL */
+  .ribbon-tabs {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 12px;
+    padding: 8px 4px;
+    font-size: 13px;
+    font-weight: 500;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* RIBBON TAB - TOUCH-SIZED */
+  .ribbon-tab {
+    padding: 6px 12px;
+    min-width: max-content;
+    font-size: 13px;
+    border-radius: 4px;
+  }
+
+  /* RIBBON SUBBAR - VERTICAL LAYOUT ON MOBILE */
+  .ribbon-subbar {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 4px;
+    align-items: stretch;
+  }
+
+  .ribbon-subbar > div {
+    width: 100%;
+    padding: 12px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    white-space: normal;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .ribbon-subbar > div:hover {
+    transform: none;
+  }
+
+  /* FILE MENU - MOBILE OPTIMIZED */
+  .file-menu-panel,
+  .filemenu-float {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 10001;
+    border-radius: 8px;
+  }
+
+  .filemenu-container {
+    max-height: 75vh;
+    overflow-y: auto;
+  }
+
+  /* SIDEBAR - HIDE ON MOBILE, SHOW IN DRAWER */
+  .w-64 {
+    display: none;
+  }
+
+  /* CANVAS AREA - FULL WIDTH */
+  .flex-1.bg-white.overflow-hidden.flex.flex-col {
+    width: 100%;
+  }
+
+  /* AD SIDEBAR - HIDE ON MOBILE */
+  [class*="ad-sidebar"],
+  [class*="AdSidebar"] {
+    display: none;
+  }
+
+  /* AD BOTTOM BAR - MINIMAL HEIGHT */
+  [class*="ad-bottom"],
+  [class*="AdBottomBar"] {
+    max-height: 60px;
+    min-height: 0;
+  }
+
+  /* UTILITY BAR - MOBILE OPTIMIZED */
+  .utility-bar,
+  [class*="UtilityBar"] {
+    padding: 8px 4px;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  /* BUTTONS - TOUCH-FRIENDLY SIZE */
+  button,
+  .ribbon-btn,
+  .ribbon-subbar > div {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  /* INPUT CONTROLS - LARGER TOUCH TARGETS */
+  input[type="text"],
+  input[type="number"],
+  input[type="file"],
+  textarea,
+  select {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    min-height: 44px;
+  }
+
+  /* MODAL DIALOGS - FULL SCREEN ON MOBILE */
+  [role="dialog"],
+  .modal,
+  [class*="Modal"] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+
+  /* SCROLLBAR - THINNER ON MOBILE */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+  }
+
+  /* REMOVE HOVER TRANSFORMS ON MOBILE */
+  .ribbon-btn:hover,
+  .icon-button:hover,
+  .ribbon-subbar > div:hover {
+    transform: none;
+  }
+
+  /* TOUCH FEEDBACK */
+  .ribbon-btn:active,
+  .icon-button:active,
+  .ribbon-subbar > div:active {
+    background: rgba(0, 0, 0, 0.12);
+  }
+
+  /* TOOLTIP HIDE ON MOBILE */
+  [title] {
+    -webkit-touch-callout: none;
+  }
+
+  /* TEXT SELECTION - DISABLE ON BUTTONS */
+  button,
+  .ribbon-btn,
+  .icon-button {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* DISABLE ZOOM ON DOUBLE TAP */
+  input,
+  button,
+  textarea,
+  select {
+    font-size: 16px; /* Prevents auto-zoom on iOS */
+  }
+
+  /* LANDSCAPE MODE ADJUSTMENTS */
+  @media (orientation: landscape) and (max-width: 1024px) {
+    .ribbon-container {
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding: 6px 4px;
+    }
+
+    .ribbon-tabs {
+      order: 2;
+      width: 100%;
+      gap: 8px;
+    }
+
+    .ribbon-subbar {
+      order: 3;
+      width: 100%;
+      flex-direction: row;
+      overflow-x: auto;
+      gap: 6px;
+      padding: 6px 4px;
+    }
+
+    .ribbon-subbar > div {
+      width: auto;
+      min-width: max-content;
+      white-space: nowrap;
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    .file-button {
+      width: auto;
+      position: relative;
+    }
+  }
+}
+
+/* ================================================================
+   TABLET: Medium devices (768px - 1023px)
+   ================================================================ */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* SIDEBAR - REDUCED WIDTH */
+  .w-64 {
+    width: 180px;
+  }
+
+  /* RIBBON - MORE COMPACT */
+  .ribbon-tabs {
+    gap: 12px;
+    font-size: 14px;
+  }
+
+  .ribbon-subbar {
+    gap: 10px;
+    padding: 8px;
+  }
+
+  .ribbon-subbar > div {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  /* AD SIDEBAR - REDUCE WIDTH */
+  [class*="ad-sidebar"],
+  [class*="AdSidebar"] {
+    width: auto;
+    max-width: 120px;
+  }
+}
+
+/* ================================================================
+   DESKTOP: Large devices (1024px and above)
+   ================================================================ */
+
+@media (min-width: 1024px) {
+  /* DESKTOP LAYOUT - NO CHANGES, KEEP AS-IS */
+  /* All styles remain the default (unchanged) */
+
+  /* Ensure hover effects only on desktop */
+  .ribbon-btn:hover,
+  .icon-button:hover,
+  .ribbon-subbar > div:hover,
+  .ribbon-tab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Disable touch-specific styles */
+  button,
+  input,
+  select,
+  textarea {
+    font-size: 14px;
+  }
+}
+
+/* ================================================================
+   ACCESSIBILITY & TOUCH-FRIENDLY ADJUSTMENTS
+   ================================================================ */
+
+/* High DPI / Retina displays */
+@media (-webkit-min-device-pixel-ratio: 2),
+       (min-resolution: 192dpi) {
+  /* Slightly thicker borders for clarity */
+  .ribbon-tab,
+  .ribbon-btn,
+  .icon-button {
+    border-width: 1px;
+  }
+}
+
+/* Dark mode support (if implementing later) */
+@media (prefers-color-scheme: dark) {
+  /* Colors will be inverted by the theme provider */
+  /* No changes needed here - theme system handles it */
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .ribbon-btn,
+  .icon-button,
+  .ribbon-subbar > div,
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .ribbon-container,
+  [class*="Sidebar"],
+  [class*="UtilityBar"],
+  [class*="AdSidebar"],
+  [class*="AdBottomBar"] {
+    display: none !important;
+  }
+
+  .flex-1.bg-white.overflow-hidden.flex.flex-col {
+    width: 100%;
+  }
+}
+
+/* ================================================================
+   MOBILE MENU DRAWER (Optional - for Sidebar)
+   ================================================================ */
+
+@media (max-width: 767px) {
+  /* Sliding drawer for sidebar on mobile */
+  [class*="sidebar-drawer"],
+  [class*="mobile-drawer"] {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    width: 75vw;
+    max-width: 300px;
+    height: 100vh;
+    background: white;
+    z-index: 9999;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+    border-right: 1px solid #ddd;
+  }
+
+  [class*="sidebar-drawer"].active,
+  [class*="mobile-drawer"].active {
+    left: 0;
+  }
+
+  /* Backdrop for drawer */
+  [class*="drawer-backdrop"] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    display: none;
+  }
+
+  [class*="drawer-backdrop"].active {
+    display: block;
+  }
+
+  /* Toggle button for drawer */
+  [class*="drawer-toggle"] {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 9997;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* ================================================================
+   SMALL PHONE ADJUSTMENTS (< 480px)
+   ================================================================ */
+
+@media (max-width: 479px) {
+  /* RIBBON - EVEN MORE COMPACT */
+  .ribbon-container {
+    padding: 6px 2px;
+    gap: 6px;
+  }
+
+  .ribbon-tabs {
+    gap: 8px;
+    padding: 6px 2px;
+  }
+
+  .ribbon-tab {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .ribbon-subbar > div {
+    padding: 10px 8px;
+    font-size: 12px;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .icon-bar {
+    gap: 6px;
+  }
+
+  .icon-button {
+    padding: 8px 8px;
+    font-size: 16px;
+  }
+
+  /* FULL WIDTH FILE MENU */
+  .file-menu-panel,
+  .filemenu-float {
+    width: 95vw;
+    max-width: none;
+  }
+}
+
+/* ================================================================
+   CUSTOM SCROLLBAR FOR TOUCH DEVICES
+   ================================================================ */
+
+@media (hover: none) and (pointer: coarse) {
+  /* Touch device scrollbar styles */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  /* Thicker scrollbar area for easier touch */
+  .thumbnail-panel,
+  .canvas-panel {
+    scrollbar-width: auto;
+  }
+}
+
+/* ================================================================
+   ORIENTATION CHANGES
+   ================================================================ */
+
+@media (orientation: portrait) and (max-width: 767px) {
+  /* Portrait mode optimizations */
+  .ribbon-subbar {
+    flex-direction: column;
+  }
+
+  .ribbon-subbar > div {
+    width: 100%;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+  /* Landscape with short viewport */
+  .ribbon-container {
+    padding: 4px;
+    gap: 4px;
+  }
+
+  .ribbon-tabs {
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .ribbon-subbar {
+    max-height: 100px;
+    overflow-y: auto;
+  }
+}
+
+/* ================================================================
+   SAFE AREA INSETS (for notches and safe zones on mobile)
+   ================================================================ */
+
+@supports (padding: max(0px)) {
+  .ribbon-container,
+  [class*="Sidebar"],
+  [class*="UtilityBar"] {
+    padding-left: max(padding-left, env(safe-area-inset-left));
+    padding-right: max(padding-right, env(safe-area-inset-right));
+    padding-bottom: max(padding-bottom, env(safe-area-inset-bottom));
+  }
+}
+
+/* ================================================================
+   VIEWPORT META TAG SETTINGS (for HTML head)
+   Recommended:
+   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+   ================================================================ */

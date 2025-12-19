@@ -1,0 +1,73 @@
+Feature Category,Feature Name,Description,Components Involved,Status,Implementation Date,Performance Notes
+File Operations,Open PDF,Load PDF files from computer,FileMenu + WelcomeBox + openDocument.ts,Active,Baseline,Fast - Direct file loading
+File Operations,Save PDF,Save edited PDF to computer,FileMenu + PDFEditor,Active,Baseline,Optimized - Binary export
+File Operations,Save As,Save PDF with custom filename,FileMenu,Active,Baseline,Allows custom naming
+File Operations,Recent Files,Access recently opened files,FileMenu,Active,Baseline,Persistent storage
+File Operations,Document Properties,View/Edit document metadata,DocumentPropertiesModal,Active,Baseline,Metadata management
+Navigation,Page Navigation,Move between pages,UtilityBar + DocumentTabs,Active,Baseline,Quick and responsive
+Navigation,Page Thumbnails,Visual page preview panel,PageThumbnailPanel,Active,Baseline,Fast thumbnail generation
+Navigation,Jump to Page,Direct page number input,UtilityBar,Active,Baseline,Instant page jump
+View Control,Zoom In,Increase page magnification,UtilityBar,Active,Baseline,Up to 300% zoom
+View Control,Zoom Out,Decrease page magnification,UtilityBar,Active,Baseline,Down to 50% zoom
+View Control,Fit to Width,Auto-adjust zoom to window width,UtilityBar,Active,Baseline,Responsive sizing
+View Control,Custom Zoom,Set specific zoom percentage,UtilityBar,Active,Enhancement,Flexible scaling
+Annotation,Highlight Text,Add color highlights to text,HomeTab + AnnotationOverlay,Active,Baseline,Multiple colors available
+Annotation,Underline Text,Add underline markup to text,HomeTab + AnnotationOverlay,Active,Baseline,Clear visibility
+Annotation,Strikethrough Text,Add strikethrough markup,HomeTab + AnnotationOverlay,Active,Baseline,Standard markup
+Annotation,Freehand Drawing,Draw curves and lines on page,DrawingCanvas + HomeTab,Active,Baseline,Smooth drawing engine
+Annotation,Shape Drawing,Draw geometric shapes,HomeTab + Shape Selector,Active,Enhancement,Rectangle/Circle/Line
+Annotation,Sticky Notes,Add comment annotations,StickyNote + HomeTab,Active,Baseline,Rich text support
+Annotation,Text Markup,Display markup overlays,AnnotationOverlay,Active,Baseline,Non-destructive
+Text Editing,Add Text,Insert new text on page,EditTab + AddTextModal,Active,Baseline,Full font support
+Text Editing,Edit Text,Modify existing PDF text,EditTab + InlineTextEditor,Active,Enhancement,In-place editing
+Text Editing,Font Selection,Choose from multiple fonts,HomeTab + Font Selector,Active,Baseline,10+ fonts available
+Text Editing,Font Size,Adjust text size,AddTextModal,Active,Enhancement,Scalable sizing
+Text Editing,Text Color,Change text color,ColorPickerModal,Active,Enhancement,Full color palette
+Image Editing,Add Image,Insert image into PDF,EditTab + File Selector,Active,Enhancement,JPG/PNG support
+Image Editing,Edit Image,Crop and rotate images,ImageEditorModal + EditTab,Active,Enhancement,Visual editor
+Image Editing,Image Filters,Apply filters to images,ImageEditorModal,Active,Enhancement,Multiple filters
+Image Editing,Extract Images,Export images from PDF,ConvertTab,Active,Enhancement,Batch export
+Image Editing,Image Overlay,Edit image position and size,ImageEditOverlay,Active,Enhancement,Drag and resize
+Page Operations,Insert Page,Add page from another PDF,PageTab,Active,Enhancement,Multiple page insert
+Page Operations,Delete Page,Remove pages from document,PageTab,Active,Enhancement,Batch deletion
+Page Operations,Rotate Page,Rotate pages 90/180/270 degrees,PageTab,Active,Baseline,All directions
+Page Operations,Extract Pages,Export specific pages,PageTab,Active,Enhancement,Range selection
+Page Operations,Reorder Pages,Change page order,PageReorderModal + PageTab,Active,Enhancement,Drag and drop
+Page Operations,Merge PDFs,Combine multiple PDFs,MergePDFTab + ToolsTab,Active,Enhancement,Batch merge
+Security,Encrypt PDF,Password protect document,ProtectTab,Active,Enhancement,128-bit encryption
+Security,Set Permissions,Control document usage rights,ProtectTab,Active,Enhancement,Print/Copy/Edit controls
+Security,Remove Protection,Unlock protected PDFs,ProtectTab,Active,Enhancement,Authorization required
+Conversion,PDF to Word,Export as DOCX format,ConvertTab + py_word_excel_html_ppt.py,Active,Enhancement,Table preservation
+Conversion,PDF to Excel,Export as XLSX format,ConvertTab + py_word_excel_html_ppt.py,Active,Enhancement,Word→Excel pipeline
+Conversion,PDF to PowerPoint,Export as PPTX format,ConvertTab + simple_pdf_converter.py,Active,Enhancement,Slide generation
+Conversion,PDF to HTML,Export as HTML format,ConvertTab + simple_pdf_converter.py,Active,Enhancement,Web-ready format
+Conversion,PDF to Image,Export pages as PNG/JPG,ConvertTab + ImageExportModal,Active,Enhancement,Configurable DPI
+Conversion,PDF to Text,Extract plain text,ConvertTab + pdf_to_text.py,Active,Baseline,Full text extraction
+OCR Features,Text Recognition,Optical character recognition,ToolsTab + useOcr.ts,Active,Enhancement,Tesseract.js powered
+OCR Features,Text Extraction,Extract text from scanned PDFs,ToolsTab + useOCRTextExtraction.ts,Active,Enhancement,High accuracy
+OCR Features,Searchable PDF,Make scanned PDF searchable,ToolsTab,Active,Enhancement,Text layer addition
+Compression,PDF Compression,Reduce file size,ToolsTab + compress_pdf.py,Active,Enhancement,Lossless compression
+Compression,Quality Settings,Adjust compression level,ToolsTab,Active,Enhancement,Multiple presets
+Advanced Tools,Watermark,Add text/image watermark,ToolsTab,Active,Enhancement,Customizable text
+Advanced Tools,Search Text,Find text in document,ToolsTab,Active,Enhancement,Full document search
+Advanced Tools,Sanitize PDF,Remove metadata,ToolsTab + SanitizeModal,Active,Enhancement,Privacy protection
+Advanced Tools,Form Filling,Fill PDF forms,ToolsTab,Active,Planned,Future feature
+Printing,Print Document,Print to printer,UtilityBar,Active,Baseline,Full page support
+Printing,Print Settings,Configure print options,UtilityBar,Active,Enhancement,Page ranges + quality
+Undo/Redo,Undo Last Action,Revert last operation,RibbonBar,Planned,Future,History stack
+Undo/Redo,Redo Action,Reapply undone action,RibbonBar,Planned,Future,History stack
+Collaboration,Comments Sync,Synchronize comments,CommentsPanel,Planned,Future,Cloud storage
+Collaboration,Share Document,Share PDF with others,FileMenu,Planned,Future,Cloud integration
+UI/UX,Dark Mode,Alternative dark theme,ThemeProvider,Planned,Future,Style toggle
+UI/UX,Accessibility,Keyboard shortcuts,Multiple Components,Planned,Future,Full keyboard navigation
+UI/UX,Responsive Design,Mobile-friendly interface,CSS,Partial,Baseline,Desktop focused
+Performance,Multi-tab,Multiple documents open,DocumentTabs,Active,Baseline,Tab-based switching
+Performance,Lazy Loading,Load pages on demand,Canvas,Active,Baseline,Memory efficient
+Performance,Caching,Cache rendered pages,usePDFRenderer.ts,Active,Baseline,Performance optimized
+Data Management,Local Storage,Save application state,Zustand stores,Active,Baseline,Browser storage
+Data Management,Persistent Session,Recover unsaved work,useDocumentsStore.ts,Active,Enhancement,Auto-recovery
+API Integration,Backend Conversion,Server-side conversions,server.ts,Active,Baseline,Node.js powered
+API Integration,Python Scripts,Python conversion tools,backend/python/*,Active,Baseline,Multiple converters
+Quality Assurance,Error Handling,User-friendly error messages,Multiple Components,Active,Baseline,Toast notifications
+Quality Assurance,Input Validation,Validate user inputs,Multiple Components,Active,Baseline,Type checking
+Quality Assurance,Logging,Application logging system,logger.ts,Active,Baseline,Comprehensive logging
