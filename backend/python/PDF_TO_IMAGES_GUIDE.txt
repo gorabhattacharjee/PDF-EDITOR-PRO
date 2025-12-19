@@ -1,0 +1,323 @@
+================================================================================
+PDF TO IMAGE CONVERTER - COMPLETE GUIDE
+================================================================================
+
+FILE: pdf_to_images.py
+LOCATION: backend/python/pdf_to_images.py
+
+================================================================================
+INSTALLATION
+================================================================================
+
+1. Install required Python packages:
+   pip install -r requirements.txt
+
+2. For professional format support (PSD, AI, EPS, etc), install ImageMagick:
+   
+   Windows:
+   - Download from: https://imagemagick.org/script/download.php
+   - Or: choco install imagemagick
+   
+   macOS:
+   - brew install imagemagick
+   
+   Linux:
+   - Ubuntu/Debian: sudo apt-get install imagemagick
+   - Fedora: sudo dnf install ImageMagick
+
+3. Optional: For faster image processing:
+   pip install Pillow-SIMD
+   (Replaces Pillow with SIMD-optimized version)
+
+================================================================================
+SUPPORTED FORMATS (19 TOTAL)
+================================================================================
+
+NATIVE FORMATS (Full Browser/PIL Support - 7):
+✓ PNG     - Lossless, best quality
+✓ JPG     - Compressed JPEG format
+✓ WebP    - Modern web-optimized format
+✓ GIF     - Animated GIF support
+✓ BMP     - Uncompressed bitmap
+✓ TIFF    - Print-ready TIFF format
+✓ SVG     - Scalable vector graphics
+
+MODERN FORMATS (Requires pillow-heif - 3):
+✓ AVIF    - Next-generation image format (2/3 the size of JPEG)
+✓ HEIF    - Apple iOS format
+✓ HEIC    - Apple iOS container format
+
+PROFESSIONAL FORMATS (Requires ImageMagick - 9):
+✓ PSD     - Adobe Photoshop format
+✓ XCF     - GIMP native format
+✓ AI      - Adobe Illustrator format
+✓ EPS     - Encapsulated PostScript
+✓ WMF     - Windows Metafile vector format
+✓ EMF     - Enhanced Metafile vector format
+✓ RAW     - Raw image data (various cameras)
+✓ DNG     - Adobe Digital Negative format
+✓ ICO     - Windows icon format
+✓ ICNS    - macOS icon format
+
+================================================================================
+BASIC USAGE
+================================================================================
+
+Convert ALL pages to PNG:
+   python pdf_to_images.py document.pdf png
+
+Convert ALL pages to JPG (quality 85):
+   python pdf_to_images.py document.pdf jpg ./output 85
+
+Convert specific page (page 1 to PNG):
+   python pdf_to_images.py document.pdf png ./output 1
+
+Convert page 3 to high-quality JPG:
+   python pdf_to_images.py document.pdf jpg ./output 3 95
+
+Convert page 5 at 600 DPI:
+   python pdf_to_images.py document.pdf png ./output 5 95 600
+
+================================================================================
+COMMAND SYNTAX
+================================================================================
+
+python pdf_to_images.py <pdf_path> <format> [output_dir] [page_num] [quality] [dpi]
+
+Parameters:
+  pdf_path   (required)  - Path to PDF file
+  format     (required)  - Output format (png, jpg, psd, svg, etc)
+  output_dir (optional)  - Output directory (default: ./output)
+  page_num   (optional)  - Page number (1-indexed). If omitted, converts all pages
+  quality    (optional)  - Quality 1-100 (default: 95). Only for: jpg, webp, avif, heif
+  dpi        (optional)  - Resolution in DPI (default: 300)
+
+================================================================================
+EXAMPLES
+================================================================================
+
+1. BASIC PNG CONVERSION
+   python pdf_to_images.py my_document.pdf png
+   → Converts ALL pages to PNG in ./output/
+
+2. SPECIFIC PAGE TO JPG
+   python pdf_to_images.py my_document.pdf jpg ./my_output 1
+   → Converts page 1 only to JPG in ./my_output/
+
+3. ALL PAGES TO WEBP (60% quality)
+   python pdf_to_images.py my_document.pdf webp ./output 95 60
+   → Converts all pages to WebP with quality 60
+
+4. HIGH-RESOLUTION PNG (600 DPI)
+   python pdf_to_images.py my_document.pdf png ./output 1 95 600
+   → Converts page 1 to PNG at 600 DPI (high quality)
+
+5. PROFESSIONAL FORMATS
+   python pdf_to_images.py my_document.pdf psd ./output
+   → Converts all pages to Adobe Photoshop format
+
+6. VECTOR FORMATS
+   python pdf_to_images.py my_document.pdf svg ./output
+   → Converts all pages to SVG (scalable vector)
+
+7. MULTIPLE FORMAT CONVERSIONS (Script-based)
+   For format in png jpg webp; do
+     python pdf_to_images.py document.pdf $format ./output
+   done
+
+8. BATCH PROCESS MULTIPLE PDFs
+   For pdf in *.pdf; do
+     python pdf_to_images.py "$pdf" png ./output
+   done
+
+================================================================================
+QUALITY SETTINGS
+================================================================================
+
+Quality parameter (1-100) affects lossy formats only:
+
+JPG/JPEG:
+  10-30   → Low quality, very small file size
+  50-70   → Medium quality, balanced
+  80-95   → High quality, larger file size
+  95+     → Maximum quality
+
+WebP:
+  10-30   → Low quality, excellent compression
+  50-70   → Medium quality, good compression
+  80-95   → High quality, good compression
+  95+     → Maximum quality
+
+AVIF/HEIF:
+  10-30   → Low quality, smallest file size
+  50-70   → Medium quality, very good compression
+  80-95   → High quality, excellent compression
+  95+     → Maximum quality, largest file size
+
+PNG/GIF/BMP/TIFF:
+  Quality parameter is IGNORED (lossless formats)
+
+================================================================================
+DPI (RESOLUTION) SETTINGS
+================================================================================
+
+DPI affects output dimensions and file size:
+
+150 DPI  → Screen resolution, smaller file
+200 DPI  → Standard web resolution
+300 DPI  → Default, print-friendly
+400 DPI  → High quality
+600 DPI  → Professional printing
+1200 DPI → Maximum quality (very large files)
+
+Formula: Output pixels = (Page size in inches) * DPI
+
+Example: 8.5x11" page at different DPI:
+  150 DPI → 1275x1650 pixels
+  300 DPI → 2550x3300 pixels
+  600 DPI → 5100x6600 pixels (uses more memory)
+
+================================================================================
+OUTPUT FILES
+================================================================================
+
+Output filename format:
+  {pdf_name}_page{number}.{format}
+
+Examples:
+  Input:  document.pdf, page 1, format: png
+  Output: document_page1.png
+
+  Input:  report.pdf, page 5, format: jpg
+  Output: report_page5.jpg
+
+Directory structure:
+  ./output/
+    ├── document_page1.png
+    ├── document_page2.png
+    ├── document_page3.png
+    └── ...
+
+================================================================================
+ERROR HANDLING & FALLBACKS
+================================================================================
+
+Missing ImageMagick:
+  → Professional formats (PSD, AI, EPS, etc) fallback to PNG
+  → Warning message displayed
+
+Missing pillow-heif:
+  → AVIF, HEIF, HEIC formats fallback to PNG
+  → Warning message displayed
+
+Unsupported format specified:
+  → Error message with list of supported formats
+  → Script exits with code 1
+
+Invalid page number:
+  → Error message showing valid range
+  → Script exits with code 1
+
+PDF rendering error:
+  → Error message with details
+  → Script exits with code 1
+
+================================================================================
+PERFORMANCE NOTES
+================================================================================
+
+Speed factors (fastest to slowest):
+  1. PNG   - Native PIL, fast
+  2. JPG   - Native PIL with compression
+  3. WebP  - Native PIL, slightly slower
+  4. TIFF  - Native PIL, slower due to compression
+  5. AVIF  - pillow-heif, slower (but very good compression)
+  6. PSD   - ImageMagick, slowest
+  7. SVG   - ImageMagick, slowest
+
+Memory usage factors:
+  - DPI: Higher DPI = more memory
+  - Page size: Larger pages = more memory
+  - Format: Compressed formats use less memory
+  - Resolution: 300 DPI = ~10-30 MB per page
+
+Optimization tips:
+  1. Use 300 DPI for most use cases (default)
+  2. Use WebP for web (better compression than PNG)
+  3. Use JPG for photos
+  4. Install Pillow-SIMD for faster processing
+  5. Process pages individually if memory is limited
+
+================================================================================
+RETURN CODES
+================================================================================
+
+0 - Success (one or more pages converted)
+1 - Error (no pages converted or fatal error)
+
+Check output messages for details on what happened.
+
+================================================================================
+INTEGRATION WITH PDF EDITOR PRO
+================================================================================
+
+The script can be called from the backend Node.js server:
+
+TypeScript example:
+  import { spawn } from 'child_process';
+  
+  const python = spawn('python', [
+    'backend/python/pdf_to_images.py',
+    'document.pdf',
+    'png',
+    './output',
+    '1',  // page number
+    '95', // quality
+    '300' // dpi
+  ]);
+
+Or via Node.js routes:
+  POST /api/pdf-to-image
+  {
+    "file": <binary>,
+    "format": "png",
+    "page": 1,
+    "quality": 95,
+    "dpi": 300
+  }
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Q: "Permission denied" on Linux/Mac
+A: Make script executable:
+   chmod +x pdf_to_images.py
+
+Q: "ImageMagick not found" on Windows
+A: Install from: https://imagemagick.org/script/download.php
+   Or: choco install imagemagick
+   Then restart terminal/application
+
+Q: "PSD conversion doesn't work"
+A: Verify ImageMagick installed:
+   Windows: magick --version
+   Mac/Linux: convert --version
+   
+Q: "OutOfMemory error"
+A: Reduce DPI, convert one page at a time, use WebP instead of PNG
+
+Q: "SVG conversion produces PNG"
+A: Install ImageMagick and check it's in PATH
+
+Q: "Module not found: PIL"
+A: Install Pillow:
+   pip install Pillow>=9.0.0
+
+Q: "Very slow conversion"
+A: Install Pillow-SIMD for faster processing:
+   pip install Pillow-SIMD
+
+================================================================================
+END OF GUIDE
+================================================================================
