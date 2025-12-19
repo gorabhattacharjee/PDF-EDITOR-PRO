@@ -9,4 +9,3 @@ BeautifulSoup4>=4.9.0
 pdf2image>=1.16.0
 Pillow>=9.0.0
 pillow-heif>=0.4.0
-Pillow-SIMD>=9.0.0

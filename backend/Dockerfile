@@ -7,6 +7,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nodejs npm curl git build-essential \
     libxml2-dev libxslt-dev libffi-dev libssl-dev \
+    zlib1g-dev libjpeg-dev libpng-dev libfreetype6-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pnpm
@@ -20,7 +21,8 @@ RUN pnpm install --no-frozen-lockfile
 
 # Copy Python requirements and install
 COPY python/ ./python/
-RUN pip install --no-cache-dir -r python/requirements.txt && \
+RUN pip install --upgrade pip setuptools wheel && \
+    pip install --no-cache-dir -r python/requirements.txt && \
     pip install --no-cache-dir pdf2docx openpyxl python-pptx PyMuPDF pdfplumber
 
 # Copy source
