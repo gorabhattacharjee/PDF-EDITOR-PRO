@@ -77,8 +77,7 @@ export async function exportPdfAsHtml(data: ArrayBuffer, filename: string) {
       canvas.height = viewport.height;
       await page.render({
         canvasContext: canvas.getContext("2d") as CanvasRenderingContext2D,
-        viewport,
-        canvas
+        viewport
       }).promise;
 
       const imgUrl = canvas.toDataURL("image/png");
