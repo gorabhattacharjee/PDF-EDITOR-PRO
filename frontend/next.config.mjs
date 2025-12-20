@@ -2,8 +2,8 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  output: 'export',
-  distDir: 'out',
+  // For Vercel deployment: use server mode (not static export)
+  // For mobile: use 'export' with 'npm run build:mobile'
   webpack: (config) => {
     config.module.rules.push({
       test: /pdf_viewer\.css$/,
