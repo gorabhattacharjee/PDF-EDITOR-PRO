@@ -1,0 +1,182 @@
+Category,Subcategory,Component/Element Name,Type,Description,Notes,Location
+Main Layout,Layout,RibbonBar,Component,Main toolbar with 8 tabs and icon bar,Primary navigation,frontend/src/components/RibbonBar.tsx
+Main Layout,Layout,Canvas,Component,PDF rendering and display area,Core display,frontend/src/components/Canvas.tsx
+Main Layout,Layout,Sidebar,Component,Left panel with page thumbnails and document list,Navigation,frontend/src/components/Sidebar.tsx
+Main Layout,Layout,CommentsPanel,Component,Right panel for comments,Collapsible,frontend/src/components/CommentsPanel.tsx
+Main Layout,Layout,EditorPage,Component,Main editor page container,Page wrapper,frontend/src/components/EditorPage.tsx
+Main Layout,Layout,DocumentTabs,Component,Multi-document tab navigation,Document switcher,frontend/src/components/DocumentTabs.tsx
+Main Layout,Scrollbars,Canvas Scroll Container,ScrollContainer,Horizontal and vertical scrollbars for PDF,Native browser,Canvas.tsx
+Main Layout,Scrollbars,Sidebar Scroll Container,ScrollContainer,Vertical scrollbar for thumbnails,Native browser,Sidebar.tsx
+Main Layout,Scrollbars,Comments Panel Scroll,ScrollContainer,Vertical scrollbar for comments,Native browser,CommentsPanel.tsx
+File Menu,Primary Menu Items,Open,Button,Open PDF file dialog,With file input,FileMenu.tsx line 361-364
+File Menu,Primary Menu Items,Save,Button,Save current document,Downloads PDF,FileMenu.tsx line 367-370
+File Menu,Primary Menu Items,Save As,Button,Save with new filename,Rename on save,FileMenu.tsx line 373-376
+File Menu,Primary Menu Items,Print,Button,Print document,Opens print dialog,FileMenu.tsx line 379-382
+File Menu,Dividers,Menu Divider 1,Divider,Visual separator,CSS divider,FileMenu.tsx line 385
+File Menu,Submenu Items,Export,Button,Toggle export submenu,Parent button,FileMenu.tsx line 389-396
+File Menu,Submenu Items,Export > Word,Button,Export to Word (.docx),Submenu item,FileMenu.tsx line 400-403
+File Menu,Submenu Items,Export > Excel,Button,Export to Excel (.xlsx),Submenu item,FileMenu.tsx line 404-407
+File Menu,Submenu Items,Export > PowerPoint,Button,Export to PowerPoint (.pptx),Submenu item,FileMenu.tsx line 408-411
+File Menu,Submenu Items,Export > Image,Button,Export as image,Submenu item,FileMenu.tsx line 412-415
+File Menu,Submenu Items,Export > Text,Button,Export as text,Submenu item,FileMenu.tsx line 416-419
+File Menu,Submenu Items,Export > HTML,Button,Export as HTML,Submenu item,FileMenu.tsx line 420-423
+File Menu,Dividers,Menu Divider 2,Divider,Visual separator,CSS divider,FileMenu.tsx line 429
+File Menu,Additional Items,Close,Button,Close current document,Remove tab,FileMenu.tsx line 432-435
+File Menu,Additional Items,Download Log,Button,Download application log,For debugging,FileMenu.tsx line 438-441
+File Menu,Additional Items,Document Properties,Button,Open properties dialog,View metadata,FileMenu.tsx line 444-447
+File Menu,Hidden Inputs,File Input,Input,Hidden file picker,Display none,FileMenu.tsx line 452-458
+Icon Bar,Icon Buttons,Open File,Button,Open PDF file,FiFile icon,RibbonBar.tsx line 1339
+Icon Bar,Icon Buttons,Save,Button,Save PDF with modifications,FiSave icon,RibbonBar.tsx line 1340
+Icon Bar,Icon Buttons,Add,Button,Add content (Plus icon),AiOutlinePlus icon,RibbonBar.tsx line 1341
+Icon Bar,Icon Buttons,Remove,Button,Remove content (Delete icon),AiOutlineDelete icon,RibbonBar.tsx line 1342
+Icon Bar,Icon Buttons,Refresh,Button,Reload document,BiRotateRight icon,RibbonBar.tsx line 1343
+Icon Bar,Icon Buttons,Export/To Office,Button,Convert to Office formats,FaFileWord icon,RibbonBar.tsx line 1344
+Icon Bar,Icon Buttons,Print,Button,Print document,FiPrinter icon,RibbonBar.tsx line 1345
+Icon Bar,Separators,Icon Bar Separator,Divider,Visual spacing,Vertical line,RibbonBar.tsx line 1346
+Icon Bar,Icon Buttons,Zoom Out,Button,Decrease zoom level,FiZoomOut icon,RibbonBar.tsx line 1347
+Icon Bar,Displays,Zoom Level,Display,Shows current zoom percentage,Text display,RibbonBar.tsx line 1348
+Icon Bar,Icon Buttons,Zoom In,Button,Increase zoom level,FiZoomIn icon,RibbonBar.tsx line 1349
+Ribbon Tabs,Tab Navigation,Home Tab,Tab,Basic operations,First tab,RibbonBar.tsx line 1355
+Ribbon Tabs,Tab Navigation,Comment Tab,Tab,Annotation tools,Ribbon tab,RibbonBar.tsx line 1355
+Ribbon Tabs,Tab Navigation,Edit Tab,Tab,Content editing,Ribbon tab,RibbonBar.tsx line 1355
+Ribbon Tabs,Tab Navigation,Convert Tab,Tab,Format conversion,Ribbon tab,RibbonBar.tsx line 1355
+Ribbon Tabs,Tab Navigation,Page Tab,Tab,Page management,Ribbon tab,RibbonBar.tsx line 1355
+Ribbon Tabs,Tab Navigation,Merge Tab,Tab,PDF merging,Ribbon tab,RibbonBar.tsx line 1355
+Ribbon Tabs,Tab Navigation,Protect Tab,Tab,Security features,Ribbon tab,RibbonBar.tsx line 1355
+Ribbon Tabs,Tab Navigation,Tools Tab,Tab,Advanced utilities,Ribbon tab,RibbonBar.tsx line 1355
+Home Tab,Buttons,Open,Button,Open PDF file,FaFolderOpen icon,HomeTab.tsx line 146-150
+Home Tab,Buttons,Save PDF,Button,Save PDF with modifications,FaSave icon,HomeTab.tsx line 151-156
+Home Tab,Buttons,Hand Tool,Button,Navigation tool,FaHandPaper icon,HomeTab.tsx line 157-161
+Home Tab,Buttons,Select Tool,Button,Selection tool,FaMousePointer icon,HomeTab.tsx line 162-166
+Home Tab,Color Picker,Highlight Button,Button,Highlight text with color picker,FaHighlighter icon,HomeTab.tsx line 168-180
+Home Tab,Color Picker,Color Option - Yellow,Button,Yellow highlight color,Grid item,HomeTab.tsx line 204
+Home Tab,Color Picker,Color Option - Green,Button,Green highlight color,Grid item,HomeTab.tsx line 205
+Home Tab,Color Picker,Color Option - Cyan,Button,Cyan highlight color,Grid item,HomeTab.tsx line 206
+Home Tab,Color Picker,Color Option - Pink,Button,Pink highlight color,Grid item,HomeTab.tsx line 207
+Home Tab,Color Picker,Color Option - Orange,Button,Orange highlight color,Grid item,HomeTab.tsx line 208
+Home Tab,Color Picker,Color Option - Red,Button,Red highlight color,Grid item,HomeTab.tsx line 209
+Home Tab,Color Picker,Color Option - Purple,Button,Purple highlight color,Grid item,HomeTab.tsx line 210
+Home Tab,Color Picker,Color Option - Blue,Button,Blue highlight color,Grid item,HomeTab.tsx line 211
+Home Tab,Color Picker,Color Picker Cancel,Button,Close color picker,HomeTab.tsx line 233-246,
+Home Tab,Buttons,Edit All,Button,Edit all document elements,FaEdit icon,HomeTab.tsx line 250-267
+Home Tab,Buttons,Edit Image,Button,Edit existing images,FaFileImage icon,HomeTab.tsx line 268-285
+Home Tab,Buttons,Add Text,Button,Add new text to PDF,FaPlus icon,HomeTab.tsx line 286-293
+Home Tab,Buttons,OCR,Button,Optical character recognition,FaFileAlt icon,HomeTab.tsx line 294-368
+Home Tab,Buttons,To Image,Button,Export PDF as image,FaFileImage icon,HomeTab.tsx line 369-379
+Home Tab,Buttons,To Office,Button,Convert to Office formats,FaFileWord icon,HomeTab.tsx line 380-387
+Home Tab,Buttons,To Text,Button,Export text from PDF,FaFileAlt icon,HomeTab.tsx line 388-436
+Home Tab,Modals,Add Text Modal,Modal,Add text with formatting,Dialog overlay,HomeTab.tsx line 449-618
+Home Tab,Modals,Add Text Modal - Header,Header,Modal title,Close button,HomeTab.tsx line 476-484
+Home Tab,Modals,Add Text Modal - Text Input,TextArea,Text content input,Resizable,HomeTab.tsx line 488-502
+Home Tab,Modals,Add Text Modal - Font Select,Select,Font family dropdown,9 options,HomeTab.tsx line 508-522
+Home Tab,Modals,Add Text Modal - Size Select,Select,Font size dropdown,17 options,HomeTab.tsx line 526-540
+Home Tab,Modals,Add Text Modal - Color Input,ColorInput,Font color picker,RGB/Hex,HomeTab.tsx line 547-551
+Home Tab,Modals,Add Text Modal - Color Hex,TextInput,Hex color code input,Text field,HomeTab.tsx line 553-558
+Home Tab,Modals,Add Text Modal - Preview,Display,Text preview panel,Static text,HomeTab.tsx line 562-567
+Home Tab,Modals,Add Text Modal - Cancel Button,Button,Close without adding,HomeTab.tsx line 570-584,
+Home Tab,Modals,Add Text Modal - Submit Button,Button,Activate text tool,HomeTab.tsx line 586-614,
+Home Tab,Hidden Inputs,File Input,Input,Hidden PDF file picker,display:none,HomeTab.tsx line 440-446
+Comment Tab,Buttons,Highlight,Button,Highlight selected text,FaHighlighter icon,CommentTab.tsx
+Comment Tab,Buttons,Underline,Button,Underline text,FaUnderline icon,CommentTab.tsx
+Comment Tab,Buttons,Strikethrough,Button,Strikethrough text,FaStrikethrough icon,CommentTab.tsx
+Comment Tab,Buttons,Sticky Note,Button,Add sticky notes,FaStickyNote icon,CommentTab.tsx
+Comment Tab,Buttons,Pen / Draw,Button,Freehand drawing,FaPen icon,CommentTab.tsx
+Comment Tab,Shape Selector,Shapes,Button,Draw shapes container,FaShapes icon,CommentTab.tsx
+Comment Tab,Shape Selector,Shape - Rectangle,Button,Rectangle shape,SubButton,CommentTab.tsx line 185
+Comment Tab,Shape Selector,Shape - Circle,Button,Circle shape,SubButton,CommentTab.tsx line 173
+Comment Tab,Shape Selector,Shape - Line,Button,Line shape,SubButton,CommentTab.tsx line 190
+Comment Tab,Shape Selector,Shape - Arrow,Button,Arrow shape,SubButton,CommentTab.tsx line 199
+Comment Tab,Buttons,Comments Panel,Button,Show/hide comments panel,FiFileText icon,CommentTab.tsx
+Edit Tab,Buttons,Object Select,Button,Select objects on PDF,FaMousePointer icon,EditTab.tsx line 220-232
+Edit Tab,Buttons,Edit Text,Button,Edit existing text in PDF,FaPen icon,EditTab.tsx line 234-242
+Edit Tab,Buttons,Edit Image,Button,Edit existing images in PDF,FaImage icon,EditTab.tsx line 244-252
+Edit Tab,Buttons,Add Text,Button,Add new text to PDF,FaPlus icon,EditTab.tsx line 254-263
+Edit Tab,Buttons,Add Image,Button,Add images to PDF,FaImage icon,EditTab.tsx line 265-269
+Edit Tab,Buttons,Rotate 90,Button,Rotate page or object,FaRedo icon,EditTab.tsx line 271-277
+Edit Tab,Buttons,Resize,Button,Resize objects,FaArrowsAltH icon,EditTab.tsx line 279-282
+Edit Tab,Buttons,Align,Button,Align selected objects,FaRuler icon,EditTab.tsx line 284-297
+Edit Tab,Buttons,Crop Page,Button,Crop page margins,FaCrop icon,EditTab.tsx line 299-302
+Edit Tab,Hidden Inputs,Image Input,Input,Hidden image file picker,display:none,EditTab.tsx line 305-311
+Convert Tab,Buttons,To Word,Button,Convert PDF to Word (.docx),FaFileWord icon,ConvertTab.tsx line 215-219
+Convert Tab,Buttons,To Excel,Button,Convert PDF to Excel (.xlsx),FaFileExcel icon,ConvertTab.tsx line 220-224
+Convert Tab,Buttons,To PowerPoint,Button,Convert PDF to PowerPoint (.pptx),FaFilePowerpoint icon,ConvertTab.tsx line 225-229
+Convert Tab,Buttons,To Image,Button,Convert PDF pages to images,MdImage icon,ConvertTab.tsx line 230-234
+Convert Tab,Buttons,To PDF/A,Button,Convert to PDF/A format,FaFilePdf icon,ConvertTab.tsx line 235-239
+Convert Tab,Buttons,To Text,Button,Export text from PDF (.txt),FiFileText icon,ConvertTab.tsx line 240-244
+Page Tab,Buttons,Insert Page,Button,Insert blank or from file,FaFileMedical icon,PageTab.tsx line 286-299
+Page Tab,Buttons,Delete Page,Button,Remove current page,FaTrash icon,PageTab.tsx line 301-304
+Page Tab,Buttons,Extract Page,Button,Extract page to new file,FaFileExport icon,PageTab.tsx line 306-309
+Page Tab,Buttons,Rotate Page,Button,Rotate current page,FaRedo icon,PageTab.tsx line 311-320
+Page Tab,Buttons,Reverse Rotate,Button,Rotate counter-clockwise,FaUndo icon,PageTab.tsx line 322-325
+Page Tab,Buttons,Reorder Pages,Button,Change page order,FaListOl icon,PageTab.tsx line 327-330
+Page Tab,Buttons,Duplicate Page,Button,Duplicate current page,FaCopy icon,PageTab.tsx line 332-335
+Page Tab,Hidden Inputs,Insert File Input,Input,Hidden PDF file picker,display:none,PageTab.tsx line 339-345
+Merge Tab,Buttons,Add PDFs,Button,Add PDFs for merging,UI defined,MergePDFTab.tsx
+Merge Tab,Buttons,Merge Now,Button,Merge selected PDFs,UI defined,MergePDFTab.tsx
+Merge Tab,Buttons,Open Merged File,Button,Open result of merge,UI defined,MergePDFTab.tsx
+Protect Tab,Buttons,Encrypt,Button,Password protect PDF,FaLock icon,ProtectTab.tsx line 199-202
+Protect Tab,Buttons,Permissions,Button,Set document permissions,FaShieldAlt icon,ProtectTab.tsx line 204-207
+Protect Tab,Buttons,Digital Signature,Button,Add digital signature,FaSignature icon,ProtectTab.tsx line 209-216
+Protect Tab,Buttons,Redaction,Button,Permanently hide content,FaEyeSlash icon,ProtectTab.tsx line 218-273
+Protect Tab,Buttons,Remove Metadata,Button,Strip metadata from PDF,FaTrashAlt icon,ProtectTab.tsx line 275-278
+Tools Tab,Buttons,Merge,Button,Merge PDFs utility,FaObjectGroup icon,ToolsTab.tsx line 119-122
+Tools Tab,Buttons,Split,Button,Split PDF into multiple files,FaCut icon,ToolsTab.tsx line 124
+Tools Tab,Buttons,Compress,Button,Reduce PDF file size,FaFileArchive icon,ToolsTab.tsx line 125-179
+Tools Tab,Buttons,Inspect PDF,Button,View PDF properties,FaSearch icon,ToolsTab.tsx line 180-196
+Tools Tab,Buttons,OCR Advanced,Button,Advanced OCR options,FaMagic icon,ToolsTab.tsx line 198-272
+Tools Tab,Buttons,Flatten,Button,Flatten all layers and annotations,FaLayerGroup icon,ToolsTab.tsx line 274-322
+Tools Tab,Hidden Inputs,Merge File Input,Input,Hidden multi-PDF file picker,multiple,ToolsTab.tsx line 326-333
+Modal Dialogs,Dialogs,AddTextModal,Modal,Add text with formatting options,Full modal,AddTextModal.tsx
+Modal Dialogs,Dialogs,ImageEditorModal,Modal,Edit images in PDF,Full modal,ImageEditorModal.tsx
+Modal Dialogs,Dialogs,ImageExportModal,Modal,Export as image,Full modal,ImageExportModal.tsx
+Modal Dialogs,Dialogs,ColorPickerModal,Modal,Color selection,Full modal,ColorPickerModal.tsx
+Modal Dialogs,Dialogs,DocumentPropertiesModal,Modal,View/edit metadata,Full modal,DocumentPropertiesModal.tsx
+Modal Dialogs,Dialogs,EpubExportModal,Modal,EPUB export options,Full modal,EpubExportModal.tsx
+Modal Dialogs,Dialogs,ArchiveModal,Modal,Archive documents,Full modal,ArchiveModal.tsx
+Modal Dialogs,Dialogs,ToOfficeModal,Modal,Convert to Office formats,Full modal,ToOfficeModal.tsx
+Modal Dialogs,Dialogs,PageReorderModal,Modal,Reorder pages visually,Full modal,PageReorderModal.tsx
+Modal Dialogs,Dialogs,InspectModal,Modal,Inspect PDF properties,Full modal,InspectModal.tsx
+Modal Dialogs,Dialogs,SanitizeModal,Modal,Sanitize PDF,Full modal,SanitizeModal.tsx
+Modal Dialogs,Dialogs,UploadModal,Modal,Upload documents,Full modal,UploadModal.tsx
+Drawing & Annotation,Components,DrawingCanvas,Component,Freehand drawing area,Canvas element,DrawingCanvas.tsx
+Drawing & Annotation,Components,DrawingDisplayLayer,Component,Display drawn annotations,Overlay,DrawingDisplayLayer.tsx
+Drawing & Annotation,Components,AnnotationOverlay,Component,Text highlighting overlay,Highlight layer,AnnotationOverlay.tsx
+Drawing & Annotation,Pickers,ColorPickerModal,Modal,Drawing color selection,Modal,ColorPickerModal.tsx
+Drawing & Annotation,Components,StickyNote,Component,Sticky note annotations,UI element,StickyNote.tsx
+Text Editing,Panels,TextEditorPanel,Component,Text editing interface,Side panel,TextEditorPanel.tsx
+Text Editing,Editors,InlineTextEditor,Component,Edit text inline in PDF,Text input,InlineTextEditor.tsx
+Text Editing,Modals,AddTextModal,Modal,Add new text with options,Dialog,AddTextModal.tsx
+Image Editing,Modals,ImageEditorModal,Modal,Image editing interface,Dialog,ImageEditorModal.tsx
+Image Editing,Overlays,ImageEditOverlay,Component,Image selection overlay,Overlay,ImageEditOverlay.tsx
+Image Editing,Modals,ImageExportModal,Modal,Export images from PDF,Dialog,ImageExportModal.tsx
+Selection & Navigation,Panels,PageThumbnailPanel,Component,Page preview thumbnails,Left panel,PageThumbnailPanel.tsx
+Selection & Navigation,Containers,CustomScrollContainer,Component,Scrollable content container,Wrapper,CustomScrollContainer.tsx
+Selection & Navigation,Navigation,TabsBar,Component,Document tabs navigation,Tab bar,TabsBar.tsx
+Selection & Navigation,Utility,UtilityBar,Component,Utility controls,Bottom bar,UtilityBar.tsx
+Toast Notifications,Notifications,Toast Component,Component,Success/error messages,Inline,react-hot-toast
+Toast Notifications,Notifications,Toaster Container,Component,Toast notification container,Portal,Toaster.tsx
+Miscellaneous,Boxes,WelcomeBox,Component,Welcome screen,Dialog,WelcomeBox.tsx
+Miscellaneous,Ads,AdSidebar,Component,Advertisement sidebar,Right panel,AdSidebar.tsx
+Miscellaneous,Ads,AdBottomBar,Component,Advertisement bottom bar,Bottom bar,AdBottomBar.tsx
+Miscellaneous,Buttons,RibbonButton,Component,Reusable button component,Base component,RibbonButton.tsx
+Input Fields,Color Inputs,Color Picker,Input,HTML color input,Type:color,Multiple files
+Input Fields,Text Inputs,TextArea,Input,Multi-line text input,Resizable,HomeTab.tsx
+Input Fields,Select Dropdowns,Font Family Select,Select,Font selection dropdown,9 fonts,HomeTab.tsx
+Input Fields,Select Dropdowns,Font Size Select,Select,Font size selection,17 sizes,HomeTab.tsx
+Input Fields,Number Inputs,Quality Input,Input,Compression quality,Prompt dialog,ToolsTab.tsx
+Input Fields,Number Inputs,Margin Input,Input,Crop margin value,Prompt dialog,EditTab.tsx
+Input Fields,Number Inputs,Scale Input,Input,Page scale factor,Prompt dialog,EditTab.tsx
+Dialog Prompts,Prompts,Text Prompt - Password,Prompt,Password input dialog,Alert API,ProtectTab.tsx
+Dialog Prompts,Prompts,Text Prompt - Filename,Prompt,Filename input dialog,Alert API,FileMenu.tsx
+Dialog Prompts,Prompts,Confirm Dialog - Direction,Confirm,Rotation direction,Alert API,EditTab.tsx
+Dialog Prompts,Prompts,Confirm Dialog - Permissions,Confirm,Permission questions,Alert API,ProtectTab.tsx
+Dialog Prompts,Prompts,Alert Dialog - Info,Alert,Information display,Alert API,ToolsTab.tsx
+Dialog Prompts,Prompts,Alert Dialog - Error,Alert,Error messages,Alert API,Multiple files
+Styling,Overlays,Modal Overlay,Overlay,Semi-transparent background,Fixed position,Multiple files
+Styling,Borders,Color Button Borders,Border,Selection indicator,CSS styling,HomeTab.tsx
+Styling,Borders,Modal Border,Border,Modal boundary,CSS styling,Multiple files
+Styling,Backgrounds,Modal Background,Background,White background,CSS styling,Multiple files
+Styling,Shadows,Modal Shadow,Shadow,Drop shadow effect,CSS box-shadow,Multiple files
+Styling,Grids,Color Grid,Grid,4-column grid layout,CSS Grid,HomeTab.tsx
+Styling,Layouts,Flex Container,Layout,Flex layout,CSS Flexbox,Multiple files
+Styling,Layouts,Form Grid,Layout,2-column form grid,CSS Grid,HomeTab.tsx
