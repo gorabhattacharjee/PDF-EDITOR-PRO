@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.pdf-editor-pro.app',
+  appId: 'com.pdfeditorpro.app',
   appName: 'PDF Editor Pro',
   webDir: 'out',
   server: {

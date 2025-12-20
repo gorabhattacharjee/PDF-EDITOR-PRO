@@ -2,6 +2,8 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
+  output: 'export',
+  distDir: 'out',
   webpack: (config) => {
     config.module.rules.push({
       test: /pdf_viewer\.css$/,
