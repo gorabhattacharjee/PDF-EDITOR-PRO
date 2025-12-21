@@ -1,5 +1,8 @@
 import type { MetadataRoute } from 'next';
 
+// Mark as static for static export
+export const dynamic = 'force-static';
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://pdf-editor-pro.replit.app';
   
