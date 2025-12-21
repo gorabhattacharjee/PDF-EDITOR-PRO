@@ -1,6 +1,6 @@
 /**
  * Next.js config for mobile (static export for Capacitor)
- * Used with: NODE_ENV=production NEXT_CONFIG=mobile npm run build
+ * Used with: npm run build:mobile
  */
 
 /**
@@ -23,6 +23,8 @@ const nextConfig = {
 
     return config;
   },
+  // Add turbopack config for Next.js 16+
+  turbopack: {},
   // Note: headers() and API routes not supported with 'output: export'
   // API routes are handled by backend API
 };
