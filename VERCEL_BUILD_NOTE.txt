@@ -1,0 +1,1 @@
+# Vercel Build Fix - Package versions: next ^14.2.35, react-pdf ^7.7.1
