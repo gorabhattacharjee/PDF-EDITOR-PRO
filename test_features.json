@@ -1,0 +1,14 @@
+{
+    "global_success": true,
+    "tab_verification": {
+        "Home": true,
+        "Edit": true,
+        "Convert": true,
+        "Tools": true
+    },
+    "feature_verification": {
+        "Highlight_Tool": true,
+        "Open_PDF": true
+    },
+    "global_error": null
+}

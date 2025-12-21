@@ -1,14 +1,14 @@
 /**
- * Next.js config for web (server mode for Vercel)
- * For mobile: use next.config.mobile.mjs
+ * Next.js config for mobile (static export for Capacitor)
+ * Used with: npm run build:mobile
  */
 
 /**
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  // Server mode for Vercel deployment (not static export)
-  // Static export is only for mobile APK
+  output: 'export',
+  distDir: 'out',
   webpack: (config) => {
     config.module.rules.push({
       test: /pdf_viewer\.css$/,
@@ -25,17 +25,8 @@ const nextConfig = {
   },
   // Add turbopack config for Next.js 16+
   turbopack: {},
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          { key: 'X-Frame-Options', value: 'ALLOWALL' },
-          { key: 'Content-Security-Policy', value: 'frame-ancestors *' },
-        ],
-      },
-    ];
-  },
+  // Note: headers() and API routes not supported with 'output: export'
+  // API routes are handled by backend API
 };
 
 export default nextConfig;

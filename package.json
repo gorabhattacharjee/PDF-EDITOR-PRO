@@ -10,5 +10,8 @@
   "workspaces": [
     "frontend",
     "backend"
-  ]
+  ],
+  "dependencies": {
+    "next": "^16.1.0"
+  }
 }

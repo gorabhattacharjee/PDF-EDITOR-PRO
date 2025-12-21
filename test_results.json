@@ -1,0 +1,8 @@
+{
+    "global_success": true,
+    "features": {
+        "Home Tab": "Working",
+        "Open PDF Interactivity": "Working"
+    },
+    "global_error": null
+}
